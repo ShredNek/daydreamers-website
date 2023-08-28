@@ -50,6 +50,11 @@ $daydreamer-gradient-faded: radial-gradient(
   rgba($daydreamer-blue, 0.6) 75%,
   #ffffff 85%
 );
+$daydreamer-gradient-alt: radial-gradient(
+  circle,
+  rgba($daydreamer-blue, 0.6) 0%,
+  white 75%
+);
 
 *,
 *:before,
@@ -64,24 +69,33 @@ $daydreamer-gradient-faded: radial-gradient(
 
 h1 {
   font-family: Goodgirl;
-  color: white;
+  // color: white;
   font-size: clamp(2.5rem, 7vw + 5px, 8rem);
 }
 
-ul {
-  li {
-    list-style: none;
-    font-size: clamp(1rem, 5vw + 5px, 2rem);
-  }
+ul > li {
+  list-style: none; 
+  margin: .5em 1em;
 }
 
 a {
+  color: black;
+  text-decoration: none;
+}
+
+.inline-reroute-link {
+  font-weight: bold;
+  text-decoration: solid 1px black underline;
+
+}
+
+.link-offsite {
+  color: black;
   display: inline-block;
   width: fit-content;
   font-weight: bold;
   text-decoration: underline solid black 0.5px;
   text-underline-offset: 5px;
-  margin: 10px 1rem;
 }
 
 .outline {
@@ -89,6 +103,8 @@ a {
   $outline-width: 1.5px;
   text-shadow: generate-text-outline($outline-width, $outline-color);
 }
+
+// ???  Neutralise Anchor colours on react-router's Link
 
 #site-backdrop {
   display: flow-root;
@@ -108,9 +124,10 @@ section {
   flex-direction: column;
 }
 
-.heading {
+.white-heading {
   margin: 2rem auto;
   text-align: center;
+  color: white;
 }
 
 // ? ? ? ? ?
@@ -129,9 +146,8 @@ section {
     flex-wrap: wrap;
     justify-content: center;
     margin: 0 auto;
-
     & > li {
-      padding: clamp(1rem, 2vw + 5px, 2rem);
+      font-size: clamp(1rem, 5vw + 5px, 2rem);
     }
   }
 }
@@ -151,7 +167,7 @@ section {
   justify-content: space-around;
   margin: 0px auto 50px;
   width: 90%;
-  
+
   & > * {
     margin: 1rem 0;
   }
@@ -167,11 +183,11 @@ section {
 .rounded-button-link {
   overflow: hidden;
   margin: 0.5rem;
-  padding: 1rem;
+  padding: 0.75rem;
   background: white;
   border: black 1px solid;
-  font-size: 1.5rem;
-  border-radius: 50%;
+  font-size: calc(1rem + 0.75vw);
+  border-radius: 100%;
   display: flex;
   place-self: center;
   position: relative;
@@ -187,7 +203,7 @@ section {
     width: 100%;
     inset: 0;
 
-    background: $daydreamer-gradient-faded;
+    background: $daydreamer-gradient-alt;
     z-index: -1;
 
     transition: background color border-color box-shadow;
@@ -198,8 +214,47 @@ section {
   &:hover {
     // ? This is a very stinky hack to get the opacity to change on hover
     background: rgba(255, 255, 255, 0.1);
-    color: white;
-    border-color: white;
-    box-shadow: 3px -2px 10px 4px white;
+    color: darken($daydreamer-orange, 10%);
+    border-color: lighten($daydreamer-orange, 20%);
+    box-shadow: 3px -2px 20px 0px $daydreamer-orange;
+  }
+}
+
+// ? ? ? ? ? ? ? ? ? ?
+// ? PAGE NOT FOUND ?
+// ? ? ? ? ? ? ? ? ?
+
+#page-not-found {
+  text-align: center;
+
+  & {
+    h1 {
+      padding: 1em 1em 0em;
+    }
+
+    p {
+      padding: 0.5em 3em;
+
+      &:last-child {
+        padding-bottom: 4em;
+      }
+    }
+  }
+
+  img {
+    width: clamp(250px, 75vw, 600px);
+    margin: 50px auto;
+    border: 2px solid black;
+    box-shadow: 25px 20px 55px 10px lighten($daydreamer-orange, 20%),
+      7px -15px 50px 10px lighten($daydreamer-blue, 20%),
+      0px 0px 100px -20px rgba(0, 0, 0, 0.412);
+  }
+
+  h1 {
+    font-size: calc(3em + 2vw);
+  }
+
+  .email {
+    word-break: break-all;
   }
 }
