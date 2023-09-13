@@ -5,9 +5,9 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import Home from "./views/Home";
-import "./styles/index.scss";
 import PageNotFound from "./views/PageNotFound";
 import Merch from "./views/Merch";
+import "./styles/index.scss";
 
 const router = createBrowserRouter([
   {
@@ -15,11 +15,10 @@ const router = createBrowserRouter([
     element: <Home />,
     errorElement: <PageNotFound />
   },
-  // ! I am not done with this yet, hence why it's been deactivated
-  // {
-  //   path: "/merch",
-  //   element: <Merch />
-  // }
+  {
+    path: "/merch",
+    element: <Merch />
+  }
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")!).render(

@@ -8,7 +8,7 @@ export default function Home() {
     <section>
       <div id="site-backdrop" />
       <div id="home-nav">
-        <h1 className="outline black white-heading">Day Dreamers</h1>
+        <h1 className="outline-black heading white">Day Dreamers</h1>
         <nav id="page-routes">
           <ul>
             <li><Link to="/music">Music</Link></li>
