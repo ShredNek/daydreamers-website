@@ -19,17 +19,32 @@
 // ? FUNCTIONS ?
 // ? ? ? ? ? ?
 
-@function generate-text-outline($outline-width, $outline-color) {
-  $offsets: $outline-width $outline-width, $outline-width (0px - $outline-width),
-    (0px - $outline-width) $outline-width,
-    (0px - $outline-width) (0px - $outline-width);
+@function generate-text-outline(
+  $outline-width,
+  $outline-color,
+  $outline-blur: 0px
+) {
+  $offsets: $outline-width $outline-width $outline-blur $outline-color,
+    $outline-width (0px - $outline-width) $outline-blur $outline-color,
+    (0px - $outline-width) $outline-width $outline-blur $outline-color,
+    (0px - $outline-width) (0px - $outline-width) $outline-blur $outline-color;
   $text-shadow: ();
 
   @for $i from 1 through 4 {
-    $text-shadow: append($text-shadow, nth($offsets, $i) $outline-color, comma);
+    $text-shadow: append($text-shadow, nth($offsets, $i), comma);
   }
 
   @return $text-shadow;
+}
+
+@function duplicate($string, $amount: 2) {
+  $duplication-result: ();
+
+  @for $i from 1 through $amount {
+    $duplication-result: append($duplication-result, $string, comma);
+  }
+
+  @return $duplication-result;
 }
 
 // ? ? ? ? ? ?
@@ -69,26 +84,26 @@ $daydreamer-gradient-alt: radial-gradient(
 
 h1 {
   font-family: Goodgirl;
-  font-size: clamp(2.5rem, 7vw + 5px, 6rem);
+  font-size: clamp(2.5rem, 5vw + 5px, 6rem);
 }
 
 ul > li {
-  list-style: none; 
-  margin: .5em 1em;
+  list-style: none;
+  margin: 0.5em 1em;
 }
 
 a {
   color: black;
   text-decoration: none;
+  height: fit-content;
 }
 
 .inline-reroute-link {
   color: $daydreamer-orange;
   text-shadow: 0px 0px 10px lighten($daydreamer-orange, 10%);
   font-weight: bold;
-  text-decoration: solid .75px $daydreamer-orange underline;
+  text-decoration: solid 0.75px $daydreamer-orange underline;
   text-underline-offset: 2px;
-
 }
 
 .link-offsite {
@@ -120,12 +135,45 @@ a {
 .img-parent {
   & > img {
     max-height: 200px;
-  };
+  }
 }
 
-// ? ? ? ? ? ? ? ?
-// ? H1 CLASSES ?
-// ? ? ? ? ? ? ?
+.hover {
+  $hover-density: 20px;
+  $lighten-amount: 20%;
+  $color-density: 4;
+  $text-background: #ffffff89;
+  transition: text-shadow 0.4s ease-out;
+
+  &.v-1,
+  &.v-2 {
+    text-shadow: 0px 0px 5px rgb(0, 0, 0, 0.3);
+  }
+
+  &.v-1:hover {
+    text-shadow: generate-text-outline(0.5px, $text-background, 5px),
+      duplicate(
+        3px -2px $hover-density lighten($daydreamer-orange, $lighten-amount),
+        $color-density
+      ),
+      duplicate(
+        -2px 6px $hover-density lighten($daydreamer-blue, $lighten-amount),
+        $color-density
+      );
+  }
+
+  &.v-2:hover {
+    text-shadow: generate-text-outline(0.5px, $text-background, 5px),
+      duplicate(
+        -3px 5px 15px lighten($daydreamer-orange, $lighten-amount),
+        $color-density
+      ),
+      duplicate(
+        2px -4px 20px lighten($daydreamer-blue, $lighten-amount),
+        $color-density
+      );
+  }
+}
 
 section {
   height: 100vh;
@@ -133,6 +181,10 @@ section {
   display: flex;
   flex-direction: column;
 }
+
+// ? ? ? ? ? ? ? ?
+// ? H1 CLASSES ?
+// ? ? ? ? ? ? ?
 
 .white {
   color: white;
@@ -168,17 +220,14 @@ section {
     flex-wrap: wrap;
     justify-content: center;
     margin: 0 auto;
+
     & > li {
       font-size: clamp(1rem, 5vw + 5px, 2rem);
     }
   }
 }
 
-// ? ? ? ? ? ?
-// ? FOOTER ?
-// ? ? ? ? ?
-
-#footer {
+#home footer {
   @media (min-width: 850px) {
     flex-direction: row;
   }
@@ -200,45 +249,45 @@ section {
     justify-content: center;
     flex-wrap: wrap;
   }
-}
 
-.rounded-button-link {
-  overflow: hidden;
-  margin: 0.5rem;
-  padding: 0.75rem;
-  background: white;
-  border: black 1px solid;
-  font-size: calc(1rem + 0.75vw);
-  border-radius: 100%;
-  display: flex;
-  place-self: center;
-  position: relative;
+  .rounded-button-link {
+    overflow: hidden;
+    margin: 0.5rem;
+    padding: 0.75rem;
+    background: white;
+    border: black 1px solid;
+    font-size: calc(1rem + 0.75vw);
+    border-radius: 100%;
+    display: flex;
+    place-self: center;
+    position: relative;
 
-  opacity: 1;
-  transition: background color border-color box-shadow;
-  transition-timing-function: ease-in-out;
-  transition-duration: 350ms;
-
-  & > .bg {
-    position: absolute;
-    height: 100%;
-    width: 100%;
-    inset: 0;
-
-    background: $daydreamer-gradient-alt;
-    z-index: -1;
-
+    opacity: 1;
     transition: background color border-color box-shadow;
     transition-timing-function: ease-in-out;
     transition-duration: 350ms;
-  }
 
-  &:hover {
-    // ? This is a very stinky hack to get the opacity to change on hover
-    background: rgba(255, 255, 255, 0.1);
-    color: darken($daydreamer-orange, 10%);
-    border-color: lighten($daydreamer-orange, 20%);
-    box-shadow: 3px -2px 20px 0px $daydreamer-orange;
+    & > .bg {
+      position: absolute;
+      height: 100%;
+      width: 100%;
+      inset: 0;
+
+      background: $daydreamer-gradient-alt;
+      z-index: -1;
+
+      transition: background color border-color box-shadow;
+      transition-timing-function: ease-in-out;
+      transition-duration: 350ms;
+    }
+
+    &:hover {
+      // ? This is a very stinky hack to get the opacity to change on hover
+      background: rgba(255, 255, 255, 0.1);
+      color: darken($daydreamer-orange, 10%);
+      border-color: lighten($daydreamer-orange, 20%);
+      box-shadow: 3px -2px 20px 0px $daydreamer-orange;
+    }
   }
 }
 
@@ -248,33 +297,73 @@ section {
 
 #merch {
   $distance-between-children: 2rem;
+  $section-max-width: 1200px;
+
+  height: fit-content;
 
   & h1 {
     font-family: Urbanist;
-  };
+  }
 
   header {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    & > *:not(.img-parent) {margin: 0px $distance-between-children; width: 75px;};
+
+    // ? This selects everything,
+    // ? except the 2nd child (middle child)
+    & > *:not(:nth-child(2)) {
+      margin: 0px $distance-between-children;
+      width: 75px;
+    }
   }
 
-  #search-and-cart {
+  #right-icons,
+  #left-icons {
     display: flex;
-    & > * {margin: auto .5rem;}
+    justify-content: center;
+
+    & > * {
+      margin: auto 0.5rem;
+    }
   }
 
-  .banner {
+  .banner,
+  footer {
     background-color: black;
-    & * {color: white};
+    & * {
+      color: white;
+    }
   }
 
   #stock-params {
-    display: flex;
-    justify-content: space-between;
-    padding: 1em $distance-between-children;
+    #large-screen,
+    #small-screen {
+      justify-content: space-between;
+      padding: 1em $distance-between-children;
+    }
 
+    & > #small-screen {
+      display: none;
+    }
+
+    & > #large-screen {
+      display: flex;
+    }
+
+    @media (max-width: 900px) {
+      & > #small-screen {
+        display: flex;
+
+        & > * {
+          margin-left: 0;
+        }
+      }
+
+      & > #large-screen {
+        display: none;
+      }
+    }
   }
 
   .options {
@@ -288,12 +377,92 @@ section {
   }
 
   .collection {
-    
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+
+    padding: 2rem 0px;
+
+    @media (max-width: 1000px) {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  .stock-card {
+    min-width: 150px;
+    max-width: 300px;
+    margin: auto;
+  }
+
+  footer {
+    #info {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      padding: 2em;
+      min-height: 200px;
+      max-height: 100%;
+    }
+
+    #quick-links {
+      & li > * {
+        color: darken(white, 30%);
+      }
+    }
+
+    #contact {
+      $distance-between-children: 1rem;
+      text-align: center;
+
+      & > * {
+        margin: $distance-between-children;
+      }
+
+      .merch-social-links {
+        width: fit-content;
+        height: min-content;
+
+        & > button {
+          margin: 0px $distance-between-children;
+
+          & > * {
+            margin: 0px auto;
+          }
+        }
+      }
+    }
+
+    .img-parent {
+      & > img {
+        height: 100px;
+      }
+    }
+  }
+
+  @media (min-width: $section-max-width) {
+    header,
+    h1,
+    #stock-params,
+    .collection {
+      width: $section-max-width;
+      margin-left: auto;
+      margin-right: auto;
+    }
+  }
+
+  @media (max-width: 500px) {
+    #right-icons,
+    #left-icons {
+      & > * {
+        margin: auto 0.1rem;
+      }
+    }
+
+    h1 {
+      font-size: 1.75em;
+    }
   }
 }
-
-
-
 
 // ? ? ? ? ? ? ? ? ? ?
 // ? PAGE NOT FOUND ?

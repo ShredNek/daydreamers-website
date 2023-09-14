@@ -1,12 +1,14 @@
 import { ReactNode } from "react";
 
 interface IconButton {
-  onClick: () => void;
-  icon: ReactNode;
+  onClick?: () => void;
+  Icon?: ReactNode;
 }
 
-export default function IconButton({ onClick, icon }: IconButton) {
+export default function IconButton({ onClick, Icon }: IconButton) {
   return (
-    <a onClick={onClick}>{icon}</a>
+    <button onClick={onClick} className={`h-10 w-10 text-black`}>
+      {Icon}
+    </button>
   )
 }

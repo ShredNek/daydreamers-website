@@ -2,24 +2,31 @@ import { FaFacebookF, FaInstagram, FaSpotify, FaMusic } from "react-icons/fa6";
 import { Link } from "react-router-dom";
 import RoundedButtonLink from "../components/RoundedButtonLink";
 
-export default function Home() {
+const pageLinks = [
+  { to: "/music", innerText: "Music" },
+  { to: "/gigs", innerText: "Gigs" },
+  { to: "/about", innerText: "About" },
+  { to: "/merch", innerText: "Merch" },
+  { to: "/media", innerText: "Media" },
+];
 
+export default function Home() {
   return (
-    <section>
+    <section id="home">
       <div id="site-backdrop" />
       <div id="home-nav">
         <h1 className="outline-black heading white">Day Dreamers</h1>
         <nav id="page-routes">
           <ul>
-            <li><Link to="/music">Music</Link></li>
-            <li><Link to="/gigs">Gigs</Link></li>
-            <li><Link to="/about">About</Link></li>
-            <li><Link to="/merch">Merch</Link></li>
-            <li><Link to="/media">Media</Link></li>
+            {pageLinks.map((link, index) => (
+              <li key={index} className={index % 2 === 0 ? `hover v-1` : `hover v-2`}>
+                <Link to={link.to}>{link.innerText}</Link>
+              </li>
+            ))}
           </ul>
         </nav>
       </div>
-      <div id="footer">
+      <footer>
         <div className="social-links">
           <RoundedButtonLink imageChild={<FaFacebookF />} />
           <RoundedButtonLink imageChild={<FaInstagram />} />
@@ -33,7 +40,7 @@ export default function Home() {
         <p>
           <strong>© 2015-2023 Day Dreamers</strong>
         </p>
-      </div>
+      </footer>
     </section>
   );
 }

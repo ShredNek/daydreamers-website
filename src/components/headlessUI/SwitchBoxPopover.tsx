@@ -2,7 +2,6 @@ import "../../styles/tailwind.css";
 import { Popover, Transition } from "@headlessui/react";
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
 import { StockPreferences } from "../../interfaces";
-import { toCamelCase, toKebabCase } from "../../helper";
 import { Fragment } from "react";
 import Switch from "./Switch";
 
@@ -16,6 +15,9 @@ const stockOptions = [
     stateName: "outOfStockRequested"
   },
 ];
+
+// ? A way to make this take on board other kinds of state?
+// ? don't need to yet
 
 interface SwitchBoxPopover {
   state: StockPreferences;

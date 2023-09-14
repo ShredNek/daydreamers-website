@@ -3,5 +3,10 @@
 - configure routes w/ react router √
 - crate error page √
 - create layout for merch
-- worry about state/api calls later
+- individual stock item
+- cart
+- payment screen
+- payment successful
+- payment failure
+- state/api calls
 - configure database

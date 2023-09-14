@@ -1,13 +1,24 @@
 import { Link } from "react-router-dom";
-import Motivation from "../assets/images/SuppawtiveDaeDrummeh.jpg"
+import LazyImage from "../components/LazyImage";
+import Motivation from "../assets/images/HQ_SuppawtiveDaeDrummeh.jpg";
+import LQ_Motivation from "../assets/images/LQ_SuppawtiveDaeDrummeh.jpg";
 
 export default function PageNotFound() {
   return (
     <section id="page-not-found">
       <div id="site-backdrop" />
       <h1>404 ERROR</h1>
-      <img src={Motivation} alt="All four day dreamers cheering you on, to help motivate your search for the right page" />
-      <p>Hey bub. Looks like this page is unaccessible right now. <Link to={'/'} className="inline-reroute-link">Click me to come home.</Link></p>
+      <LazyImage
+        lowQualitySrc={LQ_Motivation}
+        highQualitySrc={Motivation}
+        alt="All four day dreamers cheering you on, to help motivate your search for the right page"
+      />
+      <p>
+        Hey bub. Looks like this page is unaccessible right now.{" "}
+        <Link to={"/"} className="inline-reroute-link">
+          Click me to come home.
+        </Link>
+      </p>
       <br />
       <p>
         <strong>This page may be under maintenance,</strong> or has been
