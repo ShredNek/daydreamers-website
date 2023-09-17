@@ -1,4 +1,4 @@
-import "../../styles/tailwind.css";
+import "../../styles/vendor/tailwind.css";
 import { Popover, Transition } from "@headlessui/react";
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
 import { StockPreferences } from "../../interfaces";

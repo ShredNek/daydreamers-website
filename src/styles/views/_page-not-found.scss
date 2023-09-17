@@ -1,0 +1,40 @@
+@use "../abstracts" as a;
+
+// ? ? ? ? ? ? ? ? ? ?
+// ? PAGE NOT FOUND ?
+// ? ? ? ? ? ? ? ? ?
+
+#page-not-found {
+  text-align: center;
+
+  & {
+    h1 {
+      padding: 1em 1em 0em;
+    }
+
+    p {
+      padding: 0.5em 3em;
+
+      &:last-child {
+        padding-bottom: 4em;
+      }
+    }
+  }
+
+  img {
+    width: clamp(250px, 75vw, 600px);
+    margin: 50px auto;
+    border: 2px solid black;
+    box-shadow: 25px 20px 55px 10px lighten(a.$daydreamer-orange, 20%),
+      7px -15px 50px 10px lighten(a.$daydreamer-blue, 20%),
+      0px 0px 100px -20px rgba(0, 0, 0, 0.412);
+  }
+
+  h1 {
+    font-size: calc(3em + 2vw);
+  }
+
+  .email {
+    word-break: break-all;
+  }
+}

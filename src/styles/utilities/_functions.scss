@@ -1,0 +1,31 @@
+// ? ? ? ? ? ? ?
+// ? FUNCTIONS ?
+// ? ? ? ? ? ?
+
+@function generate-text-outline(
+  $outline-width,
+  $outline-color,
+  $outline-blur: 0px
+) {
+  $offsets: $outline-width $outline-width $outline-blur $outline-color,
+    $outline-width (0px - $outline-width) $outline-blur $outline-color,
+    (0px - $outline-width) $outline-width $outline-blur $outline-color,
+    (0px - $outline-width) (0px - $outline-width) $outline-blur $outline-color;
+  $text-shadow: ();
+
+  @for $i from 1 through 4 {
+    $text-shadow: append($text-shadow, nth($offsets, $i), comma);
+  }
+
+  @return $text-shadow;
+}
+
+@function duplicate($string, $amount: 2) {
+  $duplication-result: ();
+
+  @for $i from 1 through $amount {
+    $duplication-result: append($duplication-result, $string, comma);
+  }
+
+  @return $duplication-result;
+}

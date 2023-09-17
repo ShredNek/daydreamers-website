@@ -1,0 +1,24 @@
+// ? ? ? ? ? ? ? ? ?
+// ? GLOBAL COLORS ?
+// ? ? ? ? ? ? ? ? ?
+
+$grey: darken(white, 30%); 
+$daydreamer-orange: #f1b83f;
+$daydreamer-blue: #4fdbf0;
+$daydreamer-gradient-main: radial-gradient(
+  circle,
+  $daydreamer-orange 0%,
+  $daydreamer-blue 50%,
+  #ffffff 85%
+);
+$daydreamer-gradient-faded: radial-gradient(
+  circle,
+  rgba($daydreamer-orange, 1) 0%,
+  rgba($daydreamer-blue, 0.6) 75%,
+  #ffffff 85%
+);
+$daydreamer-gradient-alt: radial-gradient(
+  circle,
+  rgba($daydreamer-blue, 0.6) 0%,
+  white 75%
+);

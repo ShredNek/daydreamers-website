@@ -7,7 +7,7 @@ import {
 import Home from "./views/Home";
 import PageNotFound from "./views/PageNotFound";
 import Merch from "./views/Merch";
-import "./styles/index.scss";
+import "./styles/style.scss";
 
 const router = createBrowserRouter([
   {

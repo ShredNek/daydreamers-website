@@ -1,0 +1,224 @@
+@use '../abstracts/colors' as c;
+@use "../base";
+
+// ? ? ? ? ? ?
+// ? MERCH ?
+// ? ? ? ?
+
+#merch {
+  $distance-between-children: 2rem;
+  $section-max-width: 1200px;
+
+  height: fit-content;
+
+  & h1 {
+    font-family: Urbanist;
+  }
+
+  header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    // ? This selects everything,
+    // ? except the 2nd child (middle child)
+    & > *:not(:nth-child(2)) {
+      margin: 0px $distance-between-children;
+      width: 75px;
+    }
+  }
+
+  #right-icons,
+  #left-icons {
+    display: flex;
+    justify-content: center;
+
+    & > * {
+      margin: auto 0.5rem;
+    }
+  }
+
+  .banner,
+  footer {
+    background-color: black;
+    color: white;
+  }
+
+  #stock-params {
+    #large-screen,
+    #small-screen {
+      justify-content: space-between;
+      padding: 1em $distance-between-children;
+    }
+
+    & > #small-screen {
+      display: none;
+    }
+
+    & > #large-screen {
+      display: flex;
+    }
+
+    @media (max-width: 900px) {
+      & > #small-screen {
+        display: flex;
+
+        & > * {
+          margin-left: 0;
+        }
+      }
+
+      & > #large-screen {
+        display: none;
+      }
+    }
+  }
+
+  .options {
+    display: flex;
+    justify-content: space-evenly;
+    margin: auto $distance-between-children;
+
+    & > * {
+      margin: auto 1em;
+    }
+  }
+
+  .collection {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+
+    padding: 2rem 1rem;
+
+    @media (max-width: 1000px) {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  .stock-card {
+    min-width: 100px;
+    max-width: 300px;
+    margin: auto;
+  }
+
+  footer {
+    #info,
+    #copyright {
+      padding: 2em;
+    }
+
+    #quick-links,
+    #copyright {
+      ul > li * {
+        color: c.$grey;
+      }
+    }
+
+    #info {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      min-height: 200px;
+      max-height: 100%;
+
+      @media (max-width: 800px) {
+        flex-direction: column-reverse;
+        padding-bottom: 0px;
+
+        & > * {
+          margin: 1rem 0px;
+        }
+
+        #quick-links {
+          display: none;
+        }
+      }
+    }
+
+    #contact {
+      $distance-between-children: 1rem;
+
+      text-align: center;
+      // padding: 0px 1rem;
+      max-width: 100vw;
+
+      & > * {
+        margin: $distance-between-children;
+      }
+
+      .merch-social-links {
+        width: fit-content;
+        height: min-content;
+
+        & > button {
+          margin: 0px $distance-between-children;
+
+          & > * {
+            color: white;
+            margin: 0px auto;
+          }
+        }
+      }
+    }
+
+    .img-parent {
+      & > img {
+        height: 100px;
+      }
+    }
+
+    #copyright {
+      &,
+      & > ul {
+        display: flex;
+        align-items: center;
+
+        @media (max-width: 600px) {
+          flex-direction: column;
+           
+          ::before {
+            display: none;
+          }
+        }
+      }
+
+      justify-content: center;
+
+      li:not(:last-child) {
+        margin-right: 0px;
+      }
+
+      li > ::before {
+        content: "•";
+        margin-right: 1rem;
+      }
+
+      
+    }
+  }
+
+  @media (min-width: $section-max-width) {
+    header,
+    h1,
+    #stock-params,
+    .collection {
+      width: $section-max-width;
+      margin-left: auto;
+      margin-right: auto;
+    }
+  }
+
+  @media (max-width: 500px) {
+    #right-icons,
+    #left-icons {
+      & > * {
+        margin: auto 0.1rem;
+      }
+    }
+
+    h1 {
+      font-size: 1.75em;
+    }
+  }
+}

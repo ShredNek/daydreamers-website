@@ -1,0 +1,89 @@
+@use "../abstracts" as a;
+@use "../utilities/functions" as fn;
+
+// ? ? ? ? ?
+// ? HOME ?
+// ? ? ? ?
+
+#home-nav {
+  display: flow-root;
+  margin: auto;
+  width: 100vw;
+}
+
+#page-routes {
+  ul {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 0 auto;
+
+    & > li {
+      font-size: clamp(1rem, 5vw + 5px, 2rem);
+    }
+  }
+}
+
+#home footer {
+  @media (min-width: 850px) {
+    flex-direction: row;
+  }
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  margin: 0px auto 50px;
+  width: 90%;
+
+  & > * {
+    margin: 1rem 0;
+  }
+
+  .social-links {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .rounded-button-link {
+    overflow: hidden;
+    margin: 0.5rem;
+    padding: 0.75rem;
+    background: white;
+    border: black 1px solid;
+    font-size: calc(1rem + 0.75vw);
+    border-radius: 100%;
+    display: flex;
+    place-self: center;
+    position: relative;
+
+    opacity: 1;
+    transition-property: background, color, border-color, box-shadow;
+    transition-timing-function: ease-in-out;
+    transition-duration: 350ms;
+
+    & > .bg {
+      position: absolute;
+      height: 100%;
+      width: 100%;
+      inset: 0;
+
+      background: a.$daydreamer-gradient-alt;
+      z-index: -1;
+
+      transition-property: background, color, border-color, box-shadow;
+      transition-timing-function: ease-in-out;
+      transition-duration: 350ms;
+    }
+
+    &:hover {
+      // ? This is a very stinky hack to get the opacity to change on hover
+      background: rgba(255, 255, 255, 0.1);
+      color: darken(a.$daydreamer-orange, 10%);
+      border-color: lighten(a.$daydreamer-orange, 20%);
+      box-shadow: 3px -2px 20px 0px a.$daydreamer-orange;
+    }
+  }
+}

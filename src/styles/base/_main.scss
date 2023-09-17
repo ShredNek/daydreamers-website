@@ -1,0 +1,157 @@
+@use "../abstracts" as a;
+@use "../utilities/functions" as fn;
+
+// ? ? ? ? ? ? ? ? ?
+// ? GLOBAL STYLES ?
+// ? ? ? ? ? ? ? ? ?
+
+*,
+*:before,
+*:after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Urbanist;
+  font-style: normal;
+  letter-spacing: 0.05em;
+}
+
+html {
+  display: flow-root;
+}
+
+span {
+  word-break: break-all;
+}
+
+h1 {
+  font-family: Goodgirl;
+  font-size: clamp(2.5rem, 5vw + 5px, 6rem);
+}
+
+ul > li {
+  list-style: none;
+  margin: 0.5em 1em;
+}
+
+a {
+  color: black;
+  text-decoration: none;
+  height: fit-content;
+}
+
+.inline-reroute-link {
+  color: a.$daydreamer-orange;
+  text-shadow: 0px 0px 10px lighten(a.$daydreamer-orange, 10%);
+  font-weight: bold;
+  text-decoration: solid 0.75px a.$daydreamer-orange underline;
+  text-underline-offset: 2px;
+}
+
+.link-offsite {
+  color: black;
+  display: inline-block;
+  width: fit-content;
+  font-weight: bold;
+  text-decoration: underline solid black 0.5px;
+  text-underline-offset: 5px;
+}
+
+.outline-black {
+  $outline-color: black;
+  $outline-width: 1.5px;
+  text-shadow: fn.generate-text-outline($outline-width, $outline-color);
+}
+
+#site-backdrop {
+  display: flow-root;
+  top: 0;
+  background: a.$daydreamer-gradient-main;
+  opacity: 20%;
+  height: 100%;
+  width: 100%;
+  position: fixed;
+  z-index: -1;
+}
+
+.img-parent {
+  & > img {
+    max-height: 200px;
+  }
+}
+
+.hover {
+  $hover-density: 20px;
+  $lighten-amount: 20%;
+  $color-density: 4;
+  $text-background: #ffffff89;
+  transition: text-shadow 0.4s ease-out;
+
+  &.v-1,
+  &.v-2 {
+    text-shadow: 0px 0px 5px rgb(0, 0, 0, 0.3);
+  }
+
+  &.v-1:hover {
+    text-shadow: generate-text-outline(0.5px, $text-background, 5px),
+      duplicate(
+        3px -2px $hover-density lighten(a.$daydreamer-orange, $lighten-amount),
+        $color-density
+      ),
+      duplicate(
+        -2px 6px $hover-density lighten(a.$daydreamer-blue, $lighten-amount),
+        $color-density
+      );
+  }
+
+  &.v-2:hover {
+    text-shadow: generate-text-outline(0.5px, $text-background, 5px),
+      duplicate(
+        -3px 5px 15px lighten(a.$daydreamer-orange, $lighten-amount),
+        $color-density
+      ),
+      duplicate(
+        2px -4px 20px lighten(a.$daydreamer-blue, $lighten-amount),
+        $color-density
+      );
+  }
+}
+
+section {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+}
+
+// ? ? ? ? ? ? ? ? ?
+// ? COLOR CLASSES ?
+// ? ? ? ? ? ? ? ? ?
+
+.white {
+  color: white;
+}
+
+.grey {
+ &, & * {
+   color: a.$grey;
+ }
+}
+
+.heading {
+  margin: 2rem auto;
+  padding: 0px 1em;
+  text-align: center;
+
+  &.left {
+    text-align: left;
+  }
+
+  &.right {
+    text-align: right;
+  }
+
+  @media (max-width: 400px) {
+    padding: 0px .5em;
+  }
+}

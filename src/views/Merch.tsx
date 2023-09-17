@@ -4,6 +4,7 @@ import PriceRangePopover from "../components/headlessUI/PriceRangePopover";
 import IconButton from "../components/IconButton";
 import LazyImage from "../components/LazyImage";
 
+// ? Icons
 import { FaFacebookF, FaInstagram, FaSpotify, FaMusic } from "react-icons/fa6";
 import {
   MagnifyingGlassIcon,
@@ -11,14 +12,17 @@ import {
   ShoppingBagIcon,
 } from "@heroicons/react/24/outline";
 
+// ? Testing
 import SampleStock from "../test/SampleStock";
 
+// ? Images
 import HQ_DayDreamersLogo from "../assets/images/HQ_DayDreamersLogo.jpg";
 import LQ_DayDreamersLogo from "../assets/images/LQ_DayDreamersLogo.jpg";
 import HQ_OfficialMerch from "../assets/images/HQ_OfficialMerchandiseStoreLogo.webp";
 import LQ_OfficialMerch from "../assets/images/LQ_OfficialMerchandiseStoreLogo.webp";
 import MissingImage from "../assets/images/MissingImage.png";
 
+// ? Interfaces/Types
 import { MerchReqParams, Merch } from "../interfaces/index";
 import { useEffect, useState } from "react";
 
@@ -144,7 +148,7 @@ export default function Merch() {
               <IconButton Icon={<FaMusic />} />
             </div>
             <hr />
-            <span>daydreamers2015@gmail.com</span>
+            <span>daydreamersmusic2015@gmail.com</span>
           </div>
           <div className="img-parent">
             <LazyImage
@@ -154,17 +158,22 @@ export default function Merch() {
             />
           </div>
         </nav>
-        <div className="footer__copyright caption">
-          <small className="copyright__content">
-            © 2023,{" "}
-            <a href="/" title="">
-              Space Mirror Merch
-            </a>
-          </small>
-          <ul className="policies list-unstyled">
+        <div id="copyright">
+          <small>© 2023, Day Dreamers</small>
+          <ul>
             <li>
-              <small className="copyright__content">
-                <a href="/policies/refund-policy">Refund policy</a>
+              <small>
+                <a href="#">Refund policy</a>
+              </small>
+            </li>
+            <li>
+              <small>
+                <a href="#">Shipping policy</a>
+              </small>
+            </li>
+            <li>
+              <small>
+                <a href="#">Privacy policy</a>
               </small>
             </li>
           </ul>
