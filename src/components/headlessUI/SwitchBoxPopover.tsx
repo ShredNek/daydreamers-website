@@ -22,9 +22,11 @@ const stockOptions = [
 interface SwitchBoxPopover {
   state: StockPreferences;
   changeStockPreferenceState: (stock: StockPreferences) => void;
+  openDirection: "left" | "right";
+  compactStyle?: boolean;
 }
 
-export default function SwitchBoxPopover({ state, changeStockPreferenceState }: SwitchBoxPopover) {
+export default function SwitchBoxPopover({ state, changeStockPreferenceState, openDirection, compactStyle }: SwitchBoxPopover) {
 
   function handleSwitch(e: React.MouseEvent<HTMLButtonElement, MouseEvent> | undefined) {
     // ? On click of the switch...
@@ -71,7 +73,8 @@ export default function SwitchBoxPopover({ state, changeStockPreferenceState }: 
               leaveFrom="opacity-100 translate-y-0"
               leaveTo="opacity-0 translate-y-1"
             >
-              <Popover.Panel className="absolute left-1/2 z-10 mt-3 w-screen max-w-sm -translate-x-1/2 transform px-4 sm:px-0 lg:max-w-3xl">
+              {/* // ? OPEN DIRECTION  */}
+              <Popover.Panel className={` ${openDirection === "left" ? "right-0" : openDirection === "right" ? "left-0" : null} absolute  z-10 mt-3 w-screen max-w-md transform px-4 sm:px-0`}>
                 <div className="overflow-hidden rounded-lg shadow-lg ring-1 ring-black ring-opacity-5">
                   <div className="bg-gray-50 p-4 flex flex-row gap-2 place-content-between">
                     <a className="flow-root rounded-md px-2 py-2 transition duration-150 ease-in-out hover:bg-gray-100 focus:outline-none focus-visible:ring focus-visible:ring-daydreamer-orange focus-visible:ring-opacity-50">
@@ -94,7 +97,7 @@ export default function SwitchBoxPopover({ state, changeStockPreferenceState }: 
                       <a
                         key={item.name}
                         id={item.name}
-                        className="-m-3 flex items-center rounded-lg p-2 transition duration-150 ease-in-out hover:bg-gray-50 focus:outline-none focus-visible:ring focus-visible:ring-daydreamer-orange focus-visible:ring-opacity-50"
+                        className={`${compactStyle ? null : "-my-3 -ml-3"} flex items-center rounded-lg p-2 transition duration-150 ease-in-out hover:bg-gray-50 focus:outline-none focus-visible:ring focus-visible:ring-daydreamer-orange focus-visible:ring-opacity-50`}
                       >
                         <div className="ml-4 flex flex-row">
                           <Switch className={"mr-4"} onClick={handleSwitch} id={item.stateName} enabled={state ? state[item.stateName as keyof StockPreferences] : false} />

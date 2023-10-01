@@ -82,6 +82,14 @@
     & > * {
       margin: auto 1em;
     }
+
+    &.column {
+      flex-direction: column;
+
+      & > * {
+        margin-bottom: 1em;
+      }
+    }
   }
 
   .collection {
@@ -98,6 +106,7 @@
   .stock-card {
     min-width: 100px;
     max-width: 300px;
+    height: 300px;
     margin: auto;
   }
 

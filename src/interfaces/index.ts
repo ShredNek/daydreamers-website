@@ -20,6 +20,11 @@ export interface StockPreferences {
   outOfStockRequested: boolean;
 }
 
+export interface SearchPreference {
+  name: string;
+  camelCaseName: string;
+}
+
 export interface Merch {
   inStockQuantity: string;
   outOfStockQuantity: string;
