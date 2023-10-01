@@ -3,6 +3,7 @@ export interface Stock {
   price: string;
   stockId: string;
   imgSrc: string;
+  extraImages: string[];
   dateAdded: Date;
   availableSizes: Set<size>;
 }

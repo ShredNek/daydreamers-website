@@ -1,0 +1,24 @@
+@use '../abstracts/colors' as c;
+@use "../views/merch" as m;
+@use "../base";
+
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  #left-icons, #right-icons {
+    margin: 0px m.$distance-between-children;
+    width: 75px;
+  }
+}
+
+#right-icons,
+#left-icons {
+  display: flex;
+  justify-content: center;
+
+  & > * {
+    margin: auto 0.5rem;
+  }
+}

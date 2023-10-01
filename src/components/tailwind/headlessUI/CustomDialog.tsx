@@ -39,11 +39,11 @@ export default function CustomDialog({ isOpen, onClose }: CustomDialog) {
 
   return (
     <div
-      className={`fixed z-50 inset-0 transition-opacity ${isOpen ? "opacity-100" : "opacity-0 pointer-events-none"
+      className={`fixed z-50 inset-0 w-screen transition-opacity ${isOpen ? "opacity-100" : "opacity-0 pointer-events-none"
         }`}
     >
       <div className="overlay fixed inset-0 bg-black opacity-40"></div>
-      <div className="relative bg-white w-[100%] rounded-lg shadow-lg p-8">
+      <div className="relative bg-white w-screen rounded-lg shadow-lg p-8">
         <form className="flex items-center justify-center gap-2 my-12" onSubmit={handleSearchSubmit}>
           <input
             type="text"

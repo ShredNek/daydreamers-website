@@ -1,23 +1,12 @@
 // ? Components
-import SwitchBoxPopover from "../components/headlessUI/SwitchBoxPopover";
-import PriceRangePopover from "../components/headlessUI/PriceRangePopover";
-import IconButton from "../components/IconButton";
-import LazyImage from "../components/LazyImage";
-import CustomDialog from "../components/headlessUI/CustomDialog";
-import Dropdown from "../components/headlessUI/Dropdown";
-
-// ? Icons
-import {
-  MagnifyingGlassIcon,
-  ShoppingBagIcon,
-} from "@heroicons/react/24/outline";
+import SwitchBoxPopover from "../components/tailwind/headlessUI/SwitchBoxPopover";
+import PriceRangePopover from "../components/tailwind/headlessUI/PriceRangePopover";
+import Dropdown from "../components/tailwind/headlessUI/Dropdown";
 
 // ? Testing
 import SampleStock from "../test/SampleStock";
 
 // ? Images
-import HQ_DayDreamersLogo from "../assets/images/HQ_DayDreamersLogo.jpg";
-import LQ_DayDreamersLogo from "../assets/images/LQ_DayDreamersLogo.jpg";
 import MissingImage from "../assets/images/MissingImage.png";
 
 // ? Interfaces/Types
@@ -25,6 +14,8 @@ import { MerchReqParams, Merch } from "../interfaces/index";
 import { useEffect, useState } from "react";
 import { SearchPreference } from "../interfaces/index";
 import FormalFooter from "../components/FormalFooter";
+import { Link } from "react-router-dom";
+import FormalHeader from "../components/FormalHeader";
 
 // ? Constants
 const sortByOptions: SearchPreference[] = [
@@ -44,10 +35,7 @@ const extraSortByOptions: SearchPreference[] = [
   { name: "Out Of Stock", camelCaseName: "availability" },
 ];
 
-
 export default function Merch() {
-  const [searchModalOpen, setSearchModalOpen] = useState(false);
-
   const [merchReqParams, setMerchReqParams] = useState<MerchReqParams>({
     stockPreferences: {
       inStockRequested: true,
@@ -61,44 +49,13 @@ export default function Merch() {
     outOfStockQuantity: "0",
   });
 
-  const totalImages = SampleStock.length;
-  const [imagesProcessed, setImagesProcessed] = useState(0);
-
-  useEffect(() => {
-    console.log(imagesProcessed);
-  }, [imagesProcessed]);
-
   useEffect(() => {
     // console.log(merchReqParams);
   }, [merchReqParams]);
 
   return (
     <section id="merch">
-      <CustomDialog
-        isOpen={searchModalOpen}
-        onClose={() => setSearchModalOpen(false)}
-      />
-      <header>
-        <div id="left-icons">
-          <IconButton
-            onClick={() => setSearchModalOpen(true)}
-            Icon={<MagnifyingGlassIcon />}
-          />
-        </div>
-        <a href="/" className="img-parent">
-          <LazyImage
-            lowQualitySrc={LQ_DayDreamersLogo}
-            highQualitySrc={HQ_DayDreamersLogo}
-            alt="Day Dreamers official logo"
-          />
-        </a>
-        <div id="right-icons">
-          <IconButton
-            onClick={() => console.log("oi")}
-            Icon={<ShoppingBagIcon />}
-          />
-        </div>
-      </header>
+      <FormalHeader />
       <div className="banner">
         <h1 className="heading left"> MERCHANDISE</h1>
       </div>
@@ -134,19 +91,20 @@ export default function Merch() {
       </form>
       <main className="collection">
         {SampleStock.map((stock, index) => (
-          <div key={stock.stockId} className="stock-card">
-            <img
-              key={`${stock.name}-${index}`}
-              src={stock.imgSrc}
-              onLoad={() => setImagesProcessed((prevImgs) => prevImgs + 1)}
-              onError={(e) => (e.currentTarget.src = MissingImage)}
-              alt={`an image of${stock.imgSrc}`}
-            />
-            <p>{stock.name}</p>
-            <p>
-              <strong>{stock.price}</strong>
-            </p>
-          </div>
+          <Link key={stock.stockId} to={stock.stockId}>
+            <a className="stock-card">
+              <img
+                key={`${stock.name}-${index}`}
+                src={stock.imgSrc}
+                onError={(e) => (e.currentTarget.src = MissingImage)}
+                alt={`an image of${stock.imgSrc}`}
+              />
+              <p>{stock.name}</p>
+              <p>
+                <strong>{stock.price}</strong>
+              </p>
+            </a>
+          </Link>
         ))}
       </main>
       <FormalFooter />

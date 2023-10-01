@@ -1,10 +1,10 @@
 import { Menu, Transition } from "@headlessui/react";
 import { Fragment } from "react";
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
-import PriceInput from "../headlessUI/PriceInput";
-import Switch from "../headlessUI/Switch";
+import PriceInput from "./PriceInput";
+import Switch from "./Switch";
 
-import { SearchPreference } from "../../interfaces";
+import { SearchPreference } from "../../../interfaces";
 
 interface Dropdown {
   sortBy: SearchPreference[];

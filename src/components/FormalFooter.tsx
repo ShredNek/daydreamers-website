@@ -9,6 +9,9 @@ import LQ_OfficialMerch from "../assets/images/LQ_OfficialMerchandiseStoreLogo.w
 import IconButton from "../components/IconButton";
 import LazyImage from "../components/LazyImage";
 
+// ? Style
+import '../styles/components/_formal-footer.scss'
+
 const policies = [
   { name: "Refund Policy", link: "#" },
   { name: "Shipping Policy", link: "#" },
@@ -17,7 +20,7 @@ const policies = [
 
 export default function FormalFooter() {
   return (
-    <footer>
+    <footer id="formal-footer">
       <nav id="info">
         <div id="quick-links">
           <span>Quick Links</span>
