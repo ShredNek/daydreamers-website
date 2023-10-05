@@ -10,13 +10,14 @@
 
 import { useState, useEffect } from "react";
 
-import MissingImg from "../../../assets/images/MissingImage.png";
+import MissingImg from "../../../assets/images/misc/MissingImage.png";
 
 interface Carousel {
   photos: string[];
+  className?: string;
 }
 
-export default function Carousel({ photos }: Carousel) {
+export default function Carousel({ photos, className }: Carousel) {
   const [currentSlide, setCurrentSlide] = useState(0);
 
   // console.log(photos)
@@ -46,7 +47,7 @@ export default function Carousel({ photos }: Carousel) {
   return (
     <div
       id="default-carousel"
-      className="relative w-full"
+      className={`relative w-full ${className}`}
       data-carousel="slide"
     >
       {/* Carousel wrapper */}

@@ -2,8 +2,8 @@
 import { FaFacebookF, FaInstagram, FaSpotify, FaMusic } from "react-icons/fa6";
 
 // ? Images
-import HQ_OfficialMerch from "../assets/images/HQ_OfficialMerchandiseStoreLogo.webp";
-import LQ_OfficialMerch from "../assets/images/LQ_OfficialMerchandiseStoreLogo.webp";
+import HQ_OfficialMerch from "../assets/images/icons/HQ_OfficialMerchandiseStoreLogo.webp";
+import LQ_OfficialMerch from "../assets/images/icons/LQ_OfficialMerchandiseStoreLogo.webp";
 
 // ? Component
 import IconButton from "../components/IconButton";

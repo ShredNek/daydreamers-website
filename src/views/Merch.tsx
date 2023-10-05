@@ -7,7 +7,7 @@ import Dropdown from "../components/tailwind/headlessUI/Dropdown";
 import SampleStock from "../test/SampleStock";
 
 // ? Images
-import MissingImage from "../assets/images/MissingImage.png";
+import MissingImage from "../assets/images/misc/MissingImage.png";
 
 // ? Interfaces/Types
 import { MerchReqParams, Merch } from "../interfaces/index";

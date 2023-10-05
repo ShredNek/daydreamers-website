@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import LazyImage from "../components/LazyImage";
-import Motivation from "../assets/images/HQ_SuppawtiveDaeDrummeh.jpg";
-import LQ_Motivation from "../assets/images/LQ_SuppawtiveDaeDrummeh.jpg";
+import Motivation from "../assets/images/misc/HQ_SuppawtiveDaeDrummeh.jpg";
+import LQ_Motivation from "../assets/images/misc/LQ_SuppawtiveDaeDrummeh.jpg";
 
 export default function PageNotFound() {
   return (

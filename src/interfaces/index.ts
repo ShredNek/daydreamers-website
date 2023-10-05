@@ -6,6 +6,7 @@ export interface Stock {
   extraImages: string[];
   dateAdded: Date;
   availableSizes: Set<size>;
+  description: string;
 }
 
 export interface MerchReqParams {

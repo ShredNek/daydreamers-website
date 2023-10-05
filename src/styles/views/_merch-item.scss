@@ -1,0 +1,39 @@
+@use "../abstracts/colors" as c;
+@use "../base";
+
+#merch-item {
+  h2 {
+    font-size: 1.5em;
+  }
+
+  p {
+    font-size: 0.75em;
+  }
+
+  small {
+    font-size: .5rem;
+  }
+
+  main {
+    @media (max-width: 600px) {
+      display: flex;
+      flex-direction: column;
+    }
+
+    display: grid;
+    grid-template-columns: 1fr 1fr; 
+
+
+    form {
+      padding: 1rem;
+
+      & > * {
+        padding: .33rem 0px; 
+
+        & > * {
+          padding: .2rem 0px;
+        }
+      }
+    }
+  }
+}

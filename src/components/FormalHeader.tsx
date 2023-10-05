@@ -13,8 +13,8 @@ import {
 } from "@heroicons/react/24/outline";
 
 // ? Images
-import HQ_DayDreamersLogo from "../assets/images/HQ_DayDreamersLogo.jpg";
-import LQ_DayDreamersLogo from "../assets/images/LQ_DayDreamersLogo.jpg";
+import HQ_DayDreamersLogo from "../assets/images/icons/HQ_DayDreamersLogo.jpg";
+import LQ_DayDreamersLogo from "../assets/images/icons/LQ_DayDreamersLogo.jpg";
 
 // ? Styles
 import "../styles/components/_formal-header.scss";

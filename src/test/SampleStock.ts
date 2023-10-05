@@ -9,6 +9,8 @@ const SampleStock: Stock[] = [
     extraImages: ["product-a-1.jpg", "product-a-2.jpg", "product-a-3.jpg"],
     dateAdded: new Date("2023-09-01"),
     availableSizes: new Set(["s", "m", "l"]),
+    description:
+      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Excepturi expedita officiis perspiciatis praesentium sit quo rerum voluptate at perferendis. Ad consequatur eveniet, id pariatur quidem voluptatibus praesentium ex odio commodi!",
   },
   {
     name: "Product B",
@@ -18,6 +20,8 @@ const SampleStock: Stock[] = [
     extraImages: ["product-b-1.jpg", "product-b-2.jpg", "product-b-3.jpg"],
     dateAdded: new Date("2023-09-05"),
     availableSizes: new Set(["m", "l", "xl"]),
+    description:
+      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Excepturi expedita officiis perspiciatis praesentium sit quo rerum voluptate at perferendis. Ad consequatur eveniet, id pariatur quidem voluptatibus praesentium ex odio commodi!",
   },
   {
     name: "Product C",
@@ -27,6 +31,8 @@ const SampleStock: Stock[] = [
     extraImages: ["product-c-1.jpg", "product-c-2.jpg", "product-c-3.jpg"],
     dateAdded: new Date("2023-09-10"),
     availableSizes: new Set(["xs", "s", "m", "l", "xl", "xxl"]),
+    description:
+      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Excepturi expedita officiis perspiciatis praesentium sit quo rerum voluptate at perferendis. Ad consequatur eveniet, id pariatur quidem voluptatibus praesentium ex odio commodi!",
   },
   {
     name: "Product D",
@@ -36,6 +42,8 @@ const SampleStock: Stock[] = [
     extraImages: ["product-d-1.jpg", "product-d-2.jpg", "product-d-3.jpg"],
     dateAdded: new Date("2023-09-15"),
     availableSizes: new Set(["s", "l"]),
+    description:
+      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Excepturi expedita officiis perspiciatis praesentium sit quo rerum voluptate at perferendis. Ad consequatur eveniet, id pariatur quidem voluptatibus praesentium ex odio commodi!",
   },
   {
     name: "Product E",
@@ -45,6 +53,8 @@ const SampleStock: Stock[] = [
     extraImages: ["product-e-1.jpg", "product-e-2.jpg", "product-e-3.jpg"],
     dateAdded: new Date("2023-09-20"),
     availableSizes: new Set(["s", "m", "xl"]),
+    description:
+      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Excepturi expedita officiis perspiciatis praesentium sit quo rerum voluptate at perferendis. Ad consequatur eveniet, id pariatur quidem voluptatibus praesentium ex odio commodi!",
   },
   {
     name: "Product F",
@@ -54,6 +64,8 @@ const SampleStock: Stock[] = [
     extraImages: ["product-f-1.jpg", "product-f-2.jpg", "product-f-3.jpg"],
     dateAdded: new Date("2023-09-25"),
     availableSizes: new Set(["m", "xxl"]),
+    description:
+      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Excepturi expedita officiis perspiciatis praesentium sit quo rerum voluptate at perferendis. Ad consequatur eveniet, id pariatur quidem voluptatibus praesentium ex odio commodi!",
   },
   {
     name: "Product G",
@@ -63,6 +75,8 @@ const SampleStock: Stock[] = [
     extraImages: ["product-g-1.jpg", "product-g-2.jpg", "product-g-3.jpg"],
     dateAdded: new Date("2023-09-30"),
     availableSizes: new Set(["s", "m", "l", "xl"]),
+    description:
+      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Excepturi expedita officiis perspiciatis praesentium sit quo rerum voluptate at perferendis. Ad consequatur eveniet, id pariatur quidem voluptatibus praesentium ex odio commodi!",
   },
   {
     name: "Product H",
@@ -72,6 +86,8 @@ const SampleStock: Stock[] = [
     extraImages: ["product-h-1.jpg", "product-h-2.jpg", "product-h-3.jpg"],
     dateAdded: new Date("2023-10-05"),
     availableSizes: new Set(["l", "xl"]),
+    description:
+      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Excepturi expedita officiis perspiciatis praesentium sit quo rerum voluptate at perferendis. Ad consequatur eveniet, id pariatur quidem voluptatibus praesentium ex odio commodi!",
   },
 ];
 
