@@ -2,6 +2,7 @@ export interface Stock {
   name: string;
   price: string;
   stockId: string;
+  category: merchType;
   imgSrc: string;
   extraImages: string[];
   dateAdded: Date;
@@ -33,6 +34,14 @@ export interface Merch {
 }
 
 export type size = "xs" | "s" | "m" | "l" | "xl" | "xxl";
+
+export type merchType =
+  | "music"
+  | "music accessories"
+  | "accessories"
+  | "clothing"
+  | "decoration"
+  | "miscellaneous";
 
 export type sortType =
   | "price range"

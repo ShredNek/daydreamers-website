@@ -47,7 +47,7 @@ export default function Carousel({ photos, className }: Carousel) {
   return (
     <div
       id="default-carousel"
-      className={`relative w-full ${className}`}
+      className={`relative w-full h-min ${className}`}
       data-carousel="slide"
     >
       {/* Carousel wrapper */}

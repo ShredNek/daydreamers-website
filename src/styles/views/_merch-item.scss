@@ -1,17 +1,31 @@
 @use "../abstracts/colors" as c;
 @use "../base";
+@use "../views/merch" as m;
 
 #merch-item {
+  h1, h2 {
+    font-weight: bold;
+  }
+
+  h1 {
+    font-family: m.$merch-font;
+  }
+
   h2 {
     font-size: 1.5em;
   }
 
-  p {
-    font-size: 0.75em;
-  }
-
   small {
     font-size: .5rem;
+  }
+
+  main, aside {
+    max-width: m.$section-max-width;
+    margin: 0px auto;
+  }
+
+  form, aside {
+    padding: 1rem;
   }
 
   main {
@@ -25,15 +39,36 @@
 
 
     form {
-      padding: 1rem;
+      width: 100%;
 
       & > * {
-        padding: .33rem 0px; 
+        padding: .75rem 0px; 
 
-        & > * {
-          padding: .2rem 0px;
+        & > *:first-child {
+          padding-bottom: .5rem;
         }
       }
+
+      .sizes {
+        width: 50%;
+
+        & > div {
+          display: block;
+        }
+      }
+
+      .form-button {
+        display: block;
+        border: black solid 2px;
+        border-radius: .33rem;
+        width: 50%
+      }
     }
+  }
+
+  .collection {
+    padding: 1rem 0px;
+    display: flex;
+    gap: 2rem;
   }
 }

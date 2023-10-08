@@ -7,12 +7,13 @@
 
 $distance-between-children: 2rem;
 $section-max-width: 1200px;
+$merch-font: Urbanist;
 
 #merch {
   height: fit-content;
 
-  & h1 {
-    font-family: Urbanist;
+  h1 {
+    font-family: $merch-font;
   }
   
   .banner {

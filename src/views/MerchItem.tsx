@@ -1,5 +1,5 @@
 // ? Hooks
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { useState } from "react";
 
 // ? Components
@@ -33,8 +33,8 @@ export default function MerchItem() {
 
   // ? get photos
   // ! TEST
-  const currentStock = SampleStock.find((stock) => id === stock.stockId);
-  const itemPhotos = currentStock?.extraImages ?? [MissingImage];
+  const currentStockItem = SampleStock.find((stock) => id === stock.stockId);
+  const itemPhotos = currentStockItem?.extraImages ?? [MissingImage];
 
   return (
     <section id="merch-item">
@@ -42,28 +42,56 @@ export default function MerchItem() {
       <main>
         <Carousel photos={itemPhotos} className="carousel" />
         <form>
+          <h1>
+            {currentStockItem?.name}
+          </h1>
           <h2>
-            <strong>{currentStock?.name}</strong>
+            {currentStockItem?.price}
           </h2>
-          <h3>
-            <strong>{currentStock?.price}</strong>
-          </h3>
           <small>GST Inclusive. Shipping calculated at checkout.</small>
           <div>
-            <h4>Size</h4>
-            <Dropdown sortBy={sizes} openToRight={true} />
+            <h3>Size</h3>
+            <Dropdown sortBy={sizes} openToRight={true} className="sizes" />
           </div>
           <div>
-            <h4>Quantity</h4>
+            <h3>Quantity</h3>
             <QuantityControl
               quantity={quantity}
               increment={handleIncrement}
               decrement={handleDecrement}
             />
           </div>
-          <p>{currentStock?.description}</p>
+          <button className="form-button">Buy now</button>
+          <p>{currentStockItem?.description}</p>
         </form>
       </main>
+      <aside>
+        <h2>Related Products</h2>
+        <div className="collection">
+          {SampleStock
+            .filter(
+              (stock) =>
+                stock.category === currentStockItem?.category &&
+                stock.stockId !== currentStockItem.stockId
+            )
+            .map((stock, index) => (
+              <Link key={stock.stockId} to={`../${stock.stockId}`} relative="path">
+                <a className="stock-card">
+                  <img
+                    key={`${stock.name}-${index}`}
+                    src={stock.imgSrc}
+                    onError={(e) => (e.currentTarget.src = MissingImage)}
+                    alt={`an image of${stock.imgSrc}`}
+                  />
+                  <p>{stock.name}</p>
+                  <p>
+                    <strong>{stock.price}</strong>
+                  </p>
+                </a>
+              </Link>
+            ))}
+        </div>
+      </aside>
       <FormalFooter />
     </section>
   );

@@ -8,7 +8,7 @@
   1. Fix filters (desktop) √
   1. Sort by (desktop) √
   1. Filter popup (mobile) √
-- individual stock item
+- individual stock item √
 - cart
 - payment screen
 - payment successful

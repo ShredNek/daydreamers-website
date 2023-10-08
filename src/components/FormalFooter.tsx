@@ -57,7 +57,7 @@ export default function FormalFooter() {
         </div>
       </nav>
       <div id="copyright">
-        <small>© 2023, Day Dreamers</small>
+        <p>© 2023, Day Dreamers</p>
         <ul>
           {policies.map((policy, index) => (
             <li key={`${policy.name}${index}`}>

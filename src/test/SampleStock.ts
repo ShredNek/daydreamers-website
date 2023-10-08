@@ -11,6 +11,7 @@ const SampleStock: Stock[] = [
     availableSizes: new Set(["s", "m", "l"]),
     description:
       "Lorem ipsum dolor sit amet consectetur adipisicing elit. Excepturi expedita officiis perspiciatis praesentium sit quo rerum voluptate at perferendis. Ad consequatur eveniet, id pariatur quidem voluptatibus praesentium ex odio commodi!",
+    category: "music",
   },
   {
     name: "Product B",
@@ -22,6 +23,7 @@ const SampleStock: Stock[] = [
     availableSizes: new Set(["m", "l", "xl"]),
     description:
       "Lorem ipsum dolor sit amet consectetur adipisicing elit. Excepturi expedita officiis perspiciatis praesentium sit quo rerum voluptate at perferendis. Ad consequatur eveniet, id pariatur quidem voluptatibus praesentium ex odio commodi!",
+    category: "music",
   },
   {
     name: "Product C",
@@ -33,6 +35,7 @@ const SampleStock: Stock[] = [
     availableSizes: new Set(["xs", "s", "m", "l", "xl", "xxl"]),
     description:
       "Lorem ipsum dolor sit amet consectetur adipisicing elit. Excepturi expedita officiis perspiciatis praesentium sit quo rerum voluptate at perferendis. Ad consequatur eveniet, id pariatur quidem voluptatibus praesentium ex odio commodi!",
+    category: "music",
   },
   {
     name: "Product D",
@@ -44,6 +47,7 @@ const SampleStock: Stock[] = [
     availableSizes: new Set(["s", "l"]),
     description:
       "Lorem ipsum dolor sit amet consectetur adipisicing elit. Excepturi expedita officiis perspiciatis praesentium sit quo rerum voluptate at perferendis. Ad consequatur eveniet, id pariatur quidem voluptatibus praesentium ex odio commodi!",
+    category: "accessories",
   },
   {
     name: "Product E",
@@ -55,6 +59,7 @@ const SampleStock: Stock[] = [
     availableSizes: new Set(["s", "m", "xl"]),
     description:
       "Lorem ipsum dolor sit amet consectetur adipisicing elit. Excepturi expedita officiis perspiciatis praesentium sit quo rerum voluptate at perferendis. Ad consequatur eveniet, id pariatur quidem voluptatibus praesentium ex odio commodi!",
+    category: "accessories",
   },
   {
     name: "Product F",
@@ -66,6 +71,7 @@ const SampleStock: Stock[] = [
     availableSizes: new Set(["m", "xxl"]),
     description:
       "Lorem ipsum dolor sit amet consectetur adipisicing elit. Excepturi expedita officiis perspiciatis praesentium sit quo rerum voluptate at perferendis. Ad consequatur eveniet, id pariatur quidem voluptatibus praesentium ex odio commodi!",
+    category: "accessories",
   },
   {
     name: "Product G",
@@ -77,6 +83,7 @@ const SampleStock: Stock[] = [
     availableSizes: new Set(["s", "m", "l", "xl"]),
     description:
       "Lorem ipsum dolor sit amet consectetur adipisicing elit. Excepturi expedita officiis perspiciatis praesentium sit quo rerum voluptate at perferendis. Ad consequatur eveniet, id pariatur quidem voluptatibus praesentium ex odio commodi!",
+    category: "clothing",
   },
   {
     name: "Product H",
@@ -88,6 +95,7 @@ const SampleStock: Stock[] = [
     availableSizes: new Set(["l", "xl"]),
     description:
       "Lorem ipsum dolor sit amet consectetur adipisicing elit. Excepturi expedita officiis perspiciatis praesentium sit quo rerum voluptate at perferendis. Ad consequatur eveniet, id pariatur quidem voluptatibus praesentium ex odio commodi!",
+    category: "clothing",
   },
 ];
 
