@@ -34,8 +34,8 @@ export default function Home() {
           <RoundedButtonLink imageChild={<FaMusic />} />
         </div>
         <ul>
-          <li className="link-offsite ">Press Kit</li>
-          <li className="link-offsite ">Contact Us</li>
+          <li className="link ">Press Kit</li>
+          <li className="link ">Contact Us</li>
         </ul>
         <p>
           <strong>© 2015-2023 Day Dreamers</strong>

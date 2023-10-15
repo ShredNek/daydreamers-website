@@ -1,13 +1,26 @@
-@use '../abstracts/colors' as c;
+@use "../abstracts/colors" as c;
 @use "../views/merch" as m;
 @use "../base";
 
 header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  min-height: 150px;
+  max-height: 250px;
 
-  #left-icons, #right-icons {
+  nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: m.$section-max-width;
+    margin: 0px auto;
+  }
+
+  #left-icons,
+  #right-icons {
+    @media (max-width: 400px) {
+      width: 40px;
+      margin: 0px 10px;
+    }
+
     margin: 0px m.$distance-between-children;
     width: 75px;
   }
@@ -20,5 +33,6 @@ header {
 
   & > * {
     margin: auto 0.5rem;
+    flex-shrink: 1;
   }
 }

@@ -40,21 +40,24 @@ a {
   height: fit-content;
 }
 
-.inline-reroute-link {
-  color: a.$daydreamer-orange;
-  text-shadow: 0px 0px 10px lighten(a.$daydreamer-orange, 10%);
-  font-weight: bold;
-  text-decoration: solid 0.75px a.$daydreamer-orange underline;
-  text-underline-offset: 2px;
-}
-
-.link-offsite {
-  color: black;
+.link {
   display: inline-block;
   width: fit-content;
   font-weight: bold;
   text-decoration: underline solid black 0.5px;
   text-underline-offset: 5px;
+
+  &.grey {
+    text-decoration-color: a.$grey;
+  }
+
+  &.orange-reroute {
+    color: a.$daydreamer-orange;
+    text-shadow: 0px 0px 10px lighten(a.$daydreamer-orange, 10%);
+    font-weight: bold;
+    text-decoration: solid 0.75px a.$daydreamer-orange underline;
+    text-underline-offset: 2px;
+  }
 }
 
 .outline-black {
@@ -75,8 +78,10 @@ a {
 }
 
 .img-parent {
+  padding: .5rem 0px;
   & > img {
-    max-height: 200px;
+    height: clamp(100px, 8rem, 200px);
+    min-width: 100px;
   }
 }
 

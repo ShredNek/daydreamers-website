@@ -15,7 +15,7 @@ export default function PageNotFound() {
       />
       <p>
         Hey bub. Looks like this page is unaccessible right now.{" "}
-        <Link to={"/"} className="inline-reroute-link">
+        <Link to={"/"} className="link orange-reroute">
           Click me to come home.
         </Link>
       </p>

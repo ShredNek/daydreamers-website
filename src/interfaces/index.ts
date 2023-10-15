@@ -2,18 +2,23 @@ export interface Stock {
   name: string;
   price: string;
   stockId: string;
-  category: merchType;
+  category: MerchType;
   imgSrc: string;
   extraImages: string[];
   dateAdded: Date;
-  availableSizes: Set<size>;
+  availableSizes: Set<Size>;
   description: string;
+}
+
+export interface CartItem extends Omit<Stock, "availableSizes" | "dateAdded"> {
+  quantity: number;
+  chosenSize: Size;
 }
 
 export interface MerchReqParams {
   stockPreferences: StockPreferences;
-  sortBy: sortType;
-  size?: size[];
+  sortBy: SortType;
+  size?: Size[];
   priceFrom?: string;
   priceTo?: string;
 }
@@ -33,9 +38,9 @@ export interface Merch {
   outOfStockQuantity: string;
 }
 
-export type size = "xs" | "s" | "m" | "l" | "xl" | "xxl";
+export type Size = "xs" | "s" | "m" | "l" | "xl" | "xxl";
 
-export type merchType =
+export type MerchType =
   | "music"
   | "music accessories"
   | "accessories"
@@ -43,7 +48,7 @@ export type merchType =
   | "decoration"
   | "miscellaneous";
 
-export type sortType =
+export type SortType =
   | "price range"
   | "size"
   | "featured"

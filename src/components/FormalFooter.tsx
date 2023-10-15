@@ -61,7 +61,7 @@ export default function FormalFooter() {
         <ul>
           {policies.map((policy, index) => (
             <li key={`${policy.name}${index}`}>
-              <a href={policy.link}>{policy.name}</a>
+              <a className="link grey" href={policy.link}>{policy.name}</a>
             </li>
           ))}
         </ul>

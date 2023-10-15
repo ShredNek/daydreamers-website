@@ -1,5 +1,6 @@
 // ? Hooks
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 // ? Components
 import IconButton from "../components/IconButton";
@@ -24,25 +25,26 @@ export default function FormalHeader() {
 
   return (
     <header>
-      <div id="left-icons">
-        <IconButton
-          onClick={() => setSearchModalOpen(true)}
-          Icon={<MagnifyingGlassIcon />}
-        />
-      </div>
-      <a href="/" className="img-parent">
-        <LazyImage
-          lowQualitySrc={LQ_DayDreamersLogo}
-          highQualitySrc={HQ_DayDreamersLogo}
-          alt="Day Dreamers official logo"
-        />
-      </a>
-      <div id="right-icons">
-        <IconButton
-          onClick={() => console.log("oi")}
-          Icon={<ShoppingBagIcon />}
-        />
-      </div>
+      <nav>
+        <li id="left-icons">
+          <IconButton
+            onClick={() => setSearchModalOpen(true)}
+            Icon={<MagnifyingGlassIcon />}
+          />
+        </li>
+        <Link to="/" className="img-parent">
+          <LazyImage
+            lowQualitySrc={LQ_DayDreamersLogo}
+            highQualitySrc={HQ_DayDreamersLogo}
+            alt="Day Dreamers official logo"
+          />
+        </Link>
+        <Link typeof="li" id="right-icons" to='/merch/cart'>
+          <IconButton
+            Icon={<ShoppingBagIcon />}
+          />
+        </Link>
+      </nav>
       <CustomDialog
         isOpen={searchModalOpen}
         onClose={() => setSearchModalOpen(false)}
