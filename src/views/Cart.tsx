@@ -1,7 +1,10 @@
 // ? components
 import FormalHeader from "../components/FormalHeader";
 import FormalFooter from "../components/FormalFooter";
+import QuantityControl from "../components/QuantityControl";
+import LazyImage from "../components/LazyImage";
 import { Link } from "react-router-dom";
+import StripePayButton from "../components/StripePayButton";
 
 // ? styles
 import "../styles/views/_cart.scss";
@@ -25,10 +28,15 @@ function convertFromStockToCartItem(
 }
 
 export default function Cart() {
-  const cnv = convertFromStockToCartItem;
   const cartItems = SampleStock.map((s, i) =>
-    i <= 2 ? cnv(s, 1, "m") : null
+    i <= 2 ? convertFromStockToCartItem(s, 1, "m") : null
   ).filter((item) => item !== null);
+
+  function calculateSubtotal() {
+    return cartItems
+      .map((item) => (item ? Number(item.price) : 0))
+      .reduce((curr, next) => curr + next);
+  }
 
   return (
     <section id="cart">
@@ -42,17 +50,51 @@ export default function Cart() {
         </div>
         <div className="item-columns titles">
           <p>product</p>
-          <p>quantity</p>
-          <p>total</p>
+          <div className="quantity-and-total">
+            <p>quantity</p>
+            <p>total</p>
+          </div>
         </div>
         <hr />
         <div className="item-columns rows">
-          {cartItems.map((e) => (
-            <div>{e?.name}</div>
-          ))}
+          {cartItems.map((item, index) =>
+            item ? (
+              <div key={index} className="item">
+                <div className="item-details">
+                  <LazyImage
+                    lowQualitySrc={item.imgSrc}
+                    highQualitySrc={item.imgSrc}
+                    alt={`One of our products - ${item.name}`}
+                  />
+                  <div>
+                    <h3>
+                      <strong>{item.name}</strong>
+                    </h3>
+                    <p>${item.price}</p>
+                    <p>{item.chosenSize.toUpperCase()}</p>
+                  </div>
+                </div>
+                <div className="quantity-and-total">
+                  <QuantityControl
+                    quantity={item.quantity}
+                    onIncrement={() => console.log("up")}
+                    onDecrement={() => console.log("daeown")}
+                  />
+                  <p>
+                    <strong> ${item.quantity * +item.price}</strong>
+                  </p>
+                </div>
+              </div>
+            ) : null
+          )}
         </div>
       </main>
-      <aside></aside>
+      <aside>
+        <h2>
+          <strong> Subtotal: ${calculateSubtotal()} </strong>
+        </h2>
+        <StripePayButton />
+      </aside>
       <FormalFooter />
     </section>
   );

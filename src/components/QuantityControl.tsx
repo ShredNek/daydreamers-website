@@ -1,22 +1,22 @@
 interface QuantityControl {
   quantity: number;
-  increment: () => void;
-  decrement: () => void;
+  onIncrement: () => void;
+  onDecrement: () => void;
 }
 
-export default function QuantityControl({ quantity, increment, decrement }: QuantityControl) {
+export default function QuantityControl({ quantity, onIncrement, onDecrement }: QuantityControl) {
   function handleIncrement(e: React.MouseEvent) {
     e.preventDefault();
-    increment()
+    onIncrement()
   }
 
   function handleDecrement(e: React.MouseEvent) {
     e.preventDefault();
-    decrement()
+    onDecrement()
   }
 
   return (
-    <div className="quantity-control">
+    <div className="button quantity-control">
       <button onClick={handleIncrement}>+</button>
       <p>{quantity}</p>
       <button onClick={handleDecrement}>-</button>
