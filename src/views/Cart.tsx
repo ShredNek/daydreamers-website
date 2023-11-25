@@ -10,13 +10,13 @@ import StripePayButton from "../components/StripePayButton";
 import "../styles/views/_cart.scss";
 
 // ? interfaces
-import { CartItem, Stock, Size } from "../interfaces";
+import { CartItem, MerchItem, Size } from "../interfaces";
 
 // ? testing
 import SampleStock from "../test/SampleStock";
 
 function convertFromStockToCartItem(
-  stock: Stock,
+  stock: MerchItem,
   quantity: number,
   chosenSize: Size
 ): CartItem {

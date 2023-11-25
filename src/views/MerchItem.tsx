@@ -33,7 +33,7 @@ export default function MerchItem() {
 
   // ? get photos
   // ! TEST
-  const currentStockItem = SampleStock.find((stock) => id === stock.stockId);
+  const currentStockItem = SampleStock.find((stock) => id === stock.merchId);
   const itemPhotos = currentStockItem?.extraImages ?? [MissingImage];
 
   return (
@@ -72,10 +72,10 @@ export default function MerchItem() {
             .filter(
               (stock) =>
                 stock.category === currentStockItem?.category &&
-                stock.stockId !== currentStockItem.stockId
+                stock.merchId !== currentStockItem.merchId
             )
             .map((stock, index) => (
-              <Link key={stock.stockId} to={`../${stock.stockId}`} relative="path">
+              <Link key={stock.merchId} to={`../${stock.merchId}`} relative="path">
                 <a className="stock-card">
                   <img
                     key={`${stock.name}-${index}`}

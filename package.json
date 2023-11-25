@@ -12,7 +12,10 @@
   "dependencies": {
     "@headlessui/react": "^1.7.17",
     "@heroicons/react": "^2.0.18",
+    "@shopify/app-bridge": "^3.7.9",
+    "@shopify/shopify-api": "^8.0.2",
     "@tailwindcss/forms": "^0.5.6",
+    "axios": "^1.6.2",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.0.0",
     "react": "^18.2.0",
@@ -20,7 +23,8 @@
     "react-icons": "^4.11.0",
     "react-router-dom": "^6.15.0",
     "sass": "^1.63.6",
-    "scss": "^0.2.4"
+    "scss": "^0.2.4",
+    "shopify-api-node": "^3.12.7"
   },
   "devDependencies": {
     "@types/node": "^20.5.7",

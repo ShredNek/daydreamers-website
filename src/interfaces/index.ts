@@ -1,29 +1,37 @@
-export interface Stock {
+export interface MerchItem {
+  merchId: string;
   name: string;
+  description: string;
   price: string;
-  stockId: string;
   category: MerchType;
+  dateAdded: Date;
   imgSrc: string;
   extraImages: string[];
-  dateAdded: Date;
-  availableSizes: Set<Size>;
-  description: string;
+  isAvailable: boolean;
 }
 
-export interface CartItem extends Omit<Stock, "availableSizes" | "dateAdded"> {
+export interface WearableItem extends MerchItem {
+  category: "clothing" | "accessories";
+  availableSizes: Set<Size>;
+  color: string;
+}
+
+export interface CartItem
+  extends Omit<MerchItem, "availableSizes" | "dateAdded"> {
+  isAvailable: true;
   quantity: number;
   chosenSize: Size;
 }
 
 export interface MerchReqParams {
-  stockPreferences: StockPreferences;
   sortBy: SortType;
+  stockPreferences: MerchPreferences;
   size?: Size[];
   priceFrom?: string;
   priceTo?: string;
 }
 
-export interface StockPreferences {
+export interface MerchPreferences {
   inStockRequested: boolean;
   outOfStockRequested: boolean;
 }
@@ -33,7 +41,7 @@ export interface SearchPreference {
   camelCaseName: string;
 }
 
-export interface Merch {
+export interface MerchAvailability {
   inStockQuantity: string;
   outOfStockQuantity: string;
 }

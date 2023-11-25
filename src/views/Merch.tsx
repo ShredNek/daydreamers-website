@@ -10,12 +10,15 @@ import SampleStock from "../test/SampleStock";
 import MissingImage from "../assets/images/misc/MissingImage.png";
 
 // ? Interfaces/Types
-import { MerchReqParams, Merch } from "../interfaces/index";
+import { MerchReqParams, MerchAvailability } from "../interfaces/index";
 import { useEffect, useState } from "react";
 import { SearchPreference } from "../interfaces/index";
 import FormalFooter from "../components/FormalFooter";
 import { Link } from "react-router-dom";
 import FormalHeader from "../components/FormalHeader";
+
+// ? Others
+import { getAllMerch } from "../api/shopify";
 
 // ? Constants
 const sortByOptions: SearchPreference[] = [
@@ -44,10 +47,14 @@ export default function Merch() {
     sortBy: "featured",
   });
 
-  const [merch, setMerch] = useState<Merch>({
+  const [merch, setMerch] = useState<MerchAvailability>({
     inStockQuantity: "0",
     outOfStockQuantity: "0",
   });
+
+  useEffect(() => {
+    console.log(getAllMerch())
+  }, [])
 
   useEffect(() => {
     // console.log(merchReqParams);
@@ -91,7 +98,7 @@ export default function Merch() {
       </form>
       <main className="collection">
         {SampleStock.map((stock, index) => (
-          <Link key={stock.stockId} to={stock.stockId}>
+          <Link key={stock.merchId} to={stock.merchId}>
             <a className="stock-card">
               <img
                 key={`${stock.name}-${index}`}
@@ -111,16 +118,6 @@ export default function Merch() {
     </section>
   );
 }
-
-// ? Footer links
-// socials
-// "official merch" sticker
-// quick links to policies:
-// - refund
-// - shipping
-// - privacy
-// country/region
-// accepted methods
 
 // ? what state do we need per item kind (in stock, out of stock etc.)?
 // ? we use this for UX - they know what's in stock

@@ -4,11 +4,14 @@ import {
   createBrowserRouter,
   RouterProvider,
 } from "react-router-dom";
+
 import Home from "./views/Home";
 import PageNotFound from "./views/PageNotFound";
 import Merch from "./views/Merch";
 import MerchItem from "./views/MerchItem";
 import Cart from "./views/Cart";
+import Checkout from "./components/Checkout";
+
 import "./styles/style.scss";
 
 const router = createBrowserRouter([
@@ -28,6 +31,10 @@ const router = createBrowserRouter([
   {
     path: "/merch/cart",
     element: <Cart />
+  },
+  {
+    path: "/checkout/:stage",
+    element: <Checkout />
   },
 ]);
 
