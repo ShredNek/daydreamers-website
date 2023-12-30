@@ -1,4 +1,7 @@
-async function proxyCall(query: string) {
+import { print } from "graphql";
+import { GET_ALL_MERCH, GET_ONE_MERCH } from "./queries";
+
+async function graphqlCall(query: string) {
   const config = {
     method: "POST",
     headers: {
@@ -8,23 +11,13 @@ async function proxyCall(query: string) {
   };
 
   const url = `${import.meta.env.VITE_SHOPIFY_MIDDLEWEAR_URL}/all`;
-
-  const res = await fetch(url, config);
-  console.log(await res.json());
-
-  return res;
+  return await fetch(url, config);
 }
 
 export async function getAllMerch() {
-  return await proxyCall("{products(first:10){edges{node{id title }}}}");
+  return await graphqlCall(print(GET_ALL_MERCH));
 }
 
-// TODO - Create a function that calls ALL products and
-// TODO - programmatically updates an object, indexed by their id's
-// TODO - which will help index images faster, for instance
-
-export async function getMerchById() {
-  return await proxyCall(
-    'query {glasses: product(id: "gid://shopify/Product/108828309") {  title  description}}'
-  );
+export async function getMerchById(id: string) {
+  return await graphqlCall(print(GET_ONE_MERCH).replace("MERCH_ID", id));
 }

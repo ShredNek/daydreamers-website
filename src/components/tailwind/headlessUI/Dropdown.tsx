@@ -41,11 +41,11 @@ export default function Dropdown({ sortBy, openToRight, className }: Dropdown) {
               } absolute max-[500px]:inset-x-0 max-[500px]:fixed max-[500px]:mx-auto  mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none`}
           >
             {sortBy
-              ? sortBy.map((preference) => {
+              ? sortBy.map((preference, index) => {
                 if (preference.camelCaseName === "availability") {
                   return (
                     <div className="">
-                      <Menu.Item>
+                      <Menu.Item key={`${preference}-${index}`}>
                         {({ active }) => (
                           <a className=" -ml-3 flex items-center rounded-lg p-2 transition duration-150 ease-in-out hover:bg-gray-50 focus:outline-none focus-visible:ring focus-visible:ring-daydreamer-orange focus-visible:ring-opacity-50">
                             <div className="ml-4 flex flex-row">
@@ -87,7 +87,7 @@ export default function Dropdown({ sortBy, openToRight, className }: Dropdown) {
                 } else {
                   return (
                     <div className="">
-                      <Menu.Item>
+                      <Menu.Item key={`${preference}-${index}`}>
                         {({ active }) => (
                           <button
                             className={`${active

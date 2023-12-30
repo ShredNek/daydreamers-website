@@ -1,10 +1,21 @@
+// ? API
+
+export type GetAllItemEdge = {
+  node: {
+    id: string;
+    title: string;
+  };
+};
+
+// ? Merch Types
+
 export interface MerchItem {
   merchId: string;
   name: string;
   description: string;
   price: string;
   category: MerchType;
-  dateAdded: Date;
+  dateAdded: string;
   imgSrc: string;
   extraImages: string[];
   isAvailable: boolean;
