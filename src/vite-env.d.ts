@@ -6,6 +6,8 @@ interface ImportMetaEnv {
   readonly VITE_SHOPIFY_SECRET_KEY: string;
   readonly VITE_SHOPIFY_SCOPES: string;
   readonly VITE_SHOPIFY_STORE_NAME: string;
+  readonly VITE_SHOPIFY_BUY_CLIENT_TOKEN: string;
+  readonly VITE_SHOPIFY_SHOP_DOMAIN: string;
   readonly VITE_SHOPIFY_MIDDLEWEAR_URL: string;
 }
 
