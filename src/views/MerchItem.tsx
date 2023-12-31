@@ -45,7 +45,7 @@ export default function MerchItem() {
                   />
                   <p>{stock.name}</p>
                   <p>
-                    <strong>{stock.price}</strong>
+                    <strong>${stock.price}</strong>
                   </p>
                 </a>
               </Link>

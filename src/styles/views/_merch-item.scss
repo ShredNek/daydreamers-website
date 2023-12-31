@@ -19,7 +19,7 @@
     font-size: .5rem;
   }
 
-  main, aside {
+  aside {
     max-width: m.$section-max-width;
     margin: 0px auto;
   }
@@ -34,9 +34,7 @@
       flex-direction: column;
     }
 
-    display: grid;
-    grid-template-columns: 1fr 1fr; 
-
+    padding: 0px 2rem;
 
     form {
       width: 100%;

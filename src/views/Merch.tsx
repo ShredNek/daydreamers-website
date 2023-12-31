@@ -45,7 +45,7 @@ export default function Merch() {
     sortBy: "featured",
   });
 
-  const [merch, setMerch] = useState<MerchItem[] | null>(null);
+  const [allMerch, setMerch] = useState<MerchItem[] | null>(null);
 
   const [merchAvailability, setMerchAvailability] = useState<MerchAvailability>({
     inStockQuantity: "0",
@@ -55,7 +55,6 @@ export default function Merch() {
   const callAllMerch = async () => {
     const rawRes = await (await getAllMerch()).json();
     const allEdges: GetAllItemEdge[] = rawRes.data.products.edges.map((e: GetAllItemEdge) => e);
-    console.log(await getItemVariants(allEdges[0].node.id.split("/").pop()!));
 
     return Promise.allSettled(
       allEdges.map(async e => {
@@ -70,17 +69,10 @@ export default function Merch() {
       }))
   }
 
-  const getItemVariants = async (id: string) => {
-    // Use Promise.all to wait for all promises to resolve concurrently
-    const response = await getMerchById(id);
-    return response.json(); // Assuming getMerchById returns a Promise
-  }
-
   const getMediumSizeDetails = async (id: string) => {
     const res = await (await getMerchById(id)).json()
     const allEdges = res.data.product.variants.edges
     const selectedItem = allEdges.find((i: any) => i.node.selectedOptions[0].value === "M" ? i.node.selectedOptions[0] : null)
-    console.log(selectedItem)
     return { price: selectedItem.node.price, imageSrc: selectedItem.node.image.src }
   }
 
@@ -115,7 +107,7 @@ export default function Merch() {
       <div className="banner">
         <h1 className="heading left"> MERCHANDISE</h1>
       </div>
-      <form action="GET" id="stock-params">
+      <form action="GET" id="merch-params">
         <div id="large-screen">
           {/* // ? Greater than 900px  */}
           <aside className="options">
@@ -146,18 +138,18 @@ export default function Merch() {
         </div>
       </form>
       <main className="collection">
-        {merch !== null ? merch.map((stock, index) => (
-          <Link key={stock.merchId} to={stock.merchId}>
-            <a className="stock-card">
+        {allMerch !== null ? allMerch.map((merch, index) => (
+          <Link key={merch.merchId} to={merch.merchId}>
+            <a className="merch-card">
               <img
-                key={`${stock.name}-${index}`}
-                src={stock.imgSrc}
+                key={`${merch.name}-${index}`}
+                src={merch.imgSrc}
                 onError={(e) => (e.currentTarget.src = MissingImage)}
-                alt={`an image of${stock.imgSrc}`}
+                alt={`an image of${merch.imgSrc}`}
               />
-              <p>{stock.name}</p>
+              <p>{merch.name}</p>
               <p>
-                <strong>{stock.price}</strong>
+                <strong>${merch.price}</strong>
               </p>
             </a>
           </Link>

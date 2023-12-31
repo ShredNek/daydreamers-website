@@ -10,7 +10,7 @@ import CustomDialog from "./tailwind/headlessUI/CustomDialog";
 // ? Icons
 import {
   MagnifyingGlassIcon,
-  ShoppingBagIcon,
+  ChevronLeftIcon
 } from "@heroicons/react/24/outline";
 
 // ? Images
@@ -26,12 +26,14 @@ export default function FormalHeader() {
   return (
     <header>
       <nav>
-        <li id="left-icons">
-          <IconButton
-            onClick={() => setSearchModalOpen(true)}
-            Icon={<MagnifyingGlassIcon />}
-          />
-        </li>
+        <Link is="li" id="left-icons" to={"/merch"}>
+          {
+            window.location.href.split("/").pop() !== "merch" ?
+              (<IconButton
+                Icon={<ChevronLeftIcon />}
+              />) : <></>
+          }
+        </Link>
         <Link to="/" className="img-parent">
           <LazyImage
             lowQualitySrc={LQ_DayDreamersLogo}
@@ -39,11 +41,12 @@ export default function FormalHeader() {
             alt="Day Dreamers official logo"
           />
         </Link>
-        <Link typeof="li" id="right-icons" to='/merch/cart'>
+        <li id="right-icons">
           <IconButton
-            Icon={<ShoppingBagIcon />}
+            onClick={() => setSearchModalOpen(true)}
+            Icon={<MagnifyingGlassIcon />}
           />
-        </Link>
+        </li>
       </nav>
       <CustomDialog
         isOpen={searchModalOpen}

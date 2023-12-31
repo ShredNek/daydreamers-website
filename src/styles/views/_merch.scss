@@ -1,4 +1,4 @@
-@use '../abstracts/colors' as c;
+@use "../abstracts/colors" as c;
 @use "../base";
 
 // ? ? ? ? ? ?
@@ -15,13 +15,13 @@ $merch-font: Urbanist;
   h1 {
     font-family: $merch-font;
   }
-  
+
   .banner {
     background-color: black;
     color: white;
   }
 
-  #stock-params {
+  #merch-params {
     #large-screen,
     #small-screen {
       justify-content: space-between;
@@ -80,17 +80,52 @@ $merch-font: Urbanist;
     }
   }
 
-  .stock-card {
+  .merch-card {
+    display: block;
     min-width: 100px;
     max-width: 300px;
-    height: 300px;
+    min-height: 300px;
     margin: auto;
+    transform: scale(100%);
+
+    transition: box-shadow .33s ease-out, transform .5s ease-out;
+
+    $border-color: rgb(236, 236, 236);
+    border: $border-color 1px solid;
+    overflow: hidden;
+    border-radius: 5px;
+
+    img {
+      border-bottom-left-radius: 5px;
+      border-bottom-right-radius: 5px;
+      border-bottom: $border-color 1.5px solid;
+    }
+
+    & > *:not(img) {
+      padding: 1rem 1rem 0.5rem;
+
+      &:not(:last-child)::after {
+        content: '';
+        display: block;
+        border-bottom: $border-color solid .5px;
+        padding-top: .5rem;
+      }
+    }
+
+    & > *:last-child {
+      padding: 0rem 1rem 1rem;
+    }
+
+    &:hover {
+      transform: scale(102%);
+      box-shadow: -5px -10px 50px -20px c.$daydreamer-blue, 7px 3px 50px -20px c.$daydreamer-orange, 0px 0px 40px -20px c.$grey, ;
+    }
   }
 
   @media (min-width: $section-max-width) {
     header,
     h1,
-    #stock-params,
+    #merch-params,
     .collection {
       width: $section-max-width;
       margin-left: auto;

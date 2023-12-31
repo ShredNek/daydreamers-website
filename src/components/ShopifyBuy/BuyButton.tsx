@@ -1,5 +1,3 @@
-{/* <div id='product-component-1703987104859'></div> */ }
-
 import { useEffect } from "react";
 import { buyButtonScript } from "../../helper/buyButton"
 
