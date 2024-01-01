@@ -1,4 +1,4 @@
-import { MerchItem } from "../interfaces";
+import { MerchItem } from "../types";
 
 const SampleStock: MerchItem[] = [
   {

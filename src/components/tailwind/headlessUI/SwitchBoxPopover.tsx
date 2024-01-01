@@ -1,7 +1,7 @@
 import "../../../styles/vendor/tailwind.css";
 import { Popover, Transition } from "@headlessui/react";
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
-import { MerchPreferences } from "../../../interfaces";
+import { StockPresencePreferences } from "../../../types";
 import { Fragment } from "react";
 import Switch from "./Switch";
 
@@ -20,8 +20,8 @@ const stockOptions = [
 // ? don't need to yet
 
 interface SwitchBoxPopover {
-  state: MerchPreferences;
-  changeStockPreferenceState: (stock: MerchPreferences) => void;
+  state: StockPresencePreferences;
+  changeStockPreferenceState: (stock: StockPresencePreferences) => void;
   openDirection: "left" | "right";
   compactStyle?: boolean;
 }
@@ -35,13 +35,13 @@ export default function SwitchBoxPopover({ state, changeStockPreferenceState, op
     // ? inStockRequested or outOfStockRequested
     // ? (each is a key of StockPreferences)
     // TODO - Type-guard this somehow?
-    const switchPressed = e?.currentTarget.id as keyof MerchPreferences
+    const switchPressed = e?.currentTarget.id as keyof StockPresencePreferences
 
     // ? Extract the current state of our switch from the state object
     const isRequested = state[switchPressed]
 
     // ? we index with the switchPressed, because it is a key of the state object
-    const newState: MerchPreferences = {
+    const newState: StockPresencePreferences = {
       ...state, [switchPressed]: isRequested ? false : true
     }
     changeStockPreferenceState(newState)
@@ -100,7 +100,7 @@ export default function SwitchBoxPopover({ state, changeStockPreferenceState, op
                         className={`${compactStyle ? null : "-my-3 -ml-3"} flex items-center rounded-lg p-2 transition duration-150 ease-in-out hover:bg-gray-50 focus:outline-none focus-visible:ring focus-visible:ring-daydreamer-orange focus-visible:ring-opacity-50`}
                       >
                         <div className="ml-4 flex flex-row">
-                          <Switch className={"mr-4"} onClick={handleSwitch} id={item.stateName} enabled={state ? state[item.stateName as keyof MerchPreferences] : false} />
+                          <Switch className={"mr-4"} onClick={handleSwitch} id={item.stateName} enabled={state ? state[item.stateName as keyof StockPresencePreferences] : false} />
                           <p className="text-sm font-medium text-gray-900">
                             {item.name}
                           </p>

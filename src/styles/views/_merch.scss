@@ -74,6 +74,7 @@ $merch-font: Urbanist;
     grid-template-columns: 1fr 1fr 1fr 1fr;
 
     padding: 2rem 1rem;
+    gap: 2rem;
 
     @media (max-width: 1000px) {
       grid-template-columns: 1fr 1fr;
@@ -82,9 +83,8 @@ $merch-font: Urbanist;
 
   .merch-card {
     display: block;
-    min-width: 100px;
-    max-width: 300px;
-    min-height: 300px;
+    width: 200px;
+    height: 400px;
     margin: auto;
     transform: scale(100%);
 
@@ -99,6 +99,9 @@ $merch-font: Urbanist;
       border-bottom-left-radius: 5px;
       border-bottom-right-radius: 5px;
       border-bottom: $border-color 1.5px solid;
+      object-fit: cover;
+      margin: auto;
+      height: 300px
     }
 
     & > *:not(img) {

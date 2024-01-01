@@ -10,7 +10,7 @@ import StripePayButton from "../components/StripePayButton";
 import "../styles/views/_cart.scss";
 
 // ? interfaces
-import { CartItem, MerchItem, Size } from "../interfaces";
+import { CartItem, MerchItem, Size } from "../types";
 
 // ? testing
 import SampleStock from "../test/SampleStock";

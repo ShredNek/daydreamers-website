@@ -1,19 +1,44 @@
 import { Menu, Transition } from "@headlessui/react";
-import { Fragment } from "react";
+import React, { Fragment } from "react";
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
 import PriceInput from "./PriceInput";
 import Switch from "./Switch";
 
-import { SearchPreference } from "../../../interfaces";
+import { ExtraSearchPreference, MerchReqParams, SearchPreference, SortType, StockPresencePreferences } from "../../../types";
 
 interface Dropdown {
   sortBy: SearchPreference[];
+  onSelect: {
+    state: MerchReqParams,
+    setState: React.Dispatch<React.SetStateAction<MerchReqParams>>
+  };
+  extraOptions?: ExtraSearchPreference[]
   openToRight?: boolean;
   className?: string;
 }
 
-export default function Dropdown({ sortBy, openToRight, className }: Dropdown) {
-  function handleSwitch() { }
+export default function Dropdown({ sortBy, onSelect, extraOptions, openToRight, className }: Dropdown) {
+  const handleSwitch = (e?: React.MouseEvent<HTMLButtonElement>) => {
+    if (e) {
+      e.preventDefault()
+      console.log(JSON.parse(e.currentTarget.id))
+      onSelect.setState({
+        ...onSelect.state,
+        stockPreferences: JSON.parse(e.currentTarget.id) as StockPresencePreferences
+      })
+    }
+  }
+
+  const handleOptionClick = (e?: React.MouseEvent<HTMLButtonElement>) => {
+    if (e) {
+      e.preventDefault()
+      console.log(e.currentTarget.value)
+      onSelect.setState({
+        ...onSelect.state,
+        sortBy: e.currentTarget.value as SortType
+      })
+    }
+  }
 
   return (
     <div className={className}>
@@ -38,15 +63,82 @@ export default function Dropdown({ sortBy, openToRight, className }: Dropdown) {
         >
           <Menu.Items
             className={`${openToRight === true ? "left-0" : "right-0"
-              } absolute max-[500px]:inset-x-0 max-[500px]:fixed max-[500px]:mx-auto  mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none`}
+              } z-10 absolute max-[500px]:inset-x-0 max-[500px]:mx-auto  mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none`}
           >
-            {sortBy
+
+            {/* // ? Main preference */}
+            {sortBy ? sortBy.map((preference, index) => {
+              return (
+                <div key={`${preference}-${index}`}>
+                  <Menu.Item >
+                    {({ active }) => (
+                      <button
+                        value={preference.camelCaseName}
+                        onClick={handleOptionClick}
+                        className={`${active
+                          ? "bg-daydreamer-orange text-white"
+                          : "text-gray-900"
+                          } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
+                      >
+                        {preference.name}
+                      </button>
+                    )}
+                  </Menu.Item>
+                </div>
+              );
+            }) : null}
+
+            {/* // ? Extra options */}
+            {extraOptions ? extraOptions.map((option, index) => {
+              if (option.componentType === "switch") {
+                return (
+                  <div key={`${option}-${index}`}>
+                    <Menu.Item >
+                      <a className=" -ml-3 flex items-center rounded-lg p-2 transition duration-150 ease-in-out hover:bg-gray-50 focus:outline-none focus-visible:ring focus-visible:ring-daydreamer-orange focus-visible:ring-opacity-50">
+                        <div className="ml-4 flex flex-row">
+                          <Switch
+                            id={`${JSON.stringify(option.stockPresencePreference)}`}
+                            className={"mr-4"}
+                            onClick={handleSwitch}
+                            enabled={false}
+                          />
+                          <p className="text-sm font-medium text-gray-900">
+                            {option.name}
+                          </p>
+                        </div>
+                      </a>
+                    </Menu.Item>
+                  </div>
+                );
+              } else if (option.componentType === "price range") {
+                return (
+                  <div key={`${option.name}-${index}`}>
+                    <Menu.Item >
+                      {({ active }) => (
+                        <div
+                          className={`${active
+                            ? "bg-daydreamer-orange text-white"
+                            : "text-gray-900"
+                            } relative grid gap-8 bg-white p-2 lg:grid-cols-2`}
+                        >
+                          <div className=" flex flex-row gap-4">
+                            <PriceInput placeholder="from" compactStyle={true} />
+                            <PriceInput placeholder="to" compactStyle={true} />
+                          </div>
+                        </div>
+                      )}
+                    </Menu.Item>
+                  </div>
+                );
+              }
+            }) : null}
+            {/* {sortBy
               ? sortBy.map((preference, index) => {
                 if (preference.camelCaseName === "availability") {
                   return (
-                    <div className="">
-                      <Menu.Item key={`${preference}-${index}`}>
-                        {({ active }) => (
+                    <div key={`${preference}-${index}`}>
+                      <Menu.Item >
+                        {(
                           <a className=" -ml-3 flex items-center rounded-lg p-2 transition duration-150 ease-in-out hover:bg-gray-50 focus:outline-none focus-visible:ring focus-visible:ring-daydreamer-orange focus-visible:ring-opacity-50">
                             <div className="ml-4 flex flex-row">
                               <Switch
@@ -64,10 +156,10 @@ export default function Dropdown({ sortBy, openToRight, className }: Dropdown) {
                       </Menu.Item>
                     </div>
                   );
-                } else if (preference.camelCaseName === "priceRange") {
+                } else if (extraOptions && extraOptions) {
                   return (
-                    <div className="">
-                      <Menu.Item>
+                    <div key={`${preference}-${index}`}>
+                      <Menu.Item >
                         {({ active }) => (
                           <div
                             className={`${active
@@ -86,10 +178,12 @@ export default function Dropdown({ sortBy, openToRight, className }: Dropdown) {
                   );
                 } else {
                   return (
-                    <div className="">
-                      <Menu.Item key={`${preference}-${index}`}>
+                    <div key={`${preference}-${index}`}>
+                      <Menu.Item >
                         {({ active }) => (
                           <button
+                            value={preference.camelCaseName}
+                            onClick={handleOptionClick}
                             className={`${active
                               ? "bg-daydreamer-orange text-white"
                               : "text-gray-900"
@@ -103,7 +197,7 @@ export default function Dropdown({ sortBy, openToRight, className }: Dropdown) {
                   );
                 }
               })
-              : null}
+              : null} */}
           </Menu.Items>
         </Transition>
       </Menu>

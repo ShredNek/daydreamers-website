@@ -9,17 +9,22 @@ export type GetAllItemEdge = {
 
 // ? Merch Types
 
-export interface MerchItem {
+export type Size = "XS" | "S" | "M" | "L" | "XL" | "XXL";
+
+export type SizesAvailable = { [K in Size]: number };
+
+export type MerchItem = {
   merchId: string;
   name: string;
   description: string;
   price: string;
   category: MerchType;
-  dateAdded: string;
+  sizesAvailable: SizesAvailable;
+  dateAdded: Date;
   imgSrc: string;
   extraImages: string[];
-  isAvailable: boolean;
-}
+  featured: boolean;
+};
 
 export interface WearableItem extends MerchItem {
   category: "clothing" | "accessories";
@@ -34,30 +39,33 @@ export interface CartItem
   chosenSize: Size;
 }
 
-export interface MerchReqParams {
+export type MerchReqParams = {
   sortBy: SortType;
-  stockPreferences: MerchPreferences;
-  size?: Size[];
+  stockPreferences: StockPresencePreferences;
   priceFrom?: string;
   priceTo?: string;
-}
+};
 
-export interface MerchPreferences {
+export type StockPresencePreferences = {
   inStockRequested: boolean;
   outOfStockRequested: boolean;
-}
+};
 
-export interface SearchPreference {
+export type SearchPreference = {
   name: string;
-  camelCaseName: string;
-}
+  camelCaseName: SortType;
+};
 
-export interface MerchAvailability {
+export type ExtraSearchPreference = {
+  name: string;
+  componentType: "switch" | "price range";
+  stockPresencePreference?: StockPresencePreferences;
+};
+
+export type MerchAvailability = {
   inStockQuantity: string;
   outOfStockQuantity: string;
-}
-
-export type Size = "xs" | "s" | "m" | "l" | "xl" | "xxl";
+};
 
 export type MerchType =
   | "music"
@@ -68,12 +76,13 @@ export type MerchType =
   | "miscellaneous";
 
 export type SortType =
-  | "price range"
-  | "size"
+  | MerchType
   | "featured"
   | "a to z"
   | "z to a"
   | "highest price"
   | "lowest price"
   | "newest"
-  | "oldest";
+  | "oldest"
+  | "availability"
+  | "best selling";

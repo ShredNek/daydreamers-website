@@ -7,33 +7,33 @@ import Dropdown from "../components/tailwind/headlessUI/Dropdown";
 import MissingImage from "../assets/images/misc/MissingImage.png";
 
 // ? Interfaces/Types
-import { MerchReqParams, MerchAvailability, GetAllItemEdge, MerchItem } from "../interfaces/index";
+import { MerchReqParams, MerchAvailability, GetAllItemEdge, MerchItem, SearchPreference, ExtraSearchPreference } from "../types/index";
 import { useEffect, useState } from "react";
-import { SearchPreference } from "../interfaces/index";
 import FormalFooter from "../components/FormalFooter";
-import { Link } from "react-router-dom";
 import FormalHeader from "../components/FormalHeader";
+import { Link } from "react-router-dom";
 
 // ? Others
 import { getAllMerch, getMerchById } from "../api/shopify";
 import Spinner from "../components/Spinner";
+import { sortMerchByOptions } from "../helper/sortMerchByOption";
 
 // ? Constants
 const sortByOptions: SearchPreference[] = [
   { name: "Featured", camelCaseName: "featured" },
-  { name: "Best Selling", camelCaseName: "bestSelling" },
-  { name: "Alphabetically (A-Z)", camelCaseName: "alphabeticallyAZ" },
-  { name: "Alphabetically (Z-A)", camelCaseName: "alphabeticallyZA" },
-  { name: "Price (Hi-Lo)", camelCaseName: "priceHiLo" },
-  { name: "Price (Lo-Hi)", camelCaseName: "priceLoHi" },
-  { name: "Date (Newest)", camelCaseName: "dateNewest" },
-  { name: "Date (Oldest)", camelCaseName: "dateOldest" },
+  { name: "Best Selling", camelCaseName: "best selling" },
+  { name: "Alphabetically (A-Z)", camelCaseName: "a to z" },
+  { name: "Alphabetically (Z-A)", camelCaseName: "z to a" },
+  { name: "Price (Hi-Lo)", camelCaseName: "highest price" },
+  { name: "Price (Lo-Hi)", camelCaseName: "lowest price" },
+  { name: "Date (Newest)", camelCaseName: "newest" },
+  { name: "Date (Oldest)", camelCaseName: "oldest" },
 ];
 
-const extraSortByOptions: SearchPreference[] = [
-  { name: "Price range", camelCaseName: "priceRange" },
-  { name: "In Stock", camelCaseName: "availability" },
-  { name: "Out Of Stock", camelCaseName: "availability" },
+const extraSortByOptions: ExtraSearchPreference[] = [
+  { name: "Price range", componentType: 'price range' },
+  { name: "In Stock", componentType: 'switch', stockPresencePreference: { inStockRequested: true, outOfStockRequested: false } },
+  { name: "Out Of Stock", componentType: 'switch', stockPresencePreference: { inStockRequested: false, outOfStockRequested: true } },
 ];
 
 export default function Merch() {
@@ -45,7 +45,7 @@ export default function Merch() {
     sortBy: "featured",
   });
 
-  const [allMerch, setMerch] = useState<MerchItem[] | null>(null);
+  const [allMerch, setAllMerch] = useState<MerchItem[]>([]);
 
   const [merchAvailability, setMerchAvailability] = useState<MerchAvailability>({
     inStockQuantity: "0",
@@ -53,33 +53,39 @@ export default function Merch() {
   });
 
   const callAllMerch = async () => {
+    // ? Call all products
     const rawRes = await (await getAllMerch()).json();
     const allEdges: GetAllItemEdge[] = rawRes.data.products.edges.map((e: GetAllItemEdge) => e);
 
+    console.log(allEdges)
+
     return Promise.allSettled(
-      allEdges.map(async e => {
+      allEdges.map(async (e, index) => {
         const id = e.node.id.split("/").pop()!;
-        const itemDetails = await getMediumSizeDetails(id);
+
+        // Introduce a delay between calls
+        let delay = 750
+        await new Promise(resolve => setTimeout(resolve, delay * index));
+
+        const itemDetails = await getFirstVariantDetails(id);
         return {
           id: id,
           title: e.node.title,
           price: itemDetails.price,
           imageSrc: itemDetails.imageSrc
-        }
-      }))
+        };
+      })
+    );
   }
 
-  const getMediumSizeDetails = async (id: string) => {
+  const getFirstVariantDetails = async (id: string) => {
     const res = await (await getMerchById(id)).json()
-    const allEdges = res.data.product.variants.edges
-    const selectedItem = allEdges.find((i: any) => i.node.selectedOptions[0].value === "M" ? i.node.selectedOptions[0] : null)
+    const selectedItem = res.data.product.variants.edges[0]
     return { price: selectedItem.node.price, imageSrc: selectedItem.node.image.src }
   }
 
   useEffect(() => {
-    // console.log(merchReqParams);
     callAllMerch()
-      // .then(allMerch => console.log(allMerch))
       .then(allMerch => {
         let formattedItems: MerchItem[] = [];
         allMerch.forEach(merch => {
@@ -90,16 +96,36 @@ export default function Merch() {
               description: merch.value.title,
               price: merch.value.price,
               category: "clothing",
-              dateAdded: new Date().toLocaleDateString(),
+              dateAdded: new Date(),
               imgSrc: merch.value.imageSrc,
               extraImages: [merch.value.imageSrc, 'unknown.jpg'],
-              isAvailable: true,
+              featured: false,
+              sizesAvailable: {
+                "XS": 0,
+                "S": 1,
+                "M": 1,
+                "L": 0,
+                "XL": 2,
+                "XXL": 3
+              },
             })
           }
         })
-        setMerch(formattedItems)
+        setAllMerch(formattedItems)
       })
-  }, [merchReqParams]);
+  }, []);
+
+  useEffect(() => {
+    if (allMerch.length < 1)
+      setAllMerch(
+        sortMerchByOptions(
+          allMerch,
+          merchReqParams.sortBy,
+          merchReqParams.priceFrom,
+          merchReqParams.priceTo
+        ))
+    console.log(allMerch)
+  }, [merchReqParams])
 
   return (
     <section id="merch">
@@ -107,7 +133,7 @@ export default function Merch() {
       <div className="banner">
         <h1 className="heading left"> MERCHANDISE</h1>
       </div>
-      <form action="GET" id="merch-params">
+      <form id="merch-params">
         <div id="large-screen">
           {/* // ? Greater than 900px  */}
           <aside className="options">
@@ -131,16 +157,19 @@ export default function Merch() {
           <aside className="options column">
             <span>Sort by:</span>
             <Dropdown
-              sortBy={[...sortByOptions, ...extraSortByOptions]}
+              sortBy={[...sortByOptions]}
+              extraOptions={[...extraSortByOptions]}
               openToRight={true}
+              onSelect={{ state: merchReqParams, setState: setMerchReqParams }}
             />
           </aside>
         </div>
       </form>
       <main className="collection">
-        {allMerch !== null ? allMerch.map((merch, index) => (
-          <Link key={merch.merchId} to={merch.merchId}>
-            <a className="merch-card">
+        {allMerch.length
+          ?
+          allMerch.map((merch, index) => (
+            <Link key={merch.merchId} to={merch.merchId} className="merch-card">
               <img
                 key={`${merch.name}-${index}`}
                 src={merch.imgSrc}
@@ -151,9 +180,11 @@ export default function Merch() {
               <p>
                 <strong>${merch.price}</strong>
               </p>
-            </a>
-          </Link>
-        )) : <Spinner />}
+            </Link>
+          ))
+          :
+          <Spinner />
+        }
       </main>
       <FormalFooter />
     </section>
@@ -173,3 +204,4 @@ export default function Merch() {
 // date (New to Old)
 
 // ? We need to have everything on the parent (Merch page)
+

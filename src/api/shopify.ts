@@ -2,7 +2,7 @@ import { print } from "graphql";
 import { GET_ALL_MERCH, GET_ONE_MERCH } from "./queries";
 
 async function graphqlCall(query: string) {
-  const config = {
+  const config: RequestInit = {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
