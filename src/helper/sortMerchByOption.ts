@@ -63,6 +63,8 @@ export const sortMerchByOptions = (
 ): MerchItem[] => {
   const sortedItems = [...unsortedItems];
 
+  console.log(sortedItems);
+
   if (!sortedItems.length) return sortedItems;
 
   if (priceFrom && priceTo) {
@@ -117,6 +119,9 @@ export const sortMerchByOptions = (
     case "featured":
       return sortedItems.filter((merch) => merch.featured);
     default:
+      console.error(
+        "Unidentified sortOption provided as an argument - no sorting done"
+      );
       return sortedItems;
   }
 };

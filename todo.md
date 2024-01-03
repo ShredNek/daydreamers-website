@@ -19,3 +19,4 @@
 ## misc
 - logic for basic price for each item √
 - logic for sorting items based on category
+- logic for state being passed to dropdown children

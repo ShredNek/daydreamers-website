@@ -3,7 +3,7 @@ import { Switch } from '@headlessui/react'
 
 interface CustomSwitch {
   className: string;
-  onClick: (e?: MouseEvent<HTMLButtonElement>) => void;
+  onClick: (e: MouseEvent<HTMLButtonElement>) => void;
   id: string;
   enabled: boolean;
 }

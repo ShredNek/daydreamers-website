@@ -43,14 +43,11 @@ export default function Merch() {
       outOfStockRequested: false,
     },
     sortBy: "featured",
+    priceFrom: "",
+    priceTo: ""
   });
 
   const [allMerch, setAllMerch] = useState<MerchItem[]>([]);
-
-  const [merchAvailability, setMerchAvailability] = useState<MerchAvailability>({
-    inStockQuantity: "0",
-    outOfStockQuantity: "0",
-  });
 
   const callAllMerch = async () => {
     // ? Call all products
@@ -64,7 +61,7 @@ export default function Merch() {
         const id = e.node.id.split("/").pop()!;
 
         // Introduce a delay between calls
-        let delay = 750
+        let delay = 500
         await new Promise(resolve => setTimeout(resolve, delay * index));
 
         const itemDetails = await getFirstVariantDetails(id);
@@ -116,6 +113,7 @@ export default function Merch() {
   }, []);
 
   useEffect(() => {
+    console.log("merch req params change")
     if (allMerch.length < 1)
       setAllMerch(
         sortMerchByOptions(
@@ -124,7 +122,7 @@ export default function Merch() {
           merchReqParams.priceFrom,
           merchReqParams.priceTo
         ))
-    console.log(allMerch)
+    // console.log(allMerch)
   }, [merchReqParams])
 
   return (
@@ -149,7 +147,11 @@ export default function Merch() {
           </aside>
           <aside className="options">
             <span>Sort by:</span>
-            <Dropdown sortBy={sortByOptions} />
+            <Dropdown
+              mainOptions={sortByOptions}
+              merchReqState={merchReqParams}
+              onMerchReqChange={setMerchReqParams}
+            />
           </aside>
         </div>
         <div id="small-screen">
@@ -157,10 +159,11 @@ export default function Merch() {
           <aside className="options column">
             <span>Sort by:</span>
             <Dropdown
-              sortBy={[...sortByOptions]}
+              mainOptions={[...sortByOptions]}
               extraOptions={[...extraSortByOptions]}
               openToRight={true}
-              onSelect={{ state: merchReqParams, setState: setMerchReqParams }}
+              merchReqState={merchReqParams}
+              onMerchReqChange={setMerchReqParams}
             />
           </aside>
         </div>

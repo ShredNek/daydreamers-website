@@ -7,35 +7,57 @@ import Switch from "./Switch";
 import { ExtraSearchPreference, MerchReqParams, SearchPreference, SortType, StockPresencePreferences } from "../../../types";
 
 interface Dropdown {
-  sortBy: SearchPreference[];
-  onSelect: {
-    state: MerchReqParams,
-    setState: React.Dispatch<React.SetStateAction<MerchReqParams>>
-  };
+  mainOptions: SearchPreference[];
+  merchReqState: MerchReqParams,
+  onMerchReqChange: React.Dispatch<React.SetStateAction<MerchReqParams>>
   extraOptions?: ExtraSearchPreference[]
   openToRight?: boolean;
   className?: string;
 }
 
-export default function Dropdown({ sortBy, onSelect, extraOptions, openToRight, className }: Dropdown) {
-  const handleSwitch = (e?: React.MouseEvent<HTMLButtonElement>) => {
-    if (e) {
-      e.preventDefault()
-      console.log(JSON.parse(e.currentTarget.id))
-      onSelect.setState({
-        ...onSelect.state,
-        stockPreferences: JSON.parse(e.currentTarget.id) as StockPresencePreferences
-      })
+export default function Dropdown({ mainOptions, merchReqState, onMerchReqChange, extraOptions, openToRight, className }: Dropdown) {
+  const handleSwitch = (e: React.MouseEvent<HTMLButtonElement>, stockPreferences: StockPresencePreferences) => {
+    e.preventDefault()
+    const currStockIndex = e.currentTarget.id as keyof StockPresencePreferences
+
+    const newState = {
+      ...merchReqState,
+      stockPreferences: {
+        ...merchReqState.stockPreferences,
+        [currStockIndex]: stockPreferences[currStockIndex] ? false : true
+      }
+    }
+
+    onMerchReqChange(newState)
+  }
+
+  const handleOptionClick = (e: React.MouseEvent<HTMLButtonElement>, sortBy: SortType) => {
+    e.preventDefault()
+    setTimeout(() => {
+      onMerchReqChange({ ...merchReqState, sortBy })
+    }, 500)
+  }
+
+  const isEnabled: (stockOption: string) => boolean = (stockOption) => {
+    const stockOptionKey = stockOption as keyof StockPresencePreferences;
+    if (merchReqState.stockPreferences[stockOptionKey] !== undefined) {
+      return merchReqState.stockPreferences[stockOptionKey];
+    } else {
+      console.log("Warning: stockOption not a keyof StockPresencePreferences")
+      return false;
     }
   }
 
-  const handleOptionClick = (e?: React.MouseEvent<HTMLButtonElement>) => {
-    if (e) {
-      e.preventDefault()
-      console.log(e.currentTarget.value)
-      onSelect.setState({
-        ...onSelect.state,
-        sortBy: e.currentTarget.value as SortType
+  const onInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void = (e) => {
+    const currentElementId = e.currentTarget.id as keyof MerchReqParams
+
+    const currentElementIsValid = () => merchReqState[currentElementId] !== undefined
+    const inputIsValid = () => /^(\d+(\.\d{0,2})?|0*\.?\d{0,2})?$/.test(e.currentTarget.value)
+
+    if (inputIsValid() && currentElementIsValid()) {
+      onMerchReqChange({
+        ...merchReqState,
+        [currentElementId]: e.currentTarget.value
       })
     }
   }
@@ -67,20 +89,19 @@ export default function Dropdown({ sortBy, onSelect, extraOptions, openToRight, 
           >
 
             {/* // ? Main preference */}
-            {sortBy ? sortBy.map((preference, index) => {
+            {mainOptions ? mainOptions.map((option, index) => {
               return (
-                <div key={`${preference}-${index}`}>
+                <div key={`${option}-${index}`}>
                   <Menu.Item >
                     {({ active }) => (
                       <button
-                        value={preference.camelCaseName}
-                        onClick={handleOptionClick}
+                        onClick={(e: React.MouseEvent<HTMLButtonElement>) => handleOptionClick(e, option.camelCaseName)}
                         className={`${active
                           ? "bg-daydreamer-orange text-white"
                           : "text-gray-900"
                           } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
                       >
-                        {preference.name}
+                        {option.name}
                       </button>
                     )}
                   </Menu.Item>
@@ -90,17 +111,18 @@ export default function Dropdown({ sortBy, onSelect, extraOptions, openToRight, 
 
             {/* // ? Extra options */}
             {extraOptions ? extraOptions.map((option, index) => {
-              if (option.componentType === "switch") {
+
+              if (option.componentType === "switch" && option.stockPresencePreference) {
                 return (
                   <div key={`${option}-${index}`}>
                     <Menu.Item >
                       <a className=" -ml-3 flex items-center rounded-lg p-2 transition duration-150 ease-in-out hover:bg-gray-50 focus:outline-none focus-visible:ring focus-visible:ring-daydreamer-orange focus-visible:ring-opacity-50">
                         <div className="ml-4 flex flex-row">
                           <Switch
-                            id={`${JSON.stringify(option.stockPresencePreference)}`}
+                            id={Object.keys(option.stockPresencePreference)[index - 1]}
                             className={"mr-4"}
-                            onClick={handleSwitch}
-                            enabled={false}
+                            onClick={(e: React.MouseEvent<HTMLButtonElement>) => handleSwitch(e, merchReqState.stockPreferences)}
+                            enabled={isEnabled(Object.keys(option.stockPresencePreference)[index - 1])}
                           />
                           <p className="text-sm font-medium text-gray-900">
                             {option.name}
@@ -122,8 +144,8 @@ export default function Dropdown({ sortBy, onSelect, extraOptions, openToRight, 
                             } relative grid gap-8 bg-white p-2 lg:grid-cols-2`}
                         >
                           <div className=" flex flex-row gap-4">
-                            <PriceInput placeholder="from" compactStyle={true} />
-                            <PriceInput placeholder="to" compactStyle={true} />
+                            <PriceInput placeholder="from" id={"priceFrom"} currState={merchReqState.priceFrom} onChange={onInputChange} />
+                            <PriceInput placeholder="to" id={"priceTo"} currState={merchReqState.priceTo} onChange={onInputChange} />
                           </div>
                         </div>
                       )}
@@ -132,72 +154,6 @@ export default function Dropdown({ sortBy, onSelect, extraOptions, openToRight, 
                 );
               }
             }) : null}
-            {/* {sortBy
-              ? sortBy.map((preference, index) => {
-                if (preference.camelCaseName === "availability") {
-                  return (
-                    <div key={`${preference}-${index}`}>
-                      <Menu.Item >
-                        {(
-                          <a className=" -ml-3 flex items-center rounded-lg p-2 transition duration-150 ease-in-out hover:bg-gray-50 focus:outline-none focus-visible:ring focus-visible:ring-daydreamer-orange focus-visible:ring-opacity-50">
-                            <div className="ml-4 flex flex-row">
-                              <Switch
-                                id={`${preference.camelCaseName}Switch`}
-                                className={"mr-4"}
-                                onClick={handleSwitch}
-                                enabled={false}
-                              />
-                              <p className="text-sm font-medium text-gray-900">
-                                {preference.name}
-                              </p>
-                            </div>
-                          </a>
-                        )}
-                      </Menu.Item>
-                    </div>
-                  );
-                } else if (extraOptions && extraOptions) {
-                  return (
-                    <div key={`${preference}-${index}`}>
-                      <Menu.Item >
-                        {({ active }) => (
-                          <div
-                            className={`${active
-                              ? "bg-daydreamer-orange text-white"
-                              : "text-gray-900"
-                              } relative grid gap-8 bg-white p-2 lg:grid-cols-2`}
-                          >
-                            <div className=" flex flex-row gap-4">
-                              <PriceInput placeholder="from" compactStyle={true} />
-                              <PriceInput placeholder="to" compactStyle={true} />
-                            </div>
-                          </div>
-                        )}
-                      </Menu.Item>
-                    </div>
-                  );
-                } else {
-                  return (
-                    <div key={`${preference}-${index}`}>
-                      <Menu.Item >
-                        {({ active }) => (
-                          <button
-                            value={preference.camelCaseName}
-                            onClick={handleOptionClick}
-                            className={`${active
-                              ? "bg-daydreamer-orange text-white"
-                              : "text-gray-900"
-                              } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
-                          >
-                            {preference.name}
-                          </button>
-                        )}
-                      </Menu.Item>
-                    </div>
-                  );
-                }
-              })
-              : null} */}
           </Menu.Items>
         </Transition>
       </Menu>

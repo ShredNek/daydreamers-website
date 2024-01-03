@@ -42,8 +42,8 @@ export interface CartItem
 export type MerchReqParams = {
   sortBy: SortType;
   stockPreferences: StockPresencePreferences;
-  priceFrom?: string;
-  priceTo?: string;
+  priceFrom: string;
+  priceTo: string;
 };
 
 export type StockPresencePreferences = {
@@ -76,6 +76,7 @@ export type MerchType =
   | "miscellaneous";
 
 export type SortType =
+  | Size
   | MerchType
   | "featured"
   | "a to z"
