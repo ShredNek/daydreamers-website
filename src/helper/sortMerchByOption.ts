@@ -10,7 +10,7 @@ const partition = (
   low: number,
   high: number,
   condition: MerchComparer
-) => {
+): number => {
   // Pivot point (last elem)
   const pivotElem = arr[high];
 
@@ -35,7 +35,7 @@ const partition = (
 const quickSortByCondition = (
   merchItems: MerchItem[],
   condition: MerchComparer
-) => {
+): MerchItem[] => {
   const toSort = [...merchItems];
 
   const sort = (arr: MerchItem[], low: number, high: number) => {
@@ -61,15 +61,14 @@ export const sortMerchByOptions = (
   priceFrom?: string,
   priceTo?: string
 ): MerchItem[] => {
-  const sortedItems = [...unsortedItems];
+  if (!unsortedItems.length)
+    throw Error("unsortedItems array does not have any items");
 
-  console.log(sortedItems);
-
-  if (!sortedItems.length) return sortedItems;
+  let sortedItems: MerchItem[] = [];
 
   if (priceFrom && priceTo) {
-    return [
-      ...sortedItems.filter(
+    sortedItems = [
+      ...unsortedItems.filter(
         (item) =>
           Number(item.price) >= Number(priceFrom) &&
           Number(item.price) <= Number(priceTo)
@@ -77,17 +76,17 @@ export const sortMerchByOptions = (
     ];
   }
 
-  if (Object.keys(sortedItems[0].sizesAvailable).includes(sortOption)) {
-    return [
-      ...sortedItems.filter(
+  if (Object.keys(unsortedItems[0].sizesAvailable).includes(sortOption)) {
+    sortedItems = [
+      ...unsortedItems.filter(
         (merch) => merch.sizesAvailable[sortOption as Size] > 0
       ),
     ];
   }
 
-  if (Object.keys(sortedItems[0].category).includes(sortOption)) {
-    return [
-      ...sortedItems.filter(
+  if (Object.keys(unsortedItems[0].category).includes(sortOption)) {
+    sortedItems = [
+      ...unsortedItems.filter(
         (merch) => merch.category[sortOption as keyof MerchType]
       ),
     ];
@@ -98,30 +97,48 @@ export const sortMerchByOptions = (
   switch (sortOption) {
     case "a to z":
       condition = (mi1, mi2) => mi1.name < mi2.name;
-      return quickSortByCondition(sortedItems, condition);
+      sortedItems = quickSortByCondition(unsortedItems, condition);
+      break;
     case "z to a":
       condition = (mi1, mi2) => mi1.name > mi2.name;
-      return quickSortByCondition(sortedItems, condition);
+      sortedItems = quickSortByCondition(unsortedItems, condition);
+      break;
     case "lowest price":
       condition = (mi1, mi2) => mi1.price < mi2.price;
-      return quickSortByCondition(sortedItems, condition);
+      sortedItems = quickSortByCondition(unsortedItems, condition);
+      break;
     case "highest price":
       condition = (mi1, mi2) => mi1.price > mi2.price;
-      return quickSortByCondition(sortedItems, condition);
+      sortedItems = quickSortByCondition(unsortedItems, condition);
+      break;
     case "newest":
       condition = (mi1, mi2) =>
         mi1.dateAdded.getTime() < mi2.dateAdded.getTime();
-      return quickSortByCondition(sortedItems, condition);
+      sortedItems = quickSortByCondition(unsortedItems, condition);
+      break;
     case "oldest":
       condition = (mi1, mi2) =>
         mi1.dateAdded.getTime() > mi2.dateAdded.getTime();
-      return quickSortByCondition(sortedItems, condition);
+      sortedItems = quickSortByCondition(unsortedItems, condition);
+      break;
     case "featured":
-      return sortedItems.filter((merch) => merch.featured);
+      sortedItems = unsortedItems.filter((merch) => merch.featured);
+      break;
+    case "best selling":
+      sortedItems = unsortedItems.filter((merch) => merch.sellCount);
+      break;
     default:
-      console.error(
-        "Unidentified sortOption provided as an argument - no sorting done"
+      throw Error(
+        `Unidentified sortOption ${sortOption} provided as an argument - no sorting done`
       );
-      return sortedItems;
+  }
+
+  if (sortedItems.length) {
+    return sortedItems;
+  } else {
+    console.warn(
+      `Sorting returned no items. Skipping sort. Sorted by ${sortOption}`
+    );
+    return unsortedItems;
   }
 };

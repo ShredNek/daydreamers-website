@@ -18,12 +18,24 @@ export type MerchItem = {
   name: string;
   description: string;
   price: string;
-  category: MerchType;
-  sizesAvailable: SizesAvailable;
-  dateAdded: Date;
   imgSrc: string;
+  category: MerchType;
+  dateAdded: string;
   extraImages: string[];
   featured: boolean;
+  sizesAvailable: SizesAvailable;
+};
+
+export type MerchItemGQLSchema = {
+  id: string;
+  title: string;
+  price: string;
+  imageSrc: string;
+  category: MerchType;
+  dateAdded: string;
+  extraImages: string[];
+  featured: boolean;
+  sizesAvailable: SizesAvailable;
 };
 
 export interface WearableItem extends MerchItem {
@@ -85,5 +97,4 @@ export type SortType =
   | "lowest price"
   | "newest"
   | "oldest"
-  | "availability"
-  | "best selling";
+  | "availability";

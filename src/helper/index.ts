@@ -1,3 +1,5 @@
+import { Size } from "../types";
+
 export function toCamelCase(str: string) {
   const splitStr = str.split("");
   console.log(splitStr);
@@ -14,3 +16,19 @@ export function toKebabCase(str: string) {
   const res = splitStr.map((c) => (c === " " ? "-" : c)).join("");
   return res.toLowerCase();
 }
+
+export const convertToType = <T extends string>(value: string): T => {
+  const typeLookup: Record<string, boolean> = {
+    [value]: true,
+  };
+
+  const isSize = (value: string): value is T => {
+    return !!typeLookup[value];
+  };
+
+  if (isSize(value)) {
+    return value;
+  } else {
+    throw new Error(`${value} is not of the correct type`);
+  }
+};

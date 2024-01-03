@@ -7,21 +7,21 @@ import Dropdown from "../components/tailwind/headlessUI/Dropdown";
 import MissingImage from "../assets/images/misc/MissingImage.png";
 
 // ? Interfaces/Types
-import { MerchReqParams, MerchAvailability, GetAllItemEdge, MerchItem, SearchPreference, ExtraSearchPreference } from "../types/index";
+import { MerchReqParams, GetAllItemEdge, MerchItem, SearchPreference, ExtraSearchPreference, MerchItemGQLSchema } from "../types/index";
 import { useEffect, useState } from "react";
 import FormalFooter from "../components/FormalFooter";
 import FormalHeader from "../components/FormalHeader";
 import { Link } from "react-router-dom";
 
 // ? Others
-import { getAllMerch, getMerchById } from "../api/shopify";
-import Spinner from "../components/Spinner";
+import { getAllMerch, getMerchById } from "../api/shopifyCalls";
 import { sortMerchByOptions } from "../helper/sortMerchByOption";
+import Spinner from "../components/Spinner";
+import { parseMerchEdges } from "../helper/parseMerchEdges";
 
 // ? Constants
 const sortByOptions: SearchPreference[] = [
   { name: "Featured", camelCaseName: "featured" },
-  { name: "Best Selling", camelCaseName: "best selling" },
   { name: "Alphabetically (A-Z)", camelCaseName: "a to z" },
   { name: "Alphabetically (Z-A)", camelCaseName: "z to a" },
   { name: "Price (Hi-Lo)", camelCaseName: "highest price" },
@@ -36,6 +36,8 @@ const extraSortByOptions: ExtraSearchPreference[] = [
   { name: "Out Of Stock", componentType: 'switch', stockPresencePreference: { inStockRequested: false, outOfStockRequested: true } },
 ];
 
+let firstLoad = true
+
 export default function Merch() {
   const [merchReqParams, setMerchReqParams] = useState<MerchReqParams>({
     stockPreferences: {
@@ -49,80 +51,92 @@ export default function Merch() {
 
   const [allMerch, setAllMerch] = useState<MerchItem[]>([]);
 
-  const callAllMerch = async () => {
+  // ?
+  // ? Main functions
+  // ?
+
+  const callAndSetMerch: () => void = async () => {
     // ? Call all products
     const rawRes = await (await getAllMerch()).json();
     const allEdges: GetAllItemEdge[] = rawRes.data.products.edges.map((e: GetAllItemEdge) => e);
 
-    console.log(allEdges)
-
-    return Promise.allSettled(
+    const allRawData: PromiseSettledResult<MerchItemGQLSchema>[] = await Promise.allSettled(
       allEdges.map(async (e, index) => {
         const id = e.node.id.split("/").pop()!;
 
         // Introduce a delay between calls
-        let delay = 500
+        let delay = 1500
         await new Promise(resolve => setTimeout(resolve, delay * index));
 
-        const itemDetails = await getFirstVariantDetails(id);
-        return {
+        const itemDetails = await (await getMerchById(id)).json();
+        const productDetails = itemDetails.data.product
+
+        console.log(itemDetails)
+
+        const final: MerchItemGQLSchema = {
           id: id,
           title: e.node.title,
           price: itemDetails.price,
-          imageSrc: itemDetails.imageSrc
+          imageSrc: itemDetails.imageSrc,
+          featured: productDetails.tags,
+          dateAdded: productDetails.createdAt,
+          category: productDetails.productType,
+          extraImages: productDetails.images.edges.map((imgEdge: any) => imgEdge.node.image.src),
+          sizesAvailable: parseMerchEdges(productDetails.data.product),
         };
+
+        return final
       })
     );
+
+    console.log(allRawData);
+
+    const isFulfilledResult = (merch: PromiseSettledResult<MerchItemGQLSchema>): merch is PromiseFulfilledResult<MerchItemGQLSchema> => merch.status === "fulfilled";
+
+    const successfulCalls: PromiseFulfilledResult<MerchItemGQLSchema>[] = allRawData.filter(isFulfilledResult)
+
+    const formattedItems: MerchItem[] = successfulCalls.map(merch => ({
+      name: merch.value.title,
+      merchId: merch.value.id,
+      description: merch.value.title,
+      price: merch.value.price,
+      imgSrc: merch.value.imageSrc,
+      // TODO - Correctly add category
+      // TODO - Correctly add date added
+      // TODO - Correctly add extra images
+      // TODO - Correctly add if featured
+      // TODO - Correctly check all stock
+
+    }))
+
+    setAllMerch(formattedItems)
+
   }
 
-  const getFirstVariantDetails = async (id: string) => {
-    const res = await (await getMerchById(id)).json()
-    const selectedItem = res.data.product.variants.edges[0]
-    return { price: selectedItem.node.price, imageSrc: selectedItem.node.image.src }
-  }
+  // ?
+  // ? Effects
+  // ?
 
   useEffect(() => {
-    callAllMerch()
-      .then(allMerch => {
-        let formattedItems: MerchItem[] = [];
-        allMerch.forEach(merch => {
-          if (merch.status === "fulfilled") {
-            formattedItems.push({
-              name: merch.value.title,
-              merchId: merch.value.id,
-              description: merch.value.title,
-              price: merch.value.price,
-              category: "clothing",
-              dateAdded: new Date(),
-              imgSrc: merch.value.imageSrc,
-              extraImages: [merch.value.imageSrc, 'unknown.jpg'],
-              featured: false,
-              sizesAvailable: {
-                "XS": 0,
-                "S": 1,
-                "M": 1,
-                "L": 0,
-                "XL": 2,
-                "XXL": 3
-              },
-            })
-          }
-        })
-        setAllMerch(formattedItems)
-      })
+    callAndSetMerch()
   }, []);
 
   useEffect(() => {
     console.log("merch req params change")
-    if (allMerch.length < 1)
-      setAllMerch(
-        sortMerchByOptions(
-          allMerch,
-          merchReqParams.sortBy,
-          merchReqParams.priceFrom,
-          merchReqParams.priceTo
-        ))
-    // console.log(allMerch)
+    if (allMerch.length > 0) {
+      const sortRes = sortMerchByOptions(
+        allMerch,
+        merchReqParams.sortBy,
+        merchReqParams.priceFrom,
+        merchReqParams.priceTo
+      )
+
+      console.log(sortRes)
+      setAllMerch(sortRes)
+    } else if (!firstLoad) {
+      callAndSetMerch()
+      firstLoad = false
+    }
   }, [merchReqParams])
 
   return (
