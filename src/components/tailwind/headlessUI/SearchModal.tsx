@@ -1,21 +1,15 @@
-import React, { useState, useEffect } from "react";
+import { SetStateAction, useEffect } from "react";
 
-interface CustomDialog {
+interface SearchModal {
   isOpen?: boolean;
   onClose?: () => void;
+  searchQuery: string;
+  setSearchQuery: React.Dispatch<SetStateAction<string>>
 }
 
-export default function CustomDialog({ isOpen, onClose }: CustomDialog) {
-  const [searchText, setSearchText] = useState("");
-
-  const handleSearchChange = (e: React.ChangeEvent) => {
-    console.log(e.target);
-    // setSearchText(e.target.value);
-  };
-
-  const handleSearchSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    // Handle the search functionality here
+export default function SearchModal({ isOpen, onClose, searchQuery, setSearchQuery }: SearchModal) {
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchQuery(e.currentTarget.value)
   };
 
   useEffect(() => {
@@ -35,31 +29,31 @@ export default function CustomDialog({ isOpen, onClose }: CustomDialog) {
     return () => {
       document.removeEventListener("click", handleOverlayClick);
     };
-  }, [isOpen, onClose]);
+  }, [isOpen, onClose, searchQuery]);
 
   return (
     <div
       className={`fixed z-50 inset-0 w-screen transition-opacity ${isOpen ? "opacity-100" : "opacity-0 pointer-events-none"
         }`}
     >
-      <div className="overlay fixed inset-0 bg-black opacity-40"></div>
+      <div className="overlay fixed inset-0 bg-black opacity-20"></div>
       <div className="relative bg-white w-screen rounded-lg shadow-lg p-8">
-        <form className="flex items-center justify-center gap-2 my-12" onSubmit={handleSearchSubmit}>
+        <form className="flex items-center justify-center gap-2 my-12">
           <input
             type="text"
-            placeholder="Search..."
-            value={searchText}
+            placeholder="Search for cool stuff here..."
+            value={searchQuery}
             onChange={handleSearchChange}
             className="w-full border rounded-lg px-3 py-2 max-w-2xl"
           />
-          <button
+          {/* <button
             type="submit"
             className=" bg-daydreamer-blue hover:bg-white  border-2 border-daydreamer-blue  text-white hover:text-daydreamer-blue font-semibold px-4 py-2 rounded-lg transition-colors"
           >
-            Search
-          </button>
+          Search
+         </button> */}
           <button
-            className=" text-gray-500 hover:text-gray-700"
+            className="ml-5 text-gray-500 hover:text-gray-700"
             onClick={onClose}
           >
             <svg
@@ -79,6 +73,6 @@ export default function CustomDialog({ isOpen, onClose }: CustomDialog) {
           </button>
         </form>
       </div>
-    </div>
+    </div >
   );
 }

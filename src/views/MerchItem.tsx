@@ -21,7 +21,7 @@ export default function MerchItem() {
 
   return (
     <section id="merch-item">
-      <FormalHeader />
+      <FormalHeader searchHidden={true} />
       <main>
         <BuyButton productId={id!} />
       </main>

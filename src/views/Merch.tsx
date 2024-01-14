@@ -18,6 +18,7 @@ import { getAllMerch, getMerchById } from "../api/shopifyCalls";
 import { sortMerchByOptions } from "../helper/sortMerchByOption";
 import Spinner from "../components/Spinner";
 import { parseMerchEdges } from "../helper/parseMerchEdges";
+import { searchItems } from "../helper/searchItems";
 
 // ? Constants
 const sortByOptions: SearchPreference[] = [
@@ -50,6 +51,7 @@ export default function Merch() {
 
   const [allMerch, setAllMerch] = useState<MerchItem[]>([]);
   const [allSortedMerch, setAllSortedMerch] = useState<MerchItem[]>([]);
+  const [searchQuery, setSearchQuery] = useState("")
 
   // ?
   // ? Main functions
@@ -108,8 +110,11 @@ export default function Merch() {
   }
 
   const handleSortMerch = () => {
-    const sortedMerch = sortMerchByOptions(allMerch, merchReqParams);
-    setAllSortedMerch(sortedMerch)
+    const sortedByOption = sortMerchByOptions(allMerch, merchReqParams);
+    const sortedBySearch = searchItems(searchQuery, sortedByOption)
+    console.clear()
+    console.log(sortedBySearch)
+    setAllSortedMerch(sortedBySearch)
   }
 
   // ?
@@ -122,11 +127,11 @@ export default function Merch() {
 
   useEffect(() => {
     handleSortMerch()
-  }, [allMerch, merchReqParams])
+  }, [allMerch, merchReqParams, searchQuery])
 
   return (
     <section id="merch">
-      <FormalHeader />
+      <FormalHeader searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
       <div className="banner">
         <h1 className="heading left"> MERCHANDISE</h1>
       </div>
@@ -194,18 +199,3 @@ export default function Merch() {
     </section>
   );
 }
-
-// ? what state do we need per item kind (in stock, out of stock etc.)?
-// ? we use this for UX - they know what's in stock
-// isRequested
-// quantity
-
-// ? and what we need to sort each item by...
-// size
-// featured
-// alphabetical (A to Z)
-// price (Hi to Lo)
-// date (New to Old)
-
-// ? We need to have everything on the parent (Merch page)
-

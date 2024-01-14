@@ -1,11 +1,11 @@
 // ? Hooks
-import { useState } from "react";
+import { SetStateAction, useState } from "react";
 import { Link } from "react-router-dom";
 
 // ? Components
 import IconButton from "../components/IconButton";
 import LazyImage from "../components/LazyImage";
-import CustomDialog from "./tailwind/headlessUI/CustomDialog";
+import SearchModal from "./tailwind/headlessUI/SearchModal";
 
 // ? Icons
 import {
@@ -20,7 +20,13 @@ import LQ_DayDreamersLogo from "../assets/images/icons/LQ_DayDreamersLogo.jpg";
 // ? Styles
 import "../styles/components/_formal-header.scss";
 
-export default function FormalHeader() {
+type SearchModal = {
+  searchHidden?: boolean;
+  searchQuery?: string;
+  setSearchQuery?: React.Dispatch<SetStateAction<string>>;
+}
+
+export default function FormalHeader({ searchHidden = false, searchQuery, setSearchQuery }: SearchModal) {
   const [searchModalOpen, setSearchModalOpen] = useState(false);
 
   return (
@@ -42,16 +48,23 @@ export default function FormalHeader() {
           />
         </Link>
         <li id="right-icons">
-          <IconButton
-            onClick={() => setSearchModalOpen(true)}
-            Icon={<MagnifyingGlassIcon />}
-          />
+          {searchHidden === false ?
+            <IconButton
+              onClick={() => setSearchModalOpen(true)}
+              Icon={<MagnifyingGlassIcon />}
+            />
+            : null}
         </li>
       </nav>
-      <CustomDialog
-        isOpen={searchModalOpen}
-        onClose={() => setSearchModalOpen(false)}
-      />
+      {searchHidden === false && searchQuery !== undefined && setSearchQuery ?
+        <SearchModal
+          isOpen={searchModalOpen}
+          onClose={() => setSearchModalOpen(false)}
+          searchQuery={searchQuery}
+          setSearchQuery={setSearchQuery}
+        />
+        : null}
+
     </header>
   );
 }
