@@ -23,19 +23,18 @@ export type MerchItem = {
   dateAdded: string;
   extraImages: string[];
   featured: boolean;
-  sizesAvailable: SizesAvailable;
+  totalStock: number;
+  sizesAvailable?: SizesAvailable;
 };
 
-export type MerchItemGQLSchema = {
+export type MerchItemGQLSchema = Omit<
+  MerchItem,
+  "merchId" | "name" | "description" | "imgSrc"
+> & {
   id: string;
   title: string;
-  price: string;
-  imageSrc: string;
-  category: MerchType;
-  dateAdded: string;
-  extraImages: string[];
-  featured: boolean;
-  sizesAvailable: SizesAvailable;
+  // TODO FIX ANY TYPE
+  images: any;
 };
 
 export interface WearableItem extends MerchItem {
@@ -52,7 +51,7 @@ export interface CartItem
 }
 
 export type MerchReqParams = {
-  sortBy: SortType;
+  sortBy: SortType | null;
   stockPreferences: StockPresencePreferences;
   priceFrom: string;
   priceTo: string;

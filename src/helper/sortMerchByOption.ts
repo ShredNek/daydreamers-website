@@ -1,4 +1,5 @@
-import { MerchItem, SortType, Size, MerchType } from "../types";
+import { MerchItem, Size, MerchType, MerchReqParams } from "../types";
+import { convertToType } from ".";
 
 type MerchComparer = (
   merchItemOne: MerchItem,
@@ -57,88 +58,128 @@ const quickSortByCondition = (
 
 export const sortMerchByOptions = (
   unsortedItems: MerchItem[],
-  sortOption: SortType,
-  priceFrom?: string,
-  priceTo?: string
+  merchReqParams: MerchReqParams
 ): MerchItem[] => {
-  if (!unsortedItems.length)
-    throw Error("unsortedItems array does not have any items");
+  if (!unsortedItems.length) return [];
 
-  let sortedItems: MerchItem[] = [];
+  let sortedItems = [...unsortedItems];
 
-  if (priceFrom && priceTo) {
+  if (merchReqParams.sortBy) {
+    // ? Check and mutate sort by Size
+    if (
+      sortedItems.length &&
+      sortedItems[0].sizesAvailable &&
+      Object.keys(sortedItems[0].sizesAvailable).includes(merchReqParams.sortBy)
+    ) {
+      sortedItems = [
+        ...sortedItems.filter((merch) =>
+          merch.sizesAvailable
+            ? merch.sizesAvailable[
+                convertToType<Size>(merchReqParams.sortBy as string)
+              ] > 0
+            : []
+        ),
+      ];
+    }
+
+    // ? Check and mutate sort by Category
+    if (
+      sortedItems.length &&
+      Object.keys(sortedItems[0].category).includes(merchReqParams.sortBy)
+    ) {
+      sortedItems = [
+        ...sortedItems.filter(
+          (merch) =>
+            merch.category[
+              convertToType<MerchType>(
+                merchReqParams.sortBy as string
+              ) as keyof MerchType
+            ]
+        ),
+      ];
+    }
+  }
+
+  // ? Check by stock presence
+  if (
+    merchReqParams.stockPreferences.inStockRequested &&
+    merchReqParams.stockPreferences.outOfStockRequested
+  ) {
+  } else if (merchReqParams.stockPreferences.inStockRequested) {
+    sortedItems = [...sortedItems.filter((item) => item.totalStock > 0)];
+  } else if (merchReqParams.stockPreferences.outOfStockRequested) {
+    sortedItems = [...sortedItems.filter((item) => item.totalStock < 1)];
+  }
+
+  // ? Check and mutate sort by Price Range
+  if (
+    (sortedItems.length && merchReqParams.priceFrom) ||
+    merchReqParams.priceTo
+  ) {
     sortedItems = [
-      ...unsortedItems.filter(
+      ...sortedItems.filter(
         (item) =>
-          Number(item.price) >= Number(priceFrom) &&
-          Number(item.price) <= Number(priceTo)
+          Number(item.price) >=
+            Number(merchReqParams.priceFrom ? merchReqParams.priceFrom : 0) &&
+          Number(item.price) <=
+            Number(
+              merchReqParams.priceTo ? merchReqParams.priceTo : Number.MAX_VALUE
+            )
       ),
     ];
   }
 
-  if (Object.keys(unsortedItems[0].sizesAvailable).includes(sortOption)) {
-    sortedItems = [
-      ...unsortedItems.filter(
-        (merch) => merch.sizesAvailable[sortOption as Size] > 0
-      ),
-    ];
-  }
+  // ? Check the rest of the SortType values
+  sortedItems = (() => {
+    switch (merchReqParams.sortBy) {
+      case "a to z":
+        return quickSortByCondition(
+          sortedItems,
+          (mi1, mi2) => mi1.name < mi2.name
+        );
+      case "z to a":
+        return quickSortByCondition(
+          sortedItems,
+          (mi1, mi2) => mi1.name > mi2.name
+        );
+      case "lowest price":
+        return quickSortByCondition(
+          sortedItems,
+          (mi1, mi2) => mi1.price < mi2.price
+        );
+      case "highest price":
+        return quickSortByCondition(
+          sortedItems,
+          (mi1, mi2) => mi1.price > mi2.price
+        );
+      case "newest":
+        return quickSortByCondition(
+          sortedItems,
+          (mi1, mi2) =>
+            new Date(mi1.dateAdded).getTime() <
+            new Date(mi2.dateAdded).getTime()
+        );
+      case "oldest":
+        return quickSortByCondition(
+          sortedItems,
+          (mi1, mi2) =>
+            new Date(mi1.dateAdded).getTime() >
+            new Date(mi2.dateAdded).getTime()
+        );
+      case "availability":
+        return quickSortByCondition(
+          sortedItems,
+          (mi1, mi2) => mi1.totalStock > mi2.totalStock
+        );
+      case "featured":
+        return sortedItems.filter((merch) => merch.featured);
+      default:
+        if (merchReqParams.sortBy !== null) console.warn("unknown sortOption");
+        return sortedItems;
+    }
+  })();
 
-  if (Object.keys(unsortedItems[0].category).includes(sortOption)) {
-    sortedItems = [
-      ...unsortedItems.filter(
-        (merch) => merch.category[sortOption as keyof MerchType]
-      ),
-    ];
-  }
+  if (!sortedItems.length) console.log("skipping sort, nothing returned");
 
-  // ? Check the common SortType values
-  let condition: MerchComparer;
-  switch (sortOption) {
-    case "a to z":
-      condition = (mi1, mi2) => mi1.name < mi2.name;
-      sortedItems = quickSortByCondition(unsortedItems, condition);
-      break;
-    case "z to a":
-      condition = (mi1, mi2) => mi1.name > mi2.name;
-      sortedItems = quickSortByCondition(unsortedItems, condition);
-      break;
-    case "lowest price":
-      condition = (mi1, mi2) => mi1.price < mi2.price;
-      sortedItems = quickSortByCondition(unsortedItems, condition);
-      break;
-    case "highest price":
-      condition = (mi1, mi2) => mi1.price > mi2.price;
-      sortedItems = quickSortByCondition(unsortedItems, condition);
-      break;
-    case "newest":
-      condition = (mi1, mi2) =>
-        mi1.dateAdded.getTime() < mi2.dateAdded.getTime();
-      sortedItems = quickSortByCondition(unsortedItems, condition);
-      break;
-    case "oldest":
-      condition = (mi1, mi2) =>
-        mi1.dateAdded.getTime() > mi2.dateAdded.getTime();
-      sortedItems = quickSortByCondition(unsortedItems, condition);
-      break;
-    case "featured":
-      sortedItems = unsortedItems.filter((merch) => merch.featured);
-      break;
-    case "best selling":
-      sortedItems = unsortedItems.filter((merch) => merch.sellCount);
-      break;
-    default:
-      throw Error(
-        `Unidentified sortOption ${sortOption} provided as an argument - no sorting done`
-      );
-  }
-
-  if (sortedItems.length) {
-    return sortedItems;
-  } else {
-    console.warn(
-      `Sorting returned no items. Skipping sort. Sorted by ${sortOption}`
-    );
-    return unsortedItems;
-  }
+  return sortedItems;
 };

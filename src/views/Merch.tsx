@@ -28,6 +28,7 @@ const sortByOptions: SearchPreference[] = [
   { name: "Price (Lo-Hi)", camelCaseName: "lowest price" },
   { name: "Date (Newest)", camelCaseName: "newest" },
   { name: "Date (Oldest)", camelCaseName: "oldest" },
+  { name: "Availability", camelCaseName: "availability" },
 ];
 
 const extraSortByOptions: ExtraSearchPreference[] = [
@@ -36,26 +37,25 @@ const extraSortByOptions: ExtraSearchPreference[] = [
   { name: "Out Of Stock", componentType: 'switch', stockPresencePreference: { inStockRequested: false, outOfStockRequested: true } },
 ];
 
-let firstLoad = true
-
 export default function Merch() {
   const [merchReqParams, setMerchReqParams] = useState<MerchReqParams>({
     stockPreferences: {
       inStockRequested: true,
-      outOfStockRequested: false,
+      outOfStockRequested: true,
     },
-    sortBy: "featured",
+    sortBy: null,
     priceFrom: "",
     priceTo: ""
   });
 
   const [allMerch, setAllMerch] = useState<MerchItem[]>([]);
+  const [allSortedMerch, setAllSortedMerch] = useState<MerchItem[]>([]);
 
   // ?
   // ? Main functions
   // ?
 
-  const callAndSetMerch: () => void = async () => {
+  const callAndSetDefaultMerch: () => void = async () => {
     // ? Call all products
     const rawRes = await (await getAllMerch()).json();
     const allEdges: GetAllItemEdge[] = rawRes.data.products.edges.map((e: GetAllItemEdge) => e);
@@ -65,52 +65,51 @@ export default function Merch() {
         const id = e.node.id.split("/").pop()!;
 
         // Introduce a delay between calls
-        let delay = 1500
+        let delay = 500
         await new Promise(resolve => setTimeout(resolve, delay * index));
 
-        const itemDetails = await (await getMerchById(id)).json();
-        const productDetails = itemDetails.data.product
+        const callRes = await (await getMerchById(id)).json();
+        const productDetails = callRes.data.product
 
-        console.log(itemDetails)
+        console.log(callRes.extensions.cost.throttleStatus.currentlyAvailable)
 
         const final: MerchItemGQLSchema = {
           id: id,
           title: e.node.title,
-          price: itemDetails.price,
-          imageSrc: itemDetails.imageSrc,
+          price: productDetails.variants.edges[0].node.price,
+          images: productDetails.images.edges.map((edge: any) => edge.node.src),
           featured: productDetails.tags,
           dateAdded: productDetails.createdAt,
           category: productDetails.productType,
-          extraImages: productDetails.images.edges.map((imgEdge: any) => imgEdge.node.image.src),
-          sizesAvailable: parseMerchEdges(productDetails.data.product),
+          extraImages: productDetails.images.edges.map((imgEdge: any) => imgEdge.node.src),
+          totalStock: productDetails.totalInventory,
+          sizesAvailable: parseMerchEdges(productDetails),
         };
 
         return final
       })
     );
 
-    console.log(allRawData);
-
     const isFulfilledResult = (merch: PromiseSettledResult<MerchItemGQLSchema>): merch is PromiseFulfilledResult<MerchItemGQLSchema> => merch.status === "fulfilled";
-
     const successfulCalls: PromiseFulfilledResult<MerchItemGQLSchema>[] = allRawData.filter(isFulfilledResult)
 
-    const formattedItems: MerchItem[] = successfulCalls.map(merch => ({
-      name: merch.value.title,
-      merchId: merch.value.id,
-      description: merch.value.title,
-      price: merch.value.price,
-      imgSrc: merch.value.imageSrc,
-      // TODO - Correctly add category
-      // TODO - Correctly add date added
-      // TODO - Correctly add extra images
-      // TODO - Correctly add if featured
-      // TODO - Correctly check all stock
-
-    }))
+    const formattedItems: MerchItem[] = successfulCalls.map(rawMerch => {
+      const merch = rawMerch.value
+      return {
+        ...merch,
+        merchId: merch.id,
+        name: merch.title,
+        description: merch.title,
+        imgSrc: merch.images[0],
+      } as const;
+    });
 
     setAllMerch(formattedItems)
+  }
 
+  const handleSortMerch = () => {
+    const sortedMerch = sortMerchByOptions(allMerch, merchReqParams);
+    setAllSortedMerch(sortedMerch)
   }
 
   // ?
@@ -118,26 +117,12 @@ export default function Merch() {
   // ?
 
   useEffect(() => {
-    callAndSetMerch()
+    callAndSetDefaultMerch()
   }, []);
 
   useEffect(() => {
-    console.log("merch req params change")
-    if (allMerch.length > 0) {
-      const sortRes = sortMerchByOptions(
-        allMerch,
-        merchReqParams.sortBy,
-        merchReqParams.priceFrom,
-        merchReqParams.priceTo
-      )
-
-      console.log(sortRes)
-      setAllMerch(sortRes)
-    } else if (!firstLoad) {
-      callAndSetMerch()
-      firstLoad = false
-    }
-  }, [merchReqParams])
+    handleSortMerch()
+  }, [allMerch, merchReqParams])
 
   return (
     <section id="merch">
@@ -157,12 +142,14 @@ export default function Merch() {
               }
               openDirection="right"
             />
-            <PriceRangePopover />
+            <PriceRangePopover
+              merchReqState={merchReqParams}
+              onMerchReqChange={setMerchReqParams} />
           </aside>
           <aside className="options">
             <span>Sort by:</span>
             <Dropdown
-              mainOptions={sortByOptions}
+              mainOptions={[...sortByOptions]}
               merchReqState={merchReqParams}
               onMerchReqChange={setMerchReqParams}
             />
@@ -183,9 +170,9 @@ export default function Merch() {
         </div>
       </form>
       <main className="collection">
-        {allMerch.length
+        {allSortedMerch.length
           ?
-          allMerch.map((merch, index) => (
+          allSortedMerch.map((merch, index) => (
             <Link key={merch.merchId} to={merch.merchId} className="merch-card">
               <img
                 key={`${merch.name}-${index}`}

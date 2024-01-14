@@ -11,15 +11,12 @@
 - individual stock item √
 
 ## logic
-- state
-- api calls
-- configure cart screen logic
-- configure database
+- api calls √
 
 ## misc
 - logic for basic price for each item √
 - logic for state being passed to dropdown children √
-- logic for sorting items based on category
+- logic for sorting items based on category √
   - all TODO's left within merch screen
 - all loading logic when things are clicked and when need to be sorted
-- check that sorting by stock available is working
+- check that sorting by stock available is working √

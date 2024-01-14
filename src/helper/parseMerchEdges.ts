@@ -27,7 +27,10 @@ export const parseMerchEdges = (productData: ProductData): SizesAvailable => {
 
     if (sizeOption) {
       const sizeIndex = convertToType<Size>(sizeOption.value);
-      sizesStock[sizeIndex] = variant.node.inventoryQuantity;
+      sizesStock[sizeIndex] =
+        sizesStock[sizeIndex] !== undefined
+          ? sizesStock[sizeIndex] + variant.node.inventoryQuantity
+          : variant.node.inventoryQuantity;
     }
   });
 

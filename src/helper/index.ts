@@ -1,5 +1,3 @@
-import { Size } from "../types";
-
 export function toCamelCase(str: string) {
   const splitStr = str.split("");
   console.log(splitStr);
@@ -32,3 +30,12 @@ export const convertToType = <T extends string>(value: string): T => {
     throw new Error(`${value} is not of the correct type`);
   }
 };
+
+export const isKeyOfInterface = <T extends Record<string, unknown>>(
+  key: any
+): key is keyof T => {
+  return {}.hasOwnProperty.call({}, key);
+};
+
+export const inputIsValid = (input: string) =>
+  /^(\d+(\.\d{0,2})?|0*\.?\d{0,2})?$/.test(input);

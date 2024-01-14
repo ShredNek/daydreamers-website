@@ -3,8 +3,18 @@ import { Popover, Transition } from "@headlessui/react";
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
 import { Fragment } from "react";
 import PriceInput from "./PriceInput";
+import { MerchReqParams } from "../../../types";
+import { onInputChange } from "../../../helper/componentHelpers";
 
-export default function CustomPriceRangePopover() {
+type CustomPriceRangePopover = {
+  merchReqState: MerchReqParams
+  onMerchReqChange: React.Dispatch<React.SetStateAction<MerchReqParams>>
+}
+
+export default function CustomPriceRangePopover({ merchReqState, onMerchReqChange }: CustomPriceRangePopover) {
+
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => onInputChange(e, merchReqState, onMerchReqChange)
+
   return (
     <div>
       <Popover className="relative">
@@ -56,8 +66,8 @@ export default function CustomPriceRangePopover() {
                     </a>
                   </div>
                   <div className="relative grid gap-8 bg-white p-5 pl-7 grid-cols-2">
-                    <PriceInput placeholder="from" />
-                    <PriceInput placeholder="to" />
+                    <PriceInput placeholder="from" onChange={onChange} id={"priceFrom"} currState={merchReqState.priceFrom} />
+                    <PriceInput placeholder="to" onChange={onChange} id={"priceTo"} currState={merchReqState.priceTo} />
                   </div>
                 </div>
               </Popover.Panel>

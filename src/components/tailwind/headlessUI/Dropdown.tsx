@@ -1,8 +1,9 @@
 import { Menu, Transition } from "@headlessui/react";
-import React, { Fragment } from "react";
-import { ChevronDownIcon } from "@heroicons/react/20/solid";
+import React, { Fragment, useState } from "react";
+import { ChevronDownIcon, CheckIcon } from "@heroicons/react/20/solid";
 import PriceInput from "./PriceInput";
 import Switch from "./Switch";
+import { onInputChange, handleSwitch } from "../../../helper/componentHelpers";
 
 import { ExtraSearchPreference, MerchReqParams, SearchPreference, SortType, StockPresencePreferences } from "../../../types";
 
@@ -16,26 +17,29 @@ interface Dropdown {
 }
 
 export default function Dropdown({ mainOptions, merchReqState, onMerchReqChange, extraOptions, openToRight, className }: Dropdown) {
-  const handleSwitch = (e: React.MouseEvent<HTMLButtonElement>, stockPreferences: StockPresencePreferences) => {
-    e.preventDefault()
-    const currStockIndex = e.currentTarget.id as keyof StockPresencePreferences
+  const [selectedOption, setSelectedOption] = useState<SortType | null>(null)
 
-    const newState = {
-      ...merchReqState,
-      stockPreferences: {
-        ...merchReqState.stockPreferences,
-        [currStockIndex]: stockPreferences[currStockIndex] ? false : true
-      }
+  const onSwitchClick = (e: React.MouseEvent<HTMLButtonElement>, stockPreferences: StockPresencePreferences) => {
+    const setNewState = (stockPreferences: StockPresencePreferences): void => {
+      onMerchReqChange({ ...merchReqState, stockPreferences })
     }
 
-    onMerchReqChange(newState)
+    handleSwitch(e, stockPreferences, setNewState)
   }
 
   const handleOptionClick = (e: React.MouseEvent<HTMLButtonElement>, sortBy: SortType) => {
     e.preventDefault()
-    setTimeout(() => {
+
+    // ? If we've clicked an option that has is not selected, select it
+    if (sortBy !== selectedOption) {
+      setSelectedOption(sortBy);
       onMerchReqChange({ ...merchReqState, sortBy })
-    }, 500)
+      // ? If we've clicked an option that has already been selected, deselect the option
+    } else {
+      setSelectedOption(null);
+      onMerchReqChange({ ...merchReqState, sortBy: null })
+    }
+
   }
 
   const isEnabled: (stockOption: string) => boolean = (stockOption) => {
@@ -48,19 +52,7 @@ export default function Dropdown({ mainOptions, merchReqState, onMerchReqChange,
     }
   }
 
-  const onInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void = (e) => {
-    const currentElementId = e.currentTarget.id as keyof MerchReqParams
-
-    const currentElementIsValid = () => merchReqState[currentElementId] !== undefined
-    const inputIsValid = () => /^(\d+(\.\d{0,2})?|0*\.?\d{0,2})?$/.test(e.currentTarget.value)
-
-    if (inputIsValid() && currentElementIsValid()) {
-      onMerchReqChange({
-        ...merchReqState,
-        [currentElementId]: e.currentTarget.value
-      })
-    }
-  }
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => onInputChange(e, merchReqState, onMerchReqChange)
 
   return (
     <div className={className}>
@@ -96,12 +88,16 @@ export default function Dropdown({ mainOptions, merchReqState, onMerchReqChange,
                     {({ active }) => (
                       <button
                         onClick={(e: React.MouseEvent<HTMLButtonElement>) => handleOptionClick(e, option.camelCaseName)}
-                        className={`${active
-                          ? "bg-daydreamer-orange text-white"
-                          : "text-gray-900"
+                        className={`
+                        ${active
+                            ? "bg-daydreamer-orange text-white"
+                            : "text-gray-900"
                           } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
                       >
                         {option.name}
+                        {selectedOption === option.camelCaseName
+                          ? <CheckIcon className="ml-2 h-5 w-5 " />
+                          : null}
                       </button>
                     )}
                   </Menu.Item>
@@ -121,7 +117,7 @@ export default function Dropdown({ mainOptions, merchReqState, onMerchReqChange,
                           <Switch
                             id={Object.keys(option.stockPresencePreference)[index - 1]}
                             className={"mr-4"}
-                            onClick={(e: React.MouseEvent<HTMLButtonElement>) => handleSwitch(e, merchReqState.stockPreferences)}
+                            onClick={(e: React.MouseEvent<HTMLButtonElement>) => onSwitchClick(e, merchReqState.stockPreferences)}
                             enabled={isEnabled(Object.keys(option.stockPresencePreference)[index - 1])}
                           />
                           <p className="text-sm font-medium text-gray-900">
@@ -144,8 +140,8 @@ export default function Dropdown({ mainOptions, merchReqState, onMerchReqChange,
                             } relative grid gap-8 bg-white p-2 lg:grid-cols-2`}
                         >
                           <div className=" flex flex-row gap-4">
-                            <PriceInput placeholder="from" id={"priceFrom"} currState={merchReqState.priceFrom} onChange={onInputChange} />
-                            <PriceInput placeholder="to" id={"priceTo"} currState={merchReqState.priceTo} onChange={onInputChange} />
+                            <PriceInput placeholder="from" id={"priceFrom"} currState={merchReqState.priceFrom} onChange={handleInputChange} />
+                            <PriceInput placeholder="to" id={"priceTo"} currState={merchReqState.priceTo} onChange={handleInputChange} />
                           </div>
                         </div>
                       )}

@@ -4,6 +4,7 @@ import { ChevronDownIcon } from "@heroicons/react/20/solid";
 import { StockPresencePreferences } from "../../../types";
 import { Fragment } from "react";
 import Switch from "./Switch";
+import { handleSwitch } from "../../../helper/componentHelpers"
 
 const stockOptions = [
   {
@@ -16,36 +17,16 @@ const stockOptions = [
   },
 ];
 
-// ? A way to make this take on board other kinds of state?
-// ? don't need to yet
-
 interface SwitchBoxPopover {
   state: StockPresencePreferences;
-  changeStockPreferenceState: (stock: StockPresencePreferences) => void;
+  changeStockPreferenceState: (stock: StockPresencePreferences) => void
   openDirection: "left" | "right";
   compactStyle?: boolean;
 }
 
 export default function SwitchBoxPopover({ state, changeStockPreferenceState, openDirection, compactStyle }: SwitchBoxPopover) {
 
-  function handleSwitch(e: React.MouseEvent<HTMLButtonElement, MouseEvent> | undefined) {
-    // ? On click of the switch...
-
-    // ? the switch pressed will be either
-    // ? inStockRequested or outOfStockRequested
-    // ? (each is a key of StockPreferences)
-    // TODO - Type-guard this somehow?
-    const switchPressed = e?.currentTarget.id as keyof StockPresencePreferences
-
-    // ? Extract the current state of our switch from the state object
-    const isRequested = state[switchPressed]
-
-    // ? we index with the switchPressed, because it is a key of the state object
-    const newState: StockPresencePreferences = {
-      ...state, [switchPressed]: isRequested ? false : true
-    }
-    changeStockPreferenceState(newState)
-  }
+  const handleClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => handleSwitch(e, state, changeStockPreferenceState)
 
   return (
     <div>
@@ -100,7 +81,7 @@ export default function SwitchBoxPopover({ state, changeStockPreferenceState, op
                         className={`${compactStyle ? null : "-my-3 -ml-3"} flex items-center rounded-lg p-2 transition duration-150 ease-in-out hover:bg-gray-50 focus:outline-none focus-visible:ring focus-visible:ring-daydreamer-orange focus-visible:ring-opacity-50`}
                       >
                         <div className="ml-4 flex flex-row">
-                          <Switch className={"mr-4"} onClick={handleSwitch} id={item.stateName} enabled={state ? state[item.stateName as keyof StockPresencePreferences] : false} />
+                          <Switch className={"mr-4"} onClick={handleClick} id={item.stateName} enabled={state ? state[item.stateName as keyof StockPresencePreferences] : false} />
                           <p className="text-sm font-medium text-gray-900">
                             {item.name}
                           </p>
