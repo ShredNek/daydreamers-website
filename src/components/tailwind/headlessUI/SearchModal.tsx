@@ -2,7 +2,7 @@ import { SetStateAction, useEffect } from "react";
 
 interface SearchModal {
   isOpen?: boolean;
-  onClose?: () => void;
+  onClose?: (e?: React.MouseEvent<HTMLButtonElement>) => void;
   searchQuery: string;
   setSearchQuery: React.Dispatch<SetStateAction<string>>
 }

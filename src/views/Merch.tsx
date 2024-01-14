@@ -111,9 +111,7 @@ export default function Merch() {
 
   const handleSortMerch = () => {
     const sortedByOption = sortMerchByOptions(allMerch, merchReqParams);
-    const sortedBySearch = searchItems(searchQuery, sortedByOption)
-    console.clear()
-    console.log(sortedBySearch)
+    const sortedBySearch = searchQuery.length ? searchItems(searchQuery, sortedByOption) : sortedByOption
     setAllSortedMerch(sortedBySearch)
   }
 

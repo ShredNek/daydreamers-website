@@ -29,6 +29,11 @@ type SearchModal = {
 export default function FormalHeader({ searchHidden = false, searchQuery, setSearchQuery }: SearchModal) {
   const [searchModalOpen, setSearchModalOpen] = useState(false);
 
+  const handleClose = (e?: React.MouseEvent<HTMLButtonElement>) => {
+    setSearchModalOpen(false);
+    e?.preventDefault()
+  }
+
   return (
     <header>
       <nav>
@@ -59,7 +64,7 @@ export default function FormalHeader({ searchHidden = false, searchQuery, setSea
       {searchHidden === false && searchQuery !== undefined && setSearchQuery ?
         <SearchModal
           isOpen={searchModalOpen}
-          onClose={() => setSearchModalOpen(false)}
+          onClose={handleClose}
           searchQuery={searchQuery}
           setSearchQuery={setSearchQuery}
         />

@@ -1,6 +1,6 @@
 import { MerchItem } from "../types";
 
-function levenshteinDistance(a: string, b: string): number {
+const levenshteinDistance = (a: string, b: string): number => {
   const matrix: number[][] = [];
 
   for (let i = 0; i <= b.length; i++) {
@@ -23,7 +23,11 @@ function levenshteinDistance(a: string, b: string): number {
   }
 
   return matrix[b.length][a.length];
-}
+};
+
+const containsLetters = (word: string, letters: string[]): boolean => {
+  return letters.some((letter) => word.includes(letter));
+};
 
 const calculateScore = (query: string, itemName: string): number => {
   const queryWords = query.toLowerCase().split(" ");
@@ -35,13 +39,13 @@ const calculateScore = (query: string, itemName: string): number => {
     let maxSimilarity = 0;
 
     for (const itemNameWord of itemNameWords) {
-      const similarity = 1 / (1 + levenshteinDistance(queryWord, itemNameWord));
+      const distance = levenshteinDistance(queryWord, itemNameWord);
+      const similarity = 1 / (1 + distance);
+
       maxSimilarity = Math.max(maxSimilarity, similarity);
+      totalScore += maxSimilarity;
     }
-
-    totalScore += maxSimilarity * queryWord.length;
   }
-
   return totalScore;
 };
 
@@ -50,17 +54,56 @@ export const searchItems = (
   items: MerchItem[]
 ): MerchItem[] => {
   const scoredItems: { item: MerchItem; score: number }[] = [];
+  console.clear();
 
   for (const item of items) {
     const score = calculateScore(searchQuery, item.name);
-    scoredItems.push({ item, score });
+    console.log(`${item.name} ${score}`);
+
+    console.log(
+      containsLetters(
+        item.name.toLowerCase(),
+        searchQuery.toLowerCase().replace(" ", "").split("")
+      )
+    );
+
+    // Add a condition to filter out items with no matching letters or significantly lower score
+    if (score > 0) {
+      scoredItems.push({ item, score });
+    }
   }
 
   // Sort items based on score in descending order
-  const sortedItems = scoredItems.sort((a, b) => b.score - a.score);
+  scoredItems.sort((a, b) => b.score - a.score);
+
+  // Check if the lowest scored item is more than 0.1 lower than the next lowest
+  if (
+    scoredItems.length > 1 &&
+    scoredItems[0].score - scoredItems[1].score > 0.1
+  ) {
+    // Remove the lowest scored item
+    scoredItems.pop();
+  }
+
+  // Check if the difference between the highest and current item is more than 0.2
+  const maxDifference = 0.075;
+  if (
+    scoredItems.length > 1 &&
+    scoredItems[0].score - scoredItems[scoredItems.length - 1].score >
+      maxDifference
+  ) {
+    // Remove items that are more than 0.2 lower than the highest scored item
+    while (
+      scoredItems.length > 1 &&
+      scoredItems[0].score - scoredItems[scoredItems.length - 1].score >
+        maxDifference
+    ) {
+      scoredItems.pop();
+    }
+  }
 
   // Extract items from the sorted list
-  const result = sortedItems.map((scoredItem) => scoredItem.item);
+  const result = scoredItems.map((scoredItem) => scoredItem.item);
 
   return result;
 };
