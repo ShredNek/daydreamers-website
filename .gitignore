@@ -18,6 +18,7 @@ dist-ssr
 package-lock.json
 
 *.firebase
+.firebase
 
 # Editor directories and files
 .vscode/*
