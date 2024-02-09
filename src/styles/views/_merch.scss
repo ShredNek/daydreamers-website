@@ -16,6 +16,17 @@ $merch-font: Urbanist;
     font-family: $merch-font;
   }
 
+  #adjustable-height-parent {
+    transition: height 0.5s ease;
+  //  .open {
+  //   max-height: 400px;
+  //  }
+   
+  //  .closed {
+  //   max-height: fit-content;
+  //  }
+  }
+
   .banner {
     background-color: black;
     color: white;
@@ -75,6 +86,10 @@ $merch-font: Urbanist;
 
     padding: 2rem 1rem;
     gap: 2rem;
+
+    &:has(.spinner, .general-error) {
+      display: flex;
+    }
 
     @media (max-width: 1000px) {
       grid-template-columns: 1fr 1fr;

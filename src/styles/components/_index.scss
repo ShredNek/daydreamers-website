@@ -1,5 +1,7 @@
-@forward "./spinner";
 @forward './quantity-control';
 @forward './formal-footer';
 @forward './formal-header';
-@forward "./stripe-pay-button"
+@forward "./stripe-pay-button";
+@forward "./paginator";
+@forward "./custom-loader";
+@forward "./general-error";

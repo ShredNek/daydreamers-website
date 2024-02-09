@@ -1,0 +1,19 @@
+@use "../abstracts/colors" as c;
+
+.general-error {
+  margin: auto;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+  padding: 0px 2em;
+
+  svg {
+    color: darken(c.$daydreamer-orange, 10%);
+    max-width: 200px;
+  }
+
+  p {
+    text-shadow: 0px 0px 20px darken(c.$daydreamer-blue, 20%);
+  }
+}

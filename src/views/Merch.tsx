@@ -3,22 +3,29 @@ import SwitchBoxPopover from "../components/tailwind/headlessUI/SwitchBoxPopover
 import PriceRangePopover from "../components/tailwind/headlessUI/PriceRangePopover";
 import Dropdown from "../components/tailwind/headlessUI/Dropdown";
 
-// ? Images
-import MissingImage from "../assets/images/misc/MissingImage.png";
-
 // ? Interfaces/Types
-import { MerchReqParams, GetAllItemEdge, MerchItem, SearchPreference, ExtraSearchPreference, MerchItemGQLSchema } from "../types/index";
+import {
+  MerchReqParams,
+  GetAllItemEdge,
+  MerchItem,
+  SearchPreference,
+  ExtraSearchPreference,
+  MerchItemGQLSchema,
+  PaginatorState,
+  ComponentStatus,
+} from "../types/index";
 import { useEffect, useState } from "react";
 import FormalFooter from "../components/FormalFooter";
 import FormalHeader from "../components/FormalHeader";
-import { Link } from "react-router-dom";
+import HandleCollectionView from "../components/handleCollectionView";
 
 // ? Others
 import { getAllMerch, getMerchById } from "../api/shopifyCalls";
 import { sortMerchByOptions } from "../helper/sortMerchByOption";
-import Spinner from "../components/Spinner";
 import { parseMerchEdges } from "../helper/parseMerchEdges";
 import { searchItems } from "../helper/searchItems";
+import Paginator from "../components/Paginator";
+import { PAGE_DIFFERENCE } from "../globals";
 
 // ? Constants
 const sortByOptions: SearchPreference[] = [
@@ -33,12 +40,33 @@ const sortByOptions: SearchPreference[] = [
 ];
 
 const extraSortByOptions: ExtraSearchPreference[] = [
-  { name: "Price range", componentType: 'price range' },
-  { name: "In Stock", componentType: 'switch', stockPresencePreference: { inStockRequested: true, outOfStockRequested: false } },
-  { name: "Out Of Stock", componentType: 'switch', stockPresencePreference: { inStockRequested: false, outOfStockRequested: true } },
+  { name: "Price range", componentType: "price range" },
+  {
+    name: "In Stock",
+    componentType: "switch",
+    stockPresencePreference: {
+      inStockRequested: true,
+      outOfStockRequested: false,
+    },
+  },
+  {
+    name: "Out Of Stock",
+    componentType: "switch",
+    stockPresencePreference: {
+      inStockRequested: false,
+      outOfStockRequested: true,
+    },
+  },
 ];
 
 export default function Merch() {
+  const [allMerch, setAllMerch] = useState<MerchItem[]>([]);
+  const [allSortedMerch, setAllSortedMerch] = useState<MerchItem[]>([]);
+  const [paginatorState, setPaginatorState] = useState<PaginatorState>({
+    activePage: 1,
+    totalPages: 1,
+  });
+  const [searchQuery, setSearchQuery] = useState("");
   const [merchReqParams, setMerchReqParams] = useState<MerchReqParams>({
     stockPreferences: {
       inStockRequested: true,
@@ -46,57 +74,80 @@ export default function Merch() {
     },
     sortBy: null,
     priceFrom: "",
-    priceTo: ""
+    priceTo: "",
   });
-
-  const [allMerch, setAllMerch] = useState<MerchItem[]>([]);
-  const [allSortedMerch, setAllSortedMerch] = useState<MerchItem[]>([]);
-  const [searchQuery, setSearchQuery] = useState("")
+  const [componentStatus, setComponentStatus] = useState<ComponentStatus>("loading")
 
   // ?
   // ? Main functions
   // ?
 
   const callAndSetDefaultMerch: () => void = async () => {
-    // ? Call all products
-    const rawRes = await (await getAllMerch()).json();
-    const allEdges: GetAllItemEdge[] = rawRes.data.products.edges.map((e: GetAllItemEdge) => e);
+    setComponentStatus("loading");
 
-    const allRawData: PromiseSettledResult<MerchItemGQLSchema>[] = await Promise.allSettled(
-      allEdges.map(async (e, index) => {
-        const id = e.node.id.split("/").pop()!;
+    let rawRes: any;
+    try {
+      rawRes = await (await getAllMerch()).json();
+    } catch (error) {
+      console.error("getAllItems() returned an error. Network has either disconnected, or it is a bad connection.");
+      console.error(error);
+      setComponentStatus("error");
+    }
 
-        // Introduce a delay between calls
-        let delay = 500
-        await new Promise(resolve => setTimeout(resolve, delay * index));
+    const allEdges: GetAllItemEdge[] = rawRes?.data.products.edges.map((e: GetAllItemEdge) => e);
 
-        const callRes = await (await getMerchById(id)).json();
-        const productDetails = callRes.data.product
+    if (!allEdges?.length) {
+      setComponentStatus("error");
+      throw Error("allEdges is empty after trying to get store items")
+    }
 
-        console.log(callRes.extensions.cost.throttleStatus.currentlyAvailable)
+    const allRawData: PromiseSettledResult<MerchItemGQLSchema>[] =
+      await Promise.allSettled(
+        allEdges.map(async (e, index) => {
+          const id = e.node.id.split("/").pop()!;
 
-        const final: MerchItemGQLSchema = {
-          id: id,
-          title: e.node.title,
-          price: productDetails.variants.edges[0].node.price,
-          images: productDetails.images.edges.map((edge: any) => edge.node.src),
-          featured: productDetails.tags,
-          dateAdded: productDetails.createdAt,
-          category: productDetails.productType,
-          extraImages: productDetails.images.edges.map((imgEdge: any) => imgEdge.node.src),
-          totalStock: productDetails.totalInventory,
-          sizesAvailable: parseMerchEdges(productDetails),
-        };
+          // Introduce a delay between calls
+          let delay = 500;
+          await new Promise((resolve) => setTimeout(resolve, delay * index));
 
-        return final
-      })
-    );
+          const callRes = await (await getMerchById(id)).json();
+          const productDetails = callRes.data.product;
 
-    const isFulfilledResult = (merch: PromiseSettledResult<MerchItemGQLSchema>): merch is PromiseFulfilledResult<MerchItemGQLSchema> => merch.status === "fulfilled";
-    const successfulCalls: PromiseFulfilledResult<MerchItemGQLSchema>[] = allRawData.filter(isFulfilledResult)
+          console.log(
+            callRes.extensions.cost.throttleStatus.currentlyAvailable
+          );
 
-    const formattedItems: MerchItem[] = successfulCalls.map(rawMerch => {
-      const merch = rawMerch.value
+          const final: MerchItemGQLSchema = {
+            id: id,
+            title: e.node.title,
+            price: productDetails.variants.edges[0].node.price,
+            images: productDetails.images.edges.map(
+              (edge: any) => edge.node.src
+            ),
+            featured: productDetails.tags,
+            dateAdded: productDetails.createdAt,
+            category: productDetails.productType,
+            extraImages: productDetails.images.edges.map(
+              (imgEdge: any) => imgEdge.node.src
+            ),
+            totalStock: productDetails.totalInventory,
+            sizesAvailable: parseMerchEdges(productDetails),
+          };
+
+          return final;
+        })
+      );
+
+    const isFulfilledResult = (
+      merch: PromiseSettledResult<MerchItemGQLSchema>
+    ): merch is PromiseFulfilledResult<MerchItemGQLSchema> =>
+      merch.status === "fulfilled";
+
+    const successfulCalls: PromiseFulfilledResult<MerchItemGQLSchema>[] =
+      allRawData.filter(isFulfilledResult);
+
+    const formattedItems: MerchItem[] = successfulCalls.map((rawMerch) => {
+      const merch = rawMerch.value;
       return {
         ...merch,
         merchId: merch.id,
@@ -106,14 +157,24 @@ export default function Merch() {
       } as const;
     });
 
-    setAllMerch(formattedItems)
-  }
+    setComponentStatus("ok")
+    setAllMerch(formattedItems);
+  };
 
   const handleSortMerch = () => {
     const sortedByOption = sortMerchByOptions(allMerch, merchReqParams);
-    const sortedBySearch = searchQuery.length ? searchItems(searchQuery, sortedByOption) : sortedByOption
-    setAllSortedMerch(sortedBySearch)
-  }
+    const sortedBySearch = searchQuery.length > 0
+      ? searchItems(searchQuery, sortedByOption)
+      : sortedByOption;
+    setAllSortedMerch(sortedBySearch);
+  };
+
+  const setPageLength = (sortedMerch: MerchItem[]) => {
+    setPaginatorState({
+      ...paginatorState,
+      totalPages: Math.ceil(sortedMerch.length / PAGE_DIFFERENCE),
+    });
+  };
 
   // ?
   // ? Effects
@@ -124,8 +185,19 @@ export default function Merch() {
   }, []);
 
   useEffect(() => {
-    handleSortMerch()
-  }, [allMerch, merchReqParams, searchQuery])
+    setPageLength(allMerch);
+    handleSortMerch();
+  }, [allMerch]);
+
+  useEffect(() => {
+    handleSortMerch();
+    setPageLength(allSortedMerch);
+  }, [merchReqParams, searchQuery]);
+
+  useEffect(() => {
+    if (componentStatus === "loading") return;
+    allSortedMerch.length > 0 ? setComponentStatus("ok") : setComponentStatus("not found")
+  }, [allSortedMerch])
 
   return (
     <section id="merch">
@@ -133,66 +205,61 @@ export default function Merch() {
       <div className="banner">
         <h1 className="heading left"> MERCHANDISE</h1>
       </div>
-      <form id="merch-params">
-        <div id="large-screen">
-          {/* // ? Greater than 900px  */}
-          <aside className="options">
-            <span>Filter:</span>
-            <SwitchBoxPopover
-              state={merchReqParams.stockPreferences}
-              changeStockPreferenceState={(stockPreferences) =>
-                setMerchReqParams({ ...merchReqParams, stockPreferences })
-              }
-              openDirection="right"
-            />
-            <PriceRangePopover
-              merchReqState={merchReqParams}
-              onMerchReqChange={setMerchReqParams} />
-          </aside>
-          <aside className="options">
-            <span>Sort by:</span>
-            <Dropdown
-              mainOptions={[...sortByOptions]}
-              merchReqState={merchReqParams}
-              onMerchReqChange={setMerchReqParams}
-            />
-          </aside>
-        </div>
-        <div id="small-screen">
-          {/* // ? Less than 900px  */}
-          <aside className="options column">
-            <span>Sort by:</span>
-            <Dropdown
-              mainOptions={[...sortByOptions]}
-              extraOptions={[...extraSortByOptions]}
-              openToRight={true}
-              merchReqState={merchReqParams}
-              onMerchReqChange={setMerchReqParams}
-            />
-          </aside>
-        </div>
-      </form>
-      <main className="collection">
-        {allSortedMerch.length
-          ?
-          allSortedMerch.map((merch, index) => (
-            <Link key={merch.merchId} to={merch.merchId} className="merch-card">
-              <img
-                key={`${merch.name}-${index}`}
-                src={merch.imgSrc}
-                onError={(e) => (e.currentTarget.src = MissingImage)}
-                alt={`an image of${merch.imgSrc}`}
-              />
-              <p>{merch.name}</p>
-              <p>
-                <strong>${merch.price}</strong>
-              </p>
-            </Link>
-          ))
-          :
-          <Spinner />
-        }
-      </main>
+      <div id="adjustable-height-parent" className={true ? "closed" : "open "}>
+        {allSortedMerch.length > 0 ? (
+          <form id="merch-params">
+            <div id="large-screen">
+              {/* // ? Greater than 900px  */}
+              <aside className="options">
+                <span>Filter:</span>
+                <SwitchBoxPopover
+                  state={merchReqParams.stockPreferences}
+                  changeStockPreferenceState={(stockPreferences) =>
+                    setMerchReqParams({ ...merchReqParams, stockPreferences })
+                  }
+                  openDirection="right"
+                />
+                <PriceRangePopover
+                  merchReqState={merchReqParams}
+                  onMerchReqChange={setMerchReqParams}
+                />
+              </aside>
+              <aside className="options">
+                <span>Sort by:</span>
+                <Dropdown
+                  mainOptions={[...sortByOptions]}
+                  merchReqState={merchReqParams}
+                  onMerchReqChange={setMerchReqParams}
+                />
+              </aside>
+            </div>
+            <div id="small-screen">
+              {/* // ? Less than 900px  */}
+              <aside className="options column">
+                <span>Sort by:</span>
+                <Dropdown
+                  mainOptions={[...sortByOptions]}
+                  extraOptions={[...extraSortByOptions]}
+                  openToRight={true}
+                  merchReqState={merchReqParams}
+                  onMerchReqChange={setMerchReqParams}
+                />
+              </aside>
+            </div>
+          </form>
+        ) : null}
+        <HandleCollectionView
+          allSortedMerch={allSortedMerch}
+          componentStatus={componentStatus}
+          paginatorState={paginatorState}
+        />
+        {allSortedMerch.length > 0 ? (
+          <Paginator
+            paginatorState={paginatorState}
+            setPaginatorState={setPaginatorState}
+          />
+        ) : null}
+      </div>
       <FormalFooter />
     </section>
   );

@@ -50,6 +50,11 @@ export interface CartItem
   chosenSize: Size;
 }
 
+export type PaginatorState = {
+  activePage: number;
+  totalPages: number;
+};
+
 export type MerchReqParams = {
   sortBy: SortType | null;
   stockPreferences: StockPresencePreferences;
@@ -97,3 +102,5 @@ export type SortType =
   | "newest"
   | "oldest"
   | "availability";
+
+export type ComponentStatus = "error" | "loading" | "ok" | "not found";

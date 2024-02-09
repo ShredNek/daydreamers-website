@@ -39,3 +39,14 @@ export const isKeyOfInterface = <T extends Record<string, unknown>>(
 
 export const inputIsValid = (input: string) =>
   /^(\d+(\.\d{0,2})?|0*\.?\d{0,2})?$/.test(input);
+
+export const isWithinPageCount = (
+  itemIndex: number,
+  activePage: number,
+  pageDifference: number
+): boolean => {
+  const adjustedIndex = itemIndex + 1;
+  const lowerPageRange = (activePage - 1) * pageDifference;
+  const higherPageRange = lowerPageRange + pageDifference;
+  return adjustedIndex > lowerPageRange && adjustedIndex <= higherPageRange;
+};
