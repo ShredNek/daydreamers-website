@@ -1,17 +1,22 @@
 import { ComponentStatus, MerchItem, PaginatorState } from "../types";
-import Spinner from "../components/Spinner";
+import { PAGE_DIFFERENCE } from "../globals";
 import { isWithinPageCount } from "../helper";
+import Spinner from "../components/Spinner";
 import GeneralError from "../components/GeneralError";
 import MerchCard from "../components/MerchCard";
-import { PAGE_DIFFERENCE } from "../globals";
+import NotFoundError from "../components/NotFoundError";
 
 type HandleCollectionView = {
   allSortedMerch: MerchItem[];
   componentStatus: ComponentStatus;
-  paginatorState: PaginatorState
-}
+  paginatorState: PaginatorState;
+};
 
-export default function HandleCollectionView({ allSortedMerch, componentStatus, paginatorState }: HandleCollectionView) {
+export default function HandleCollectionView({
+  allSortedMerch,
+  componentStatus,
+  paginatorState,
+}: HandleCollectionView) {
   return (
     <main className="collection">
       {componentStatus === "ok" ? (
@@ -33,10 +38,8 @@ export default function HandleCollectionView({ allSortedMerch, componentStatus, 
       ) : componentStatus === "loading" ? (
         <Spinner />
       ) : componentStatus === "not found" ? (
-        <div>
-          <h3>Not found</h3>
-        </div>
+        <NotFoundError />
       ) : null}
     </main>
-  )
+  );
 }

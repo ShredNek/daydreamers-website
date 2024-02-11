@@ -67,7 +67,7 @@
       }
     }
   }
-  
+
   #copyright {
     &,
     & > ul {
@@ -93,5 +93,9 @@
       content: "•";
       margin-right: 1rem;
     }
+  }
+
+  @media (max-width: 500px) {
+    font-size: .8em;
   }
 }

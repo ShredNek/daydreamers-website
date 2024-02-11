@@ -17,7 +17,7 @@ import {
 import { useEffect, useState } from "react";
 import FormalFooter from "../components/FormalFooter";
 import FormalHeader from "../components/FormalHeader";
-import HandleCollectionView from "../components/handleCollectionView";
+import HandleCollectionView from "../components/HandleCollectionView";
 
 // ? Others
 import { getAllMerch, getMerchById } from "../api/shopifyCalls";
@@ -26,6 +26,7 @@ import { parseMerchEdges } from "../helper/parseMerchEdges";
 import { searchItems } from "../helper/searchItems";
 import Paginator from "../components/Paginator";
 import { PAGE_DIFFERENCE } from "../globals";
+import DynamicHeightDiv from "../components/DynamicHeightDiv";
 
 // ? Constants
 const sortByOptions: SearchPreference[] = [
@@ -77,6 +78,7 @@ export default function Merch() {
     priceTo: "",
   });
   const [componentStatus, setComponentStatus] = useState<ComponentStatus>("loading")
+  const [visible, setVisible] = useState(false)
 
   // ?
   // ? Main functions
@@ -84,6 +86,7 @@ export default function Merch() {
 
   const callAndSetDefaultMerch: () => void = async () => {
     setComponentStatus("loading");
+    setVisible(true)
 
     let rawRes: any;
     try {
@@ -113,9 +116,9 @@ export default function Merch() {
           const callRes = await (await getMerchById(id)).json();
           const productDetails = callRes.data.product;
 
-          console.log(
-            callRes.extensions.cost.throttleStatus.currentlyAvailable
-          );
+          // console.log(
+          //   callRes.extensions.cost.throttleStatus.currentlyAvailable
+          // );
 
           const final: MerchItemGQLSchema = {
             id: id,
@@ -157,8 +160,14 @@ export default function Merch() {
       } as const;
     });
 
-    setComponentStatus("ok")
+    setVisible(false)
+    await new Promise<void>(resolve => {
+      setTimeout(() => {
+        resolve();
+      }, 1000)
+    })
     setAllMerch(formattedItems);
+    setComponentStatus("ok");
   };
 
   const handleSortMerch = () => {
@@ -190,14 +199,15 @@ export default function Merch() {
   }, [allMerch]);
 
   useEffect(() => {
+    if (componentStatus === "loading" || componentStatus === "error") return;
+    allSortedMerch.length > 0 ? setComponentStatus("ok") : setComponentStatus("not found")
+    setVisible(true)
+  }, [allSortedMerch])
+
+  useEffect(() => {
     handleSortMerch();
     setPageLength(allSortedMerch);
   }, [merchReqParams, searchQuery]);
-
-  useEffect(() => {
-    if (componentStatus === "loading") return;
-    allSortedMerch.length > 0 ? setComponentStatus("ok") : setComponentStatus("not found")
-  }, [allSortedMerch])
 
   return (
     <section id="merch">
@@ -205,8 +215,8 @@ export default function Merch() {
       <div className="banner">
         <h1 className="heading left"> MERCHANDISE</h1>
       </div>
-      <div id="adjustable-height-parent" className={true ? "closed" : "open "}>
-        {allSortedMerch.length > 0 ? (
+      <DynamicHeightDiv visible={visible}>
+        {allMerch.length > 0 ? (
           <form id="merch-params">
             <div id="large-screen">
               {/* // ? Greater than 900px  */}
@@ -259,7 +269,7 @@ export default function Merch() {
             setPaginatorState={setPaginatorState}
           />
         ) : null}
-      </div>
+      </DynamicHeightDiv>
       <FormalFooter />
     </section>
   );

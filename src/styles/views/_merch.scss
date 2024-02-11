@@ -16,17 +16,6 @@ $merch-font: Urbanist;
     font-family: $merch-font;
   }
 
-  #adjustable-height-parent {
-    transition: height 0.5s ease;
-  //  .open {
-  //   max-height: 400px;
-  //  }
-   
-  //  .closed {
-  //   max-height: fit-content;
-  //  }
-  }
-
   .banner {
     background-color: black;
     color: white;
@@ -36,7 +25,7 @@ $merch-font: Urbanist;
     #large-screen,
     #small-screen {
       justify-content: space-between;
-      padding: 1em $distance-between-children;
+      padding: 2em $distance-between-children 1em;
     }
 
     & > #small-screen {
@@ -80,6 +69,20 @@ $merch-font: Urbanist;
     }
   }
 
+  #dynamic-height-parent {
+    position: relative;
+    height: var(--dynamic-height);
+    transition: opacity 0.75s ease-out, height 0.75s ease-out;
+
+    &.fade-in {
+      opacity: 1;
+    }
+
+    &.fade-out {
+      opacity: 0;
+    }
+  }
+
   .collection {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
@@ -87,8 +90,33 @@ $merch-font: Urbanist;
     padding: 2rem 1rem;
     gap: 2rem;
 
-    &:has(.spinner, .general-error) {
+    &:has(.spinner, .collection-notice) {
       display: flex;
+    }
+
+    .collection-notice {
+      p {
+        text-shadow: 0px 0px 20px darken(c.$daydreamer-blue, 20%);
+      }
+
+      margin: auto;
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      text-align: center;
+      padding: 1em 2em;
+
+      svg {
+        max-width: 200px;
+      }
+
+      &.error svg {
+        color: darken(c.$daydreamer-orange, 10%);
+      }
+
+      &.not-found svg {
+        color: grey;
+      }
     }
 
     @media (max-width: 1000px) {
@@ -97,13 +125,12 @@ $merch-font: Urbanist;
   }
 
   .merch-card {
-    display: block;
     width: 200px;
     height: 400px;
     margin: auto;
     transform: scale(100%);
 
-    transition: box-shadow .33s ease-out, transform .5s ease-out;
+    transition: box-shadow 0.33s ease-out, transform 0.5s ease-out;
 
     $border-color: rgb(236, 236, 236);
     border: $border-color 1px solid;
@@ -116,17 +143,17 @@ $merch-font: Urbanist;
       border-bottom: $border-color 1.5px solid;
       object-fit: cover;
       margin: auto;
-      height: 300px
+      height: 300px;
     }
 
     & > *:not(img) {
       padding: 1rem 1rem 0.5rem;
 
       &:not(:last-child)::after {
-        content: '';
+        content: "";
         display: block;
-        border-bottom: $border-color solid .5px;
-        padding-top: .5rem;
+        border-bottom: $border-color solid 0.5px;
+        padding-top: 0.5rem;
       }
     }
 
@@ -136,7 +163,8 @@ $merch-font: Urbanist;
 
     &:hover {
       transform: scale(102%);
-      box-shadow: -5px -10px 50px -20px c.$daydreamer-blue, 7px 3px 50px -20px c.$daydreamer-orange, 0px 0px 40px -20px c.$grey, ;
+      box-shadow: -5px -10px 50px -20px c.$daydreamer-blue,
+        7px 3px 50px -20px c.$daydreamer-orange, 0px 0px 40px -20px c.$grey;
     }
   }
 
@@ -161,6 +189,15 @@ $merch-font: Urbanist;
 
     h1 {
       font-size: 1.75em;
+    }
+
+    .collection {
+      grid-template-columns: .5fr .5fr;
+      gap: 1.5rem;
+    }
+
+    .merch-card {
+      width: auto;
     }
   }
 }
