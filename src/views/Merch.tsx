@@ -201,6 +201,7 @@ export default function Merch() {
   useEffect(() => {
     if (componentStatus === "loading" || componentStatus === "error") return;
     allSortedMerch.length > 0 ? setComponentStatus("ok") : setComponentStatus("not found")
+    setPageLength(allSortedMerch);
     setVisible(true)
   }, [allSortedMerch])
 
