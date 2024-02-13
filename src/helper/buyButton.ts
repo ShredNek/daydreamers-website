@@ -2,7 +2,7 @@ type BuyButtonScriptArgs = {
   productId: string;
 };
 
-export const buyButtonScript = ({ productId }: BuyButtonScriptArgs) => {
+export const buyButtonScript = async ({ productId }: BuyButtonScriptArgs) => {
   let scriptURL =
     "https://sdks.shopifycdn.com/buy-button/latest/buy-button-storefront.min.js";
 
@@ -15,7 +15,7 @@ export const buyButtonScript = ({ productId }: BuyButtonScriptArgs) => {
 
   function loadScript() {
     let script = document.createElement("script");
-    script.async = false;
+    script.async = true;
     script.src = scriptURL;
     (
       document.getElementsByTagName("head")[0] ||
@@ -31,7 +31,7 @@ export const buyButtonScript = ({ productId }: BuyButtonScriptArgs) => {
       storefrontAccessToken: import.meta.env.VITE_SHOPIFY_BUY_CLIENT_TOKEN,
     });
     //@ts-ignore
-    ShopifyBuy.UI.onReady(client).then(function (ui: any) {
+    ShopifyBuy.UI.onReady(client).then(async (ui: any) => {
       ui.createComponent("product", {
         id: productId,
         node: document.getElementById("product-component"),
@@ -97,25 +97,25 @@ export const buyButtonScript = ({ productId }: BuyButtonScriptArgs) => {
                 },
               },
               title: {
-                "font-family": "Helvetica Neue, sans-serif",
+                "font-family": "Urbanist, sans-serif",
                 "font-weight": "bold",
                 "font-size": "26px",
                 color: "#4c4c4c",
               },
               price: {
-                "font-family": "Helvetica Neue, sans-serif",
+                "font-family": "Urbanist, sans-serif",
                 "font-weight": "normal",
                 "font-size": "18px",
                 color: "#4c4c4c",
               },
               compareAt: {
-                "font-family": "Helvetica Neue, sans-serif",
+                "font-family": "Urbanist, sans-serif",
                 "font-weight": "normal",
                 "font-size": "15.299999999999999px",
                 color: "#4c4c4c",
               },
               unitPrice: {
-                "font-family": "Helvetica Neue, sans-serif",
+                "font-family": "Urbanist, sans-serif",
                 "font-weight": "normal",
                 "font-size": "15.299999999999999px",
                 color: "#4c4c4c",

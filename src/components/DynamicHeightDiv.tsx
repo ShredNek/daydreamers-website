@@ -1,8 +1,10 @@
 import React, { useState, useEffect, useRef } from "react";
+import { onDocumentMutation } from "../helper/componentHelpers";
+import "../styles/components/_index.scss"
 
 type DynamicHeightDiv = {
   children: React.ReactNode;
-  visible: boolean;
+  visible?: boolean;
 };
 
 export default function DynamicHeightDiv({
@@ -12,23 +14,36 @@ export default function DynamicHeightDiv({
   const divRef = useRef<null | HTMLDivElement>(null);
   const [divHeight, setDivHeight] = useState(0)
 
-  useEffect(() => {
-    const updateHeight = () => {
+  const updateHeight = () => {
+    const inner = () => {
       if (divRef.current) {
         let totalHeight = 0;
         const childrenArray = Array.from(divRef.current.children) as HTMLElement[];
+        // console.log(childrenArray)
         childrenArray.forEach(child => {
+          // console.dir(child.offsetHeight)
           totalHeight += child.offsetHeight;
         });
         setDivHeight(totalHeight);
       }
     }
 
+    inner();
+    setTimeout(() => {
+      inner();
+    }, 200);
+  }
+
+  useEffect(() => {
     updateHeight()
     window.addEventListener('resize', updateHeight);
 
+    const observer = onDocumentMutation(() => { updateHeight(); console.log("second chance") })
+
     // ? Cleanup function
     return () => {
+      updateHeight()
+      observer.disconnect()
       window.removeEventListener('resize', updateHeight);
     };
   }, [children, visible]);

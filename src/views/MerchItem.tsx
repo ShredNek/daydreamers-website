@@ -4,16 +4,26 @@ import { useParams, Link } from "react-router-dom";
 // ? Components
 import FormalFooter from "../components/FormalFooter";
 import FormalHeader from "../components/FormalHeader";
+import DynamicHeightDiv from "../components/DynamicHeightDiv";
 
 // ? Testing
 import SampleStock from "../test/SampleStock";
 
 // ? Image
-import MissingImage from "../assets/images/misc/MissingImage.png";
 import BuyButton from "../components/ShopifyBuy/BuyButton";
+import { useEffect, useState } from "react";
 
 export default function MerchItem() {
+  const [visible, setVisible] = useState(false)
   const { id } = useParams();
+
+  useEffect(() => {
+    window.addEventListener("reveal", () => setVisible(true))
+
+    return () => {
+      window.removeEventListener("reveal", () => setVisible(true))
+    }
+  }, [])
 
   // ? get photos
   // ! TEST
@@ -23,9 +33,11 @@ export default function MerchItem() {
     <section id="merch-item">
       <FormalHeader searchHidden={true} />
       <main>
-        <BuyButton productId={id!} />
+        <DynamicHeightDiv visible={visible}>
+          <BuyButton productId={id!} />
+        </DynamicHeightDiv>
       </main>
-      <aside>
+      {/* <aside>
         <h2>Related Products</h2>
         <div className="collection">
           {SampleStock
@@ -51,7 +63,7 @@ export default function MerchItem() {
               </Link>
             ))}
         </div>
-      </aside>
+      </aside> */}
       <FormalFooter />
     </section>
   );

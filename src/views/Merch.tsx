@@ -27,6 +27,7 @@ import { searchItems } from "../helper/searchItems";
 import Paginator from "../components/Paginator";
 import { PAGE_DIFFERENCE } from "../globals";
 import DynamicHeightDiv from "../components/DynamicHeightDiv";
+import "../styles/components/_index.scss"
 
 // ? Constants
 const sortByOptions: SearchPreference[] = [

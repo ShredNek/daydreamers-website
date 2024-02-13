@@ -73,20 +73,6 @@ $merch-font: Urbanist;
     margin: 0;
   }
 
-  #dynamic-height-parent {
-    position: relative;
-    height: var(--dynamic-height);
-    transition: opacity 0.75s ease-out, height 0.75s ease-out;
-
-    &.fade-in {
-      opacity: 1;
-    }
-
-    &.fade-out {
-      opacity: 0;
-    }
-  }
-
   .collection {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
