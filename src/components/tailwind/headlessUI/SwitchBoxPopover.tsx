@@ -3,7 +3,7 @@ import { Popover, Transition } from "@headlessui/react";
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
 import { StockPresencePreferences } from "../../../types";
 import { Fragment } from "react";
-import Switch from "./Switch";
+import CustomSwitch from "./CustomSwitch";
 import { handleSwitch } from "../../../helper/componentHelpers"
 
 const stockOptions = [
@@ -54,24 +54,16 @@ export default function SwitchBoxPopover({ state, changeStockPreferenceState, op
               leaveFrom="opacity-100 translate-y-0"
               leaveTo="opacity-0 translate-y-1"
             >
-              {/* // ? OPEN DIRECTION  */}
               <Popover.Panel className={` ${openDirection === "left" ? "right-0" : openDirection === "right" ? "left-0" : null} absolute  z-10 mt-3 w-screen max-w-md transform px-4 sm:px-0`}>
                 <div className="overflow-hidden rounded-lg shadow-lg ring-1 ring-black ring-opacity-5">
                   <div className="bg-gray-50 p-4 flex flex-row gap-2 place-content-between">
-                    <a className="flow-root rounded-md px-2 py-2 transition duration-150 ease-in-out hover:bg-gray-100 focus:outline-none focus-visible:ring focus-visible:ring-daydreamer-orange focus-visible:ring-opacity-50">
+                    <button className="flow-root rounded-md px-2 py-2 transition duration-150 ease-in-out group hover:bg-daydreamer-orange focus:outline-none focus-visible:ring focus-visible:ring-daydreamer-orange focus-visible:ring-opacity-50">
                       <span className="flex items-center place-content-between">
-                        <span className="text-sm font-medium text-gray-900">
-                          Apply Changes
-                        </span>
-                      </span>
-                    </a>
-                    <a className="flow-root rounded-md px-2 py-2 transition duration-150 ease-in-out hover:bg-red-100 focus:outline-none focus-visible:ring focus-visible:ring-daydreamer-orange focus-visible:ring-opacity-50">
-                      <span className="flex items-center place-content-between">
-                        <span className="text-sm font-bold text-gray-900">
+                        <span className="text-sm font-bold text-gray-900 group-hover:text-white">
                           Reset
                         </span>
                       </span>
-                    </a>
+                    </button>
                   </div>
                   <div className="relative grid gap-8 bg-white p-7 lg:grid-cols-2">
                     {stockOptions.map((item) => (
@@ -81,7 +73,7 @@ export default function SwitchBoxPopover({ state, changeStockPreferenceState, op
                         className={`${compactStyle ? null : "-my-3 -ml-3"} flex items-center rounded-lg p-2 transition duration-150 ease-in-out hover:bg-gray-50 focus:outline-none focus-visible:ring focus-visible:ring-daydreamer-orange focus-visible:ring-opacity-50`}
                       >
                         <div className="ml-4 flex flex-row">
-                          <Switch className={"mr-4"} onClick={handleClick} id={item.stateName} enabled={state ? state[item.stateName as keyof StockPresencePreferences] : false} />
+                          <CustomSwitch className={"mr-4"} onClick={handleClick} id={item.stateName} enabled={state ? state[item.stateName as keyof StockPresencePreferences] : false} />
                           <p className="text-sm font-medium text-gray-900">
                             {item.name}
                           </p>

@@ -69,6 +69,10 @@ $merch-font: Urbanist;
     }
   }
 
+  #small-screen-dropdown li {
+    margin: 0;
+  }
+
   #dynamic-height-parent {
     position: relative;
     height: var(--dynamic-height);
@@ -192,7 +196,7 @@ $merch-font: Urbanist;
     }
 
     .collection {
-      grid-template-columns: .5fr .5fr;
+      grid-template-columns: 0.5fr 0.5fr;
       gap: 1.5rem;
     }
 

@@ -2,7 +2,7 @@ import { Menu, Transition } from "@headlessui/react";
 import React, { Fragment, useState } from "react";
 import { ChevronDownIcon, CheckIcon } from "@heroicons/react/20/solid";
 import PriceInput from "./PriceInput";
-import Switch from "./Switch";
+import CustomSwitch from "./CustomSwitch";
 import { onInputChange, handleSwitch } from "../../../helper/componentHelpers";
 
 import { ExtraSearchPreference, MerchReqParams, SearchPreference, SortType, StockPresencePreferences } from "../../../types";
@@ -76,14 +76,15 @@ export default function Dropdown({ mainOptions, merchReqState, onMerchReqChange,
           leaveTo="transform opacity-0 scale-95"
         >
           <Menu.Items
+            as="ul"
+            id="small-screen-dropdown"
             className={`${openToRight === true ? "left-0" : "right-0"
-              } z-10 absolute max-[500px]:inset-x-0 max-[500px]:mx-auto  mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none`}
+              } z-20 absolute max-[500px]:inset-x-0 max-[500px]:mx-auto  mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none`}
           >
-
             {/* // ? Main preference */}
             {mainOptions ? mainOptions.map((option, index) => {
               return (
-                <div key={`${option}-${index}`}>
+                <li key={`${option}-${index}`}>
                   <Menu.Item >
                     {({ active }) => (
                       <button
@@ -101,7 +102,7 @@ export default function Dropdown({ mainOptions, merchReqState, onMerchReqChange,
                       </button>
                     )}
                   </Menu.Item>
-                </div>
+                </li>
               );
             }) : null}
 
@@ -110,11 +111,11 @@ export default function Dropdown({ mainOptions, merchReqState, onMerchReqChange,
 
               if (option.componentType === "switch" && option.stockPresencePreference) {
                 return (
-                  <div key={`${option}-${index}`}>
+                  <li key={`${option}-${index}`}>
                     <Menu.Item >
-                      <a className=" -ml-3 flex items-center rounded-lg p-2 transition duration-150 ease-in-out hover:bg-gray-50 focus:outline-none focus-visible:ring focus-visible:ring-daydreamer-orange focus-visible:ring-opacity-50">
+                      <a className=" -ml-3 flex items-center rounded-lg p-2 transition duration-150 ease-in-out focus:outline-none focus-visible:ring-daydreamer-orange focus-visible:ring-opacity-50">
                         <div className="ml-4 flex flex-row">
-                          <Switch
+                          <CustomSwitch
                             id={Object.keys(option.stockPresencePreference)[index - 1]}
                             className={"mr-4"}
                             onClick={(e: React.MouseEvent<HTMLButtonElement>) => onSwitchClick(e, merchReqState.stockPreferences)}
@@ -126,11 +127,11 @@ export default function Dropdown({ mainOptions, merchReqState, onMerchReqChange,
                         </div>
                       </a>
                     </Menu.Item>
-                  </div>
+                  </li>
                 );
               } else if (option.componentType === "price range") {
                 return (
-                  <div key={`${option.name}-${index}`}>
+                  <li key={`${option.name}-${index}`}>
                     <Menu.Item >
                       {({ active }) => (
                         <div
@@ -146,7 +147,7 @@ export default function Dropdown({ mainOptions, merchReqState, onMerchReqChange,
                         </div>
                       )}
                     </Menu.Item>
-                  </div>
+                  </li>
                 );
               }
             }) : null}

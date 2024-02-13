@@ -44,26 +44,16 @@ export default function CustomPriceRangePopover({ merchReqState, onMerchReqChang
               <Popover.Panel className="absolute left-1/2 z-10 mt-3 w-screen max-w-md -translate-x-1/2 transform px-4 sm:px-0">
                 <div className="overflow-hidden rounded-lg shadow-lg ring-1 ring-black ring-opacity-5">
                   <div className="bg-gray-50 p-4 flex flex-row gap-2 place-content-between">
-                    <a
-                      href="##"
-                      className="flow-root rounded-md px-2 py-2 transition duration-150 ease-in-out hover:bg-gray-100 focus:outline-none focus-visible:ring focus-visible:ring-daydreamer-orange focus-visible:ring-opacity-50"
+                    <button
+                      className="flow-root rounded-md px-2 py-2 transition duration-150 ease-in-out group hover:bg-daydreamer-orange focus:outline-none focus-visible:ring focus-visible:ring-daydreamer-orange focus-visible:ring-opacity-50"
+                      onClick={() => { onMerchReqChange({ ...merchReqState, priceFrom: "", priceTo: "" }) }}
                     >
                       <span className="flex items-center place-content-between">
-                        <span className="text-sm font-medium text-gray-900">
-                          Apply Changes
-                        </span>
-                      </span>
-                    </a>
-                    <a
-                      href="##"
-                      className="flow-root rounded-md px-2 py-2 transition duration-150 ease-in-out hover:bg-red-100 focus:outline-none focus-visible:ring focus-visible:ring-daydreamer-orange focus-visible:ring-opacity-50"
-                    >
-                      <span className="flex items-center place-content-between">
-                        <span className="text-sm font-bold text-gray-900">
+                        <span className="text-sm font-bold text-gray-900 group-hover:text-white">
                           Reset
                         </span>
                       </span>
-                    </a>
+                    </button>
                   </div>
                   <div className="relative grid gap-8 bg-white p-5 pl-7 grid-cols-2">
                     <PriceInput placeholder="from" onChange={onChange} id={"priceFrom"} currState={merchReqState.priceFrom} />
