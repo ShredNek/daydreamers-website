@@ -1,5 +1,4 @@
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline"
-import "../styles/views/_merch.scss"
 
 export default function GeneralError() {
   return (

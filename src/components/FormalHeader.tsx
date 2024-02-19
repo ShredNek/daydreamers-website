@@ -17,9 +17,6 @@ import {
 import HQ_DayDreamersLogo from "../assets/images/icons/HQ_DayDreamersLogo.jpg";
 import LQ_DayDreamersLogo from "../assets/images/icons/LQ_DayDreamersLogo.jpg";
 
-// ? Styles
-import "../styles/components/_formal-header.scss";
-
 type SearchModal = {
   searchHidden?: boolean;
   searchQuery?: string;

@@ -5,40 +5,68 @@
 // ? HOME ?
 // ? ? ? ?
 
-#home-nav {
+$transition-property: all 1.5s ease-in-out;
+
+#site-backdrop {
   display: flow-root;
-  margin: auto;
-  width: 100vw;
+  top: 0;
+  background: a.$daydreamer-gradient-main;
+  opacity: 20%;
+  height: 100%;
+  width: 100%;
+  position: fixed;
+  z-index: -1;
 
-  span {
-    transition: transform 2.5s a.$custom-ease, scale 5s a.$custom-ease, color 5s a.$custom-ease;
-    display: inline-block;
-    font-size: 1.2em;
-    font-family: GoodGirl;
-    scale: 1;
-    color: white;
+  transition: $transition-property;
 
-    &:hover {
-      scale: 1.5;
-      cursor: default;
-      
-      &:nth-child(odd) {
-        color: lighten(a.$daydreamer-blue, 10%);
-      }
-
-      &:nth-child(even) {
-        color: lighten(a.$daydreamer-orange, 10%);
-      }
-    }
+  &.transitioning {
+    opacity: 0;
   }
 }
 
-#page-routes {
-  ul {
+#home {
+  $max-height: 800px;
+  opacity: 1;
+
+  #home-nav {
+    display: flow-root;
+    margin: auto;
+    width: 100vw;
+
+    span {
+      transition: transform 2.5s a.$custom-ease, scale 5s a.$custom-ease,
+        color 5s a.$custom-ease;
+      display: inline-block;
+      font-size: 1.2em;
+      font-family: GoodGirl;
+      scale: 1;
+      color: white;
+
+      &:hover {
+        scale: 1.5;
+        cursor: default;
+
+        &:nth-child(odd) {
+          color: lighten(a.$daydreamer-blue, 10%);
+        }
+
+        &:nth-child(even) {
+          color: lighten(a.$daydreamer-orange, 10%);
+        }
+      }
+
+      @media (max-height: $max-height) {
+        font-size: 1em;
+      }
+    }
+  }
+
+  #page-routes ul {
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: column;
     justify-content: center;
     margin: 0 auto;
+    padding: 1rem 0px;
 
     .hover {
       transform: scale(1);
@@ -62,79 +90,113 @@
     }
 
     & > li {
+      width: min-content;
+      margin: 1rem auto;
       font-size: clamp(1rem, 5vw + 5px, 2rem);
+
+      @media (max-height: $max-height) {
+        margin: 0.5rem auto;
+        font-size: 1.2em;
+      }
+    }
+
+    @media (max-height: $max-height) {
+      padding: 0.5rem 0px;
     }
   }
-}
 
-#home footer {
-  @media (min-width: 850px) {
-    flex-direction: row;
-  }
-
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-around;
-  margin: 0px auto 50px;
-  width: 90%;
-
-  & > * {
-    margin: 1rem 0;
-  }
-
-  .social-links {
+  footer {
     display: flex;
+    flex-direction: column;
     align-items: center;
-    justify-content: center;
-    flex-wrap: wrap;
-  }
+    justify-content: space-around;
+    margin: 0px auto 50px;
+    width: 90%;
 
-  .rounded-button-link {
-    overflow: hidden;
-    margin: 0.5rem;
-    padding: 0.75rem;
-    background: white;
-    border: black 1px solid;
-    font-size: calc(1rem + 0.75vw);
-    border-radius: 100%;
-    display: flex;
-    place-self: center;
-    position: relative;
+    & > * {
+      margin: 1rem 0;
+    }
 
-    opacity: 1;
-    transition-property: background, color, border-color, box-shadow;
-    transition-timing-function: ease-in-out;
-    transition-duration: 350ms;
+    .social-links {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
 
-    & > .bg {
-      position: absolute;
-      height: 100%;
-      width: 100%;
-      inset: 0;
+    .rounded-button-link {
+      overflow: hidden;
+      margin: 0.5rem;
+      padding: 0.75rem;
+      background: white;
+      border: black 1px solid;
+      font-size: calc(1rem + 0.75vw);
+      border-radius: 100%;
+      display: flex;
+      place-self: center;
+      position: relative;
 
-      background: a.$daydreamer-gradient-alt;
-      z-index: -1;
-
+      opacity: 1;
       transition-property: background, color, border-color, box-shadow;
       transition-timing-function: ease-in-out;
       transition-duration: 350ms;
+
+      & > .bg {
+        position: absolute;
+        height: 100%;
+        width: 100%;
+        inset: 0;
+
+        background: a.$daydreamer-gradient-alt;
+        z-index: -1;
+
+        transition-property: background, color, border-color, box-shadow;
+        transition-timing-function: ease-in-out;
+        transition-duration: 350ms;
+      }
+
+      &:hover {
+        // ? This is a very stinky hack to get the opacity to change on hover
+        background: rgba(255, 255, 255, 0.1);
+        color: darken(a.$daydreamer-orange, 10%);
+        border-color: lighten(a.$daydreamer-orange, 20%);
+        box-shadow: 3px -2px 20px 0px a.$daydreamer-orange;
+      }
     }
 
-    &:hover {
-      // ? This is a very stinky hack to get the opacity to change on hover
-      background: rgba(255, 255, 255, 0.1);
-      color: darken(a.$daydreamer-orange, 10%);
-      border-color: lighten(a.$daydreamer-orange, 20%);
-      box-shadow: 3px -2px 20px 0px a.$daydreamer-orange;
+    .link {
+      cursor: pointer;
+    }
+
+    p {
+      pointer-events: none;
+    }
+
+    @media (min-width: 850px) {
+      flex-direction: row;
+    }
+
+    @media (max-height: 700px) {
+      .social-links {
+        margin-bottom: 0px;
+      }
+
+      .rounded-button-link {
+        font-size: 0.75rem;
+        padding: 0.5rem;
+      }
+
+      .extra-links {
+        font-size: 0.75em;
+        margin: 0.5rem 0px;
+      }
     }
   }
 
-  .link {
-    cursor: pointer;
-  }
+  transition: $transition-property;
 
-  p {
-    pointer-events: none;
+  &.transitioning {
+    transform: translateY(-100%);
+    opacity: 0;
   }
 }

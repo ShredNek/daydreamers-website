@@ -1,5 +1,3 @@
-import "../styles/components/_custom-loader.scss";
-
 function Spinner() {
   return (
     <div className="custom-loader">

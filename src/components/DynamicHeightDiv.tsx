@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
 import { onDocumentMutation } from "../helper/componentHelpers";
-import "../styles/components/_index.scss"
 
 type DynamicHeightDiv = {
   children: React.ReactNode;

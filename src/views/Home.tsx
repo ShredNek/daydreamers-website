@@ -1,5 +1,5 @@
 import { FaFacebookF, FaInstagram, FaSpotify, FaMusic } from "react-icons/fa6";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import RoundedButtonLink from "../components/RoundedButtonLink";
 import { useState, useEffect } from "react";
 
@@ -13,6 +13,8 @@ const pageLinks = [
 
 export default function Home() {
   const [time, setTime] = useState(0);
+  const [componentState, setComponentState] = useState<"transitioning" | "">("")
+  let navigate = useNavigate()
 
   // ? Helpers
   const randomDistance = 12;
@@ -40,41 +42,48 @@ export default function Home() {
     })
   };
 
+  const handleRedirect = (linkTo: string) => {
+    setComponentState("transitioning")
+    setTimeout(() => navigate(linkTo), 1500)
+  }
+
   return (
-    <section id="home">
-      <div id="site-backdrop" />
-      <div id="home-nav">
-        <h1 className="outline-black heading white">
-          {titleWithShiftingLetters("Day Dreamers")}
-        </h1>
-        <nav id="page-routes">
-          <ul>
-            {pageLinks.map((link, index) => (
-              <li
-                key={index}
-                className={index % 2 === 0 ? `hover v-1` : `hover v-2`}
-              >
-                <Link to={link.to}>{link.innerText}</Link>
-              </li>
-            ))}
-          </ul>
-        </nav>
-      </div>
-      <footer>
-        <div className="social-links">
-          <RoundedButtonLink imageChild={<FaFacebookF />} />
-          <RoundedButtonLink imageChild={<FaInstagram />} />
-          <RoundedButtonLink imageChild={<FaSpotify />} />
-          <RoundedButtonLink imageChild={<FaMusic />} />
+    <>
+      <div id="site-backdrop" className={componentState} />
+      <section id="home" className={componentState} >
+        <div id="home-nav">
+          <h1 className="outline-black heading white">
+            {titleWithShiftingLetters("Day Dreamers")}
+          </h1>
+          <nav id="page-routes">
+            <ul>
+              {pageLinks.map((link, index) => (
+                <li
+                  key={index}
+                  className={index % 2 === 0 ? `hover v-1` : `hover v-2`}
+                >
+                  <a href="#" onClick={() => handleRedirect(link.to)}>{link.innerText}</a>
+                </li>
+              ))}
+            </ul>
+          </nav>
         </div>
-        <ul>
-          <li className="link ">Press Kit</li>
-          <li className="link ">Contact Us</li>
-        </ul>
-        <p>
-          <strong>© 2015-{new Date().getFullYear()} Day Dreamers</strong>
-        </p>
-      </footer>
-    </section>
+        <footer>
+          <div className="social-links">
+            <RoundedButtonLink imageChild={<FaFacebookF />} />
+            <RoundedButtonLink imageChild={<FaInstagram />} />
+            <RoundedButtonLink imageChild={<FaSpotify />} />
+            <RoundedButtonLink imageChild={<FaMusic />} />
+          </div>
+          <ul className="extra-links">
+            <li className="link ">Press Kit</li>
+            <li className="link ">Contact Us</li>
+          </ul>
+          <p className="extra-links">
+            <strong>© 2015-{new Date().getFullYear()} Day Dreamers</strong>
+          </p>
+        </footer>
+      </section >
+    </>
   );
 }

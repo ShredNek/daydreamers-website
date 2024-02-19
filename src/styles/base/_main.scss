@@ -83,17 +83,6 @@ span {
   text-shadow: fn.generate-text-outline($outline-width, $outline-color);
 }
 
-#site-backdrop {
-  display: flow-root;
-  top: 0;
-  background: a.$daydreamer-gradient-main;
-  opacity: 20%;
-  height: 100%;
-  width: 100%;
-  position: fixed;
-  z-index: -1;
-}
-
 .img-parent {
   padding: 0.5rem 0px;
   & > img {

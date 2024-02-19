@@ -9,9 +9,6 @@ import LQ_OfficialMerch from "../assets/images/icons/LQ_OfficialMerchandiseStore
 import IconButton from "../components/IconButton";
 import LazyImage from "../components/LazyImage";
 
-// ? Style
-import '../styles/components/_formal-footer.scss'
-
 const policies = [
   { name: "Refund Policy", link: "#" },
   { name: "Shipping Policy", link: "#" },
