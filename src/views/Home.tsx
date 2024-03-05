@@ -2,6 +2,7 @@ import { FaFacebookF, FaInstagram, FaSpotify, FaMusic } from "react-icons/fa6";
 import { useNavigate } from "react-router-dom";
 import RoundedButtonLink from "../components/RoundedButtonLink";
 import { useState, useEffect } from "react";
+import heroShot from "../assets/images/hero/BandHeroShot_1.jpg"
 
 const pageLinks = [
   { to: "/music", innerText: "Music" },
@@ -50,9 +51,12 @@ export default function Home() {
   return (
     <>
       <div id="site-backdrop" className={componentState} />
+      <div id="photo-backdrop" className={componentState} >
+        <img src={heroShot} alt="Hero shot of your local wacky band band, Day Dreamers" />
+      </div>
       <section id="home" className={componentState} >
         <div id="home-nav">
-          <h1 className="outline-black heading white">
+          <h1 className="outline-black heading massive white">
             {titleWithShiftingLetters("Day Dreamers")}
           </h1>
           <nav id="page-routes">
