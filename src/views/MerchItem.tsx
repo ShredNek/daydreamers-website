@@ -33,9 +33,9 @@ export default function MerchItem() {
     <section id="merch-item">
       <FormalHeader searchHidden={true} />
       <main>
-        <DynamicHeightDiv visible={visible}>
-          <BuyButton productId={id!} />
-        </DynamicHeightDiv>
+        {/* <DynamicHeightDiv visible={visible}> */}
+        <BuyButton productId={id!} />
+        {/* </DynamicHeightDiv> */}
       </main>
       {/* <aside>
         <h2>Related Products</h2>
