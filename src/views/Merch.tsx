@@ -98,7 +98,7 @@ export default function Merch() {
       setComponentStatus("error");
     }
 
-    const allEdges: GetAllItemEdge[] = rawRes?.data.products.edges.map((e: GetAllItemEdge) => e);
+    const allEdges: GetAllItemEdge[] = rawRes?.data?.products?.edges?.map((e: GetAllItemEdge) => e);
 
     if (!allEdges?.length) {
       setComponentStatus("error");

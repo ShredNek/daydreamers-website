@@ -52,7 +52,7 @@ export default function Home() {
     <>
       <div id="site-backdrop" className={componentState} />
       <div id="photo-backdrop" className={componentState} >
-        <img src={heroShot} alt="Hero shot of your local wacky band band, Day Dreamers" />
+        <img src={heroShot} alt="Hero shot of your local wacky band, Day Dreamers" />
       </div>
       <section id="home" className={componentState} >
         <div id="home-nav">
