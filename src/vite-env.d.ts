@@ -9,6 +9,8 @@ interface ImportMetaEnv {
   readonly VITE_SHOPIFY_BUY_CLIENT_TOKEN: string;
   readonly VITE_SHOPIFY_SHOP_DOMAIN: string;
   readonly VITE_SHOPIFY_MIDDLEWEAR_URL: string;
+  readonly VITE_DATO_GRAPHQL_ENDPOINT: string;
+  readonly VITE_DATO_GRAPHQL_READONLY_KEY: string;
 }
 
 interface ImportMeta {

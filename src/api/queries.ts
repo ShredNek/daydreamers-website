@@ -1,5 +1,7 @@
 import { gql } from "graphql-tag";
 
+// ? Shopify queries
+
 export const GET_ALL_MERCH = gql`
   query GetAllMerch {
     products(first: 100) {
@@ -66,6 +68,39 @@ export const GET_VARIANT_DETAILS = gql`
           }
         }
       }
+    }
+  }
+`;
+
+// ? Dato queries
+
+export const GET_ALL_GIGS = gql`
+  query GetAllGigs {
+    allGigs {
+      id
+      title
+      venue
+      venuelocation {
+        latitude
+        longitude
+      }
+      datetime
+      details
+      gigposter {
+        format
+        filename
+        url
+      }
+      ticketslink
+      artistnames
+      artistlinks
+
+      _status
+      _firstPublishedAt
+    }
+
+    _allGigsMeta {
+      count
     }
   }
 `;

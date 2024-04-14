@@ -12,6 +12,7 @@ import MerchItem from "./views/MerchItem";
 import Cart from "./views/Cart";
 
 import "./styles/style.scss";
+import Gigs from "./views/Gigs";
 
 const router = createBrowserRouter([
   {
@@ -30,6 +31,10 @@ const router = createBrowserRouter([
   {
     path: "/merch/cart",
     element: <Cart />
+  },
+  {
+    path: "/gigs",
+    element: <Gigs />
   }
 ]);
 
