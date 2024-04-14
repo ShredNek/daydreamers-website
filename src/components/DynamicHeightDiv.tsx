@@ -47,9 +47,9 @@ export default function DynamicHeightDiv({
     };
   }, [children, visible]);
 
-  useEffect(() => {
-    console.log(`New Height: ${divHeight}`)
-  })
+  // useEffect(() => {
+  //   console.log(`New Height: ${divHeight}`)
+  // })
 
   const styles = { "--dynamic-height": `${divHeight}px` } as React.CSSProperties
 

@@ -1,6 +1,5 @@
 @use "../abstracts/colors" as c;
-@use "../views/merch" as m;
-@use "../base";
+@use "../base" as b;
 
 #formal-footer {
   background-color: black;
@@ -27,7 +26,7 @@
 
     min-height: 200px;
     max-height: 100%;
-    max-width: m.$section-max-width;
+    max-width: b.$default-section-max-width;
     margin: 0px auto;
 
     @media (max-width: 800px) {

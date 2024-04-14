@@ -3,18 +3,12 @@ import { useNavigate } from "react-router-dom";
 import RoundedButtonLink from "../components/RoundedButtonLink";
 import { useState, useEffect } from "react";
 import heroShot from "../assets/images/hero/BandHeroShot_1.jpg"
-
-const pageLinks = [
-  { to: "/music", innerText: "Music" },
-  { to: "/gigs", innerText: "Gigs" },
-  { to: "/about", innerText: "About" },
-  { to: "/merch", innerText: "Merch" },
-  { to: "/media", innerText: "Media" },
-];
+import { pageLinks } from "../globals";
+import { ComponentLoadingStatus } from "../types/index"
 
 export default function Home() {
   const [time, setTime] = useState(0);
-  const [componentState, setComponentState] = useState<"transitioning" | "">("")
+  const [componentState, setComponentState] = useState<ComponentLoadingStatus>("")
   let navigate = useNavigate()
 
   // ? Helpers
@@ -81,7 +75,6 @@ export default function Home() {
           </div>
           <ul className="extra-links">
             <li className="link ">Press Kit</li>
-            <li className="link ">Contact Us</li>
           </ul>
           <p className="extra-links">
             <strong>© 2015-{new Date().getFullYear()} Day Dreamers</strong>

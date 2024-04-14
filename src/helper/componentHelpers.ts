@@ -87,7 +87,7 @@ export const getProductTitle = async (
     docObserver.observe(document, config);
   });
 
-  console.log(final);
+  // console.log(final);
   setTimeout(() => productTitle?.remove(), 200);
   return final;
 };

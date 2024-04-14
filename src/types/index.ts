@@ -13,6 +13,39 @@ export type Size = "XS" | "S" | "M" | "L" | "XL" | "XXL";
 
 export type SizesAvailable = { [K in Size]: number };
 
+export interface AllGigsEntity {
+  data: {
+    allGigs?: Gig[] | null;
+    _allGigsMeta: AllGigsMeta;
+  };
+}
+export interface Gig {
+  id: string;
+  title: string;
+  venue: string;
+  venuelocation: VenueLocation;
+  datetime: string;
+  details: string;
+  gigposter: GigPoster;
+  ticketslink: string;
+  artistnames: string;
+  artistlinks: string;
+  _status: string;
+  _firstPublishedAt: string;
+}
+export interface VenueLocation {
+  latitude: number;
+  longitude: number;
+}
+export interface GigPoster {
+  format: string;
+  filename: string;
+  url: string;
+}
+export interface AllGigsMeta {
+  count: number;
+}
+
 export type MerchItem = {
   merchId: string;
   name: string;
@@ -104,3 +137,8 @@ export type SortType =
   | "availability";
 
 export type ComponentStatus = "error" | "loading" | "ok" | "not found";
+
+export type ComponentLoadingStatus =
+  | "transitioning static"
+  | "transitioning"
+  | "";

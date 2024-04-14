@@ -1,11 +1,11 @@
 @use "../abstracts" as a;
 @use "../utilities/functions" as fn;
+@use "../base/" as b;
 
 // ? ? ? ? ?
 // ? HOME ?
 // ? ? ? ?
 
-$transition-property: all 1.5s ease-in-out;
 
 #site-backdrop {
   display: flow-root;
@@ -17,7 +17,7 @@ $transition-property: all 1.5s ease-in-out;
   position: fixed;
   z-index: -1;
 
-  transition: $transition-property;
+  transition: b.$default-transition-property;
 
   &.transitioning {
     opacity: 0;
@@ -39,7 +39,7 @@ $transition-property: all 1.5s ease-in-out;
     object-fit: cover;
   }
 
-  transition: $transition-property;
+  transition: b.$default-transition-property;
 
   &.transitioning {
     opacity: 0;
@@ -115,27 +115,6 @@ $transition-property: all 1.5s ease-in-out;
       justify-content: space-around;
       align-items: center;
       padding: 1rem;
-
-      .hover {
-        transform: scale(1);
-        transition: transform 0.6s ease-out, text-shadow 0.6s ease-out;
-
-        &.v-1:hover,
-        &.v-2:hover {
-          transform: scale(1.1);
-        }
-
-        &.v-1:hover {
-          text-shadow: 2px 10px 25px adjust-hue(a.$daydreamer-blue, 30deg),
-            -5px -10px 40px adjust-hue(a.$daydreamer-blue, 75deg);
-        }
-
-        &.v-2:hover {
-          text-shadow: -5px 10px 25px adjust-hue(a.$daydreamer-orange, 20deg),
-            2px 5px 20px adjust-hue(a.$daydreamer-orange, -10deg),
-            8px 8px 15px adjust-hue(a.$daydreamer-orange, -30deg);
-        }
-      }
 
       & > li {
         width: min-content;
@@ -247,10 +226,5 @@ $transition-property: all 1.5s ease-in-out;
     }
   }
 
-  transition: $transition-property;
-
-  &.transitioning {
-    transform: translateY(-100%);
-    opacity: 0;
-  }
+  transition: b.$default-transition-property;
 }

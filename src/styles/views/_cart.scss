@@ -1,14 +1,14 @@
 @use "../abstracts/colors" as c;
 @use "../views/merch" as m;
-@use "../base";
+@use "../base" as b;
 
 #cart {
   min-width: 400px;
 
   main,
   aside {
-    @media (min-width: m.$section-max-width) {
-      width: m.$section-max-width;
+    @media (min-width: b.$default-section-max-width) {
+      width: b.$default-section-max-width;
       margin: 0px auto;
     }
   }

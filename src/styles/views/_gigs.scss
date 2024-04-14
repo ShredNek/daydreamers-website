@@ -1,0 +1,40 @@
+@use "../abstracts" as a;
+@use "../utilities/functions" as fn;
+@use "../base/" as b;
+
+// ? ? ? ? ?
+// ? HOME ?
+// ? ? ? ?
+
+#gigs {
+  transition: b.$default-transition-property;
+
+  nav {
+    margin: 0px auto;
+    max-width: b.$default-section-max-width;
+
+    ul {
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+
+      a.img-parent img {
+        min-width: 140px;
+      }
+
+      li {
+        width: calc(.5em + 5vw);
+        height: fit-content;
+        display: flex;
+        justify-content: center;
+
+        @media (max-width: 650px) {
+          & {
+            display: none;
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,6 +1,6 @@
 @use "../abstracts/colors" as c;
 @use "../views/merch" as m;
-@use "../base";
+@use "../base" as b;
 
 #merch-item {
   h1, h2 {
@@ -20,7 +20,7 @@
   }
 
   aside {
-    max-width: m.$section-max-width;
+    max-width: b.$default-section-max-width;
     margin: 0px auto;
   }
 

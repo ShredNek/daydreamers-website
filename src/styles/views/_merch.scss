@@ -1,12 +1,11 @@
 @use "../abstracts/colors" as c;
-@use "../base";
+@use "../base" as b;
 
 // ? ? ? ? ? ?
 // ? MERCH ?
 // ? ? ? ?
 
 $distance-between-children: 2rem;
-$section-max-width: 1200px;
 $merch-font: Urbanist;
 
 #merch {
@@ -158,12 +157,12 @@ $merch-font: Urbanist;
     }
   }
 
-  @media (min-width: $section-max-width) {
+  @media (min-width: b.$default-section-max-width) {
     header,
     h1,
     #merch-params,
     .collection {
-      width: $section-max-width;
+      width: b.$default-section-max-width;
       margin-left: auto;
       margin-right: auto;
     }
