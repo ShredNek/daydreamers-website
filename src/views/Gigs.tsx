@@ -1,7 +1,11 @@
 import { useEffect, useState } from "react"
 import { getAllPosts } from "../api/datoCmsCalls"
 import { AllGigsEntity, ComponentLoadingStatus } from "../types/index"
+import { returnFormattedArtistNames, returnFormattedDate } from "../helper/index"
 import NavHeader from "../components/NavHeader";
+import Pin from "../components/svgs/Pin"
+import Calendar from "../components/svgs/Calendar"
+import Ticket from "../components/svgs/Ticket"
 
 export default function Gigs() {
   const [componentState, setComponentState] = useState<ComponentLoadingStatus>("transitioning static")
@@ -25,22 +29,22 @@ export default function Gigs() {
     }
   }, [gigData])
 
-
-
   return (
     <section className={componentState} id="gigs">
       <NavHeader transitionOnNavItemClick={setComponentState} />
       <div id="cards">
         {gigData?.data.allGigs ?
           gigData.data.allGigs.map((gig) =>
-            <div key={gig.id}>
-              <h2>{gig.title}</h2>
-              <h3>{gig.datetime}</h3>
-              <p>{gig.details}</p>
-              <img src={gig.gigposter.url} />
-              {gig.venue}
-              {gig.venuelocation.latitude}
-              {gig.venuelocation.longitude}
+            <div className="gig-card" key={gig.id}>
+              <div className="gig-details">
+                <h2>{gig.title}</h2>
+                <h3>{returnFormattedArtistNames(gig.artistnames)}</h3>
+                <div> <Calendar /><p>{returnFormattedDate(gig.datetime)}</p></div>
+                <div> <Pin /><p>{gig.venue}</p></div>
+              </div>
+              <div className="poster-parent">
+                <img src={gig.gigposter.url} />
+              </div>
             </div>
           )
           : <h2>No gigs at this time</h2>}
