@@ -36,15 +36,18 @@ export default function Gigs() {
         {gigData?.data.allGigs ?
           gigData.data.allGigs.map((gig) =>
             <div className="gig-card" key={gig.id}>
-              <div className="gig-details">
-                <h2>{gig.title}</h2>
-                <h3>{returnFormattedArtistNames(gig.artistnames)}</h3>
-                <div> <Calendar /><p>{returnFormattedDate(gig.datetime)}</p></div>
-                <div> <Pin /><p>{gig.venue}</p></div>
-                <div> <Ticket /><p>{gig.ticketprice}</p></div>
-              </div>
-              <div className="poster-parent">
-                <img src={gig.gigposter.url} />
+              <div className="body">
+                <div className="gig-details">
+                  <h2>{gig.title}</h2>
+                  <h3>{returnFormattedArtistNames(gig.artistnames)}</h3>
+                  <div> <Calendar /><p>{returnFormattedDate(gig.datetime)}</p></div>
+                  <div> <Pin /><p>{gig.venue}</p></div>
+                  <div> <Ticket /><p>{gig.ticketprice}</p></div>
+                  <div> <a target="_blank" href={gig.ticketslink}>Tickets</a></div>
+                </div>
+                <div className="poster-parent">
+                  <img src={gig.gigposter.url} />
+                </div>
               </div>
             </div>
           )

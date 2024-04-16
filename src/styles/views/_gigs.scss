@@ -8,11 +8,12 @@
 
 #gigs {
   transition: transform 1.5s ease-in-out, opacity 1.5s ease-in-out;
+  $massive-width: 2200px;
   $mobile-width: 750px;
   $tiny-width: 450px;
-  
+  align-items: center;
+
   nav {
-    margin: 0px auto;
     max-width: b.$default-section-max-width;
 
     ul {
@@ -20,6 +21,7 @@
       display: flex;
       flex-direction: row;
       align-items: center;
+      justify-content: space-around;
 
       a.img-parent img {
         min-width: 140px;
@@ -38,85 +40,151 @@
         }
       }
     }
+
+    @media (min-width: $massive-width) {
+      min-width: calc($massive-width - 300px);
+      padding-top: 2rem;
+    }
   }
 
   #cards {
     max-width: b.$default-section-max-width;
     padding: 3rem 6rem;
-    margin: 0px auto;
 
-    @media (max-width: $tiny-width) {
-      padding: 1.5rem 3rem;
-    }
-  }
+    .gig-card {
+      padding: 4rem 0px;
 
-  .gig-card {
-    display: flex;
-    flex-direction: row;
+      $border-shorthand: 0.75px solid rgb(170, 170, 170);
 
-    padding: 4rem 0px;
-    gap: 4rem;
-    justify-content: space-between;
-
-    $border-shorthand: 0.75px solid rgb(170, 170, 170);
-
-    border-top: $border-shorthand;
-    border-bottom: $border-shorthand;
-
-    * > div {
-      display: flex;
-      align-items: center;
-      justify-content: left;
-
-      svg {
-        height: min-content;
-        margin-right: 1rem;
-      }
-    }
-
-    .gig-details {
-      display: flex;
-      flex-direction: column;
-      justify-content: space-around;
-      gap: 1rem;
+      border-top: $border-shorthand;
+      border-bottom: $border-shorthand;
 
       h2 {
+        transition: text-shadow 0.75s ease-out;
+
         font-family: BrianScratch;
         font-weight: bold;
         font-size: 4em;
-        text-shadow: -5px 2.5px 35px adjust-hue(a.$daydreamer-blue, 5deg),
-          20px 30px 65px adjust-hue(a.$daydreamer-blue, 10deg),
-          20px -20px 65px adjust-hue(a.$daydreamer-orange, -5deg),
-          -20px -10px 35px adjust-hue(a.$daydreamer-orange, -10deg);
+        line-height: 1.25em;
+        text-shadow: -5px 2.5px 25px adjust-hue(a.$daydreamer-blue, 5deg),
+          10px -10px 35px adjust-hue(a.$daydreamer-orange, -5deg);
       }
 
-      h3 {
-        font-size: 1.5em;
+      a {
+        transition: background-color 0.5s ease-in, color 0.1s ease-in;
+        outline: black solid 2px;
+        padding: 0.4em 1.2em;
+        border-radius: 15px;
+        margin-top: 2rem;
+        background-color: transparent;
         font-weight: bold;
+
+        &:hover {
+          background-color: black;
+          color: mix(a.$daydreamer-purple, white, 10%);
+        }
       }
 
-      @media (max-width: $mobile-width) {
-        h2,
-        h3 {
-          text-align: center;
+      .body {
+        display: flex;
+        flex-direction: row;
+        gap: 4rem;
+        justify-content: space-between;
+
+        padding: 2rem;
+        border-radius: 7.5px;
+        background-color: rgba(a.$daydreamer-purple, 0);
+
+        transition: background-color 0.75s ease-out, text-shadow 0.75s ease-out;
+
+        &:hover {
+          background-color: rgba(a.$daydreamer-purple, 0.1);
+          cursor: pointer;
+
+          h2 {
+            text-shadow: 0px 0px 15px white;
+          }
+        }
+
+        @media (max-width: $mobile-width) {
+          flex-direction: column;
+
+          a {
+            margin-top: 1rem;
+            margin-left: auto;
+            margin-right: auto;
+          }
+        }
+
+        .gig-details {
+          display: flex;
+          flex-direction: column;
+          justify-content: space-around;
+          gap: 1rem;
+
+          h3 {
+            font-size: 1.5em;
+            font-weight: bold;
+          }
+
+          div {
+            display: flex;
+            align-items: center;
+            justify-content: left;
+
+            svg {
+              height: min-content;
+              margin-right: 1rem;
+            }
+          }
+
+          @media (max-width: $mobile-width) {
+            h2,
+            h3 {
+              text-align: center;
+            }
+
+            h2 {
+              font-size: 2.75em;
+            }
+
+            h3 {
+              font-size: 1.1em;
+            }
+
+            div {
+              font-size: 0.9em;
+            }
+          }
+        }
+
+        .poster-parent {
+          display: flex;
+          justify-content: center;
+          object-fit: contain;
+
+          min-width: 50%;
+
+          img {
+            margin: auto 0px;
+            max-height: calc(500px + 10vw);
+            // max-height: min-content;
+            border-radius: 2px;
+          }
         }
       }
     }
 
-    .poster-parent {
-      display: flex;
-      justify-content: center;
-      object-fit: contain;
-
-      img {
-        margin: auto;
-        max-height: 400px;
-        border-radius: 2px;
-      }
+    @media (max-width: $tiny-width) {
+      padding: 1.5rem 3rem;
     }
 
-    @media (max-width: $mobile-width) {
-      flex-direction: column;
+    @media (min-width: $massive-width) {
+      min-width: calc($massive-width - 200px);
     }
+  }
+
+  @media (min-width: $massive-width) {
+    font-size: calc(1em * 1.75);
   }
 }

@@ -160,7 +160,7 @@
     .rounded-button-link {
       overflow: hidden;
       margin: 0.5rem;
-      padding: 0.75rem;
+      padding: 1rem;
       background: white;
       border: black 1px solid;
       font-size: calc(1rem + 0.75vw);
@@ -198,6 +198,7 @@
     }
 
     .link {
+      font-size: 1.25em;
       cursor: pointer;
     }
 

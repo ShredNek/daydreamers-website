@@ -87,5 +87,5 @@ export const returnFormattedDate = (rawUtcString: string): string => {
     minute: "numeric",
     timeZone: "UTC",
   };
-  return date.toLocaleDateString("en-AU", options);
+  return date.toLocaleDateString(undefined, options);
 };
