@@ -92,6 +92,7 @@ export const GET_ALL_GIGS = gql`
         url
       }
       ticketslink
+      ticketprice
       artistnames
       artistlinks
 

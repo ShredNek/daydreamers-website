@@ -28,6 +28,7 @@ export interface Gig {
   details: string;
   gigposter: GigPoster;
   ticketslink: string;
+  ticketprice: string;
   artistnames: string;
   artistlinks: string;
   _status: string;

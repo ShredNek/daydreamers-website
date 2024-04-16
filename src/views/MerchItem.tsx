@@ -4,10 +4,8 @@ import { useParams, Link } from "react-router-dom";
 // ? Components
 import FormalFooter from "../components/FormalFooter";
 import FormalHeader from "../components/FormalHeader";
-import DynamicHeightDiv from "../components/DynamicHeightDiv";
 
 // ? Testing
-import SampleStock from "../test/SampleStock";
 
 // ? Image
 import BuyButton from "../components/ShopifyBuy/BuyButton";
@@ -27,15 +25,13 @@ export default function MerchItem() {
 
   // ? get photos
   // ! TEST
-  const currentStockItem = SampleStock.find((stock) => id === stock.merchId);
+  // const currentStockItem = SampleStock.find((stock) => id === stock.merchId);
 
   return (
     <section id="merch-item">
       <FormalHeader searchHidden={true} />
       <main>
-        {/* <DynamicHeightDiv visible={visible}> */}
         <BuyButton productId={id!} />
-        {/* </DynamicHeightDiv> */}
       </main>
       {/* <aside>
         <h2>Related Products</h2>
