@@ -34,7 +34,6 @@ h1 {
 
 h2 {
   font-size: clamp(1.5rem, 3.5vw + 10px, 3rem);
-
 }
 
 ul > li {
@@ -103,20 +102,41 @@ span {
   transform: scale(1);
   transition: transform 0.6s ease-out, text-shadow 0.6s ease-out;
 
+  $hover-v-1: 2px 10px 25px adjust-hue(a.$daydreamer-blue, 30deg),
+    -5px -10px 40px adjust-hue(a.$daydreamer-blue, 75deg);
+
+  $hover-v-2: -10px 10px 25px adjust-hue(a.$daydreamer-orange, 20deg),
+    2px 5px 20px adjust-hue(a.$daydreamer-orange, -10deg),
+    12px 8px 15px adjust-hue(a.$daydreamer-orange, -30deg);
+
   &.v-1:hover,
   &.v-2:hover {
     transform: scale(1.1);
   }
 
   &.v-1:hover {
-    text-shadow: 2px 10px 25px adjust-hue(a.$daydreamer-blue, 30deg),
-      -5px -10px 40px adjust-hue(a.$daydreamer-blue, 75deg);
+    text-shadow: $hover-v-1;
   }
 
   &.v-2:hover {
-    text-shadow: -5px 10px 25px adjust-hue(a.$daydreamer-orange, 20deg),
-      2px 5px 20px adjust-hue(a.$daydreamer-orange, -10deg),
-      8px 8px 15px adjust-hue(a.$daydreamer-orange, -30deg);
+    text-shadow: $hover-v-2;
+  }
+
+  &.v-1.disabled,
+  &.v-2.disabled {
+    pointer-events: none;
+
+    & > a {
+      color: rgb(162, 162, 162);
+    }
+  }
+
+  &.v-1.disabled {
+    text-shadow: $hover-v-1;
+  }
+
+  &.v-2.disabled {
+    text-shadow: $hover-v-2;
   }
 }
 
@@ -182,5 +202,5 @@ span {
 // ? CORE VARIABLES ?
 // ? ? ? ? ? ? ? ? ?
 
-$default-transition-property: all 1.5s ease-in-out;
+$default-transition-property: all .75s ease-in;
 $default-section-max-width: calc(10vw + 1500px);

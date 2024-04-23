@@ -25,41 +25,9 @@ import { sortMerchByOptions } from "../helper/sortMerchByOption";
 import { parseMerchEdges } from "../helper/parseMerchEdges";
 import { searchItems } from "../helper/searchItems";
 import Paginator from "../components/Paginator";
-import { PAGE_DIFFERENCE } from "../globals";
+import { PAGE_DIFFERENCE, SORT_BY_OPTIONS, EXTRA_SORT_BY_OPTIONS } from "../utils/globals";
 import DynamicHeightDiv from "../components/DynamicHeightDiv";
 import "../styles/components/_index.scss"
-
-// ? Constants
-const sortByOptions: SearchPreference[] = [
-  { name: "Featured", camelCaseName: "featured" },
-  { name: "Alphabetically (A-Z)", camelCaseName: "a to z" },
-  { name: "Alphabetically (Z-A)", camelCaseName: "z to a" },
-  { name: "Price (Hi-Lo)", camelCaseName: "highest price" },
-  { name: "Price (Lo-Hi)", camelCaseName: "lowest price" },
-  { name: "Date (Newest)", camelCaseName: "newest" },
-  { name: "Date (Oldest)", camelCaseName: "oldest" },
-  { name: "Availability", camelCaseName: "availability" },
-];
-
-const extraSortByOptions: ExtraSearchPreference[] = [
-  { name: "Price range", componentType: "price range" },
-  {
-    name: "In Stock",
-    componentType: "switch",
-    stockPresencePreference: {
-      inStockRequested: true,
-      outOfStockRequested: false,
-    },
-  },
-  {
-    name: "Out Of Stock",
-    componentType: "switch",
-    stockPresencePreference: {
-      inStockRequested: false,
-      outOfStockRequested: true,
-    },
-  },
-];
 
 export default function Merch() {
   const [allMerch, setAllMerch] = useState<MerchItem[]>([]);
@@ -239,7 +207,7 @@ export default function Merch() {
               <aside className="options">
                 <span>Sort by:</span>
                 <Dropdown
-                  mainOptions={[...sortByOptions]}
+                  mainOptions={[...SORT_BY_OPTIONS]}
                   merchReqState={merchReqParams}
                   onMerchReqChange={setMerchReqParams}
                 />
@@ -250,8 +218,8 @@ export default function Merch() {
               <aside className="options column">
                 <span>Sort by:</span>
                 <Dropdown
-                  mainOptions={[...sortByOptions]}
-                  extraOptions={[...extraSortByOptions]}
+                  mainOptions={[...SORT_BY_OPTIONS]}
+                  extraOptions={[...EXTRA_SORT_BY_OPTIONS]}
                   openToRight={true}
                   merchReqState={merchReqParams}
                   onMerchReqChange={setMerchReqParams}

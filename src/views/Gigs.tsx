@@ -1,20 +1,29 @@
-import { useEffect, useState } from "react"
+import { useEffect, useState, useContext } from "react"
 import { getAllPosts } from "../api/datoCmsCalls"
-import { AllGigsEntity, ComponentLoadingStatus } from "../types/index"
+import { ComponentLoadingStatus } from "../types/index"
 import { returnFormattedArtistNames, returnFormattedDate } from "../helper/index"
+import { useNavigate } from "react-router-dom"
+import { FADE_SPEED } from "../utils/globals"
 import NavHeader from "../components/NavHeader";
-import Pin from "../components/svgs/Pin"
-import Calendar from "../components/svgs/Calendar"
-import Ticket from "../components/svgs/Ticket"
+import Pin from "../components/svg/Pin"
+import Calendar from "../components/svg/Calendar"
+import Ticket from "../components/svg/Ticket"
+import { AppContext } from "../utils/AppContext"
 
 export default function Gigs() {
-  const [componentState, setComponentState] = useState<ComponentLoadingStatus>("transitioning static")
-  const [gigData, setGigData] = useState<AllGigsEntity | null>(null)
+  const [componentLoadingState, setComponentLoadingState] = useState<ComponentLoadingStatus>("transitioning static")
+  const { gigData, updateGigData } = useContext(AppContext)
+  let navigate = useNavigate();
+
+  const handleCardClick = (gigId: string) => {
+    setComponentLoadingState("transitioning static");
+    setTimeout(() => navigate(`/gig/${gigId}`), FADE_SPEED);
+  }
 
   // ? On page load
 
   const callPosts = async () => {
-    setGigData(await (await getAllPosts()).json())
+    updateGigData(await (await getAllPosts()).json())
   }
 
   useEffect(() => {
@@ -23,20 +32,18 @@ export default function Gigs() {
 
   useEffect(() => {
     if (gigData && Object.entries(gigData).length) {
-      console.log(gigData)
-      console.log(gigData.data)
-      setComponentState("")
+      setComponentLoadingState("")
     }
   }, [gigData])
 
   return (
-    <section className={componentState} id="gigs">
-      <NavHeader transitionOnNavItemClick={setComponentState} />
+    <section className={componentLoadingState} id="gigs">
+      <NavHeader transitionOnNavItemClick={setComponentLoadingState} />
       <div id="cards">
         {gigData?.data.allGigs ?
           gigData.data.allGigs.map((gig) =>
             <div className="gig-card" key={gig.id}>
-              <div className="body">
+              <div className="body" onClick={() => handleCardClick(gig.id)}>
                 <div className="gig-details">
                   <h2>{gig.title}</h2>
                   <h3>{returnFormattedArtistNames(gig.artistnames)}</h3>
@@ -51,8 +58,11 @@ export default function Gigs() {
               </div>
             </div>
           )
-          : <h2>No gigs at this time</h2>}
+          : <div style={{ textAlign: "center" }}>
+            <h2 style={{ paddingBottom: "1em" }}>No gigs at this time.</h2>
+            <p>check back in later, or reach out if you want a band for your cousin's 10th birthday party!</p>
+          </div>}
       </div>
-    </section >
+    </section>
   )
 }

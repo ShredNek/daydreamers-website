@@ -1,15 +1,17 @@
 import { FaFacebookF, FaInstagram, FaSpotify, FaMusic } from "react-icons/fa6";
 import { useNavigate } from "react-router-dom";
 import RoundedButtonLink from "../components/RoundedButtonLink";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import heroShot from "../assets/images/hero/BandHeroShot_1.jpg"
-import { pageLinks } from "../globals";
+import { PAGE_LINKS, FADE_SPEED } from "../utils/globals";
 import { ComponentLoadingStatus } from "../types/index"
+import { AppContext } from "../utils/AppContext";
 
 export default function Home() {
   const [time, setTime] = useState(0);
   const [componentState, setComponentState] = useState<ComponentLoadingStatus>("")
   let navigate = useNavigate()
+  const { gigData } = useContext(AppContext)
 
   // ? Helpers
   const randomDistance = 12;
@@ -19,6 +21,8 @@ export default function Home() {
     const intervalId = setInterval(() => {
       setTime((prevTime) => prevTime + 1);
     }, 2000);
+
+    console.log(gigData)
 
     return () => clearInterval(intervalId);
   }, []);
@@ -39,7 +43,7 @@ export default function Home() {
 
   const handleRedirect = (linkTo: string) => {
     setComponentState("transitioning")
-    setTimeout(() => navigate(linkTo), 1500)
+    setTimeout(() => navigate(linkTo), FADE_SPEED)
   }
 
   return (
@@ -55,7 +59,7 @@ export default function Home() {
           </h1>
           <nav id="page-routes">
             <ul>
-              {pageLinks.map((link, index) => (
+              {PAGE_LINKS.map((link, index) => (
                 <li
                   key={index}
                   className={index % 2 === 0 ? `hover v-1` : `hover v-2`}

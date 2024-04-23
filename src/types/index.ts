@@ -1,3 +1,5 @@
+import { Context, Dispatch, SetStateAction } from "react";
+
 // ? API
 
 export type GetAllItemEdge = {
@@ -136,6 +138,15 @@ export type SortType =
   | "newest"
   | "oldest"
   | "availability";
+
+export interface AppContextInterface {
+  gigData: AllGigsEntity | null;
+  merchItems: MerchItem[] | null;
+  merchReqParams: MerchReqParams | null;
+  updateGigData: (currGigData: AllGigsEntity) => void;
+  updateMerchItems: (currMerchItems: MerchItem[]) => void;
+  updateMerchReqParams: (currMerchReqParams: MerchReqParams) => void;
+}
 
 export type ComponentStatus = "error" | "loading" | "ok" | "not found";
 
