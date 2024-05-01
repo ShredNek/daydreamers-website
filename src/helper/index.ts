@@ -10,9 +10,13 @@ export function toCamelCase(str: string) {
 }
 
 export function toKebabCase(str: string) {
-  const splitStr = str.split("");
+  const removedSpecialChars = str.replace(/[^\w\s]/gi, "");
+  const splitStr = removedSpecialChars.split("");
   const res = splitStr.map((c) => (c === " " ? "-" : c)).join("");
-  return res.toLowerCase();
+
+  return res.charAt(res.length - 1) === "-"
+    ? res.toLowerCase().substring(0, res.length - 1)
+    : res.toLowerCase();
 }
 
 export const convertToType = <T extends string>(value: string): T => {

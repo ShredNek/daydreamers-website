@@ -5,16 +5,13 @@ import Dropdown from "../components/tailwind/headlessUI/Dropdown";
 
 // ? Interfaces/Types
 import {
-  MerchReqParams,
   GetAllItemEdge,
   MerchItem,
-  SearchPreference,
-  ExtraSearchPreference,
   MerchItemGQLSchema,
   PaginatorState,
   ComponentStatus,
 } from "../types/index";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import FormalFooter from "../components/FormalFooter";
 import FormalHeader from "../components/FormalHeader";
 import HandleCollectionView from "../components/HandleCollectionView";
@@ -28,37 +25,31 @@ import Paginator from "../components/Paginator";
 import { PAGE_DIFFERENCE, SORT_BY_OPTIONS, EXTRA_SORT_BY_OPTIONS } from "../utils/globals";
 import DynamicHeightDiv from "../components/DynamicHeightDiv";
 import "../styles/components/_index.scss"
+import { AppContext } from "../utils/AppContext";
 
 export default function Merch() {
-  const [allMerch, setAllMerch] = useState<MerchItem[]>([]);
+
+  // ? Context
+  const { merchItems, setMerchItems, merchReqParams, setMerchReqParams } = useContext(AppContext)
+
+  // ? Local state
   const [allSortedMerch, setAllSortedMerch] = useState<MerchItem[]>([]);
   const [paginatorState, setPaginatorState] = useState<PaginatorState>({
     activePage: 1,
     totalPages: 1,
   });
   const [searchQuery, setSearchQuery] = useState("");
-  const [merchReqParams, setMerchReqParams] = useState<MerchReqParams>({
-    stockPreferences: {
-      inStockRequested: true,
-      outOfStockRequested: true,
-    },
-    sortBy: null,
-    priceFrom: "",
-    priceTo: "",
-  });
   const [componentStatus, setComponentStatus] = useState<ComponentStatus>("loading")
   const [visible, setVisible] = useState(false)
 
-  // ?
   // ? Main functions
-  // ?
 
   const callAndSetDefaultMerch: () => void = async () => {
-    setComponentStatus("loading");
-    setVisible(true)
+
 
     let rawRes: any;
     try {
+      console.log("calling")
       rawRes = await (await getAllMerch()).json();
     } catch (error) {
       console.error("getAllItems() returned an error. Network has either disconnected, or it is a bad connection.");
@@ -135,12 +126,14 @@ export default function Merch() {
         resolve();
       }, 1000)
     })
-    setAllMerch(formattedItems);
+    setMerchItems(formattedItems);
     setComponentStatus("ok");
   };
 
   const handleSortMerch = () => {
-    const sortedByOption = sortMerchByOptions(allMerch, merchReqParams);
+    console.log()
+    if (!merchItems) return
+    const sortedByOption = sortMerchByOptions(merchItems, merchReqParams ?? undefined);
     const sortedBySearch = searchQuery.length > 0
       ? searchItems(searchQuery, sortedByOption)
       : sortedByOption;
@@ -159,13 +152,23 @@ export default function Merch() {
   // ?
 
   useEffect(() => {
-    callAndSetDefaultMerch()
+    if (merchItems === null) {
+      setComponentStatus("loading");
+      setVisible(true)
+      callAndSetDefaultMerch()
+    } else {
+      setComponentStatus("ok");
+      setVisible(true)
+      setPageLength(merchItems)
+      handleSortMerch();
+    }
   }, []);
 
   useEffect(() => {
-    setPageLength(allMerch);
+    if (merchItems === null) return;
+    setPageLength(merchItems)
     handleSortMerch();
-  }, [allMerch]);
+  }, [merchItems]);
 
   useEffect(() => {
     if (componentStatus === "loading" || componentStatus === "error") return;
@@ -186,7 +189,7 @@ export default function Merch() {
         <h1 className="heading left"> MERCHANDISE</h1>
       </div>
       <DynamicHeightDiv visible={visible}>
-        {allMerch.length > 0 ? (
+        {merchItems && merchItems.length > 0 ? (
           <form id="merch-params">
             <div id="large-screen">
               {/* // ? Greater than 900px  */}

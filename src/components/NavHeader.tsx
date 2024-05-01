@@ -12,9 +12,10 @@ interface NavHeader {
   transitionOnNavItemClick?: React.Dispatch<
     React.SetStateAction<ComponentLoadingStatus>
   >;
+  className?: string;
 }
 
-export default function NavHeader({ transitionOnNavItemClick }: NavHeader) {
+export default function NavHeader({ transitionOnNavItemClick, className }: NavHeader) {
   let navigate = useNavigate();
 
   // ? Helper
@@ -48,7 +49,7 @@ export default function NavHeader({ transitionOnNavItemClick }: NavHeader) {
   };
 
   return (
-    <nav>
+    <nav id="page-nav" className={className}>
       <ul>
         {returnNavItems(PAGE_LINKS, (index) => index < 3)}
         <Link to="/" className="img-parent">

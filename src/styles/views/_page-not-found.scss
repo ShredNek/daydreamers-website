@@ -37,4 +37,18 @@
   .email {
     word-break: break-all;
   }
+
+  pre {
+    padding: 2em;
+    margin: 2em 2em 4em;
+    background-color: white;
+    border-radius: 7.5px;
+    border: solid a.$grey .75px;
+    opacity: .75;
+    text-align: left;
+
+    min-height: 200px;
+    max-width: max-content;
+    white-space: break-spaces;
+  }
 }

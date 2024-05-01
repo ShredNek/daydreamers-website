@@ -58,11 +58,13 @@ const quickSortByCondition = (
 
 export const sortMerchByOptions = (
   unsortedItems: MerchItem[],
-  merchReqParams: MerchReqParams
+  merchReqParams?: MerchReqParams
 ): MerchItem[] => {
   if (!unsortedItems.length) return [];
 
   let sortedItems = [...unsortedItems];
+
+  if (!merchReqParams) return sortedItems;
 
   if (merchReqParams.sortBy) {
     // ? Check and mutate sort by Size
@@ -102,8 +104,8 @@ export const sortMerchByOptions = (
 
   // ? Check by stock presence
   if (
-    merchReqParams.stockPreferences.inStockRequested &&
-    merchReqParams.stockPreferences.outOfStockRequested
+    merchReqParams?.stockPreferences.inStockRequested &&
+    merchReqParams?.stockPreferences.outOfStockRequested
   ) {
   } else if (merchReqParams.stockPreferences.inStockRequested) {
     sortedItems = [...sortedItems.filter((item) => item.totalStock > 0)];

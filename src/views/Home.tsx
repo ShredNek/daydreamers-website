@@ -22,8 +22,6 @@ export default function Home() {
       setTime((prevTime) => prevTime + 1);
     }, 2000);
 
-    console.log(gigData)
-
     return () => clearInterval(intervalId);
   }, []);
 

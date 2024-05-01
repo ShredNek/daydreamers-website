@@ -58,17 +58,17 @@ export const searchItems = (
 
   for (const item of items) {
     const score = calculateScore(searchQuery, item.name);
-    console.log(`${item.name} ${score}`);
+    // console.log(`${item.name} ${score}`);
 
-    console.log(
-      containsLetters(
-        item.name.toLowerCase(),
-        searchQuery.toLowerCase().replace(" ", "").split("")
-      )
-    );
+    // console.log(
+    //   containsLetters(
+    //     item.name.toLowerCase(),
+    //     searchQuery.toLowerCase().replace(" ", "").split("")
+    //   )
+    // );
 
     // Add a condition to filter out items with no matching letters or significantly lower score
-    if (score > 0) {
+    if (score > 0.125) {
       scoredItems.push({ item, score });
     }
   }
@@ -86,7 +86,7 @@ export const searchItems = (
   }
 
   // Check if the difference between the highest and current item is more than 0.2
-  const maxDifference = 0.075;
+  const maxDifference = 0.1;
   if (
     scoredItems.length > 1 &&
     scoredItems[0].score - scoredItems[scoredItems.length - 1].score >

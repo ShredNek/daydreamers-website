@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import ReactDOM from "react-dom/client";
 import {
   createBrowserRouter,
@@ -11,42 +11,56 @@ import Merch from "./views/Merch";
 import MerchItem from "./views/MerchItem";
 import Cart from "./views/Cart";
 import Gigs from "./views/Gigs";
+import ErrorBoundary from "./views/ErrorBoundary"
 
 import "./styles/style.scss";
 
 import { AppContextProvider } from "./utils/AppContext";
+import GigView from "./views/GigView";
 
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <Home />,
-    errorElement: <PageNotFound />
-  },
-  {
-    path: "/merch",
-    element: <Merch />
-  },
-  {
-    path: "/merch/:id",
-    element: <MerchItem />
-  },
-  {
-    path: "/merch/cart",
-    element: <Cart />
-  },
-  {
-    path: "/gigs",
-    element: <Gigs />
-  }
-]);
+const views = [{
+  path: "/",
+  element: <Home />,
+  errorElement: <PageNotFound />,
+},
+{
+  path: "/merch",
+  element: <Merch />,
+
+},
+{
+  path: "/merch/:id",
+  element: <MerchItem />
+},
+{
+  path: "/merch/cart",
+  element: <Cart />
+},
+{
+  path: "/gigs",
+  element: <Gigs />
+},
+{
+  path: "/gig/:id",
+  element: <GigView />
+},]
+
+const router = createBrowserRouter(
+  views.map(view => ({
+    ...view,
+    element: view.path !== "/" ? <ErrorBoundary>{view.element}</ErrorBoundary> : view.element,
+  }))
+);
 
 const App = () => {
   return (
     <React.StrictMode>
-      <AppContextProvider>
-        <RouterProvider router={router} />
-      </AppContextProvider>
-    </React.StrictMode>
+      <ErrorBoundary>
+        <AppContextProvider>
+          <RouterProvider router={router} />
+        </AppContextProvider>
+      </ErrorBoundary>
+    </React.StrictMode >
   );
 };
 

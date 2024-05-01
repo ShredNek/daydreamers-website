@@ -157,12 +157,12 @@ $merch-font: Urbanist;
     }
   }
 
-  @media (min-width: b.$default-section-max-width) {
+  @media (min-width: b.$desktop-width) {
     header,
     h1,
     #merch-params,
     .collection {
-      width: b.$default-section-max-width;
+      width: b.$desktop-width;
       margin-left: auto;
       margin-right: auto;
     }

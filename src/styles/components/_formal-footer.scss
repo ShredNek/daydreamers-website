@@ -26,7 +26,7 @@
 
     min-height: 200px;
     max-height: 100%;
-    max-width: b.$default-section-max-width;
+    max-width: b.$desktop-width;
     margin: 0px auto;
 
     @media (max-width: 800px) {

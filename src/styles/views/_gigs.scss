@@ -2,53 +2,12 @@
 @use "../utilities/functions" as fn;
 @use "../base/" as b;
 
-// ? ? ? ? ?
-// ? HOME ?
-// ? ? ? ?
-
 #gigs {
-  transition: transform 1.5s ease-in-out, opacity 1.5s ease-in-out;
-  $massive-width: 2200px;
-  $mobile-width: 750px;
-  $tiny-width: 450px;
+  transition: transform b.$default-transition-duration ease-in-out, opacity b.$default-transition-duration ease-in-out;
   align-items: center;
 
-  nav {
-    max-width: b.$default-section-max-width;
-
-    ul {
-      width: 100%;
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      justify-content: space-around;
-
-      a.img-parent img {
-        min-width: 140px;
-      }
-
-      li {
-        width: calc(0.5em + 5vw);
-        height: fit-content;
-        display: flex;
-        justify-content: center;
-
-        @media (max-width: $mobile-width) {
-          & {
-            display: none;
-          }
-        }
-      }
-    }
-
-    @media (min-width: $massive-width) {
-      min-width: calc($massive-width - 300px);
-      padding-top: 2rem;
-    }
-  }
-
   #cards {
-    max-width: b.$default-section-max-width;
+    max-width: b.$desktop-width;
     padding: 3rem 6rem;
 
     .gig-card {
@@ -106,7 +65,7 @@
           }
         }
 
-        @media (max-width: $mobile-width) {
+        @media (max-width: b.$mobile-width) {
           flex-direction: column;
 
           a {
@@ -138,7 +97,7 @@
             }
           }
 
-          @media (max-width: $mobile-width) {
+          @media (max-width: b.$mobile-width) {
             h2,
             h3 {
               text-align: center;
@@ -175,16 +134,16 @@
       }
     }
 
-    @media (max-width: $tiny-width) {
+    @media (max-width: b.$small-width) {
       padding: 1.5rem 3rem;
     }
 
-    @media (min-width: $massive-width) {
-      min-width: calc($massive-width - 200px);
+    @media (min-width: b.$massive-width) {
+      min-width: calc(b.$massive-width - 200px);
     }
   }
 
-  @media (min-width: $massive-width) {
+  @media (min-width: b.$massive-width) {
     font-size: calc(1em * 1.75);
   }
 }

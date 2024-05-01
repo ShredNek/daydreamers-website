@@ -7,8 +7,8 @@
 
   main,
   aside {
-    @media (min-width: b.$default-section-max-width) {
-      width: b.$default-section-max-width;
+    @media (min-width: b.$desktop-width) {
+      width: b.$desktop-width;
       margin: 0px auto;
     }
   }

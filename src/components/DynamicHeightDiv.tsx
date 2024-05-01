@@ -37,7 +37,7 @@ export default function DynamicHeightDiv({
     updateHeight()
     window.addEventListener('resize', updateHeight);
 
-    const observer = onDocumentMutation(() => { updateHeight(); console.log("second chance") })
+    const observer = onDocumentMutation(updateHeight)
 
     // ? Cleanup function
     return () => {

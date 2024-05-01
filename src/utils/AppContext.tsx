@@ -4,11 +4,18 @@ import { AppContextInterface, AllGigsEntity, MerchItem, MerchReqParams } from ".
 export const AppContext = createContext<AppContextInterface>({
   gigData: null,
   merchItems: null,
-  merchReqParams: null,
-  updateGigData: () => { },
-  updateMerchItems: () => { },
-  updateMerchReqParams: () => { }
-
+  merchReqParams: {
+    sortBy: null,
+    stockPreferences: {
+      inStockRequested: true,
+      outOfStockRequested: true
+    },
+    priceFrom: "",
+    priceTo: "",
+  },
+  setGigData: () => { },
+  setMerchItems: () => { },
+  setMerchReqParams: () => { }
 })
 
 interface AppContextProvider {
@@ -18,30 +25,24 @@ interface AppContextProvider {
 export function AppContextProvider({ children }: AppContextProvider) {
   const [gigData, setGigData] = useState<AllGigsEntity | null>(null)
   const [merchItems, setMerchItems] = useState<MerchItem[] | null>(null)
-  const [merchReqParams, setMerchReqParams] = useState<MerchReqParams | null>(null)
-
-  // ? Setter
-
-  const updateGigData = (currGigData: AllGigsEntity) => {
-    setGigData(() => ({ ...currGigData }))
-  }
-
-  const updateMerchItems = (currMerchItems: MerchItem[]) => {
-    setMerchItems(() => [...currMerchItems])
-  }
-
-  const updateMerchReqParams = (currMerchReqParams: MerchReqParams) => {
-    setMerchReqParams(() => ({ ...currMerchReqParams }))
-  }
+  const [merchReqParams, setMerchReqParams] = useState<MerchReqParams>({
+    sortBy: null,
+    stockPreferences: {
+      inStockRequested: true,
+      outOfStockRequested: true
+    },
+    priceFrom: "",
+    priceTo: "",
+  })
 
   return (
     <AppContext.Provider value={{
       gigData,
       merchItems,
       merchReqParams,
-      updateGigData,
-      updateMerchItems,
-      updateMerchReqParams
+      setGigData,
+      setMerchItems,
+      setMerchReqParams
     }}>
       {children}
     </AppContext.Provider>

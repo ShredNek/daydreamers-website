@@ -19,7 +19,6 @@ function LazyImage({ lowQualitySrc, highQualitySrc, alt, className }: LazyImage)
       alt={alt}
       onLoad={() => setImageSrc(highQualitySrc)}
       onError={() => setHasError(true)}
-      style={{ transition: "opacity 0.3s" }}
     />
   );
 }

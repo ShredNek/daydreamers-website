@@ -1,4 +1,4 @@
-import { Context, Dispatch, SetStateAction } from "react";
+import { Dispatch, SetStateAction } from "react";
 
 // ? API
 
@@ -17,13 +17,14 @@ export type SizesAvailable = { [K in Size]: number };
 
 export interface AllGigsEntity {
   data: {
-    allGigs?: Gig[] | null;
+    allGigs: Gig[] | null;
     _allGigsMeta: AllGigsMeta;
   };
 }
 export interface Gig {
   id: string;
   title: string;
+  slugname: string;
   venue: string;
   venuelocation: VenueLocation;
   datetime: string;
@@ -142,10 +143,10 @@ export type SortType =
 export interface AppContextInterface {
   gigData: AllGigsEntity | null;
   merchItems: MerchItem[] | null;
-  merchReqParams: MerchReqParams | null;
-  updateGigData: (currGigData: AllGigsEntity) => void;
-  updateMerchItems: (currMerchItems: MerchItem[]) => void;
-  updateMerchReqParams: (currMerchReqParams: MerchReqParams) => void;
+  merchReqParams: MerchReqParams;
+  setGigData: Dispatch<SetStateAction<AllGigsEntity | null>>;
+  setMerchItems: Dispatch<SetStateAction<MerchItem[] | null>>;
+  setMerchReqParams: Dispatch<SetStateAction<MerchReqParams>>;
 }
 
 export type ComponentStatus = "error" | "loading" | "ok" | "not found";
