@@ -12,11 +12,13 @@
 
     .gig-card {
       padding: 4rem 0px;
-
       $border-shorthand: 0.75px solid rgb(170, 170, 170);
-
       border-top: $border-shorthand;
       border-bottom: $border-shorthand;
+
+      &:nth-child(even) .body {
+        flex-direction: row-reverse;
+      }
 
       h2 {
         transition: text-shadow 0.75s ease-out;
@@ -29,21 +31,6 @@
           10px -10px 35px adjust-hue(a.$daydreamer-orange, -5deg);
       }
 
-      a {
-        transition: background-color 0.5s ease-in, color 0.1s ease-in;
-        outline: black solid 2px;
-        padding: 0.4em 1.2em;
-        border-radius: 15px;
-        margin-top: 2rem;
-        background-color: transparent;
-        font-weight: bold;
-
-        &:hover {
-          background-color: black;
-          color: mix(a.$daydreamer-purple, white, 10%);
-        }
-      }
-
       .body {
         display: flex;
         flex-direction: row;
@@ -54,7 +41,7 @@
         border-radius: 7.5px;
         background-color: rgba(a.$daydreamer-purple, 0);
 
-        transition: background-color 0.75s ease-out, text-shadow 0.75s ease-out;
+        transition: background-color b.$default-transition-duration ease-out, text-shadow b.$default-transition-duration ease-out;
 
         &:hover {
           background-color: rgba(a.$daydreamer-purple, 0.1);
@@ -127,7 +114,6 @@
           img {
             margin: auto 0px;
             max-height: calc(300px + 10vw);
-            // max-height: min-content;
             border-radius: 2px;
           }
         }

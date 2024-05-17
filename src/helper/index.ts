@@ -1,3 +1,5 @@
+import { VenueLocation } from "../types";
+
 export function toCamelCase(str: string) {
   const splitStr = str.split("");
   console.log(splitStr);
@@ -92,4 +94,8 @@ export const returnFormattedDate = (rawUtcString: string): string => {
     timeZone: "UTC",
   };
   return date.toLocaleDateString(undefined, options);
+};
+
+export const googleMapUrl = (venueLocation: VenueLocation) => {
+  return `http://maps.google.com/maps?z=12&t=m&q=loc:${venueLocation.latitude}+${venueLocation.longitude}`;
 };

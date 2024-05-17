@@ -58,7 +58,7 @@ export default function Gigs() {
 
   return (
     <>
-      <NavHeader transitionOnNavItemClick={setComponentLoadingState} />
+      <NavHeader linkToDisable="Gigs" transitionOnNavItemClick={setComponentLoadingState} />
       <section className={componentLoadingState} id="gigs">
         <div id="cards">
           {gigData?.data.allGigs ?
@@ -71,7 +71,7 @@ export default function Gigs() {
                     <div> <Calendar /><p>{returnFormattedDate(gig.datetime)}</p></div>
                     <div> <Pin /><p>{gig.venue}</p></div>
                     <div> <Ticket /><p>{gig.ticketprice}</p></div>
-                    <div> <a target="_blank" href={gig.ticketslink}>Tickets</a></div>
+                    <div> <a className="button" target="_blank" href={gig.ticketslink}>Tickets</a></div>
                   </div>
                   <div className="poster-parent">
                     <img src={gig.gigposter.url} />

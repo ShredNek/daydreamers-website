@@ -31,8 +31,8 @@
     }
   }
 
-  @media (min-width: b.$massive-width) {
-    min-width: calc(b.$massive-width - 300px);
+  @media (min-width: b.$desktop-width) {
+    min-width: calc(b.$desktop-width - 300px);
     padding-top: 2rem;
     font-size: 2em;
   }

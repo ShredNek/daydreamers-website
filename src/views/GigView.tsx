@@ -12,6 +12,7 @@ import {
   returnFormattedArtistNames,
   returnFormattedDate,
   toKebabCase,
+  googleMapUrl
 } from "../helper/index";
 
 export default function GigView() {
@@ -94,8 +95,8 @@ export default function GigView() {
         <main>
           {currGig ? (
             <>
-              {/* <pre>{JSON.stringify(currGig, null, 2)}</pre> */}
               <h1 className="large">{currGig.title}</h1>
+              <h2>{returnFormattedArtistNames(currGig.artistnames)}</h2>
               <div id="sub-heading">
                 <div>
                   <Calendar />
@@ -105,9 +106,19 @@ export default function GigView() {
                   <Pin />
                   <p>{currGig.venue}</p>
                 </div>
+                <div>
+                  <Ticket />
+                  <p>{currGig.ticketprice}</p>
+                </div>
               </div>
+              <hr />
+              <div>
+                <a className="button" target="_blank" href={currGig.ticketslink}>Tickets</a>
+                <a className="button" target="_blank" href={googleMapUrl(currGig.venuelocation)}>Location</a>
+              </div>
+              <hr />
               <div id="description-and-poster">
-                <p>{currGig.details}</p>
+                <div className="details" dangerouslySetInnerHTML={{ __html: currGig.details }} />
                 <div className="poster-parent">
                   <img
                     src={currGig.gigposter.url}

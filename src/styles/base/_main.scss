@@ -37,6 +37,7 @@ section {
   min-height: 100vh;
   height: fit-content;
   width: 100vw;
+  max-width: 100%;
   display: flex;
   flex-direction: column;
 
@@ -78,16 +79,39 @@ img {
   transition: opacity $default-transition-duration ease-out;
 }
 
+hr {
+  opacity: .1;
+  border-top: a.$ash solid 1.5px;
+  width: 100%;
+  margin: 2rem;
+}
+
 // ? ? ? ? ? ? ?
 // ? CLASSES ?
 // ? ? ? ? ?
 
+// ? remove if this is not used throughout any of the app
+// .button {
+//   font-size: 1em;
+//   border: 1.5px solid black;
+//   border-radius: 0.25em;
+//   width: 250px;
+//   min-height: 60px;
+// }
+
 .button {
-  font-size: 1em;
-  border: 1.5px solid black;
-  border-radius: 0.25em;
-  width: 250px;
-  min-height: 60px;
+  transition: background-color 0.5s ease-in, color 0.1s ease-in;
+  outline: black solid 2px;
+  padding: 0.4em 1.2em;
+  border-radius: 15px;
+  margin-top: 2rem;
+  background-color: transparent;
+  font-weight: bold;
+
+  &:hover {
+    background-color: black;
+    color: mix(a.$daydreamer-purple, white, 10%);
+  }
 }
 
 .link {
@@ -220,7 +244,6 @@ img {
   img,
   li {
     opacity: 0;
-    border: 5px solid red;
   }
 
   &:is(section) {

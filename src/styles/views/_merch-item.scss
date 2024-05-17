@@ -59,7 +59,7 @@
     }
 
     #product-component {
-      max-height: 600px;
+      max-height: fit-content;
     }
 
     @media (max-width: 600px) {

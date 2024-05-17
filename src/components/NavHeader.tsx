@@ -13,9 +13,10 @@ interface NavHeader {
     React.SetStateAction<ComponentLoadingStatus>
   >;
   className?: string;
+  linkToDisable?: string;
 }
 
-export default function NavHeader({ transitionOnNavItemClick, className }: NavHeader) {
+export default function NavHeader({ transitionOnNavItemClick, className, linkToDisable }: NavHeader) {
   let navigate = useNavigate();
 
   // ? Helper
@@ -37,7 +38,7 @@ export default function NavHeader({ transitionOnNavItemClick, className }: NavHe
           <li
             key={index}
             className={`${index % 2 === 0 ? `hover v-1` : `hover v-2`} 
-            ${link.innerText === "Gigs" ? "disabled" : ""}`}
+            ${link.innerText === linkToDisable ? "disabled" : ""}`}
           >
             <a href="#" onClick={() => handleRedirect(link.to)}>
               {link.innerText}
