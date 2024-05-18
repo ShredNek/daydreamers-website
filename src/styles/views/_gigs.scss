@@ -18,6 +18,10 @@
 
       &:nth-child(even) .body {
         flex-direction: row-reverse;
+
+        @media (max-width: b.$mobile-width) {
+          flex-direction: column;
+        }
       }
 
       h2 {

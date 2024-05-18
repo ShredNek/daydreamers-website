@@ -11,6 +11,7 @@ import Merch from "./views/Merch";
 import MerchItem from "./views/MerchItem";
 import Cart from "./views/Cart";
 import Gigs from "./views/Gigs";
+import Music from "./views/Music";
 import ErrorBoundary from "./views/ErrorBoundary"
 
 import "./styles/style.scss";
@@ -43,7 +44,16 @@ const views = [{
 {
   path: "/gig/:id",
   element: <GigView />
-},]
+},
+{
+  path: "/music",
+  element: <Music />
+},
+{
+  path: "/music/:id",
+  element: <GigView />
+},
+]
 
 const router = createBrowserRouter(
   views.map(view => ({

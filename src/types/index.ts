@@ -64,6 +64,33 @@ export type MerchItem = {
   sizesAvailable?: SizesAvailable;
 };
 
+export type TrackList = {
+  title: string;
+  id: string;
+  duration: string;
+};
+
+export type SongCollectionData = {
+  data: {
+    allSongCollections: {
+      appleMusicLink: string;
+      collectionType: "album" | "ep" | "single" | "compilation";
+      duration: string;
+      id: string;
+      name: string;
+      otherViewsLink: string;
+      releaseDate: Date;
+      spotifyLink: string;
+      trackList: TrackList;
+      _status: string;
+      _firstPublishedAt: Date;
+      coverArt: {
+        url: string;
+      };
+    }[];
+  };
+};
+
 export type MerchItemGQLSchema = Omit<
   MerchItem,
   "merchId" | "name" | "description" | "imgSrc"
@@ -144,9 +171,11 @@ export interface AppContextInterface {
   gigData: AllGigsEntity | null;
   merchItems: MerchItem[] | null;
   merchReqParams: MerchReqParams;
+  songCollectionData: SongCollectionData | null;
   setGigData: Dispatch<SetStateAction<AllGigsEntity | null>>;
   setMerchItems: Dispatch<SetStateAction<MerchItem[] | null>>;
   setMerchReqParams: Dispatch<SetStateAction<MerchReqParams>>;
+  setSongCollectionData: Dispatch<SetStateAction<SongCollectionData | null>>;
 }
 
 export type ComponentStatus = "error" | "loading" | "ok" | "not found";

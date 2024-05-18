@@ -105,3 +105,28 @@ export const GET_ALL_GIGS = gql`
     }
   }
 `;
+
+export const GET_ALL_MUSIC = gql`
+  query GetAllMusic {
+    allSongCollections {
+      appleMusicLink
+      collectionType
+      duration
+      id
+      name
+      otherViewsLink
+      releaseDate
+      spotifyLink
+      trackList {
+        title
+        id
+        duration
+      }
+      _status
+      _firstPublishedAt
+      coverArt {
+        url
+      }
+    }
+  }
+`;

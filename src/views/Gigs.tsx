@@ -1,5 +1,5 @@
 import { useEffect, useState, useContext } from "react"
-import { getAllPosts } from "../api/datoCmsCalls"
+import { getAllGigs } from "../api/datoCmsCalls"
 import { ComponentLoadingStatus, AllGigsEntity } from "../types/index"
 import { returnFormattedArtistNames, returnFormattedDate, toKebabCase } from "../helper/index"
 import { useNavigate } from "react-router-dom"
@@ -9,6 +9,7 @@ import Pin from "../components/svg/Pin"
 import Calendar from "../components/svg/Calendar"
 import Ticket from "../components/svg/Ticket"
 import { AppContext } from "../utils/AppContext"
+import Footer from "../components/Footer"
 
 export default function Gigs() {
   const [componentLoadingState, setComponentLoadingState] = useState<ComponentLoadingStatus>("transitioning static")
@@ -25,7 +26,7 @@ export default function Gigs() {
   const callAndSetGigData = async () => {
     let rawData: AllGigsEntity | null = null;
     try {
-      rawData = (await (await getAllPosts()).json())
+      rawData = (await (await getAllGigs()).json())
     } catch (error) {
       throw Error(`getAllPosts API call failed - ${error}`)
     }
@@ -85,6 +86,7 @@ export default function Gigs() {
             </div>}
         </div>
       </section>
+      <Footer />
     </>
   )
 }

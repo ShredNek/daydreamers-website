@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState, useRef } from "react";
-import { getAllPosts } from "../api/datoCmsCalls";
+import { getAllGigs } from "../api/datoCmsCalls";
 import NavHeader from "../components/NavHeader";
 import { useParams } from "react-router-dom";
 import { AppContext } from "../utils/AppContext";
@@ -34,7 +34,7 @@ export default function GigView() {
   };
 
   const callAndSetGigData = async () => {
-    const rawData: AllGigsEntity = await (await getAllPosts()).json();
+    const rawData: AllGigsEntity = await (await getAllGigs()).json();
     const finalData: AllGigsEntity = {
       data: {
         ...rawData.data,

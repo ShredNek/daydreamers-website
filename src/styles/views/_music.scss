@@ -1,0 +1,76 @@
+@use "../abstracts" as a;
+@use "../base/" as b;
+
+#music {
+  width: b.$default-section-width;
+  margin: auto;
+
+  #cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 8rem;
+
+    .collection-card {
+      padding: 5rem 2rem 2rem;
+      outline: a.$off-white solid 1px;
+      background-color: lighten(a.$off-white, 7.5);
+
+      transition-property: scale rotate;
+      transition-duration: 1s;
+
+      &:nth-child(even) {
+        box-shadow: a.$grey 10px 10px 30px -10px;
+        rotate: -3deg;
+        translate: 0px 0px;
+        z-index: 0;
+
+        &:hover {
+          scale: 105%;
+          rotate: 1deg;
+          translate: -25px 30px;
+        }
+      }
+
+      &:nth-child(odd) {
+        box-shadow: a.$grey -10px 10px 30px -10px;
+        rotate: 2deg;
+        translate: 0px 0px;
+        z-index: 0;
+
+
+        &:hover {
+          scale: 105%;
+          rotate: -1deg;
+          translate: 25px 5px;
+        }
+      }
+
+      .artwork {
+        outline: 1.5px solid a.$off-white;
+      }
+
+      h2 {
+        font-family: BrianScratch;
+        font-size: clamp(1.5rem, 2px + 4vw, 3rem);
+        padding: 1.5rem 0.75rem 0px;
+
+        @media (max-width: 600px) {
+          font-size: calc(1.25rem + 5vw);
+        }
+      }
+
+      @media (max-width: b.$desktop-width) {
+        padding: 5rem 1.5rem 2rem;
+      }
+    }
+
+    @media (max-width: b.$desktop-width) {
+      grid-template-columns: 1fr 1fr;
+      gap: 6rem;
+    }
+
+    @media (max-width: 600px) {
+      grid-template-columns: 1fr;
+    }
+  }
+}

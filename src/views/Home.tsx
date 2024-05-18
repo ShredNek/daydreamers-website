@@ -1,17 +1,14 @@
-import { FaFacebookF, FaInstagram, FaSpotify, FaMusic } from "react-icons/fa6";
 import { useNavigate } from "react-router-dom";
-import RoundedButtonLink from "../components/RoundedButtonLink";
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect } from "react";
 import heroShot from "../assets/images/hero/BandHeroShot_1.jpg"
 import { PAGE_LINKS, FADE_SPEED } from "../utils/globals";
 import { ComponentLoadingStatus } from "../types/index"
-import { AppContext } from "../utils/AppContext";
+import Footer from "../components/Footer";
 
 export default function Home() {
   const [time, setTime] = useState(0);
   const [componentState, setComponentState] = useState<ComponentLoadingStatus>("")
   let navigate = useNavigate()
-  const { gigData } = useContext(AppContext)
 
   // ? Helpers
   const randomDistance = 12;
@@ -68,20 +65,7 @@ export default function Home() {
             </ul>
           </nav>
         </div>
-        <footer>
-          <div className="social-links">
-            <RoundedButtonLink imageChild={<FaFacebookF />} />
-            <RoundedButtonLink imageChild={<FaInstagram />} />
-            <RoundedButtonLink imageChild={<FaSpotify />} />
-            <RoundedButtonLink imageChild={<FaMusic />} />
-          </div>
-          <ul className="extra-links">
-            <li className="link ">Press Kit</li>
-          </ul>
-          <p className="extra-links">
-            <strong>© 2015-{new Date().getFullYear()} Day Dreamers</strong>
-          </p>
-        </footer>
+        <Footer />
       </section >
     </>
   );

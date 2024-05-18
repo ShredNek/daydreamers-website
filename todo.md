@@ -1,4 +1,7 @@
 # To Do
+- make nav header reusable for stock screen - make space for other components, like stock search, to live there too 
+- see if it's possible to have an event fire when you want the screen to fade. It's complicated to fade from one page to the next.
+- pagination for gigs and music
 
 ## layouts
 - configure routes w/ react router √
