@@ -1,6 +1,9 @@
 @use "../abstracts" as a;
+@use "../base/" as b;
 
 section.lyric-view {
+  width: b.$default-section-width;
+
   min-height: 0px;
   max-height: fit-content;
 
