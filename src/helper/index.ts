@@ -82,15 +82,21 @@ export const returnFormattedArtistNames = (names: string): string | null => {
   return message;
 };
 
-export const returnFormattedDate = (rawUtcString: string): string => {
+export const returnFormattedDate = (
+  rawUtcString: string,
+  extraConfig = {
+    includeTime: true,
+    includeDay: true,
+  }
+): string => {
   const date = new Date(rawUtcString);
   const options: Intl.DateTimeFormatOptions = {
-    weekday: "long",
+    weekday: extraConfig.includeDay ? "long" : undefined,
     year: "numeric",
     month: "long",
     day: "numeric",
-    hour: "numeric",
-    minute: "numeric",
+    hour: extraConfig.includeTime ? "numeric" : undefined,
+    minute: extraConfig.includeTime ? "numeric" : undefined,
     timeZone: "UTC",
   };
   return date.toLocaleDateString(undefined, options);
@@ -98,4 +104,25 @@ export const returnFormattedDate = (rawUtcString: string): string => {
 
 export const googleMapUrl = (venueLocation: VenueLocation) => {
   return `http://maps.google.com/maps?z=12&t=m&q=loc:${venueLocation.latitude}+${venueLocation.longitude}`;
+};
+
+export const convertNumberToThreeDigits = (number: number) => {
+  return number.toString().padStart(3, "0");
+};
+
+export const secondsToTimeString = (totalSeconds: number) => {
+  // Calculate hours, minutes, and seconds
+  const hours = Math.floor(totalSeconds / 3600);
+  const minutes = Math.floor((totalSeconds % 3600) / 60);
+  const seconds = totalSeconds % 60;
+
+  // Pad with zeros if necessary
+  const pad = (num: number) => String(num).padStart(2, "0");
+
+  // Format time string
+  if (hours > 0) {
+    return `${pad(hours)}:${pad(minutes)}:${pad(seconds)}`;
+  } else {
+    return `${pad(minutes)}:${pad(seconds)}`;
+  }
 };

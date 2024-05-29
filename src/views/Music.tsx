@@ -8,15 +8,15 @@ import NavHeader from "../components/NavHeader";
 import { AppContext } from "../utils/AppContext";
 import Footer from "../components/Footer";
 
-export default function Gigs() {
+export default function Music() {
   const [componentLoadingState, setComponentLoadingState] =
     useState<ComponentLoadingStatus>("transitioning static");
   const { songCollectionData, setSongCollectionData } = useContext(AppContext);
   let navigate = useNavigate();
 
-  const handleCardClick = (gigSlug: string) => {
+  const handleCardClick = (songSlug: string) => {
     setComponentLoadingState("transitioning static");
-    setTimeout(() => navigate(`/gig/${gigSlug}`), FADE_SPEED);
+    setTimeout(() => navigate(`/music/${songSlug}`), FADE_SPEED);
   };
 
   // ? On page load
@@ -52,8 +52,8 @@ export default function Gigs() {
         linkToDisable="Music"
         transitionOnNavItemClick={setComponentLoadingState}
       />
-      <section className={componentLoadingState} id="music">
-        <div id="cards">
+      <section className={`music-collection ${componentLoadingState}`} id="music">
+        <div className="cards" id="cards">
           {songCollectionData?.data.allSongCollections ? (
             songCollectionData.data.allSongCollections.map((collection) => (
               <div

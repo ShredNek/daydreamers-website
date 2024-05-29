@@ -121,6 +121,7 @@ export const GET_ALL_MUSIC = gql`
         title
         id
         duration
+        lyrics
       }
       _status
       _firstPublishedAt

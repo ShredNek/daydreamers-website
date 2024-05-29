@@ -8,6 +8,9 @@ footer {
   margin: 0px auto 50px;
   width: 90%;
 
+  position: relative;
+  z-index: 100;
+
   & > * {
     margin: 1rem 0;
   }

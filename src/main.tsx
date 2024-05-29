@@ -11,13 +11,15 @@ import Merch from "./views/Merch";
 import MerchItem from "./views/MerchItem";
 import Cart from "./views/Cart";
 import Gigs from "./views/Gigs";
+import GigView from "./views/GigView";
 import Music from "./views/Music";
-import ErrorBoundary from "./views/ErrorBoundary"
+import MusicView from "./views/MusicView";
+import Lyrics from "./views/Lyrics";
+import ErrorBoundary from "./views/ErrorBoundary";
 
 import "./styles/style.scss";
 
 import { AppContextProvider } from "./utils/AppContext";
-import GigView from "./views/GigView";
 
 const views = [{
   path: "/",
@@ -50,10 +52,13 @@ const views = [{
   element: <Music />
 },
 {
-  path: "/music/:id",
-  element: <GigView />
+  path: "/music/:songCollectionName",
+  element: <MusicView />
 },
-]
+{
+  path: "/music/:songCollectionName/lyrics/:trackName",
+  element: <Lyrics />
+}]
 
 const router = createBrowserRouter(
   views.map(view => ({

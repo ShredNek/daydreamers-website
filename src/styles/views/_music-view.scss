@@ -1,0 +1,151 @@
+@use "../base" as b;
+@use "../abstracts" as a;
+
+.music-collection.view {
+  h2 {
+    font-size: clamp(3em, 4px + 7vw, 6em);
+  }
+
+  a {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width: fit-content;
+    border: 1px solid black;
+    padding: 0.25em 1em;
+    border-radius: b.$border-radius-heavy;
+    gap: 1em;
+    cursor: pointer;
+
+    transition-property: background-color, color;
+    transition-duration: .34s;
+    transition-timing-function: ease-out;
+
+    &:hover {
+      background-color: black;
+      color: white;
+    }
+  }
+
+  .image-and-collection {
+    display: flex;
+    gap: 2rem;
+
+    .img-parent {
+      width: 50%;
+      inset: auto;
+      margin: auto;
+
+      & div {
+        max-width: 400px;
+        object-fit: contain;
+        margin: auto;
+
+        img {
+          border-radius: b.$border-radius-heavy;
+        }
+      }
+    }
+
+    .music-collection-details {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+      padding: 2em 0px 4em;
+      width: 50%;
+      text-align: center;
+      justify-content: center;
+
+      .date-and-collection-type {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: clamp(1em, 3px + 2vw, 1.75em);
+
+        .sun-spacer {
+          max-width: 40px;
+          margin: 0px .5em;
+        }
+
+        p:first-child {
+          text-transform: capitalize;
+        }
+      }
+
+      .links {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+        gap: 1em;
+      }
+
+      @media (max-width: b.$mobile-width) {
+        align-items: center;
+        width: 100%;
+      }
+    }
+
+    @media (max-width: b.$mobile-width) {
+      flex-direction: column;
+      align-items: center;
+      gap: 0px;
+
+      h2 {
+        padding: 0px;
+      }
+
+      & > *,
+      & > img,
+      & > .img-parent {
+        width: 80%;
+      }
+    }
+  }
+
+  .track-list-items ol {
+    border-radius: b.$border-radius-subtle;
+    overflow: hidden;
+    margin: 4em 0px;
+
+    li {
+      height: 3.5em;
+      padding: 0px 1em;
+      font-size: clamp(0.6em, 2px + 2vw, 1em);
+
+      display: grid;
+      grid-template-columns: 1fr 3fr 2fr 1fr;
+      align-items: center;
+      gap: 1em;
+
+      .track-title {
+        width: 100%;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+      }
+
+      &:nth-child(odd) {
+        background-color: lighten(mix(a.$daydreamer-blue, a.$ash, 50%), 40%);
+      }
+
+      &:nth-child(even) {
+        background-color: lighten(mix(a.$daydreamer-blue, a.$ash, 60%), 45%);
+      }
+
+      .track-lyrics-anchor {
+        position: relative;
+        margin: auto 1em auto auto;
+        font-size: .8em;
+      }
+
+      .track-duration {
+        text-align: center;
+      }
+    }
+
+    @media (max-width: b.$mobile-width) {
+      padding-top: 0px;
+    }
+  }
+}

@@ -95,7 +95,7 @@ export default function GigView() {
         <main>
           {currGig ? (
             <>
-              <h1 className="large">{currGig.title}</h1>
+              <h1 >{currGig.title}</h1>
               <h2>{returnFormattedArtistNames(currGig.artistnames)}</h2>
               <div id="sub-heading">
                 <div>

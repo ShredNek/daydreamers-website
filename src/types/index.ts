@@ -64,30 +64,33 @@ export type MerchItem = {
   sizesAvailable?: SizesAvailable;
 };
 
-export type TrackList = {
+export type Track = {
   title: string;
   id: string;
   duration: string;
+  lyrics: string;
+};
+
+export type SongCollection = {
+  appleMusicLink: string;
+  collectionType: "album" | "ep" | "single" | "compilation";
+  duration: string;
+  id: string;
+  name: string;
+  otherViewsLink: string;
+  releaseDate: Date;
+  spotifyLink: string;
+  trackList: Track[];
+  _status: string;
+  _firstPublishedAt: Date;
+  coverArt: {
+    url: string;
+  };
 };
 
 export type SongCollectionData = {
   data: {
-    allSongCollections: {
-      appleMusicLink: string;
-      collectionType: "album" | "ep" | "single" | "compilation";
-      duration: string;
-      id: string;
-      name: string;
-      otherViewsLink: string;
-      releaseDate: Date;
-      spotifyLink: string;
-      trackList: TrackList;
-      _status: string;
-      _firstPublishedAt: Date;
-      coverArt: {
-        url: string;
-      };
-    }[];
+    allSongCollections: SongCollection[];
   };
 };
 
