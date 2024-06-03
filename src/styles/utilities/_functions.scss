@@ -29,3 +29,10 @@
 
   @return $duplication-result;
 }
+
+@function generate-text-shadow($color) {
+  @return 0px 0px 5px $color,
+         0px -6px 15px $color, 
+         -4px 7px 30px adjust-hue($color, 20), 
+         7px -4px 30px adjust-hue($color, -10);
+}

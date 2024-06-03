@@ -17,7 +17,7 @@ const policies = [
 
 export default function FormalFooter() {
   return (
-    <footer id="formal-footer">
+    <footer id="formal-footer" className="formal-footer">
       <nav id="info">
         <div id="quick-links">
           <span>Quick Links</span>

@@ -1,11 +1,13 @@
 @use "../abstracts/colors" as c;
 @use "../base" as b;
 
-#formal-footer {
+.formal-footer {
+  display: block;
   background-color: black;
   color: white;
   width: 100%;
   z-index: 10;
+  margin-bottom: 0px;
 
   #info,
   #copyright {

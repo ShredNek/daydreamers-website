@@ -9,6 +9,7 @@ $default-transition-duration: .75s;
 $default-transition-property: all $default-transition-duration ease-in;
 $massive-width: 2200px;
 $desktop-width: calc(10vw + 1300px);
+$medium-width: 900px;
 $mobile-width: 750px;
 $small-width: 450px;
 $tiny-width: 280px;
@@ -50,13 +51,24 @@ section {
   opacity: 1;
 }
 
+footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  margin: 2rem auto;
+  width: 90%;  
+  position: relative;
+  z-index: 100;
+}
+
 h1 {
-  font-family: Goodgirl;
-  font-size: clamp(2.25rem, 5vw + 20px, 5rem);
+  font-family: BrianScratch;
+  font-size: clamp(2rem, 5vw + 20px, 5rem);
   margin: .5em 0px;
 
   &.large {
-    font-size: clamp(3rem, 6vw + 25px, 7rem);
+    font-size: clamp(3rem, 7vw + 25px, 7rem);
     font-weight: bold;
   }
 }
@@ -217,9 +229,9 @@ hr {
     margin: 0px;
     padding: 0.5em 1em;
 
-    @media (max-width: 800px) {
+    @media (max-width: $medium-width) {
       padding: 0px 0.5em;
-      margin: 4em auto;
+      margin: calc(1em + 8vw) auto;
     }
   }
 }

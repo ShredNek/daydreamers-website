@@ -1,0 +1,175 @@
+@use "../abstracts" as a;
+@use "../base" as b;
+@use "../utilities" as u;
+
+$image-details-max-width: 600px;
+
+.about {
+  width: b.$default-section-width;
+  text-align: center;
+
+  h1 {
+    margin: -2rem 0px 1rem;
+  }
+
+  .hero {
+    position: relative;
+    max-width: $image-details-max-width;
+    margin: 0px auto;
+    overflow: auto;
+    width: 100%;
+
+    img {
+      border-radius: b.$border-radius-heavy;
+      position: relative;
+
+      &.zak,
+      &.nick,
+      &.dan,
+      &.jordan {
+        position: absolute;
+        top: 0;
+        z-index: 10;
+        opacity: 0.01;
+      }
+    }
+  }
+
+  .band-members {
+    padding: calc(1rem + 1vw) 0px;
+    width: 100%;
+    max-width: $image-details-max-width;
+    align-self: center;
+
+    li {
+      transition: text-shadow ease-out 0.5s;
+
+      position: relative;
+      display: grid;
+      grid-template-columns: 0.45fr 0.1fr 0.45fr;
+
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+
+      font-size: clamp(0.5em, 1.5vw + 3px, 1em);
+
+      & * {
+        min-width: max-content;
+      }
+
+      .vfx-underlay {
+        transition: opacity linear 0.5s;
+
+        position: absolute;
+        width: 6rem;
+        height: 6rem;
+        inset: 0;
+        margin: auto;
+        z-index: -10;
+        opacity: 0.01;
+      }
+
+      &.zak .vfx-underlay {
+        background: a.$zak-red-gradient;
+      }
+
+      &.nick .vfx-underlay {
+        background: a.$nick-green-gradient;
+      }
+
+      &.dan .vfx-underlay {
+        background: a.$dan-purple-gradient;
+      }
+
+      &.jordan .vfx-underlay {
+        background: a.$jordan-blue-gradient;
+      }
+
+      span {
+        transition: letter-spacing ease-in-out 0.5s;
+
+        &:nth-child(1) {
+          font-weight: bold;
+          font-size: clamp(0.75em, 3vw + 3px, 1.25em);
+          text-align: right;
+          letter-spacing: 0.1em;
+        }
+
+        &:last-child {
+          text-align: left;
+        }
+      }
+
+      &:hover {
+        cursor: default;
+
+        span:first-child {
+          letter-spacing: 0.15em;
+        }
+
+        .vfx-underlay {
+          opacity: 1;
+        }
+
+        &.zak {
+          text-shadow: u.generate-text-shadow(a.$zak-red);
+        }
+
+        &.nick {
+          text-shadow: u.generate-text-shadow(a.$nick-green);
+        }
+
+        &.dan {
+          text-shadow: u.generate-text-shadow(a.$dan-purple);
+        }
+
+        &.jordan {
+          text-shadow: u.generate-text-shadow(a.$jordan-blue);
+        }
+      }
+
+      svg {
+        width: 1.5rem;
+        height: auto;
+        margin: auto;
+      }
+
+      @media (max-width: b.$mobile-width) {
+        $distance-between: 3em;
+        display: flex;
+        flex-direction: column;
+        padding-bottom: $distance-between;
+        margin-bottom: $distance-between;
+        border-bottom: solid a.$off-white 0.5px;
+
+        .vfx-underlay {
+          margin: -0.34rem auto auto;
+        }
+      }
+    }
+
+    @media (max-width: b.$mobile-width) {
+      display: grid;
+      grid-template-rows: 1fr 1fr;
+      grid-template-columns: 1fr 1fr;
+    }
+
+    @media (max-width: calc(b.$mobile-width - 200px)) {
+      display: block;
+    }
+  }
+
+  // ? this needed to be called at the parent of the previous selectors
+  // ? in order to select it's sibling and trigger the correct effect
+  &:has(.band-members .zak:hover) .hero .zak,
+  &:has(.band-members .nick:hover) .hero .nick,
+  &:has(.band-members .dan:hover) .hero .dan,
+  &:has(.band-members .jordan:hover) .hero .jordan {
+    opacity: 1;
+  }
+
+  p {
+    margin: 1rem 0px 3rem;
+  }
+}

@@ -15,6 +15,7 @@ import GigView from "./views/GigView";
 import Music from "./views/Music";
 import MusicView from "./views/MusicView";
 import Lyrics from "./views/Lyrics";
+import About from "./views/About";
 import ErrorBoundary from "./views/ErrorBoundary";
 
 import "./styles/style.scss";
@@ -58,7 +59,12 @@ const views = [{
 {
   path: "/music/:songCollectionName/lyrics/:trackName",
   element: <Lyrics />
-}]
+},
+{
+  path: "/about",
+  element: <About />
+}
+]
 
 const router = createBrowserRouter(
   views.map(view => ({
