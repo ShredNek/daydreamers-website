@@ -25,4 +25,5 @@ module.exports = {
     "@typescript-eslint/no-non-null-assertion": "off",
     "@typescript-eslint/explicit-module-boundary-types": "off",
   },
+  quote: [true, "double", "jsx-double"],
 };

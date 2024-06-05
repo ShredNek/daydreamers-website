@@ -71,6 +71,10 @@ h1 {
     font-size: clamp(3rem, 7vw + 25px, 7rem);
     font-weight: bold;
   }
+
+  &.goofy {
+  font-family: GoodGirl;
+  }
 }
 
 h2 {
@@ -99,24 +103,14 @@ img {
 }
 
 hr {
-  opacity: .1;
-  border-top: a.$ash solid 1.5px;
-  width: 100%;
-  margin: 2rem;
+  border-top: a.$off-white solid 1.5px;
+  width: 90%;
+  margin: 2rem auto;
 }
 
 // ? ? ? ? ? ? ?
 // ? CLASSES ?
 // ? ? ? ? ?
-
-// ? remove if this is not used throughout any of the app
-// .button {
-//   font-size: 1em;
-//   border: 1.5px solid black;
-//   border-radius: 0.25em;
-//   width: 250px;
-//   min-height: 60px;
-// }
 
 .button {
   transition: background-color 0.5s ease-in, color 0.1s ease-in;

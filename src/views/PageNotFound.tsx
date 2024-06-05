@@ -7,7 +7,7 @@ export default function PageNotFound() {
   return (
     <section id="page-not-found">
       <div id="site-backdrop" />
-      <h1>404 ERROR</h1>
+      <h1 className="goofy">404 ERROR</h1>
       <LazyImage
         lowQualitySrc={LQ_Motivation}
         highQualitySrc={Motivation}

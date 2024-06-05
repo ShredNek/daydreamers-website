@@ -96,6 +96,7 @@ export default function About() {
             <span>Bass Guitar</span>
           </li>
         </ul>
+        <hr />
         <p>
           Formed in late 2015, Day Dreamers
           are a Melbourne alt punk band influenced by 90's grunge, punk bands to

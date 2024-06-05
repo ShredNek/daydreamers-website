@@ -141,7 +141,7 @@ $image-details-max-width: 600px;
         flex-direction: column;
         padding-bottom: $distance-between;
         margin-bottom: $distance-between;
-        border-bottom: solid a.$off-white 0.5px;
+        border-bottom: solid a.$off-white 1px;
 
         .vfx-underlay {
           margin: -0.34rem auto auto;
@@ -171,5 +171,11 @@ $image-details-max-width: 600px;
 
   p {
     margin: 1rem 0px 3rem;
+  }
+
+  @media (max-width: b.$mobile-width) {
+    hr {
+      display: none;
+    }
   }
 }
