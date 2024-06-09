@@ -33,6 +33,10 @@ $border-radius-heavy: calc(5px + 1vw);
   letter-spacing: 0.05em;
 }
 
+*:focus-visible {
+  border-color: a.$daydreamer-orange;
+}
+
 html {
   display: flow-root;
 }

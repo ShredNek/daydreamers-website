@@ -12,9 +12,11 @@
     justify-content: space-around;
 
     a.img-parent img {
+      $spread: 50px;
+      $origin: 30px;
       min-width: 140px;
       border-radius: 100%;
-      box-shadow: white 0px 0px 30px 20px ;
+      box-shadow: white 0px 0px $spread $origin , white 0px 0px $spread $origin , white 0px 0px $spread $origin  ;
     }
 
     li {

@@ -1,115 +1,218 @@
+@use "../base" as b;
+@use "../abstracts" as a;
+@use "../utilities/functions" as f;
+
+$hue-degree-shift: 90deg;
+
 .enquiry-form-container {
-  align-items: center;
-  background-color: #000;
-  display: flex;
-  justify-content: center;
-  height: 100vh;
+  .enquiry-form-filter,
+  .enquiry-form-backdrop {
+    position: fixed;
+    top: 0;
+    height: 100vh;
+    width: 100vw;
+    opacity: 0.25;
+  }
+
+  .enquiry-form-filter {
+    filter: hue-rotate($hue-degree-shift);
+    animation: flipHue 5s ease-in-out infinite alternate;
+    background: linear-gradient(
+      to top,
+      var(--favourite-colour),
+      white,
+      transparent
+    );
+
+    z-index: -1;
+  }
+
+  .enquiry-form-backdrop {
+    background: var(--favourite-colour);
+    z-index: -2;
+  }
+
+  h1 {
+    text-align: center;
+    font-size: clamp(2rem, 8vw + 2rem, 6rem);
+    margin: 1rem 0px;
+  }
+
+  form {
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+
+    width: clamp(250px, 90%, 600px);
+    gap: 1em;
+    margin: auto;
+    padding: 3rem;
+    outline: 5px solid black;
+    border-radius: b.$border-radius-heavy;
+
+    .input-container,
+    div,
+    input,
+    select,
+    textarea {
+      width: 100%;
+    }
+
+    label {
+      width: fit-content;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="color"],
+    input[type="color"],
+    input[type="number"],
+    textarea,
+    select {
+      border-radius: b.$border-radius-subtle;
+    }
+
+    input[type="color"] {
+      height: 2.75rem;
+    }
+
+    textarea {
+      max-height: 300px;
+      min-height: 100px;
+    }
+
+    span.error {
+      $error-colour: darken(red, 10%);
+      color: $error-colour;
+      text-shadow: 0px 0px 10px lighten($error-colour, 40%);
+    }
+
+    .first-last-name,
+    .favourite-colour-enquiry-type,
+    .code-name-level-of-secrecy {
+      display: flex;
+      gap: 1em;
+    }
+
+    & > .input-container,
+    div:not(.favourite-colour-enquiry-type) .input-container {
+      position: relative;
+
+      label {
+        color: a.$ash;
+        position: absolute;
+        background: white;
+        height: fit-content;
+        margin: auto 1em;
+        inset: 0;
+        padding: 0px 0.5em;
+        border-radius: b.$border-radius-heavy;
+
+        transform-origin: left;
+        transition-property: translate transform;
+        transition-duration: 0.1s;
+        transition-timing-function: ease-out;
+      }
+
+      label[for="message"] {
+        margin: 0.6em auto 0px 1em;
+      }
+    }
+
+    .favourite-colour-enquiry-type .input-container {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5em;
+
+      &:has([type="color"]) {
+        justify-content: space-between;
+      }
+    }
+
+    .input-container {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+
+      &:has(input:focus),
+      &:has(input:not(:placeholder-shown):not([name="favouriteColour"])),
+      &:has(textarea:focus),
+      &:has(textarea:not(:placeholder-shown)) {
+        label:not([for="favouriteColour"]) {
+          transform: scale(0.75);
+          translate: 0% -90%;
+        }
+      }
+
+      &:has(input:focus),
+      &:has(textarea:focus),
+      &:has(select:focus) {
+        label {
+          color: darken(a.$daydreamer-orange, 20%);
+        }
+
+        input,
+        textarea,
+        select {
+          border-color: a.$daydreamer-orange !important;
+          outline: a.$daydreamer-orange;
+          box-shadow: 0px 0px 5px a.$daydreamer-orange;
+        }
+      }
+    }
+  }
+
+  button[type="submit"] {
+    $button-blue: a.$daydreamer-blue;
+    margin-top: 2em;
+    padding: .5em 0px;
+    background-color: white;
+    border: 2px solid $button-blue;
+    color: $button-blue;
+    font-size: 1.75em;
+    border-radius: b.$border-radius-subtle;
+    box-shadow: 0px 0px 30px 0px lighten($button-blue, 30%), 0px 0px 30px 0px lighten($button-blue, 30%) ;
+
+
+    transition-property: background-color color font-weight;
+    transition-duration: .25s;
+    transition-timing-function: ease-out;
+
+    &:hover, &:focus {
+      background-color: $button-blue;
+    font-weight: bold;
+      color: white;
+      box-shadow: 0px 0px 15px 5px lighten($button-blue, 20%), 0px 0px 15px 5px lighten($button-blue, 20%) ;
+    }
+
+    &:focus {
+      outline: lighten($button-blue, 20%) 2px solid;
+    }
+  }
+
+  @media (max-width: b.$mobile-width) {
+    form {
+      padding: 1.5rem;
+      font-size: .8em;
+
+      .first-last-name,
+      .favourite-colour-enquiry-type,
+      .code-name-level-of-secrecy {
+        flex-direction: column;
+      }
+    }
+  }
 }
 
-.form {
-  background-color: #15172b;
-  border-radius: 20px;
-  box-sizing: border-box;
-  height: 500px;
-  padding: 20px;
-  width: 320px;
-}
-
-.title {
-  color: #eee;
-  font-family: sans-serif;
-  font-size: 36px;
-  font-weight: 600;
-  margin-top: 30px;
-}
-
-.subtitle {
-  color: #eee;
-  font-family: sans-serif;
-  font-size: 16px;
-  font-weight: 600;
-  margin-top: 10px;
-}
-
-.input-container {
-  height: 50px;
-  position: relative;
-  width: 100%;
-}
-
-.input {
-  background-color: #303245;
-  border-radius: 12px;
-  border: 0;
-  box-sizing: border-box;
-  color: #eee;
-  font-size: 18px;
-  height: 100%;
-  outline: 0;
-  padding: 4px 20px 0;
-  width: 100%;
-}
-
-.cut {
-  background-color: #15172b;
-  border-radius: 10px;
-  height: 20px;
-  left: 20px;
-  position: absolute;
-  top: -20px;
-  transform: translateY(0);
-  transition: transform 200ms;
-  width: 76px;
-}
-
-.cut-short {
-  width: 50px;
-}
-
-.input:focus ~ .cut,
-.input:not(:placeholder-shown) ~ .cut {
-  transform: translateY(8px);
-}
-
-.placeholder {
-  color: #65657b;
-  font-family: sans-serif;
-  left: 20px;
-  line-height: 14px;
-  pointer-events: none;
-  position: absolute;
-  transform-origin: 0 50%;
-  transition: transform 200ms, color 200ms;
-  top: 20px;
-}
-
-.input:focus ~ .placeholder,
-.input:not(:placeholder-shown) ~ .placeholder {
-  transform: translateY(-30px) translateX(10px) scale(0.75);
-}
-
-.input:not(:placeholder-shown) ~ .placeholder {
-  color: #808097;
-}
-
-.input:focus ~ .placeholder {
-  color: #dc2f55;
-}
-
-.submit {
-  background-color: #08d;
-  border-radius: 12px;
-  border: 0;
-  box-sizing: border-box;
-  color: #eee;
-  cursor: pointer;
-  font-size: 18px;
-  height: 50px;
-  margin-top: 38px;
-  text-align: center;
-  width: 100%;
-}
-
-.submit:active {
-  background-color: #06b;
+@keyframes flipHue {
+  0% {
+    filter: hue-rotate($hue-degree-shift);
+  }
+  50% {
+    filter: hue-rotate(-$hue-degree-shift);
+  }
+  100% {
+    filter: hue-rotate($hue-degree-shift);
+  }
 }

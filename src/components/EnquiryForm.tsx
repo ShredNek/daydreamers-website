@@ -1,26 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { z, ZodSchema } from 'zod';
+import { sendEnquiryToDayDreamers } from '../api/emailCalls';
+import { EnquiryFormSchema } from "../types/index"
 
-type EnquiryType = "General" | "Booking" | "Management" | "Scathing Review" | "Content or Merch Request" | "Divulge Covert Information";
-
-type SecretEnquiryType = "Top Secret" | "For Your Eyes Only" | "Confidential" | "Public Knowledge";
-
-type EnquiryForm = {
-  email: string;
-  firstName: string;
-  lastName: string;
-  mobileNumber: string;
-  favouriteColour: string;
-  enquiryType: EnquiryType;
-  subject: string;
-  message: string;
-  angerLevel: number | null; // For Scathing Review
-  suggestedPunishment: string | null; // For Scathing Review
-  codeName: string | null; // For Divulge Covert Information
-  levelOfSecrecy: SecretEnquiryType | null; // For Divulge Covert Information
-};
-
-const formSchema: ZodSchema<EnquiryForm> = z.object({
+const formSchema: ZodSchema<EnquiryFormSchema> = z.object({
   firstName: z.string().min(1, "First name is required"),
   lastName: z.string().min(1, "Last name is required"),
   email: z.string().email("Invalid email address"),
@@ -29,42 +12,19 @@ const formSchema: ZodSchema<EnquiryForm> = z.object({
   enquiryType: z.enum(["General", "Booking", "Management", "Scathing Review", "Content or Merch Request", "Divulge Covert Information"]),
   subject: z.string().min(1, "Subject is required"),
   message: z.string().min(1, "Message is required"),
-  angerLevel: z.number().min(1).max(10).nullable(), // For Scathing Review
+  angerLevel: z.string().nullable(), // For Scathing Review
   suggestedPunishment: z.string().nullable(), // For Scathing Review
   codeName: z.string().nullable(), // For Divulge Covert Information
   levelOfSecrecy: z.enum(["Top Secret", "For Your Eyes Only", "Confidential", "Public Knowledge"]).nullable(), // For Divulge Covert Information
 });
 
-type FormFields = {
-  id: keyof EnquiryForm,
-  label: string,
-  type: "text" | "email" | "color" | "select" | "textarea" | "number",
-  options?: EnquiryType[] | SecretEnquiryType[],
-  dependsOn?: EnquiryType
-}[]
-
-const formFields: FormFields = [
-  { id: 'firstName', label: 'First Name', type: 'text' },
-  { id: 'lastName', label: 'Last Name', type: 'text' },
-  { id: 'email', label: 'Email', type: 'email' },
-  { id: 'mobileNumber', label: 'Mobile Number', type: 'text' },
-  { id: 'favouriteColour', label: 'Favourite Colour', type: 'color' },
-  { id: 'enquiryType', label: 'Enquiry Type', type: 'select', options: ["General", "Booking", "Management", "Scathing Review", "Content or Merch Request", "Divulge Covert Information"] },
-  { id: 'subject', label: 'Subject', type: 'text' },
-  { id: 'message', label: 'Message', type: 'textarea' },
-  { id: 'angerLevel', label: 'Anger Level (1 to 10)', type: 'number', dependsOn: 'Scathing Review' },
-  { id: 'suggestedPunishment', label: 'Suggested Punishment for the Band', type: 'text', dependsOn: 'Scathing Review' },
-  { id: 'codeName', label: 'Code Name', type: 'text', dependsOn: 'Divulge Covert Information' },
-  { id: 'levelOfSecrecy', label: 'Level of Secrecy', type: 'select', options: ["Top Secret", "For Your Eyes Only", "Confidential", "Public Knowledge"], dependsOn: 'Divulge Covert Information' },
-];
-
 export default function EnquiryForm() {
-  const [formData, setFormData] = useState<EnquiryForm>({
+  const [formData, setFormData] = useState<EnquiryFormSchema>({
     firstName: '',
     lastName: '',
     email: '',
     mobileNumber: '',
-    favouriteColour: '#000000',
+    favouriteColour: '#ffffff',
     enquiryType: 'General',
     subject: '',
     message: '',
@@ -89,6 +49,7 @@ export default function EnquiryForm() {
     if (result.success) {
       console.log("Form is valid:", result.data);
       setErrors({});
+      sendEnquiryToDayDreamers(result.data)
     } else {
       const newErrors: { [key: string]: string } = {};
       result.error.errors.forEach((error) => {
@@ -103,106 +64,206 @@ export default function EnquiryForm() {
     validateForm();
   };
 
-  useEffect(() => {
-    console.log(formData.enquiryType)
-  }, [])
+  interface CustomCSSProperties extends React.CSSProperties {
+    '--favourite-colour'?: string;
+  }
+
+  const customStyle: CustomCSSProperties = {
+    "--favourite-colour": formData.favouriteColour
+  }
 
   return (
-    <div className='enquiry-form-container'>
-      <form onSubmit={handleSubmit} className='form'>
-        <>
-          {formFields
-            .filter(field =>
-              field.dependsOn !== "Divulge Covert Information" &&
-              field.dependsOn !== "Scathing Review")
-            .map((field) => (
-              <div key={field.id} className='input-container'>
-                <label htmlFor={field.id} class="placeholder">{field.label}:</label>
-                <div className="cut"></div>
-                {field.type === 'select' ? (
-                  <select
-                    id={field.id}
-                    name={field.id}
-                    value={formData[field.id as keyof EnquiryForm] ?? ""}
-                    onChange={handleChange}
-                  >
-                    {field.options && field.options.map(option => (
-                      <option key={option} value={option}>{option}</option>
-                    ))}
-                  </select>
-                ) : field.type === 'textarea' ? (
-                  <textarea
-                    id={field.id}
-                    name={field.id}
-                    value={formData[field.id as keyof EnquiryForm] ?? ""}
-                    onChange={handleChange}
-                  />
-                ) : (
+    <>
+      <div className='enquiry-form-container' style={customStyle}  >
+        <div className="enquiry-form-filter" />
+        <div className="enquiry-form-backdrop" />
+        <h1>Contact us!</h1>
+        <form onSubmit={handleSubmit}>
+          <div className="first-last-name">
+
+            <div className="field-container">
+              <div className='input-container'>
+                <label htmlFor='firstName' className="placeholder">First Name</label>
+                <input
+                  type='text'
+                  id='firstName'
+                  name='firstName'
+                  value={formData.firstName}
+                  onChange={handleChange}
+                  placeholder=" "
+                />
+              </div>
+              {errors.firstName ? <span className="error">{errors.firstName}</span> : null}
+            </div>
+            <div className="field-container">
+              <div className='input-container'>
+                <label htmlFor='lastName' className="placeholder">Last Name</label>
+                <input
+                  type='text'
+                  id='lastName'
+                  name='lastName'
+                  value={formData.lastName}
+                  onChange={handleChange}
+                  placeholder=" "
+                />
+              </div>
+              {errors.lastName ? <span className="error">{errors.lastName}</span> : null}
+            </div>
+          </div>
+          <div className="field-container">
+            <div className='input-container'>
+              <label htmlFor='email' className="placeholder">Email</label>
+              <input
+                type='email'
+                id='email'
+                name='email'
+                value={formData.email}
+                onChange={handleChange}
+                placeholder=" "
+              />
+            </div>
+            {errors.email ? <span className="error">{errors.email}</span> : null}
+          </div>
+          <div className="field-container">
+            <div className='input-container'>
+              <label htmlFor='mobileNumber' className="placeholder">Mobile Number</label>
+              <input
+                type='text'
+                id='mobileNumber'
+                name='mobileNumber'
+                value={formData.mobileNumber}
+                onChange={handleChange}
+                placeholder=" "
+              />
+            </div>
+            {errors.mobileNumber ? <span className="error">{errors.mobileNumber}</span> : null}
+          </div>
+
+          <div className="favourite-colour-enquiry-type">
+            <div className='input-container'>
+              <label htmlFor='favouriteColour' className="placeholder">Favourite Colour</label>
+              <input
+                type='color'
+                id='favouriteColour'
+                name='favouriteColour'
+                value={formData.favouriteColour}
+                onChange={handleChange}
+              />
+            </div>
+            {errors.favouriteColour ? <span className="error">{errors.favouriteColour}</span> : null}
+
+            <div className='input-container'>
+              <label htmlFor='enquiryType' className="placeholder">Enquiry Type</label>
+              <select
+                id='enquiryType'
+                name='enquiryType'
+                value={formData.enquiryType}
+                onChange={handleChange}
+              >
+                <option value="General">General</option>
+                <option value="Booking">Booking</option>
+                <option value="Management">Management</option>
+                <option value="Scathing Review">Scathing Review</option>
+                <option value="Content or Merch Request">Content or Merch Request</option>
+                <option value="Divulge Covert Information">Divulge Covert Information</option>
+              </select>
+            </div>
+          </div>
+          <div className="field-container">
+            <div className='input-container'>
+              <label htmlFor='subject' className="placeholder">Subject</label>
+              <input
+                type='text'
+                id='subject'
+                name='subject'
+                value={formData.subject}
+                onChange={handleChange}
+                placeholder=" "
+              />
+            </div>
+            {errors.subject ? <span className="error">{errors.subject}</span> : null}
+          </div>
+          <div className="field-container">
+            <div className='input-container'>
+              <label htmlFor='message' className="placeholder">Message</label>
+              <textarea
+                id='message'
+                name='message'
+                placeholder='  '
+                value={formData.message}
+                onChange={handleChange}
+              />
+            </div>
+            {errors.message ? <span className="error">{errors.message}</span> : null}
+          </div>
+          {formData.enquiryType === "Scathing Review" ? (
+            <>
+              <div className="field-container">
+                <div className='input-container'>
+                  <label htmlFor='angerLevel' className="placeholder">Anger Level (1 to 10)</label>
                   <input
-                    type={field.type}
-                    id={field.id}
-                    name={field.id}
-                    value={formData[field.id as keyof EnquiryForm] ?? ""}
+                    type='number'
+                    id='angerLevel'
+                    name='angerLevel'
+                    value={formData.angerLevel ?? ''}
                     onChange={handleChange}
                     placeholder=" "
                   />
-                )}
-                {errors[field.id] && <span>{errors[field.id]}</span>}
+                </div>
+                {errors.angerLevel ? <span className="error">{errors.angerLevel}</span> : null}
               </div>
-            ))}
-        </>
-        <>
-          {formData.enquiryType === "Scathing Review" ? (
-            formFields
-              .filter(field => field.dependsOn === "Scathing Review")
-              .map(field => (
-                <div key={field.id} className='input-container'>
-                  <label htmlFor={field.id}>{field.label}:</label>
-                  <div className="cut"></div>
+              <div className="field-container">
+                <div className='input-container'>
+                  <label htmlFor='suggestedPunishment' className="placeholder">Suggested Punishment for the Band</label>
                   <input
-                    type={field.type}
-                    id={field.id}
-                    name={field.id}
-                    value={formData[field.id as keyof EnquiryForm] ?? ""}
+                    type='text'
+                    id='suggestedPunishment'
+                    name='suggestedPunishment'
+                    value={formData.suggestedPunishment ?? ''}
                     onChange={handleChange}
+                    placeholder=" "
                   />
-                  {errors[field.id] && <span>{errors[field.id]}</span>}
                 </div>
-              ))
-          ) : formData.enquiryType === "Divulge Covert Information" ? (
-            formFields
-              .filter(field => field.dependsOn === "Divulge Covert Information")
-              .map(field => (
-                <div key={field.id}>
-                  <label htmlFor={field.id}>{field.label}:</label>
-                  {field.type === "select" ? (
-                    <select
-                      id={field.id}
-                      name={field.id}
-                      value={formData[field.id as keyof EnquiryForm] ?? ""}
-                      onChange={handleChange}
-                    >
-                      {field.options && field.options.map(option => (
-                        <option key={option} value={option}>{option}</option>
-                      ))}
-                    </select>
-                  ) : (
-                    <input
-                      type={field.type}
-                      id={field.id}
-                      name={field.id}
-                      value={formData[field.id as keyof EnquiryForm] ?? ""}
-                      onChange={handleChange}
-                    />
-                  )}
-                  {errors[field.id] && <span>{errors[field.id]}</span>}
-                </div>
-              ))
+                {errors.suggestedPunishment ? <span className="error">{errors.suggestedPunishment}</span> : null}
+              </div>
+            </>
           ) : null}
-        </>
-        <button type="submit">Submit</button>
-      </form>
-    </div>
-  );
 
-};
+          {formData.enquiryType === "Divulge Covert Information" ? (
+            <div className="code-name-level-of-secrecy">
+              <div className='input-container'>
+                <label htmlFor='codeName' className="placeholder">Code Name</label>
+                <input
+                  type='text'
+                  id='codeName'
+                  name='codeName'
+                  value={formData.codeName ?? ''}
+                  onChange={handleChange}
+                  placeholder=" "
+                />
+              </div>
+              {errors.codeName ? <span className="error">{errors.codeName}</span> : null}
+
+              <div className='input-container'>
+                <select
+                  id='levelOfSecrecy'
+                  name='levelOfSecrecy'
+                  value={formData.levelOfSecrecy ?? ''}
+                  onChange={handleChange}
+                >
+                  <option value="Top Secret">Top Secret</option>
+                  <option value="For Your Eyes Only">For Your Eyes Only</option>
+                  <option value="Confidential">Confidential</option>
+                  <option value="Public Knowledge">Public Knowledge</option>
+                </select>
+              </div>
+              {errors.levelOfSecrecy ? <span className="error">{errors.levelOfSecrecy}</span> : null}
+            </div>
+          ) : null}
+
+          <button type="submit">Submit</button>
+        </form>
+      </div>
+    </>
+  );
+}

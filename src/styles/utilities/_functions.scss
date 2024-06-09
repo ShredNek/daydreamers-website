@@ -2,6 +2,8 @@
 // ? FUNCTIONS ?
 // ? ? ? ? ? ?
 
+@use 'sass:color';
+
 @function generate-text-outline(
   $outline-width,
   $outline-color,

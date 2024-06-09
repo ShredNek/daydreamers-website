@@ -10,7 +10,7 @@ async function graphqlCall(query: string) {
     body: JSON.stringify({ query }),
   };
 
-  const url = `${import.meta.env.VITE_SHOPIFY_MIDDLEWEAR_URL}/`;
+  const url = `${import.meta.env.VITE_MIDDLEWEAR_URL}/`;
   return await fetch(url, config);
 }
 

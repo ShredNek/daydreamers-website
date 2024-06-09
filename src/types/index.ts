@@ -187,3 +187,32 @@ export type ComponentLoadingStatus =
   | "transitioning static"
   | "transitioning"
   | "";
+
+type EnquiryType =
+  | "General"
+  | "Booking"
+  | "Management"
+  | "Scathing Review"
+  | "Content or Merch Request"
+  | "Divulge Covert Information";
+
+type SecretEnquiryType =
+  | "Top Secret"
+  | "For Your Eyes Only"
+  | "Confidential"
+  | "Public Knowledge";
+
+export type EnquiryFormSchema = {
+  email: string;
+  firstName: string;
+  lastName: string;
+  mobileNumber: string;
+  favouriteColour: string;
+  enquiryType: EnquiryType;
+  subject: string;
+  message: string;
+  angerLevel: string | null; // For Scathing Review
+  suggestedPunishment: string | null; // For Scathing Review
+  codeName: string | null; // For Divulge Covert Information
+  levelOfSecrecy: SecretEnquiryType | null; // For Divulge Covert Information
+};
