@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { z, ZodSchema } from 'zod';
 import { sendEnquiryToDayDreamers } from '../api/emailCalls';
-import { EnquiryFormSchema } from "../types/index"
+import { ComponentStatus, EnquiryFormSchema } from "../types/index"
+import { AUTO_HIDE_MODAL_DURATION } from '../utils/globals';
 
 const formSchema: ZodSchema<EnquiryFormSchema> = z.object({
   firstName: z.string().min(1, "First name is required"),
@@ -18,8 +19,15 @@ const formSchema: ZodSchema<EnquiryFormSchema> = z.object({
   levelOfSecrecy: z.enum(["Top Secret", "For Your Eyes Only", "Confidential", "Public Knowledge"]).nullable(), // For Divulge Covert Information
 });
 
-export default function EnquiryForm() {
-  const [formData, setFormData] = useState<EnquiryFormSchema>({
+type EnquiryFormComponent = {
+  submissionStatus: ComponentStatus,
+  setSubmissionStatus: React.Dispatch<React.SetStateAction<ComponentStatus>>,
+}
+
+export default function EnquiryForm({ submissionStatus,
+  setSubmissionStatus }: EnquiryFormComponent) {
+
+  const defaultFormFields: EnquiryFormSchema = {
     firstName: '',
     lastName: '',
     email: '',
@@ -32,24 +40,38 @@ export default function EnquiryForm() {
     suggestedPunishment: null,
     codeName: null,
     levelOfSecrecy: null,
-  });
+  }
+
+  const [formData, setFormData] = useState<EnquiryFormSchema>(defaultFormFields);
 
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
+    setErrors((errors) => ({ ...errors, [name]: "" }));
+
+    setFormData({ ...formData, [name]: value });
   };
 
-  const validateForm = () => {
+  const validateForm = async () => {
     const result = formSchema.safeParse(formData);
     if (result.success) {
-      console.log("Form is valid:", result.data);
+      // console.log("Form is valid:", result.data);
       setErrors({});
-      sendEnquiryToDayDreamers(result.data)
+      setSubmissionStatus("loading")
+      let res = null;
+      try {
+        res = await sendEnquiryToDayDreamers(result.data)
+        if (res.status === 200 || res.status === 201 || res.status === 202) {
+          setSubmissionStatus("ok")
+          setFormData(() => defaultFormFields)
+        } else {
+          throw Error("New Enquiry request was not ok")
+        }
+      } catch (error) {
+        setSubmissionStatus("error")
+        console.error(error)
+      }
     } else {
       const newErrors: { [key: string]: string } = {};
       result.error.errors.forEach((error) => {
@@ -80,7 +102,6 @@ export default function EnquiryForm() {
         <h1>Contact us!</h1>
         <form onSubmit={handleSubmit}>
           <div className="first-last-name">
-
             <div className="field-container">
               <div className='input-container'>
                 <label htmlFor='firstName' className="placeholder">First Name</label>
@@ -228,7 +249,6 @@ export default function EnquiryForm() {
               </div>
             </>
           ) : null}
-
           {formData.enquiryType === "Divulge Covert Information" ? (
             <div className="code-name-level-of-secrecy">
               <div className='input-container'>
@@ -260,8 +280,7 @@ export default function EnquiryForm() {
               {errors.levelOfSecrecy ? <span className="error">{errors.levelOfSecrecy}</span> : null}
             </div>
           ) : null}
-
-          <button type="submit">Submit</button>
+          <button type="submit" disabled={submissionStatus === "loading" ? true : false}>Submit</button>
         </form>
       </div>
     </>

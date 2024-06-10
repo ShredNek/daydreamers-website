@@ -181,7 +181,12 @@ export interface AppContextInterface {
   setSongCollectionData: Dispatch<SetStateAction<SongCollectionData | null>>;
 }
 
-export type ComponentStatus = "error" | "loading" | "ok" | "not found";
+export type ComponentStatus =
+  | "error"
+  | "loading"
+  | "ok"
+  | "not found"
+  | "neutral";
 
 export type ComponentLoadingStatus =
   | "transitioning static"

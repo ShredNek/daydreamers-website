@@ -85,7 +85,9 @@ $hue-degree-shift: 90deg;
     span.error {
       $error-colour: darken(red, 10%);
       color: $error-colour;
-      text-shadow: 0px 0px 10px lighten($error-colour, 40%);
+      display: block;
+      margin: .5em 0px;
+      text-shadow: 0px 0px 5px lighten($error-colour, 45%);
     }
 
     .first-last-name,
@@ -116,7 +118,7 @@ $hue-degree-shift: 90deg;
       }
 
       label[for="message"] {
-        margin: 0.6em auto 0px 1em;
+        margin: 0.7em auto 0px .9em;
       }
     }
 
@@ -141,7 +143,7 @@ $hue-degree-shift: 90deg;
       &:has(textarea:not(:placeholder-shown)) {
         label:not([for="favouriteColour"]) {
           transform: scale(0.75);
-          translate: 0% -90%;
+          translate: 0% -100%;
         }
       }
 
@@ -174,20 +176,28 @@ $hue-degree-shift: 90deg;
     border-radius: b.$border-radius-subtle;
     box-shadow: 0px 0px 30px 0px lighten($button-blue, 30%), 0px 0px 30px 0px lighten($button-blue, 30%) ;
 
-
-    transition-property: background-color color font-weight;
+    transition-property: background-color color font-weight opacity;
     transition-duration: .25s;
     transition-timing-function: ease-out;
 
     &:hover, &:focus {
       background-color: $button-blue;
-    font-weight: bold;
+    font-weight: 600;
       color: white;
       box-shadow: 0px 0px 15px 5px lighten($button-blue, 20%), 0px 0px 15px 5px lighten($button-blue, 20%) ;
     }
 
     &:focus {
       outline: lighten($button-blue, 20%) 2px solid;
+    }
+
+    &:disabled {
+      border: 2px solid lighten(indigo, 10%);
+      color: lighten(indigo, 10%);
+    box-shadow: 0px 0px 30px -10px lighten(indigo, 30%);
+    opacity: .34;
+
+      pointer-events: none;
     }
   }
 

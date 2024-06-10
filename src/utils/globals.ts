@@ -4,6 +4,8 @@ export const PAGE_DIFFERENCE = 8;
 
 export const FADE_SPEED = 500;
 
+export const AUTO_HIDE_MODAL_DURATION = 5000;
+
 export const PAGE_LINKS = [
   { to: "/music", innerText: "Music" },
   { to: "/gigs", innerText: "Gigs" },
