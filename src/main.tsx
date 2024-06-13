@@ -18,6 +18,7 @@ import Lyrics from "./views/Lyrics";
 import About from "./views/About";
 import ErrorBoundary from "./views/ErrorBoundary";
 import Contact from "./views/Contact";
+import Media from "./views/Media"
 
 import "./styles/style.scss";
 
@@ -69,6 +70,10 @@ const views = [{
 {
   path: "/contact",
   element: <Contact />
+},
+{
+  path: "/media",
+  element: <Media />
 }
 ]
 

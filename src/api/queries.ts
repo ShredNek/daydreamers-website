@@ -131,3 +131,26 @@ export const GET_ALL_MUSIC = gql`
     }
   }
 `;
+
+export const GET_ALL_MEDIA = gql`
+  query GetAllMedia {
+    mediaCollection {
+      mediaData {
+        id
+        url
+        _createdAt
+        height
+        width
+        alt
+        filename
+        video {
+          duration
+          mp4Url
+          streamingUrl
+          thumbnailUrl
+          width
+        }
+      }
+    }
+  }
+`;

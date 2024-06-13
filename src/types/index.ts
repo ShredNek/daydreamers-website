@@ -221,3 +221,32 @@ export type EnquiryFormSchema = {
   codeName: string | null; // For Divulge Covert Information
   levelOfSecrecy: SecretEnquiryType | null; // For Divulge Covert Information
 };
+
+export type MediaCollection = {
+  data: {
+    mediaCollection: {
+      mediaData: MediaData[];
+    };
+  };
+};
+
+export type MediaData = {
+  id: string;
+  url: string;
+  _createdAt: string;
+  height: number;
+  width: number;
+  alt: string | null;
+  filename: string | null;
+  video: Video | null;
+};
+
+export type Video = {
+  duration: number;
+  mp4Url: string;
+  streamingUrl: string;
+  thumbnailUrl: string;
+  height: number;
+  width: number;
+  alt: string | null;
+};

@@ -14,7 +14,7 @@ export default function PageNotFound() {
         alt="All four day dreamers cheering you on, to help motivate your search for the right page"
       />
       <p>
-        Hey champion. Looks like you are lost.{" "}
+        Hey, champion. Looks like you are lost.{" "}
         <Link to={"/"} className="link orange-reroute">
           Click me to come home.
         </Link>
@@ -22,7 +22,7 @@ export default function PageNotFound() {
       <br />
       <p>
         <strong>This page could not be found.</strong> Or the developer
-        misplaced his code. Or the code misplaced the developer Either way,
+        misplaced his code. Or the code misplaced the developer. Either way,
         we're sorry to inconvenience you!
       </p>
       <br />
