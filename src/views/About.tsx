@@ -66,6 +66,7 @@ export default function About() {
           {
             imgDescriptions.map(obj =>
               <img
+                key={obj.person}
                 className={obj.person}
                 src={obj.img}
                 alt={obj.desc}

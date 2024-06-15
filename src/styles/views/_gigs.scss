@@ -8,10 +8,10 @@
 
   #cards {
     max-width: b.$desktop-width;
-    padding: 3rem 6rem;
+    padding: 2rem 4rem;
 
     .gig-card {
-      padding: 4rem 0px;
+      padding: 2rem 0px;
       $border-shorthand: 0.75px solid rgb(170, 170, 170);
       border-top: $border-shorthand;
       border-bottom: $border-shorthand;
@@ -29,7 +29,7 @@
 
         font-family: BrianScratch;
         font-weight: bold;
-        font-size: 4em;
+        font-size: 2em;
         line-height: 1.25em;
         text-shadow: -5px 2.5px 25px adjust-hue(a.$daydreamer-blue, 5deg),
           10px -10px 35px adjust-hue(a.$daydreamer-orange, -5deg);
@@ -38,7 +38,7 @@
       .body {
         display: flex;
         flex-direction: row;
-        gap: 4rem;
+        gap: 2rem;
         justify-content: space-between;
 
         padding: 2rem;
@@ -58,6 +58,8 @@
 
         @media (max-width: b.$mobile-width) {
           flex-direction: column;
+        padding: 1rem;
+
 
           a {
             margin-top: 1rem;
@@ -70,11 +72,15 @@
           display: flex;
           flex-direction: column;
           justify-content: space-around;
-          gap: 1rem;
+          gap: .5rem;
 
           h3 {
-            font-size: 1.5em;
+            font-size: 1em;
             font-weight: bold;
+          }
+
+          p {
+            font-size: .75em;
           }
 
           div {
@@ -83,7 +89,7 @@
             justify-content: left;
 
             svg {
-              height: min-content;
+              width: 1.5rem;
               margin-right: 1rem;
             }
           }
@@ -95,11 +101,11 @@
             }
 
             h2 {
-              font-size: 2.75em;
+              font-size: 1.75em;
             }
 
             h3 {
-              font-size: 1.1em;
+              font-size: 1em;
             }
 
             div {
@@ -117,7 +123,7 @@
 
           img {
             margin: auto 0px;
-            max-height: calc(300px + 10vw);
+            max-height: calc(200px + 10vw);
             border-radius: 2px;
           }
         }
@@ -125,7 +131,7 @@
     }
 
     @media (max-width: b.$small-width) {
-      padding: 1.5rem 3rem;
+      padding: .5rem 2rem;
     }
 
     @media (min-width: b.$massive-width) {
