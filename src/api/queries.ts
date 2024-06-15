@@ -143,6 +143,7 @@ export const GET_ALL_MEDIA = gql`
         width
         alt
         filename
+        blurUpThumb
         video {
           duration
           mp4Url

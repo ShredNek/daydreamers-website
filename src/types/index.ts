@@ -239,6 +239,7 @@ export type MediaData = {
   alt: string | null;
   filename: string | null;
   video: Video | null;
+  blurUpThumb: string;
 };
 
 export type Video = {

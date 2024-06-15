@@ -1,14 +1,12 @@
 import { useState } from "react";
 import missingImage from "../assets/images/misc/MissingImage.png";
 
-interface LazyImage {
+interface LazyImage extends React.ImgHTMLAttributes<HTMLImageElement> {
   lowQualitySrc: string;
   highQualitySrc: string;
-  alt: string;
-  className?: string;
 }
 
-function LazyImage({ lowQualitySrc, highQualitySrc, alt, className }: LazyImage) {
+export default function LazyImage({ lowQualitySrc, highQualitySrc, alt, className }: LazyImage) {
   const [imageSrc, setImageSrc] = useState(lowQualitySrc);
   const [hasError, setHasError] = useState(false);
 
@@ -23,4 +21,3 @@ function LazyImage({ lowQualitySrc, highQualitySrc, alt, className }: LazyImage)
   );
 }
 
-export default LazyImage;

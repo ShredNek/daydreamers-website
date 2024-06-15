@@ -126,3 +126,52 @@ export const secondsToTimeString = (totalSeconds: number) => {
     return `${pad(minutes)}:${pad(seconds)}`;
   }
 };
+
+export const downloadImage = async (imageUrl: string, filename: string) => {
+  try {
+    const response = await fetch(imageUrl, { mode: "cors" });
+    const blob = await response.blob();
+    const url = URL.createObjectURL(blob);
+
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+
+    URL.revokeObjectURL(url);
+  } catch (error) {
+    console.error("Error downloading image:", error);
+  }
+};
+
+export const convertToPng = async (blob: Blob | MediaSource): Promise<Blob> => {
+  return await new Promise<Blob>((resolve, reject) => {
+    const img = document.createElement("img");
+    const canvas = document.createElement("canvas");
+    const ctx = canvas.getContext("2d");
+
+    img.onload = () => {
+      canvas.width = img.width;
+      canvas.height = img.height;
+
+      if (!ctx)
+        throw Error("Couldn't convert image to PNG - 2d Context is null");
+
+      ctx.drawImage(img, 0, 0);
+      canvas.toBlob((pngBlob) => {
+        if (!pngBlob)
+          throw Error("Couldn't convert image to PNG - pngBlob is null");
+
+        resolve(pngBlob);
+      }, "image/png");
+    };
+
+    img.onerror = () => {
+      reject(new Error("Failed to load image for conversion"));
+    };
+
+    img.src = URL.createObjectURL(blob);
+  });
+};
