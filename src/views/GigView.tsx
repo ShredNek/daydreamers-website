@@ -13,7 +13,7 @@ import {
   returnFormattedDate,
   toKebabCase,
   googleMapUrl
-} from "../helper/index";
+} from "../helper/index.tsx";
 
 export default function GigView() {
   const [componentLoadingState, setComponentLoadingState] =

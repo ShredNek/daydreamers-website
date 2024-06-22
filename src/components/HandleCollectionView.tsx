@@ -1,6 +1,6 @@
 import { ComponentStatus, MerchItem, PaginatorState } from "../types";
 import { PAGE_DIFFERENCE } from "../utils/globals";
-import { isWithinPageCount } from "../helper";
+import { isWithinPageCount } from "../helper/index.tsx";
 import Spinner from "../components/Spinner";
 import GeneralError from "../components/GeneralError";
 import MerchCard from "../components/MerchCard";

@@ -1,5 +1,5 @@
 import { MerchItem, Size, MerchType, MerchReqParams } from "../types";
-import { convertToType } from ".";
+import { convertToType } from "./index.tsx";
 
 type MerchComparer = (
   merchItemOne: MerchItem,

@@ -1,4 +1,4 @@
-import { inputIsValid } from ".";
+import { inputIsValid } from "./index.tsx";
 import { StockPresencePreferences, MerchReqParams } from "../types";
 
 export const handleSwitch = (

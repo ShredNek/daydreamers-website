@@ -6,7 +6,7 @@ import NavHeader from "../components/NavHeader"
 import Footer from "../components/Footer"
 import LazyImage from "../components/LazyImage"
 import { MdOutlineFileDownload, MdOutlineShare } from "react-icons/md";
-import { downloadImage, convertToPng } from "../helper/index"
+import { downloadImage, convertToPng } from "../helper/index.tsx"
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 

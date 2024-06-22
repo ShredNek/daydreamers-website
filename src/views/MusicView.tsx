@@ -15,7 +15,7 @@ import {
   returnFormattedDate,
   convertNumberToThreeDigits,
   secondsToTimeString,
-} from "../helper";
+} from "../helper/index.tsx";
 import Footer from "../components/Footer";
 import sunSpacer from "../assets/images/misc/favicon.svg";
 import { FaSpotify, FaMusic, FaEllipsis } from "react-icons/fa6";

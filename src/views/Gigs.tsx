@@ -1,7 +1,7 @@
 import { useEffect, useState, useContext } from "react"
 import { getAllGigs } from "../api/datoCmsCalls"
 import { ComponentLoadingStatus, AllGigsEntity } from "../types/index"
-import { returnFormattedArtistNames, returnFormattedDate, toKebabCase } from "../helper/index"
+import { returnFormattedArtistNames, returnFormattedDate, toKebabCase } from "../helper/index.tsx"
 import { useNavigate } from "react-router-dom"
 import { FADE_SPEED } from "../utils/globals"
 import NavHeader from "../components/NavHeader";

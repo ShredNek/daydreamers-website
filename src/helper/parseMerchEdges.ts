@@ -1,5 +1,5 @@
 import { SizesAvailable, Size } from "../types";
-import { convertToType } from ".";
+import { convertToType } from "./index.tsx";
 
 interface ProductVariant {
   title: string;

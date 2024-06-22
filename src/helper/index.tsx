@@ -1,4 +1,7 @@
-import { VenueLocation } from "../types";
+import { PAGE_LINKS } from "../utils/globals";
+import { VenueLocation, ComponentLoadingStatus } from "../types";
+import { ReactNode, Dispatch, SetStateAction } from "react";
+import useRedirect from "../hooks/useRedirect";
 
 export function toCamelCase(str: string) {
   const splitStr = str.split("");
@@ -173,5 +176,33 @@ export const convertToPng = async (blob: Blob | MediaSource): Promise<Blob> => {
     };
 
     img.src = URL.createObjectURL(blob);
+  });
+};
+
+export const returnNavItems = (
+  transitionOnNavItemClick?: Dispatch<SetStateAction<ComponentLoadingStatus>> | (() => void),
+  linkToDisable?: string,
+  limitAndBreak?: { limit: number; break: 'before' | 'after' },
+): ReactNode[] => {
+  const { handleRedirect } = useRedirect()
+  return PAGE_LINKS.map((link, index) => {
+    if (
+      !limitAndBreak ||
+      (limitAndBreak.break === 'before' && index < limitAndBreak.limit) ||
+      (limitAndBreak.break === 'after' && index >= limitAndBreak.limit)
+    ) {
+      return (
+        <li
+          key={index}
+          className={`${index % 2 === 0 ? 'hover v-1' : 'hover v-2'} 
+          ${link.innerText === linkToDisable ? 'disabled' : ''}`}
+        >
+          <a href="#" onClick={() => handleRedirect(link.to, transitionOnNavItemClick)}>
+            {link.innerText}
+          </a>
+        </li>
+      );
+    }
+    return null; // return null for cases where the link shouldn't be rendered
   });
 };

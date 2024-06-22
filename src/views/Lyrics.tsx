@@ -9,7 +9,7 @@ import NavHeader from "../components/NavHeader";
 import { useParams } from "react-router-dom";
 import { AppContext } from "../utils/AppContext";
 import NotFoundError from "../components/NotFoundError";
-import { toKebabCase, } from "../helper";
+import { toKebabCase, } from "../helper/index.tsx";
 import { useNavigate } from "react-router-dom";
 import { FADE_SPEED } from "../utils/globals";
 import Footer from "../components/Footer";

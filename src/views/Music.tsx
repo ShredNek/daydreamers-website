@@ -1,6 +1,6 @@
 import { useEffect, useState, useContext } from "react";
 import { getAllMusic } from "../api/datoCmsCalls";
-import { toKebabCase } from "../helper";
+import { toKebabCase } from "../helper/index.tsx";
 import { ComponentLoadingStatus, SongCollectionData } from "../types/index";
 import { useNavigate } from "react-router-dom";
 import { FADE_SPEED } from "../utils/globals";
