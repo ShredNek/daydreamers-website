@@ -75,7 +75,7 @@ export default function Links() {
             <a
               className={`${obj.linkType}  link-box`}
               key={obj.title}
-              href={obj.linkType !== "website" ? obj.href : ""}
+              href={obj.href}
               target="_blank"
             >
               <div className="icon-container">
