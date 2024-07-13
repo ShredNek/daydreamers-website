@@ -155,7 +155,7 @@ hr {
 .img-parent {
   padding: 0.5rem 0px;
 
-  & > img {
+  & > * {
     height: clamp(100px, 8rem, 200px);
     min-width: 100px;
   }

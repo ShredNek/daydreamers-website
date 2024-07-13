@@ -251,3 +251,15 @@ export type Video = {
   width: number;
   alt: string | null;
 };
+
+export type LinkType =
+  | "instagram"
+  | "facebook"
+  | "youtube"
+  | "tiktok"
+  | "spotify"
+  | "triple j"
+  | "bandcamp"
+  | "song"
+  | "album"
+  | "website";

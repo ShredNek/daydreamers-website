@@ -1,4 +1,4 @@
-import { SearchPreference, ExtraSearchPreference } from "../types";
+import { SearchPreference, ExtraSearchPreference, LinkType } from "../types";
 
 export const PAGE_DIFFERENCE = 8;
 
@@ -13,6 +13,61 @@ export const PAGE_LINKS = [
   { to: "/contact", innerText: "Contact" },
   { to: "/merch", innerText: "Merch" },
   { to: "/media", innerText: "Media" },
+];
+
+export const SOCIAL_LINKS: Array<{
+  linkType: LinkType;
+  href: string;
+  title: string;
+  bannerData?: string;
+}> = [
+  {
+    linkType: "album",
+    title: "Stream 'BLUE ROOM'!",
+    bannerData: "NEW!",
+    href: "https://open.spotify.com/album/30l3wTIlynn32Kh1Y6Geeg?si=0o-C9WM8RqemFlWnbpIuSQ",
+  },
+  {
+    linkType: "tiktok",
+    title: "Tiktok",
+    href: "https://tiktok.com/@daydreamersband",
+  },
+  {
+    linkType: "spotify",
+    title: "Spotify",
+    href: "https://open.spotify.com/artist/1jGia2OegGP0F1ZlEbgcwZ?si=B4kttw_vQ9eK3z1-ta9NrQ",
+  },
+  {
+    linkType: "instagram",
+    title: "Instagram",
+    href: "https://instagram.com/daydreamerssband",
+  },
+  {
+    linkType: "youtube",
+    title: "Youtube",
+    href: "https://www.youtube.com/@daydreamersband",
+  },
+  {
+    linkType: "triple j",
+    title: "Triple J",
+    href: "https://www.triplejunearthed.com/artist/day-dreamers",
+  },
+  {
+    linkType: "facebook",
+    title: "facebook",
+    href: "https://www.facebook.com/daydreamers2015/",
+  },
+  {
+    linkType: "bandcamp",
+    title: "Bandcamp",
+    href: "https://daydreamers.bandcamp.com/",
+  },
+  {
+    linkType: "website",
+    title: "Website",
+    href: location.origin,
+    bannerData: "FUN!",
+  },
 ];
 
 // ? Constants

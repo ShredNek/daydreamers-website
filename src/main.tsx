@@ -19,6 +19,7 @@ import About from "./views/About";
 import ErrorBoundary from "./views/ErrorBoundary";
 import Contact from "./views/Contact";
 import Media from "./views/Media"
+import Links from "./views/Links"
 
 import "./styles/style.scss";
 
@@ -32,6 +33,11 @@ const views = [{
 {
   path: "/merch",
   element: <Merch />,
+
+},
+{
+  path: "/links",
+  element: <Links />,
 
 },
 {
