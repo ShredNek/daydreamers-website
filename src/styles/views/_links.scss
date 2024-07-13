@@ -12,13 +12,13 @@
   h1 {
     font-weight: bold;
     margin: 2rem 0;
-    font-size: 5em;
-    word-break: break-all;
+    font-size: clamp(4em, 4em + 2vw, 5em);
+    // word-break: break-all;
   }
 
   h2 {
     margin: 0 auto 4rem;
-    font-size: 1.5em;
+    font-size: clamp(.75em, .75em + 1vw, 1.5em);
   }
 
   menu {
@@ -54,7 +54,7 @@
 
       h3 {
         width: 60%;
-        font-size: 1.25em;
+        font-size: 1em;
 
         &[data-banner]::after {
           content: attr(data-banner);
@@ -94,7 +94,7 @@
 
   @media (max-width: 300px) {
     menu .link-box h3 {
-      font-size: 1em;
+      font-size: .75em;
     }
   }
 }
