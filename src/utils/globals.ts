@@ -65,7 +65,7 @@ export const SOCIAL_LINKS: Array<{
   {
     linkType: "website",
     title: "Website",
-    href: location.origin,
+    href: "https://daydreamers-website.web.app/",
     bannerData: "FUN!",
   },
 ];
