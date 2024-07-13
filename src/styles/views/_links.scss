@@ -92,13 +92,6 @@
     }
   }
 
-  footer {
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    gap: 0.75em;
-  }
-
   @media (max-width: 300px) {
     menu .link-box h3 {
       font-size: 1em;

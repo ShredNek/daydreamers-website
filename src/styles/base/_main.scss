@@ -243,6 +243,14 @@ hr {
   max-height: 30px;
 }
 
+.developer-message {
+  display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75em;
+}
+
 // ? ? ? ? ? ? ? ? ?
 // ? COLOR CLASSES ?
 // ? ? ? ? ? ? ? ? ?

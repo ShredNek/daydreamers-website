@@ -85,7 +85,7 @@ export default function Links() {
             </a>
           ))}
         </menu>
-        <footer>
+        <footer className="developer-message">
           <p>Home-made with</p>
           <PiHeartFill />
           <p>by</p>
