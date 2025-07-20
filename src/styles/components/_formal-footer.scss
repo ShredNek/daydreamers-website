@@ -71,6 +71,8 @@
   }
 
   #copyright {
+    justify-content: center;
+
     &,
     & > ul {
       display: flex;
@@ -85,8 +87,6 @@
       }
     }
 
-    justify-content: center;
-
     li:not(:last-child) {
       margin-right: 0px;
     }
@@ -98,6 +98,6 @@
   }
 
   @media (max-width: 500px) {
-    font-size: .8em;
+    font-size: 0.8em;
   }
 }

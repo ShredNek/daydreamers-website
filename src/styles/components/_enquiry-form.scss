@@ -2,6 +2,8 @@
 @use "../abstracts" as a;
 @use "../utilities/functions" as f;
 
+@use "sass:color";
+
 $hue-degree-shift: 90deg;
 
 .enquiry-form-container {
@@ -17,12 +19,7 @@ $hue-degree-shift: 90deg;
   .enquiry-form-filter {
     filter: hue-rotate($hue-degree-shift);
     animation: flipHue 5s ease-in-out infinite alternate;
-    background: linear-gradient(
-      to top,
-      var(--favourite-colour),
-      white,
-      transparent
-    );
+    background: linear-gradient(to top, var(--favourite-colour), white, transparent);
 
     z-index: -1;
   }
@@ -83,11 +80,11 @@ $hue-degree-shift: 90deg;
     }
 
     span.error {
-      $error-colour: darken(red, 10%);
+      $error-colour: color.adjust(red, $lightness: -10%);
       color: $error-colour;
       display: block;
-      margin: .5em 0px;
-      text-shadow: 0px 0px 5px lighten($error-colour, 45%);
+      margin: 0.5em 0px;
+      text-shadow: 0px 0px 5px color.adjust($error-colour, $lightness: 45%);
     }
 
     .first-last-name,
@@ -118,7 +115,7 @@ $hue-degree-shift: 90deg;
       }
 
       label[for="message"] {
-        margin: 0.7em auto 0px .9em;
+        margin: 0.7em auto 0px 0.9em;
       }
     }
 
@@ -151,7 +148,7 @@ $hue-degree-shift: 90deg;
       &:has(textarea:focus),
       &:has(select:focus) {
         label {
-          color: darken(a.$daydreamer-orange, 20%);
+          color: color.adjust(a.$daydreamer-orange, $lightness: -20%);
         }
 
         input,
@@ -168,34 +165,39 @@ $hue-degree-shift: 90deg;
   button[type="submit"] {
     $button-blue: a.$daydreamer-blue;
     margin-top: 2em;
-    padding: .5em 0px;
+    padding: 0.5em 0px;
     background-color: white;
     border: 2px solid $button-blue;
     color: $button-blue;
     font-size: 1.75em;
     border-radius: b.$border-radius-subtle;
-    box-shadow: 0px 0px 30px 0px lighten($button-blue, 30%), 0px 0px 30px 0px lighten($button-blue, 30%) ;
+    box-shadow:
+      0px 0px 30px 0px color.adjust($button-blue, $lightness: 30%),
+      0px 0px 30px 0px color.adjust($button-blue, $lightness: 30%);
 
     transition-property: background-color color font-weight opacity;
-    transition-duration: .25s;
+    transition-duration: 0.25s;
     transition-timing-function: ease-out;
 
-    &:hover, &:focus {
+    &:hover,
+    &:focus {
       background-color: $button-blue;
-    font-weight: 600;
+      font-weight: 600;
       color: white;
-      box-shadow: 0px 0px 15px 5px lighten($button-blue, 20%), 0px 0px 15px 5px lighten($button-blue, 20%) ;
+      box-shadow:
+        0px 0px 15px 5px color.adjust($button-blue, $lightness: 20%),
+        0px 0px 15px 5px color.adjust($button-blue, $lightness: 20%);
     }
 
     &:focus {
-      outline: lighten($button-blue, 20%) 2px solid;
+      outline: color.adjust($button-blue, $lightness: 20%) 2px solid;
     }
 
     &:disabled {
-      border: 2px solid lighten(indigo, 10%);
-      color: lighten(indigo, 10%);
-    box-shadow: 0px 0px 30px -10px lighten(indigo, 30%);
-    opacity: .34;
+      border: 2px solid color.adjust(indigo, $lightness: 10%);
+      color: color.adjust(indigo, $lightness: 10%);
+      box-shadow: 0px 0px 30px -10px color.adjust(indigo, $lightness: 30%);
+      opacity: 0.34;
 
       pointer-events: none;
     }
@@ -204,7 +206,7 @@ $hue-degree-shift: 90deg;
   @media (max-width: b.$mobile-width) {
     form {
       padding: 1.5rem;
-      font-size: .8em;
+      font-size: 0.8em;
 
       .first-last-name,
       .favourite-colour-enquiry-type,

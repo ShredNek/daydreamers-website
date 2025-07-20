@@ -1,5 +1,3 @@
-import { useEffect, useState } from "react";
-import { ComponentLoadingStatus } from "../types/index";
 import NavHeader from "../components/NavHeader";
 import Footer from "../components/Footer";
 import SelectedBase from "../assets/images/hero/ChooseYourFighter_Base.png";

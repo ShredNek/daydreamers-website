@@ -1,6 +1,8 @@
 @use "../abstracts" as a;
 @use "../base/" as b;
 
+@use "sass:color";
+
 $mid-distance-break: 800px;
 
 .music-collection {
@@ -11,9 +13,9 @@ $mid-distance-break: 800px;
     font-size: clamp(1.5rem, 2px + 4vw, 3rem);
     padding: 1.5rem 0.75rem 0px;
     text-align: center;
-  
+
     @media (max-width: $mid-distance-break) {
-      line-height: .75em;
+      line-height: 0.75em;
       font-size: calc(1.25rem + 5vw);
     }
   }
@@ -26,7 +28,7 @@ $mid-distance-break: 800px;
     .collection-card {
       padding: 5rem 2rem 2rem;
       outline: a.$off-white solid 1px;
-      background-color: lighten(a.$off-white, 7.5);
+      background-color: color.adjust(a.$off-white, $lightness: 7.5%);
 
       transition-property: scale rotate;
       transition-duration: 1s;
@@ -52,7 +54,6 @@ $mid-distance-break: 800px;
         translate: 2px 0px;
         z-index: 0;
 
-
         &:hover {
           scale: 105%;
           rotate: -1deg;
@@ -75,7 +76,7 @@ $mid-distance-break: 800px;
     }
 
     @media (max-width: $mid-distance-break) {
-      grid-template-columns: .75fr;
+      grid-template-columns: 0.75fr;
       justify-content: center;
       align-items: center;
     }

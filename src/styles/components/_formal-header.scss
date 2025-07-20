@@ -16,13 +16,13 @@ header {
 
   #left-icons,
   #right-icons {
+    margin: 0px m.$distance-between-children;
+    width: 75px;
+
     @media (max-width: 400px) {
       width: 40px;
       margin: 0px 10px;
     }
-
-    margin: 0px m.$distance-between-children;
-    width: 75px;
   }
 }
 

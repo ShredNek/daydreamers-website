@@ -2,17 +2,25 @@
 // ? GLOBAL COLORS ?
 // ? ? ? ? ? ? ? ? ?
 
-$off-white: darken(white, 10%); 
-$grey: darken(white, 30%); 
-$ash: darken(white, 65%); 
+@use "sass:color";
+
+$off-white: color.adjust(white, $lightness: -10%);
+$grey: color.adjust(white, $lightness: -30%);
+$ash: color.adjust(white, $lightness: -65%);
 $daydreamer-orange: #f1b83f;
 $daydreamer-blue: #4fdbf0;
 $daydreamer-purple: #5a2494;
+$daydreamer-sad-blue: #6aadff;
+$daydreamer-faded-blue: #bcdaf0;
+$daydreamer-hot-yellow: #ffde00;
+$daydreamer-off-white: #f4f7f8;
+$daydreamer-smoky-black: #1b1b19;
+
 $daydreamer-gradient-main: radial-gradient(
   circle,
-  $daydreamer-orange 0%,
-  $daydreamer-blue 50%,
-  #ffffff 85%
+  $daydreamer-faded-blue 0%,
+  $daydreamer-sad-blue 50%,
+  $daydreamer-smoky-black 85%
 );
 $daydreamer-gradient-faded: radial-gradient(
   circle,
@@ -20,12 +28,8 @@ $daydreamer-gradient-faded: radial-gradient(
   rgba($daydreamer-blue, 0.6) 75%,
   #ffffff 85%
 );
-$daydreamer-gradient-alt: radial-gradient(
-  circle,
-  rgba($daydreamer-blue, 0.6) 0%,
-  white 75%
-);
-$stripe-primary: #635BFF;
+$daydreamer-gradient-alt: radial-gradient(circle, rgba($daydreamer-hot-yellow, 0.6) 0%, white 75%);
+$stripe-primary: #635bff;
 $zak-red: rgb(247, 50, 11);
 $zak-red-gradient: radial-gradient(
   hsl(0deg 100% 81%) 0%,
@@ -126,4 +130,3 @@ $jordan-blue-gradient: radial-gradient(
   hsl(204deg 100% 100%) 50%,
   hsl(0deg 0% 100%) 78%
 );
-

@@ -1,5 +1,7 @@
 @use "../abstracts" as a;
 
+@use "sass:color";
+
 footer {
   & > * {
     margin: 1rem 0;
@@ -17,9 +19,9 @@ footer {
     margin: 0.5rem;
     padding: 1rem;
     background: white;
-    border: black 1px solid;
+    border: black 0.075rem solid;
     font-size: calc(1rem + 0.75vw);
-    border-radius: 100%;
+    border-radius: 0.75rem;
     display: flex;
     place-self: center;
     position: relative;
@@ -46,15 +48,27 @@ footer {
     &:hover {
       // ? This is a very stinky hack to get the opacity to change on hover
       background: rgba(255, 255, 255, 0.1);
-      color: darken(a.$daydreamer-orange, 10%);
-      border-color: lighten(a.$daydreamer-orange, 20%);
-      box-shadow: 3px -2px 20px 0px a.$daydreamer-orange;
+      color: color.adjust(a.$daydreamer-hot-yellow, $lightness: -25%);
+      border-color: color.adjust(a.$daydreamer-hot-yellow, $lightness: 20%);
+      box-shadow: 3px -2px 20px 0px a.$daydreamer-hot-yellow;
     }
   }
 
   .link {
     font-size: 1.25em;
     cursor: pointer;
+
+    transition-property: color, text-decoration-color, text-shadow;
+    transition-timing-function: ease-in-out;
+    transition-duration: 350ms;
+
+    &:hover {
+      color: color.adjust(a.$daydreamer-hot-yellow, $lightness: -32.5%);
+      text-decoration-color: color.adjust(a.$daydreamer-hot-yellow, $lightness: -32.5%);
+      text-shadow:
+        -3px -2px 50px color.adjust(a.$daydreamer-hot-yellow, $hue: 5deg),
+        3px 5px 20px a.$daydreamer-hot-yellow;
+    }
   }
 
   p {

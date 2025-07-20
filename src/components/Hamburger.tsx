@@ -1,20 +1,10 @@
 import { useState } from "react"
 import { returnNavItems } from "../helper"
-import { Dispatch, SetStateAction } from "react";
-import { ComponentLoadingStatus } from "../types";
 
-interface Hamburger {
+export default function Hamburger({ linkToDisable }: {
   linkToDisable?: string,
-  transitionOnNavItemClick?: Dispatch<SetStateAction<ComponentLoadingStatus>>
-}
-
-export default function Hamburger({ linkToDisable, transitionOnNavItemClick }: Hamburger) {
+}) {
   const [buttonOpen, setButtonOpen] = useState(false)
-
-  const handleOnClick = () => {
-    if (transitionOnNavItemClick) transitionOnNavItemClick('transitioning static')
-    setButtonOpen(false)
-  }
 
   return (
     <div className="hamburger-parent">
@@ -25,7 +15,7 @@ export default function Hamburger({ linkToDisable, transitionOnNavItemClick }: H
         </svg>
       </button>
       <div className="hamburger-links">
-        <ul>{returnNavItems(handleOnClick, linkToDisable)}</ul>
+        <ul>{returnNavItems(linkToDisable)}</ul>
       </div>
       <div className="hamburger-overlay" />
     </div>

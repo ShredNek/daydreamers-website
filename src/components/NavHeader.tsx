@@ -1,10 +1,26 @@
-import { Link } from "react-router-dom";
-import LazyImage from "../components/LazyImage";
-import { returnNavItems } from "../helper";
-
-import HQ_DayDreamersLogo from "../assets/images/icons/HQ_DayDreamersLogo.jpg";
-import LQ_DayDreamersLogo from "../assets/images/icons/LQ_DayDreamersLogo.jpg";
+import { PAGE_LINKS } from "../utils/globals";
+import { useNavigate } from "react-router-dom";
 import Hamburger from "./Hamburger";
+
+import "../styles/components/_nav-header.scss"
+import { useEffect, useState } from "react";
+
+const generateTitleWithShiftingLetters = (title: string): React.ReactNode[] => {
+  const randomDistance = 12;
+  const randomVal = () => Math.random() * randomDistance - 5;
+
+  return title.split("").map((ltr, index) => {
+    const style = { transform: `translate(${randomVal()}px, ${randomVal()}px)` };
+
+    return ltr !== " " ? (
+      <span key={index} style={style}>
+        {ltr}
+      </span>
+    ) : (
+      <br key={index} />
+    )
+  })
+};
 
 interface NavHeader {
   className?: string;
@@ -12,18 +28,46 @@ interface NavHeader {
 }
 
 export default function NavHeader({ className, linkToDisable }: NavHeader) {
+  let navigate = useNavigate()
+  const [titleNodes, setTitleNodes] = useState<React.ReactNode[]>([]);
+  const title = "Day Dreamers";
+
+  useEffect(() => {
+    // Initial render
+    setTitleNodes(generateTitleWithShiftingLetters(title));
+
+    // Update every 5 seconds
+    const interval = setInterval(() => {
+      setTitleNodes(generateTitleWithShiftingLetters(title));
+    }, 2500);
+
+    return () => clearInterval(interval); // Cleanup
+  }, []);
+
   return (
-    <nav id="header-nav" className={`header-nav ${className}`}>
-      <Hamburger linkToDisable={linkToDisable} />
-      <div className="desktop-nav-links-parent">
-        <menu >
-          {returnNavItems(linkToDisable, { limit: 3, break: "before" })}
-          <Link to="/" className="img-parent">
-            <LazyImage lowQualitySrc={LQ_DayDreamersLogo} highQualitySrc={HQ_DayDreamersLogo} alt="Day Dreamers official logo" />
-          </Link>
-          {returnNavItems(linkToDisable, { limit: 3, break: "after" })}
-        </menu>
+    <>
+      <div id="header-navigation" className="header-navigation">
+        <a onClick={() => navigate("/")}>
+          <h1 className={` heading massive white ${className}`}>
+            {titleNodes}
+          </h1>
+        </a>
+        <nav id="page-routes" className="page-routes">
+          <Hamburger linkToDisable={linkToDisable} />
+          <ul>
+            {PAGE_LINKS.map((link, index) => (
+              <li
+                key={index}
+                className={index % 2 === 0 ? `hover v-1` : `hover v-2`}
+              >
+                <a onClick={() => navigate(link.to)}>
+                  <img src={link.tabImg} alt={`Link to ${link.to}`} />
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
       </div>
-    </nav>
+    </>
   );
 }

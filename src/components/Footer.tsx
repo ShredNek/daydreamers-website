@@ -12,7 +12,7 @@ export default function Footer() {
         <RoundedButtonLink imageChild={<FaMusic />} />
       </div>
       <ul className="extra-links">
-        <li className="link ">Press Kit</li>
+        <li className="link">See our Press Kit</li>
       </ul>
       <p className="extra-links">
         <strong>© 2015-{new Date().getFullYear()} Day Dreamers</strong>

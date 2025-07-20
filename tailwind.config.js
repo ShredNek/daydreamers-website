@@ -22,6 +22,7 @@ export default {
       ringColor: customColors,
       borderColor: customColors,
       textColor: customColors,
+      outlineColor: customColors,
     },
   },
   plugins: [require("@tailwindcss/forms")],

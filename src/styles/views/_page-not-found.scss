@@ -1,5 +1,7 @@
 @use "../abstracts" as a;
 
+@use "sass:color";
+
 // ? ? ? ? ? ? ? ? ? ?
 // ? PAGE NOT FOUND ?
 // ? ? ? ? ? ? ? ? ?
@@ -25,8 +27,9 @@
     width: clamp(250px, 75vw, 600px);
     margin: 50px auto;
     border: 2px solid black;
-    box-shadow: 25px 20px 55px 10px lighten(a.$daydreamer-orange, 20%),
-      7px -15px 50px 10px lighten(a.$daydreamer-blue, 20%),
+    box-shadow:
+      25px 20px 55px 10px color.adjust(a.$daydreamer-orange, $lightness: 20%),
+      7px -15px 50px 10px color.adjust(a.$daydreamer-blue, $lightness: 20%),
       0px 0px 100px -20px rgba(0, 0, 0, 0.412);
   }
 
@@ -43,8 +46,8 @@
     margin: 2em 2em 4em;
     background-color: white;
     border-radius: 7.5px;
-    border: solid a.$grey .75px;
-    opacity: .75;
+    border: solid a.$grey 0.75px;
+    opacity: 0.75;
     text-align: left;
 
     min-height: 200px;

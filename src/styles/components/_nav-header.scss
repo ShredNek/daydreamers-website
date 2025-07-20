@@ -1,52 +1,104 @@
 @use "../base" as b;
 @use "../abstracts" as a;
+@use "../utilities/functions" as f;
 
-.header-nav {
-  width: 100%;
-  // position: sticky;
-  position: relative;
-  margin-bottom: 2rem;
+@use "sass:color";
+
+$max-height: 800px;
+
+.header-navigation {
+  display: flex;
+  flex-direction: row;
+  width: 100vw;
+  position: sticky;
   top: 0;
+  background-color: color.adjust(a.$daydreamer-off-white, $lightness: 0%);
+  box-shadow: 0px 0px 20px -7.5px black;
+  margin-bottom: 5rem;
+  z-index: 1000;
 
-  .desktop-nav-links-parent {
-    position: relative;
-    width: clamp(b.$tiny-width, 80vw, b.$desktop-width);
-    margin: 0px auto;
+  a {
+    max-width: 500px;
+    min-width: fit-content;
+    height: fit-content;
+    justify-items: center;
+    text-shadow: f.generate-text-outline(1.5px, a.$daydreamer-sad-blue, 2px);
+  }
 
-    menu {
-      width: 100%;
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      justify-content: space-around;
+  span {
+    transition:
+      transform 2.5s a.$custom-ease,
+      scale 5s a.$custom-ease,
+      color 5s a.$custom-ease;
+    display: inline-block;
+    font-size: 1em;
+    font-family: PlanetKosmos;
+    scale: 1;
+    color: white;
 
-      a.img-parent img {
-        $spread: 50px;
-        $origin: 30px;
-        min-width: 140px;
-        border-radius: 100%;
-        box-shadow: white 0px 0px $spread $origin, white 0px 0px $spread $origin,
-          white 0px 0px $spread $origin;
+    &:hover {
+      scale: 1.5;
+      cursor: default;
+
+      &:nth-child(odd) {
+        color: color.adjust(a.$daydreamer-sad-blue, $lightness: 0%);
       }
 
-      li {
-        width: calc(0.5em + 5vw);
-        height: fit-content;
-        display: flex;
-        justify-content: center;
+      &:nth-child(even) {
+        color: color.adjust(a.$daydreamer-hot-yellow, $lightness: 10%);
       }
+    }
+
+    @media (max-height: $max-height) {
+      font-size: 1em;
     }
   }
 
-  @media (min-width: b.$desktop-width) {
-    min-width: calc(b.$desktop-width - 300px);
-    padding-top: 2rem;
-    font-size: 1.5em;
+  @media (max-width: b.$medium-width) {
+    flex-direction: column;
   }
 
-  @media (max-width: b.$mobile-width) {
-    .desktop-nav-links-parent menu li {
-      display: none;
+  @media (min-width: b.$medium-width) {
+    h1 {
+      font-size: clamp(2.5rem, 2.5vw + 2px, 4rem);
+      padding: 1em 1.5em;
+    }
+  }
+}
+
+.page-routes {
+  width: 100%;
+
+  ul {
+    display: flex;
+    flex-wrap: wrap;
+
+    height: 100%;
+    width: 100%;
+    justify-content: space-around;
+    align-items: center;
+    padding: 1rem;
+
+    & > li {
+      margin: 1rem;
+
+      img {
+        max-height: 30px;
+      }
+
+      @media (max-height: b.$medium-width) {
+        margin: 0.5rem auto;
+        font-size: 1.2em;
+      }
+    }
+
+    @media (max-height: b.$medium-width) {
+      padding: 0.5rem 0px;
+    }
+
+    @media (max-width: b.$medium-width) {
+      justify-content: center;
+      flex-direction: column;
     }
   }
 }

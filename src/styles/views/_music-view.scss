@@ -1,6 +1,8 @@
 @use "../base" as b;
 @use "../abstracts" as a;
 
+@use "sass:color";
+
 .music-collection.view {
   h2 {
     font-size: clamp(3em, 4px + 7vw, 6em);
@@ -18,7 +20,7 @@
     cursor: pointer;
 
     transition-property: background-color, color;
-    transition-duration: .34s;
+    transition-duration: 0.34s;
     transition-timing-function: ease-out;
 
     &:hover {
@@ -64,7 +66,7 @@
 
         .sun-spacer {
           max-width: 40px;
-          margin: 0px .5em;
+          margin: 0px 0.5em;
         }
 
         p:first-child {
@@ -126,17 +128,17 @@
       }
 
       &:nth-child(odd) {
-        background-color: lighten(mix(a.$daydreamer-blue, a.$ash, 50%), 40%);
+        background-color: color.adjust(color.mix(a.$daydreamer-blue, a.$ash, 50%), $lightness: 40%);
       }
 
       &:nth-child(even) {
-        background-color: lighten(mix(a.$daydreamer-blue, a.$ash, 60%), 45%);
+        background-color: color.adjust(color.mix(a.$daydreamer-blue, a.$ash, 60%), $lightness: 45%);
       }
 
       .track-lyrics-anchor {
         position: relative;
         margin: auto 1em auto auto;
-        font-size: .8em;
+        font-size: 0.8em;
       }
 
       .track-duration {

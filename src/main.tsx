@@ -9,7 +9,6 @@ import Home from "./views/Home";
 import PageNotFound from "./views/PageNotFound";
 import Merch from "./views/Merch";
 import MerchItem from "./views/MerchItem";
-import Cart from "./views/Cart";
 import Gigs from "./views/Gigs";
 import GigView from "./views/GigView";
 import Music from "./views/Music";
@@ -41,10 +40,6 @@ const views = [{
 {
   path: "/merch/:id",
   element: <MerchItem />
-},
-{
-  path: "/merch/cart",
-  element: <Cart />
 },
 {
   path: "/gigs",

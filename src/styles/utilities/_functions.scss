@@ -2,21 +2,19 @@
 // ? FUNCTIONS ?
 // ? ? ? ? ? ?
 
-@use 'sass:color';
+@use "sass:color";
+@use "sass:list";
 
-@function generate-text-outline(
-  $outline-width,
-  $outline-color,
-  $outline-blur: 0px
-) {
-  $offsets: $outline-width $outline-width $outline-blur $outline-color,
+@function generate-text-outline($outline-width, $outline-color, $outline-blur: 0px) {
+  $offsets:
+    $outline-width $outline-width $outline-blur $outline-color,
     $outline-width (0px - $outline-width) $outline-blur $outline-color,
     (0px - $outline-width) $outline-width $outline-blur $outline-color,
     (0px - $outline-width) (0px - $outline-width) $outline-blur $outline-color;
   $text-shadow: ();
 
   @for $i from 1 through 4 {
-    $text-shadow: append($text-shadow, nth($offsets, $i), comma);
+    $text-shadow: list.append($text-shadow, list.nth($offsets, $i), comma);
   }
 
   @return $text-shadow;
@@ -26,15 +24,13 @@
   $duplication-result: ();
 
   @for $i from 1 through $amount {
-    $duplication-result: append($duplication-result, $string, comma);
+    $duplication-result: list.append($duplication-result, $string, comma);
   }
 
   @return $duplication-result;
 }
 
 @function generate-text-shadow($color) {
-  @return 0px 0px 5px $color,
-         0px -6px 15px $color, 
-         -4px 7px 30px adjust-hue($color, 20), 
-         7px -4px 30px adjust-hue($color, -10);
+  @return 0px 0px 5px $color, 0px -6px 15px $color, -4px 7px 30px color.adjust($color, $hue: 20),
+    7px -4px 30px color.adjust($color, $hue: -10);
 }

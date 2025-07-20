@@ -1,6 +1,8 @@
 @use "../base";
 @use "../abstracts" as a;
 
+@use "sass:color";
+
 .stripe-pay-button {
   display: flex;
   width: fit-content;
@@ -10,8 +12,8 @@
   font-size: 1em;
 
   color: white;
-  background-color: darken(a.$stripe-primary, 5%);
-  border:none;
+  background-color: color.adjust(a.$stripe-primary, $lightness: 5%);
+  border: none;
 
   transition: all 300ms ease-out;
 
@@ -23,7 +25,9 @@
   }
 
   &:hover {
-    background-color: lighten(a.$stripe-primary, 5%);
-    box-shadow: 5px 8px 30px -10px adjust-hue(a.$stripe-primary, 10deg),  -8px -5px 40px -15px adjust-hue(a.$stripe-primary, -20deg);
+    background-color: color.adjust(a.$stripe-primary, $lightness: 5%);
+    box-shadow:
+      5px 8px 30px -10px color.adjust(a.$stripe-primary, $hue: 10deg),
+      -8px -5px 40px -15px color.adjust(a.$stripe-primary, $hue: -20deg);
   }
 }

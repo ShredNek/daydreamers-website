@@ -1,6 +1,8 @@
 @use "../base" as b;
 @use "../abstracts" as a;
 
+@use "sass:color";
+
 .links-home {
   text-align: center;
 
@@ -18,7 +20,7 @@
 
   h2 {
     margin: 0 auto 4rem;
-    font-size: clamp(.75em, .75em + 1vw, 1.5em);
+    font-size: clamp(0.75em, 0.75em + 1vw, 1.5em);
   }
 
   menu {
@@ -65,8 +67,8 @@
           overflow: hidden;
           background: linear-gradient(
             to right,
-            lighten(a.$daydreamer-orange, 10%),
-            darken(a.$daydreamer-orange, 20%)
+            color.adjust(a.$daydreamer-orange, $lightness: 10%),
+            color.adjust(a.$daydreamer-orange, $lightness: -20%)
           );
           height: fit-content;
           width: 150px;
@@ -77,11 +79,13 @@
       }
 
       &:hover {
-        background-color: lighten(a.$daydreamer-blue, 15%);
-        box-shadow: lighten(a.$daydreamer-orange, 10%) 0px 0px 20px 15px;
+        background-color: color.adjust(a.$daydreamer-blue, $lightness: 15%);
+        box-shadow: color.adjust(a.$daydreamer-orange, $lightness: 10%) 0px 0px 20px 15px;
 
         h3 {
-          text-shadow: white 0px 0px 15px, white 0px 0px 15px,
+          text-shadow:
+            white 0px 0px 15px,
+            white 0px 0px 15px,
             white 0px 0px 15px;
         }
 
@@ -94,7 +98,7 @@
 
   @media (max-width: 300px) {
     menu .link-box h3 {
-      font-size: .75em;
+      font-size: 0.75em;
     }
   }
 }
@@ -108,7 +112,7 @@
     height: 100%;
     width: 100%;
     object-fit: cover;
-    opacity: .2;
+    opacity: 0.2;
   }
 }
 
