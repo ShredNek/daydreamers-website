@@ -1,13 +1,11 @@
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import heroShot from "../assets/images/hero/BandHeroShot_1.jpg"
-import { PAGE_LINKS, FADE_SPEED } from "../utils/globals";
-import { ComponentLoadingStatus } from "../types/index"
+import { PAGE_LINKS } from "../utils/globals";
 import Footer from "../components/Footer";
 
 export default function Home() {
   const [time, setTime] = useState(0);
-  const [componentState, setComponentState] = useState<ComponentLoadingStatus>("")
   let navigate = useNavigate()
 
   // ? Helpers
@@ -36,18 +34,15 @@ export default function Home() {
     })
   };
 
-  const handleRedirect = (linkTo: string) => {
-    setComponentState("transitioning")
-    setTimeout(() => navigate(linkTo), FADE_SPEED)
-  }
+  const handleRedirect = (linkTo: string) => navigate(linkTo)
 
   return (
     <>
-      <div id="site-backdrop" className={componentState} />
-      <div id="photo-backdrop" className={componentState} >
+      <div id="site-backdrop" />
+      <div id="photo-backdrop" >
         <img src={heroShot} alt="Hero shot of your local wacky band, Day Dreamers" />
       </div>
-      <section id="home" className={componentState} >
+      <section id="home">
         <div id="home-nav">
           <h1 className="outline-black heading massive white">
             {titleWithShiftingLetters("Day Dreamers")}

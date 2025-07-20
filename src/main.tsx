@@ -33,12 +33,10 @@ const views = [{
 {
   path: "/merch",
   element: <Merch />,
-
 },
 {
   path: "/links",
   element: <Links />,
-
 },
 {
   path: "/merch/:id",
@@ -71,8 +69,7 @@ const views = [{
 {
   path: "/about",
   element: <About />
-}
-  ,
+},
 {
   path: "/contact",
   element: <Contact />

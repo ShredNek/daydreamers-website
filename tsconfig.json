@@ -20,7 +20,7 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
     "noImplicitAny": true,
-    "strictNullChecks": true
+    "strictNullChecks": true,
 
     /* shadCn ui */
     // "paths": {
@@ -28,5 +28,5 @@
     // }
   },
   "include": ["src", "tailwind.config.js"],
-  "references": [{ "path": "./tsconfig.node.json" }]
+  "references": [{ "path": "./tsconfig.node.json" }],
 }

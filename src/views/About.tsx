@@ -45,22 +45,12 @@ const imgDescriptions: ImgDescriptions = [
 ]
 
 export default function About() {
-  const [componentLoadingState, setComponentLoadingState] =
-    useState<ComponentLoadingStatus>("transitioning static");
-
-  // ? On page load
-
-  useEffect(() => {
-    setComponentLoadingState("");
-  }, []);
-
   return (
     <>
       <NavHeader
         linkToDisable="About"
-        transitionOnNavItemClick={setComponentLoadingState}
       />
-      <section className={`about ${componentLoadingState}`} id="about">
+      <section className={`about`} id="about">
         <h1 className="large">Day Dreamers</h1>
         <div className="hero">
           {

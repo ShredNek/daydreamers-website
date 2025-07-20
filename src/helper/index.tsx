@@ -180,7 +180,6 @@ export const convertToPng = async (blob: Blob | MediaSource): Promise<Blob> => {
 };
 
 export const returnNavItems = (
-  transitionOnNavItemClick?: Dispatch<SetStateAction<ComponentLoadingStatus>> | (() => void),
   linkToDisable?: string,
   limitAndBreak?: { limit: number; break: 'before' | 'after' },
 ): ReactNode[] => {
@@ -197,7 +196,7 @@ export const returnNavItems = (
           className={`${index % 2 === 0 ? 'hover v-1' : 'hover v-2'} 
           ${link.innerText === linkToDisable ? 'disabled' : ''}`}
         >
-          <a href="#" onClick={() => handleRedirect(link.to, transitionOnNavItemClick)}>
+          <a href="#" onClick={() => handleRedirect(link.to)}>
             {link.innerText}
           </a>
         </li>
