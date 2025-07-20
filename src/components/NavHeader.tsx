@@ -25,9 +25,10 @@ const generateTitleWithShiftingLetters = (title: string): React.ReactNode[] => {
 interface NavHeader {
   className?: string;
   linkToDisable?: string;
+  hideBackground?: boolean;
 }
 
-export default function NavHeader({ className, linkToDisable }: NavHeader) {
+export default function NavHeader({ className, linkToDisable, hideBackground }: NavHeader) {
   let navigate = useNavigate()
   const [titleNodes, setTitleNodes] = useState<React.ReactNode[]>([]);
   const title = "Day Dreamers";
@@ -46,7 +47,7 @@ export default function NavHeader({ className, linkToDisable }: NavHeader) {
 
   return (
     <>
-      <div id="header-navigation" className="header-navigation">
+      <div id="header-navigation" className={`header-navigation ${hideBackground && "no-background"}`}>
         <a onClick={() => navigate("/")}>
           <h1 className={` heading massive white ${className}`}>
             {titleNodes}
@@ -67,7 +68,7 @@ export default function NavHeader({ className, linkToDisable }: NavHeader) {
             ))}
           </ul>
         </nav>
-      </div>
+      </div >
     </>
   );
 }

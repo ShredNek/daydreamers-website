@@ -14,7 +14,7 @@ export default function Home() {
         <LazyImage lowQualitySrc={lowQualHero} highQualitySrc={highQualHero} alt="Hero shot of your local wacky band, Day Dreamers" />
       </div>
       <section id="home">
-        <NavHeader />
+        <NavHeader hideBackground={true} />
         <Footer />
       </section >
     </>

@@ -12,10 +12,13 @@ $max-height: 800px;
   width: 100vw;
   position: sticky;
   top: 0;
-  background-color: color.adjust(a.$daydreamer-off-white, $lightness: 0%);
-  box-shadow: 0px 0px 20px -7.5px black;
   margin-bottom: 5rem;
-  z-index: 1000;
+
+  &:not(.no-background) {
+    background-color: color.adjust(a.$daydreamer-off-white, $lightness: 0%);
+    box-shadow: 0px 0px 20px -7.5px black;
+    z-index: 1000;
+  }
 
   a {
     max-width: 500px;
