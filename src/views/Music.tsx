@@ -3,10 +3,9 @@ import { getAllMusic } from "../api/datoCmsCalls";
 import { toKebabCase } from "../helper/index.tsx";
 import { ComponentLoadingStatus, SongCollectionData } from "../types/index";
 import { useNavigate } from "react-router-dom";
-import { FADE_SPEED } from "../utils/globals";
 import NavHeader from "../components/NavHeader";
 import { AppContext } from "../utils/AppContext";
-import Footer from "../components/Footer";
+import SiteWrapper from "../SiteWrapper.tsx";
 
 export default function Music() {
   const [componentLoadingState, setComponentLoadingState] =
@@ -14,10 +13,7 @@ export default function Music() {
   const { songCollectionData, setSongCollectionData } = useContext(AppContext);
   let navigate = useNavigate();
 
-  const handleCardClick = (songSlug: string) => {
-    setComponentLoadingState("transitioning static");
-    setTimeout(() => navigate(`/music/${songSlug}`), FADE_SPEED);
-  };
+  const handleCardClick = (songSlug: string) => navigate(`/music/${songSlug}`);
 
   // ? On page load
 
@@ -47,41 +43,34 @@ export default function Music() {
   }, [songCollectionData]);
 
   return (
-    <>
-      <NavHeader
-        linkToDisable="Music"
-        transitionOnNavItemClick={setComponentLoadingState}
-      />
-      <section className={`music-collection ${componentLoadingState}`} id="music">
-        <div className="cards" id="cards">
-          {songCollectionData?.data.allSongCollections ? (
-            songCollectionData.data.allSongCollections.map((collection) => (
-              <div
-                className="collection-card"
-                key={collection.id}
-                onClick={() => handleCardClick(toKebabCase(collection.name))}
-              >
-                <div className="artwork">
-                  <img src={collection.coverArt?.url} alt="" />
-                </div>
-                <h2>{collection.name}</h2>
+    <SiteWrapper
+      sectionId="music"
+      className={`music-collection ${componentLoadingState}`}>
+      <div className="cards" id="cards">
+        {songCollectionData?.data.allSongCollections ? (
+          songCollectionData.data.allSongCollections.map((collection) => (
+            <div
+              className="collection-card"
+              key={collection.id}
+              onClick={() => handleCardClick(toKebabCase(collection.name))}>
+              <div className="artwork">
+                <img src={collection.coverArt?.url} alt="" />
               </div>
-            ))
-          ) : (
-            <div style={{ textAlign: "center" }}>
-              <h2 style={{ paddingBottom: "1em" }}>
-                No music to show at this time.
-              </h2>
-              <p>
-                Some cheeky geezah has probably taken all this down... if you
-                see this error, reach out to us at
-                daydreamersmusic2015@gmail.com!
-              </p>
+              <h2>{collection.name}</h2>
             </div>
-          )}
-        </div>
-      </section>
-      <Footer />
-    </>
+          ))
+        ) : (
+          <div style={{ textAlign: "center" }}>
+            <h2 style={{ paddingBottom: "1em" }}>
+              No music to show at this time.
+            </h2>
+            <p>
+              Some cheeky geezah has probably taken all this down... if you see
+              this error, reach out to us at daydreamersmusic2015@gmail.com!
+            </p>
+          </div>
+        )}
+      </div>
+    </SiteWrapper>
   );
 }

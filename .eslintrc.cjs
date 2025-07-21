@@ -1,3 +1,5 @@
+// .eslintrc.cjs
+
 /* eslint-env node */
 
 module.exports = {
@@ -8,7 +10,7 @@ module.exports = {
     "plugin:@typescript-eslint/recommended",
     "plugin:@typescript-eslint/recommended-requiring-type-checking",
     "plugin:react-hooks/recommended",
-    "plugin:unicorn/recommended",
+    "plugin:prettier/recommended"
   ],
   parser: "@typescript-eslint/parser",
   parserOptions: {
@@ -23,13 +25,11 @@ module.exports = {
       "warn",
       { allowConstantExport: true },
     ],
-    "unicorn/no-unnecessary-template-literals": "error",
     "@typescript-eslint/no-non-null-assertion": "off",
     "@typescript-eslint/no-magic-numbers": "error",
     "@typescript-eslint/explicit-module-boundary-types": "off",
     "@typescript-eslint/prefer-nullish-coalescing": "error",
     "@typescript-eslint/no-explicit-any": "error",
     "prefer-template": "error"
-
   },
 };

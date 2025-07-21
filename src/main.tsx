@@ -1,9 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import {
-  createBrowserRouter,
-  RouterProvider,
-} from "react-router-dom";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import Home from "./views/Home";
 import PageNotFound from "./views/PageNotFound";
@@ -17,69 +14,75 @@ import Lyrics from "./views/Lyrics";
 import About from "./views/About";
 import ErrorBoundary from "./views/ErrorBoundary";
 import Contact from "./views/Contact";
-import Media from "./views/Media"
-import Links from "./views/Links"
+import Media from "./views/Media";
+import Links from "./views/Links";
 
 import "./styles/style.scss";
 
 import { AppContextProvider } from "./utils/AppContext";
 
-const views = [{
-  path: "/",
-  element: <Home />,
-  errorElement: <PageNotFound />,
-},
-{
-  path: "/merch",
-  element: <Merch />,
-},
-{
-  path: "/links",
-  element: <Links />,
-},
-{
-  path: "/merch/:id",
-  element: <MerchItem />
-},
-{
-  path: "/gigs",
-  element: <Gigs />
-},
-{
-  path: "/gig/:id",
-  element: <GigView />
-},
-{
-  path: "/music",
-  element: <Music />
-},
-{
-  path: "/music/:songCollectionName",
-  element: <MusicView />
-},
-{
-  path: "/music/:songCollectionName/lyrics/:trackName",
-  element: <Lyrics />
-},
-{
-  path: "/about",
-  element: <About />
-},
-{
-  path: "/contact",
-  element: <Contact />
-},
-{
-  path: "/media",
-  element: <Media />
-}
-]
+const views = [
+  {
+    path: "/",
+    element: <Home />,
+    errorElement: <PageNotFound />,
+  },
+  {
+    path: "/merch",
+    element: <Merch />,
+  },
+  {
+    path: "/links",
+    element: <Links />,
+  },
+  {
+    path: "/merch/:id",
+    element: <MerchItem />,
+  },
+  {
+    path: "/gigs",
+    element: <Gigs />,
+  },
+  {
+    path: "/gig/:id",
+    element: <GigView />,
+  },
+  {
+    path: "/music",
+    element: <Music />,
+  },
+  {
+    path: "/music/:songCollectionName",
+    element: <MusicView />,
+  },
+  {
+    path: "/music/:songCollectionName/lyrics/:trackName",
+    element: <Lyrics />,
+  },
+  {
+    path: "/about",
+    element: <About />,
+  },
+  {
+    path: "/contact",
+    element: <Contact />,
+  },
+  {
+    path: "/media",
+    element: <Media />,
+  },
+];
 
 const router = createBrowserRouter(
-  views.map(view => ({
+  views.map((view) => ({
     ...view,
-    element: view.path !== "/" ? <ErrorBoundary>{view.element}</ErrorBoundary> : view.element,
-  }))
+    element:
+      view.path !== "/" ? (
+        <ErrorBoundary>{view.element}</ErrorBoundary>
+      ) : (
+        view.element
+      ),
+  })),
 );
 
 const App = () => {
@@ -90,7 +93,7 @@ const App = () => {
           <RouterProvider router={router} />
         </AppContextProvider>
       </ErrorBoundary>
-    </React.StrictMode >
+    </React.StrictMode>
   );
 };
 
