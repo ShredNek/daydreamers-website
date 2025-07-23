@@ -1,0 +1,71 @@
+@use "../abstracts" as a;
+@use "../utilities/functions" as fn;
+@use "../base/" as b;
+
+// ? ? ? ? ?
+// ? HOME ?
+// ? ? ? ?
+
+.website-content {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+#site-backdrop {
+  display: flow-root;
+  top: 0;
+  background: a.$daydreamer-gradient-homepage;
+  opacity: 0.5;
+  height: 100%;
+  width: 100%;
+  position: fixed;
+  z-index: 1;
+
+  transition: b.$default-transition-property;
+
+  &.transitioning {
+    opacity: 0;
+  }
+}
+
+.logo-layer {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
+  column-gap: 15rem;
+  align-items: center;
+  justify-items: center;
+  z-index: 0;
+
+  .day-dreamer-logo {
+    max-width: 250px;
+    max-height: max-content;
+    opacity: 0.5;
+  }
+}
+
+#photo-backdrop {
+  display: flow-root;
+  top: 0;
+  opacity: 0.15;
+  height: 100%;
+  width: 100%;
+  position: fixed;
+  z-index: -2;
+
+  img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+  }
+
+  transition: b.$default-transition-property;
+
+  &.transitioning {
+    opacity: 0;
+  }
+}

@@ -12,6 +12,8 @@ import logo4 from "./assets/images/logos/logo_4.png";
 import logo5 from "./assets/images/logos/logo_5.png";
 import logo6 from "./assets/images/logos/logo_6.png";
 
+import "./styles/views/_site-wrapper.scss";
+
 const imgArr = [logo1, logo2, logo3, logo4, logo5, logo6];
 
 function LogoLayer() {
@@ -41,21 +43,23 @@ export default function SiteWrapper({
   className,
 }: SiteWrapperComponent) {
   return (
-    <>
-      <div id="site-backdrop" />
-      <LogoLayer />
-      <div id="photo-backdrop">
-        <LazyImage
-          lowQualitySrc={lowQualHero}
-          highQualitySrc={highQualHero}
-          alt="Hero shot of your local wacky band, Day Dreamers"
-        />
+    <div className="website-content">
+      <div className="background-visuals">
+        <div id="site-backdrop" />
+        <LogoLayer />
+        <div id="photo-backdrop">
+          <LazyImage
+            lowQualitySrc={lowQualHero}
+            highQualitySrc={highQualHero}
+            alt="Hero shot of your local wacky band, Day Dreamers"
+          />
+        </div>
       </div>
       <NavHeader hideBackground={hideBackground} />
       <section id={sectionId} className={className}>
         {children}
       </section>
       <Footer />
-    </>
+    </div>
   );
 }

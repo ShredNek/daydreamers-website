@@ -4,8 +4,6 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import Home from "./views/Home";
 import PageNotFound from "./views/PageNotFound";
-import Merch from "./views/Merch";
-import MerchItem from "./views/MerchItem";
 import Gigs from "./views/Gigs";
 import GigView from "./views/GigView";
 import Music from "./views/Music";
@@ -28,16 +26,8 @@ const views = [
     errorElement: <PageNotFound />,
   },
   {
-    path: "/merch",
-    element: <Merch />,
-  },
-  {
     path: "/links",
     element: <Links />,
-  },
-  {
-    path: "/merch/:id",
-    element: <MerchItem />,
   },
   {
     path: "/gigs",

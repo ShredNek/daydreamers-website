@@ -3,7 +3,6 @@ import { getAllMusic } from "../api/datoCmsCalls";
 import { toKebabCase } from "../helper/index.tsx";
 import { ComponentLoadingStatus, SongCollectionData } from "../types/index";
 import { useNavigate } from "react-router-dom";
-import NavHeader from "../components/NavHeader";
 import { AppContext } from "../utils/AppContext";
 import SiteWrapper from "../SiteWrapper.tsx";
 

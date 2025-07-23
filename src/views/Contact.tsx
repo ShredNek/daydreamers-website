@@ -1,13 +1,13 @@
-import { useEffect, useState } from "react"
-import { ComponentStatus } from "../types"
+import { useEffect, useState } from "react";
+import { ComponentStatus } from "../types";
 import EnquiryForm from "../components/EnquiryForm";
-import Footer from "../components/Footer";
-import NavHeader from "../components/NavHeader";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import SiteWrapper from "../SiteWrapper";
 
 export default function Contact() {
-  const [dataSubmissionStatus, setDataSubmissionStatus] = useState<ComponentStatus>("neutral")
+  const [dataSubmissionStatus, setDataSubmissionStatus] =
+    useState<ComponentStatus>("neutral");
 
   useEffect(() => {
     switch (dataSubmissionStatus) {
@@ -15,16 +15,19 @@ export default function Contact() {
         toast.error("There was an error submitting your enquiry.");
         break;
       case "ok":
-        toast.success("Enquiry submitted!")
+        toast.success("Enquiry submitted!");
     }
-  }, [dataSubmissionStatus])
+  }, [dataSubmissionStatus]);
 
   return (
     <>
-      <NavHeader linkToDisable="Contact" />
-      <EnquiryForm submissionStatus={dataSubmissionStatus} setSubmissionStatus={setDataSubmissionStatus} />
-      <Footer />
+      <SiteWrapper sectionId="contact">
+        <EnquiryForm
+          submissionStatus={dataSubmissionStatus}
+          setSubmissionStatus={setDataSubmissionStatus}
+        />
+      </SiteWrapper>
       <ToastContainer />
     </>
-  )
+  );
 }
