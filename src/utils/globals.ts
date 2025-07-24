@@ -13,13 +13,15 @@ export const FADE_SPEED = 500;
 
 export const AUTO_HIDE_MODAL_DURATION = 5000;
 
-export const PAGE_LINKS: { to: string, innerText: string, tabImg: string }[] = [
-  { to: "/music", innerText: "Music", tabImg: musicTabImg },
-  { to: "/gigs", innerText: "Gigs", tabImg: showsTabImg },
-  { to: "/about", innerText: "About", tabImg: aboutTabImg },
-  { to: "/contact", innerText: "Contact", tabImg: contactTabImg },
-  { to: "/media", innerText: "Media", tabImg: mediaTabImg },
-  // { to: "/merch", innerText: "Merch" }, // ? This needs to get fixed before we feature this on our site
+export type PAGE_LINK = { to: string, innerText: string, tabImg: string, urlIsExternal: boolean }
+
+export const PAGE_LINKS: PAGE_LINK[] = [
+  { urlIsExternal: false, to: "/music", innerText: "Music", tabImg: musicTabImg },
+  { urlIsExternal: false, to: "/gigs", innerText: "Gigs", tabImg: showsTabImg },
+  { urlIsExternal: false, to: "/about", innerText: "About", tabImg: aboutTabImg },
+  { urlIsExternal: false, to: "/contact", innerText: "Contact", tabImg: contactTabImg },
+  { urlIsExternal: false, to: "/media", innerText: "Media", tabImg: mediaTabImg },
+  { urlIsExternal: true, to: "https://daydreamers.bandcamp.com/merch", innerText: "Merch", tabImg: merchTabImg },
 ];
 
 export const SOCIAL_LINKS: Array<{

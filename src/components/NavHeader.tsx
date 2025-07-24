@@ -1,8 +1,8 @@
-import { PAGE_LINKS } from "../utils/globals";
+import { PAGE_LINK, PAGE_LINKS } from "../utils/globals";
 import { useNavigate } from "react-router-dom";
 import Hamburger from "./Hamburger";
 
-import "../styles/components/_nav-header.scss"
+import "../styles/components/_nav-header.scss";
 import { useEffect, useState } from "react";
 
 const generateTitleWithShiftingLetters = (title: string): React.ReactNode[] => {
@@ -10,7 +10,9 @@ const generateTitleWithShiftingLetters = (title: string): React.ReactNode[] => {
   const randomVal = () => Math.random() * randomDistance - 5;
 
   return title.split("").map((ltr, index) => {
-    const style = { transform: `translate(${randomVal()}px, ${randomVal()}px)` };
+    const style = {
+      transform: `translate(${randomVal()}px, ${randomVal()}px)`,
+    };
 
     return ltr !== " " ? (
       <span key={index} style={style}>
@@ -18,8 +20,8 @@ const generateTitleWithShiftingLetters = (title: string): React.ReactNode[] => {
       </span>
     ) : (
       <br key={index} />
-    )
-  })
+    );
+  });
 };
 
 interface NavHeader {
@@ -28,8 +30,12 @@ interface NavHeader {
   hideBackground?: boolean;
 }
 
-export default function NavHeader({ className, linkToDisable, hideBackground }: NavHeader) {
-  let navigate = useNavigate()
+export default function NavHeader({
+  className,
+  linkToDisable,
+  hideBackground,
+}: NavHeader) {
+  let navigate = useNavigate();
   const [titleNodes, setTitleNodes] = useState<React.ReactNode[]>([]);
   const title = "Day Dreamers";
 
@@ -45,9 +51,19 @@ export default function NavHeader({ className, linkToDisable, hideBackground }: 
     return () => clearInterval(interval); // Cleanup
   }, []);
 
+  const handleNavItemClick = (link: PAGE_LINK) => {
+    if (!link.urlIsExternal) {
+      navigate(link.to);
+    } else {
+      window.open(link.to);
+    }
+  };
+
   return (
     <>
-      <div id="header-navigation" className={`header-navigation ${hideBackground && "no-background"}`}>
+      <div
+        id="header-navigation"
+        className={`header-navigation ${hideBackground && "no-background"}`}>
         <a onClick={() => navigate("/")}>
           <h1 className={` heading massive white ${className}`}>
             {titleNodes}
@@ -59,16 +75,15 @@ export default function NavHeader({ className, linkToDisable, hideBackground }: 
             {PAGE_LINKS.map((link, index) => (
               <li
                 key={index}
-                className={index % 2 === 0 ? `hover v-1` : `hover v-2`}
-              >
-                <a onClick={() => navigate(link.to)}>
+                className={index % 2 === 0 ? `hover v-1` : `hover v-2`}>
+                <a onClick={() => handleNavItemClick(link)}>
                   <img src={link.tabImg} alt={`Link to ${link.to}`} />
                 </a>
               </li>
             ))}
           </ul>
         </nav>
-      </div >
+      </div>
     </>
   );
 }
