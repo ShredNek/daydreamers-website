@@ -16,11 +16,11 @@
   display: flow-root;
   top: 0;
   background: a.$daydreamer-gradient-homepage;
-  opacity: 0.5;
+  opacity: 0.75;
   height: 100%;
   width: 100%;
   position: fixed;
-  z-index: 1;
+  z-index: -10;
 
   transition: b.$default-transition-property;
 
@@ -39,12 +39,12 @@
   column-gap: 15rem;
   align-items: center;
   justify-items: center;
-  z-index: 0;
+  z-index: -20;
 
   .day-dreamer-logo {
     max-width: 250px;
     max-height: max-content;
-    opacity: 0.5;
+    opacity: 0.75;
   }
 }
 
@@ -55,7 +55,7 @@
   height: 100%;
   width: 100%;
   position: fixed;
-  z-index: -2;
+  z-index: -30;
 
   img {
     height: 100%;

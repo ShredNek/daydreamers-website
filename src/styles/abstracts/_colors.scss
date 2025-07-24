@@ -11,6 +11,7 @@ $daydreamer-orange: #f1b83f;
 $daydreamer-blue: #4fdbf0;
 $daydreamer-purple: #5a2494;
 $daydreamer-sad-blue: #6aadff;
+$daydreamer-sad-blue-svg-fill: invert(66%) sepia(14%) saturate(3110%) hue-rotate(186deg) brightness(100%) contrast(101%); /* ? Colour generated here: https://codepen.io/sosuke/pen/Pjoqqp */
 $daydreamer-faded-blue: #bcdaf0;
 $daydreamer-hot-yellow: #ffde00;
 $daydreamer-off-white: #f4f7f8;
@@ -22,7 +23,13 @@ $daydreamer-gradient-main: radial-gradient(
   $daydreamer-sad-blue 50%,
   $daydreamer-smoky-black 85%
 );
-$daydreamer-gradient-homepage: radial-gradient(circle, $daydreamer-off-white 0%, $daydreamer-smoky-black 100%);
+$daydreamer-gradient-homepage: radial-gradient(
+  circle,
+  color.adjust($grey, $lightness: 15%) 0%,
+  color.adjust($ash, $lightness: 20%) 45%,
+  75%,
+  $daydreamer-smoky-black 100%
+);
 $daydreamer-gradient-faded: radial-gradient(
   circle,
   rgba($daydreamer-orange, 1) 0%,

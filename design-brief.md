@@ -1,0 +1,35 @@
+# Design brief
+
+This is going to cover what each page should look like
+
+## Music
+
+Music will be the classic image file viewer (https://au.pinterest.com/pin/239183430204345829/) in a windows XP style UI
+
+### - Music viewer
+
+Brings up a Y2K styled window (https://au.pinterest.com/pin/39758409202445911/) (https://au.pinterest.com/pin/35395547064416348/). Lyrics will be to the side of the menu
+
+## Shows
+
+Shows will be windows XP background, and the app icons will be the shows. (https://au.pinterest.com/pin/583568064212125636/) You do have to double-click, as it's an app. Dummy.
+
+### - Individual shows
+
+When you DOUBLE-CLICK click on the app, it opens up a new window with the gig details ()
+
+## About
+
+A popup panel like this (https://au.pinterest.com/pin/31243791160421730/) after clicking a button above a photo of the band - keep the hover effect, it looks dope. But instead of an office assistant, it will be a floating 3d render of our face when selected from the list. A bio will dropdown beneath the floating icon and the scroll list.
+
+## Conact
+
+Something like this for the fields and form layout: (https://au.pinterest.com/pin/25332816647708256/)
+
+## Media
+
+Media will be Y2K'ed instagram/pinterest media waterfall style
+
+## Other ideas
+
+If you don't move your mouse or touch any arrow keys for 5 mins, the browser loads a screensaver. Either the generating pipes (https://www.youtube.com/watch?v=tCpnDTzRAjE&pp=ygUmd2luZG93cyB4cCBtZWRpYSBwbGF5ZXIgdmlzdWFsaXphdGlvbnM%3D) or the bouncing dvd logo (https://www.youtube.com/watch?v=5mGuCdlCcNM&pp=ygUmd2luZG93cyB4cCBtZWRpYSBwbGF5ZXIgdmlzdWFsaXphdGlvbnM%3D)

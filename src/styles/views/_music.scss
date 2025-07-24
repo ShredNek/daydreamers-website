@@ -3,82 +3,85 @@
 
 @use "sass:color";
 
-$mid-distance-break: 800px;
-
 .music-collection {
-  width: b.$default-section-width;
-
-  h2 {
-    font-family: BrianScratch;
-    font-size: clamp(1.5rem, 2px + 4vw, 3rem);
-    padding: 1.5rem 0.75rem 0px;
-    text-align: center;
-
-    @media (max-width: $mid-distance-break) {
-      line-height: 0.75em;
-      font-size: calc(1.25rem + 5vw);
-    }
-  }
-
-  .cards {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 8rem;
-
-    .collection-card {
-      padding: 5rem 2rem 2rem;
-      outline: a.$off-white solid 1px;
-      background-color: color.adjust(a.$off-white, $lightness: 7.5%);
-
-      transition-property: scale rotate;
-      transition-duration: 1s;
-      max-width: clamp(180px, 50vw, 350px);
-      margin: 0 auto;
-
-      &:nth-child(even) {
-        box-shadow: a.$grey 10px 10px 30px -10px;
-        rotate: -3deg;
-        translate: 3px 0px;
-        z-index: 0;
-
-        &:hover {
-          scale: 105%;
-          rotate: 1deg;
-          translate: -25px 30px;
-        }
-      }
-
-      &:nth-child(odd) {
-        box-shadow: a.$grey -10px 10px 30px -10px;
-        rotate: 2deg;
-        translate: 2px 0px;
-        z-index: 0;
-
-        &:hover {
-          scale: 105%;
-          rotate: -1deg;
-          translate: 25px 5px;
-        }
-      }
-
-      .artwork {
-        outline: 1.5px solid a.$off-white;
-      }
-
-      @media (max-width: b.$desktop-width) {
-        padding: 5rem 1.5rem 1rem;
-      }
-    }
-
-    @media (max-width: b.$desktop-width) {
-      grid-template-columns: 1fr 1fr;
-      gap: 6rem;
-    }
-
-    @media (max-width: $mid-distance-break) {
-      grid-template-columns: 0.75fr;
-      justify-content: center;
-      align-items: center;
-    }
-  }
 }
+
+// $mid-distance-break: 800px;
+
+// .music-collection {
+//   width: b.$default-section-width;
+
+//   h2 {
+//     font-family: BrianScratch;
+//     font-size: clamp(1.5rem, 2px + 4vw, 3rem);
+//     padding: 1.5rem 0.75rem 0px;
+//     text-align: center;
+
+//     @media (max-width: $mid-distance-break) {
+//       line-height: 0.75em;
+//       font-size: calc(1.25rem + 5vw);
+//     }
+//   }
+
+//   .cards {
+//     display: grid;
+//     grid-template-columns: 1fr 1fr 1fr;
+//     gap: 8rem;
+
+//     .collection-card {
+//       padding: 5rem 2rem 2rem;
+//       outline: a.$off-white solid 1px;
+//       background-color: color.adjust(a.$off-white, $lightness: 7.5%);
+
+//       transition-property: scale rotate;
+//       transition-duration: 1s;
+//       max-width: clamp(180px, 50vw, 350px);
+//       margin: 0 auto;
+
+//       &:nth-child(even) {
+//         box-shadow: a.$grey 10px 10px 30px -10px;
+//         rotate: -3deg;
+//         translate: 3px 0px;
+//         z-index: 0;
+
+//         &:hover {
+//           scale: 105%;
+//           rotate: 1deg;
+//           translate: -25px 30px;
+//         }
+//       }
+
+//       &:nth-child(odd) {
+//         box-shadow: a.$grey -10px 10px 30px -10px;
+//         rotate: 2deg;
+//         translate: 2px 0px;
+//         z-index: 0;
+
+//         &:hover {
+//           scale: 105%;
+//           rotate: -1deg;
+//           translate: 25px 5px;
+//         }
+//       }
+
+//       .artwork {
+//         outline: 1.5px solid a.$off-white;
+//       }
+
+//       @media (max-width: b.$desktop-width) {
+//         padding: 5rem 1.5rem 1rem;
+//       }
+//     }
+
+//     @media (max-width: b.$desktop-width) {
+//       grid-template-columns: 1fr 1fr;
+//       gap: 6rem;
+//     }
+
+//     @media (max-width: $mid-distance-break) {
+//       grid-template-columns: 0.75fr;
+//       justify-content: center;
+//       align-items: center;
+//     }
+//   }
+// }
