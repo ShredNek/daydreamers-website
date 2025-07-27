@@ -4,33 +4,176 @@
 @use "sass:color";
 
 .music-collection {
-  height: 80vh;
+  height: 80%;
+  $filter-control-height: 35px;
+  $border-width: 2px;
 
   .window-viewer-container {
+    display: flex;
+    flex-direction: column;
     width: clamp(200px, 75vw, 800px);
     height: clamp(200px, 100%, 800px);
     margin: 0 auto;
+    padding: 0.15rem;
     background-color: lightgrey;
+
+    &,
+    button,
+    input,
+    .search-results-window {
+      border-style: solid;
+      border-width: $border-width;
+
+      &:disabled {
+        background-color: white;
+      }
+    }
+
+    &,
+    button {
+      border-top-color: a.$off-white;
+      border-left-color: a.$off-white;
+      border-right-color: a.$daydreamer-smoky-black;
+      border-bottom-color: a.$daydreamer-smoky-black;
+    }
 
     button {
       background-color: lightgrey;
       margin: 0 0.15em;
       padding: 0 0.25em;
+      padding: 0.25em 0.75em;
+
+      &:active {
+        border-top-color: a.$daydreamer-smoky-black;
+        border-left-color: a.$daydreamer-smoky-black;
+        border-right-color: a.$off-white;
+        border-bottom-color: a.$off-white;
+        background-color: a.$grey;
+      }
+    }
+
+    label {
+      width: max-content;
+    }
+
+    .search-results-window,
+    input {
+      border-top-color: a.$daydreamer-smoky-black;
+      border-left-color: a.$daydreamer-smoky-black;
+      border-right-color: a.$off-white;
+      border-bottom-color: a.$off-white;
+      font-size: 1rem;
+      padding-left: 0.4em;
+    }
+
+    .search-input-combo {
+      height: $filter-control-height;
+      display: flex;
+      position: relative;
+      width: fit-content;
+
+      input {
+        height: 100%;
+      }
+
+      .dropdown-arrow {
+        position: absolute;
+        top: $border-width;
+        right: 0;
+        padding: 0;
+        height: calc(100% - ($border-width * 2));
+        width: calc($filter-control-height * (4 / 5));
+
+        svg {
+          rotate: 180deg;
+          padding: 0.15em;
+          margin: auto;
+          display: inline;
+          height: 100%;
+        }
+      }
+    }
+
+    .window-nav-header,
+    .window-nav-header button {
       font-weight: bolder;
     }
 
     .window-nav-header {
       display: flex;
       justify-content: space-between;
-
       background-color: grey;
       color: lightgrey;
       padding: 0.25em;
-      font-weight: bolder;
+
+      .window-action-buttons button {
+        font-size: 1.1rem;
+        padding: 0 0.25em;
+        margin-right: 0;
+      }
     }
 
     .search-parent {
+      display: flex;
+      flex-direction: column;
       padding: 0.65em;
+      min-height: 500px;
+      height: 100%;
+      gap: 0.5rem;
+
+      .search-filters {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+        align-items: center;
+        height: $filter-control-height;
+
+        input {
+          height: 100%;
+        }
+
+        button:not(.dropdown-arrow) {
+          padding: 0.2em 0.25em 0.05em;
+          height: 100%;
+
+          img {
+            height: 100%;
+          }
+        }
+      }
+
+      .search-results-window {
+        height: clamp(500px, 100%, 800px);
+        background-color: white;
+      }
+
+      .search-results-actions {
+        display: grid;
+        grid-template-columns: 1fr 4fr 1.5fr;
+        gap: 1em;
+
+        label,
+        input {
+          height: $filter-control-height;
+        }
+
+        label {
+          position: relative;
+          top: calc($filter-control-height / 5);
+        }
+
+        .action-buttons {
+          display: flex;
+          flex-direction: column;
+          align-items: end;
+          gap: 1rem;
+
+          button {
+            height: $filter-control-height;
+            width: 150px;
+          }
+        }
+      }
     }
   }
 }
@@ -38,83 +181,3 @@
 .file-shortcut-underline {
   text-decoration: underline;
 }
-
-// $mid-distance-break: 800px;
-
-// .music-collection {
-//   width: b.$default-section-width;
-
-//   h2 {
-//     font-family: BrianScratch;
-//     font-size: clamp(1.5rem, 2px + 4vw, 3rem);
-//     padding: 1.5rem 0.75rem 0px;
-//     text-align: center;
-
-//     @media (max-width: $mid-distance-break) {
-//       line-height: 0.75em;
-//       font-size: calc(1.25rem + 5vw);
-//     }
-//   }
-
-//   .cards {
-//     display: grid;
-//     grid-template-columns: 1fr 1fr 1fr;
-//     gap: 8rem;
-
-//     .collection-card {
-//       padding: 5rem 2rem 2rem;
-//       outline: a.$off-white solid 1px;
-//       background-color: color.adjust(a.$off-white, $lightness: 7.5%);
-
-//       transition-property: scale rotate;
-//       transition-duration: 1s;
-//       max-width: clamp(180px, 50vw, 350px);
-//       margin: 0 auto;
-
-//       &:nth-child(even) {
-//         box-shadow: a.$grey 10px 10px 30px -10px;
-//         rotate: -3deg;
-//         translate: 3px 0px;
-//         z-index: 0;
-
-//         &:hover {
-//           scale: 105%;
-//           rotate: 1deg;
-//           translate: -25px 30px;
-//         }
-//       }
-
-//       &:nth-child(odd) {
-//         box-shadow: a.$grey -10px 10px 30px -10px;
-//         rotate: 2deg;
-//         translate: 2px 0px;
-//         z-index: 0;
-
-//         &:hover {
-//           scale: 105%;
-//           rotate: -1deg;
-//           translate: 25px 5px;
-//         }
-//       }
-
-//       .artwork {
-//         outline: 1.5px solid a.$off-white;
-//       }
-
-//       @media (max-width: b.$desktop-width) {
-//         padding: 5rem 1.5rem 1rem;
-//       }
-//     }
-
-//     @media (max-width: b.$desktop-width) {
-//       grid-template-columns: 1fr 1fr;
-//       gap: 6rem;
-//     }
-
-//     @media (max-width: $mid-distance-break) {
-//       grid-template-columns: 0.75fr;
-//       justify-content: center;
-//       align-items: center;
-//     }
-//   }
-// }

@@ -5,6 +5,10 @@ import { ComponentLoadingStatus, SongCollectionData } from "../types/index";
 import { useNavigate } from "react-router-dom";
 import { AppContext } from "../utils/AppContext";
 import SiteWrapper from "../SiteWrapper.tsx";
+import newFolder from "../assets/images/y2k-resources/new-folder_active.png";
+import changeSort from "../assets/images/y2k-resources/window-filter-sort.png";
+import changeDisplay from "../assets/images/y2k-resources/window-filter-display.png";
+import { IoTriangleSharp } from "react-icons/io5";
 
 export default function Music() {
   const [componentLoadingState, setComponentLoadingState] =
@@ -81,22 +85,38 @@ export default function Music() {
         </div>
         <div className="search-parent">
           <div className="search-filters">
-            <label htmlFor="search-results-input">Look in:</label>
-            <input
-              type="text"
-              name="search-results-input"
-              disabled
-              placeholder="My Document"
-            />
-            <button>"Folder Up Icon"</button>
-            <button>"New Folder Icon"</button>
-            <button>"Change View Icon"</button>
-            <button>"Change Sort Icon"</button>
+            <label htmlFor="search-results-input">
+              Look <span className="file-shortcut-underline">i</span>n:
+            </label>
+            <div className="search-input-combo">
+              <input
+                type="text"
+                name="search-results-input"
+                id="search-results-input"
+                disabled
+                placeholder="My Documents"
+              />
+              <button className="dropdown-arrow">
+                <IoTriangleSharp />
+              </button>
+            </div>
+            <button>
+              <img src={newFolder} alt="New folder icon" />
+            </button>
+            <button>
+              <img src={changeDisplay} alt="Change display" />
+            </button>
+            <button>
+              <img src={changeSort} alt="Change sort" />
+            </button>
           </div>
-          <div className="search-results-window">
-            <div className="search-results-actions">
-              <label htmlFor="file-name"></label>
-              <input type="text" name="file-name" />
+          <div className="search-results-window"></div>
+          <div className="search-results-actions">
+            <label htmlFor="file-name">
+              File <span className="file-shortcut-underline">n</span>ame:
+            </label>
+            <input type="text" name="file-name" id="file-name" />
+            <div className="action-buttons">
               <button>
                 <span className="file-shortcut-underline">O</span>pen
               </button>
