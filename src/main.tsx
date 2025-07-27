@@ -7,8 +7,6 @@ import PageNotFound from "./views/PageNotFound";
 import Gigs from "./views/Gigs";
 import GigView from "./views/GigView";
 import Music from "./views/Music";
-import MusicView from "./views/MusicView";
-import Lyrics from "./views/Lyrics";
 import About from "./views/About";
 import ErrorBoundary from "./views/ErrorBoundary";
 import Contact from "./views/Contact";
@@ -40,14 +38,6 @@ const views = [
   {
     path: "/music",
     element: <Music />,
-  },
-  {
-    path: "/music/:songCollectionName",
-    element: <MusicView />,
-  },
-  {
-    path: "/music/:songCollectionName/lyrics/:trackName",
-    element: <Lyrics />,
   },
   {
     path: "/about",

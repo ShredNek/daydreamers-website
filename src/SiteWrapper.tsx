@@ -21,6 +21,7 @@ function LogoLayer() {
     <div id="logo-layer" className="logo-layer">
       {imgArr.map((src, i) => (
         <img
+          key={i}
           src={src}
           alt={`Band logo number ${i + 1}`}
           className="day-dreamer-logo"></img>

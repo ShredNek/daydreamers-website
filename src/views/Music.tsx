@@ -1,7 +1,7 @@
 import { useEffect, useState, useContext } from "react";
 import { getAllMusic } from "../api/datoCmsCalls";
 import { toKebabCase } from "../helper/index.tsx";
-import { SongCollectionData } from "../types/index";
+import { MusicData } from "../types/index";
 import { useNavigate } from "react-router-dom";
 import { AppContext } from "../utils/AppContext";
 import SiteWrapper from "../SiteWrapper.tsx";
@@ -11,15 +11,15 @@ import changeDisplay from "../assets/images/y2k-resources/window-filter-display.
 import { IoTriangleSharp } from "react-icons/io5";
 
 export default function Music() {
-  const { songCollectionData, setSongCollectionData } = useContext(AppContext);
+  const { musicData, setMusicData } = useContext(AppContext);
   let navigate = useNavigate();
 
   const handleCardClick = (songSlug: string) => navigate(`/music/${songSlug}`);
 
   // ? On page load
 
-  const callAndSetGigData = async () => {
-    let rawData: SongCollectionData | null = null;
+  const callAndSetMusicData = async () => {
+    let rawData: MusicData | null = null;
     try {
       rawData = await (await getAllMusic()).json();
     } catch (error) {
@@ -30,11 +30,11 @@ export default function Music() {
       return;
     }
 
-    // setSongCollectionData(rawData);
+    setMusicData(rawData);
   };
 
   useEffect(() => {
-    callAndSetGigData();
+    callAndSetMusicData();
   }, []);
 
   return (
@@ -75,8 +75,8 @@ export default function Music() {
             </button>
           </div>
           <main className="search-results-window">
-            {songCollectionData?.data.allSongCollections ? (
-              songCollectionData.data.allSongCollections.map((collection) => (
+            {musicData?.data.allSongCollections ? (
+              musicData.data.allSongCollections.map((collection) => (
                 <div
                   className="result"
                   key={collection.id}

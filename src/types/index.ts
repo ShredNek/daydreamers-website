@@ -88,7 +88,7 @@ export type SongCollection = {
   };
 };
 
-export type SongCollectionData = {
+export type MusicData = {
   data: {
     allSongCollections: SongCollection[];
   };
@@ -172,13 +172,9 @@ export type SortType =
 
 export interface AppContextInterface {
   gigData: AllGigsEntity | null;
-  merchItems: MerchItem[] | null;
-  merchReqParams: MerchReqParams;
-  songCollectionData: SongCollectionData | null;
+  musicData: MusicData | null;
   setGigData: Dispatch<SetStateAction<AllGigsEntity | null>>;
-  setMerchItems: Dispatch<SetStateAction<MerchItem[] | null>>;
-  setMerchReqParams: Dispatch<SetStateAction<MerchReqParams>>;
-  setSongCollectionData: Dispatch<SetStateAction<SongCollectionData | null>>;
+  setMusicData: Dispatch<SetStateAction<MusicData | null>>;
 }
 
 export type ComponentStatus =

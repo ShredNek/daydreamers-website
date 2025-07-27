@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import {
-  SongCollectionData,
+  MusicData,
   SongCollection,
   ComponentLoadingStatus,
   Track,
@@ -23,20 +23,19 @@ import { FADE_SPEED } from "../utils/globals";
 import { useNavigate } from "react-router-dom";
 
 export default function MusicView() {
-  const [componentLoadingState, setComponentLoadingState] =
-    useState<ComponentLoadingStatus>("transitioning static");
   const [musicCollection, setMusicCollection] = useState<SongCollection | null>(
-    null
+    null,
   );
   const { songCollectionName } = useParams();
-  const { songCollectionData, setSongCollectionData } = useContext(AppContext);
+  const { musicData: songCollectionData, setMusicData: setSongCollectionData } =
+    useContext(AppContext);
   const navigate = useNavigate();
 
   const handleTrackClick = (trackName: string) => {
-    setComponentLoadingState("transitioning static");
+    // setComponentLoadingState("transitioning static");
     setTimeout(
       () => navigate(`/music/${songCollectionName}/lyrics/${trackName}`),
-      FADE_SPEED
+      FADE_SPEED,
     );
   };
 
@@ -47,25 +46,23 @@ export default function MusicView() {
       () =>
         songCollectionData?.data.allSongCollections.find(
           (songCollection) =>
-            toKebabCase(songCollection.name) === songCollectionName
-        ) ?? null
+            toKebabCase(songCollection.name) === songCollectionName,
+        ) ?? null,
     );
-    setComponentLoadingState("");
   };
 
   // TODO - Make this call in the context instead
   const callAndSetGigData = async () => {
-    console.log("calling");
-    let rawData: SongCollectionData | null = null;
+    let rawData: MusicData | null = null;
     try {
       rawData = await (await getAllMusic()).json();
     } catch (error) {
       throw Error(`getAllMusic API call failed - ${error}`);
     }
 
-    if (rawData === null)
-      throw Error("getAllMusic API call failed - rawData is null");
-
+    if (rawData === null) {
+      return;
+    }
     setSongCollectionData(rawData);
   };
 
@@ -73,19 +70,13 @@ export default function MusicView() {
 
   useEffect(() => {
     if (!songCollectionData) callAndSetGigData();
-
-    // ? This will always run as this is always null on load
     if (!musicCollection) handleGigDataRender();
   }, []);
 
-  useEffect(() => {
-    !musicCollection ? handleGigDataRender() : setComponentLoadingState("");
-  }, [songCollectionData]);
-
   return (
     <>
-      <NavHeader className={componentLoadingState} />
-      <section className={`music-collection view ${componentLoadingState}`}>
+      <NavHeader className="" />
+      <section className={`music-collection view`}>
         <main>
           {musicCollection ? (
             <>
@@ -106,7 +97,7 @@ export default function MusicView() {
                     <p>
                       {returnFormattedDate(
                         new Date(musicCollection.releaseDate).toDateString(),
-                        { includeDay: false, includeTime: false }
+                        { includeDay: false, includeTime: false },
                       )}
                     </p>
                   </div>
@@ -115,25 +106,25 @@ export default function MusicView() {
                       className="spotify-link"
                       href={musicCollection.spotifyLink}
                       target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <FaSpotify /><p>Spotify</p>
+                      rel="noopener noreferrer">
+                      <FaSpotify />
+                      <p>Spotify</p>
                     </a>
                     <a
                       className="apple-link"
                       href={musicCollection.appleMusicLink}
                       target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <FaMusic /><p>Apple</p>
+                      rel="noopener noreferrer">
+                      <FaMusic />
+                      <p>Apple</p>
                     </a>
                     <a
                       className="other-music-link"
                       href={musicCollection.otherViewsLink}
                       target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <FaEllipsis /><p>Other</p>
+                      rel="noopener noreferrer">
+                      <FaEllipsis />
+                      <p>Other</p>
                     </a>
                   </div>
                 </div>
@@ -151,15 +142,15 @@ export default function MusicView() {
                           className="track-lyrics-anchor"
                           onClick={() =>
                             handleTrackClick(toKebabCase(track.title))
-                          }
-                        >
+                          }>
                           Lyrics
                         </a>
-                      ) : <br />}
+                      ) : (
+                        <br />
+                      )}
                       <span className="track-duration">
                         {secondsToTimeString(Number(track.duration))}
                       </span>
-
                     </li>
                   ))}
                 </ol>

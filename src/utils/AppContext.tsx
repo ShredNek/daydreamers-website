@@ -1,58 +1,30 @@
 import { createContext, ReactNode, useState } from "react";
-import { AppContextInterface, AllGigsEntity, MerchItem, MerchReqParams, SongCollectionData } from "../types/index";
+import { AppContextInterface, AllGigsEntity, MusicData } from "../types/index";
 
 export const AppContext = createContext<AppContextInterface>({
   gigData: null,
-  merchItems: null,
-  songCollectionData: null,
-  merchReqParams: {
-    sortBy: null,
-    stockPreferences: {
-      inStockRequested: true,
-      outOfStockRequested: true
-    },
-    priceFrom: "",
-    priceTo: "",
-  },
-  setGigData: () => { },
-  setMerchItems: () => { },
-  setMerchReqParams: () => { },
-  setSongCollectionData: () => { }
-})
+  musicData: null,
+  setGigData: () => {},
+  setMusicData: () => {},
+});
 
 interface AppContextProvider {
-  children: ReactNode
+  children: ReactNode;
 }
 
 export function AppContextProvider({ children }: AppContextProvider) {
-  const [gigData, setGigData] = useState<AllGigsEntity | null>(null)
-  const [merchItems, setMerchItems] = useState<MerchItem[] | null>(null)
-  const [songCollectionData, setSongCollectionData] = useState<SongCollectionData | null>(null)
-  const [merchReqParams, setMerchReqParams] = useState<MerchReqParams>({
-    sortBy: null,
-    stockPreferences: {
-      inStockRequested: true,
-      outOfStockRequested: true
-    },
-    priceFrom: "",
-    priceTo: "",
-  })
+  const [gigData, setGigData] = useState<AllGigsEntity | null>(null);
+  const [musicData, setMusicData] = useState<MusicData | null>(null);
 
   return (
-    <AppContext.Provider value={{
-      gigData,
-      merchItems,
-      merchReqParams,
-      songCollectionData,
-      setGigData,
-      setMerchItems,
-      setMerchReqParams,
-      setSongCollectionData
-    }}>
+    <AppContext.Provider
+      value={{
+        gigData,
+        musicData,
+        setGigData,
+        setMusicData,
+      }}>
       {children}
     </AppContext.Provider>
-
-  )
-
-
+  );
 }
