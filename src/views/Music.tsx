@@ -1,7 +1,7 @@
 import { useEffect, useState, useContext } from "react";
 import { getAllMusic } from "../api/datoCmsCalls";
 import { toKebabCase } from "../helper/index.tsx";
-import { ComponentLoadingStatus, SongCollectionData } from "../types/index";
+import { SongCollectionData } from "../types/index";
 import { useNavigate } from "react-router-dom";
 import { AppContext } from "../utils/AppContext";
 import SiteWrapper from "../SiteWrapper.tsx";
@@ -11,8 +11,6 @@ import changeDisplay from "../assets/images/y2k-resources/window-filter-display.
 import { IoTriangleSharp } from "react-icons/io5";
 
 export default function Music() {
-  const [componentLoadingState, setComponentLoadingState] =
-    useState<ComponentLoadingStatus>("transitioning static");
   const { songCollectionData, setSongCollectionData } = useContext(AppContext);
   let navigate = useNavigate();
 
@@ -25,56 +23,22 @@ export default function Music() {
     try {
       rawData = await (await getAllMusic()).json();
     } catch (error) {
-      throw Error(`getAllMusic API call failed - ${error}`);
+      throw Error(`getAllMusic API call failed - ${JSON.stringify(error)}`);
     }
 
-    if (rawData === null)
-      throw Error("getAllMusic API call failed - rawData is null");
-    setSongCollectionData(rawData);
+    if (rawData === null) {
+      return;
+    }
+
+    // setSongCollectionData(rawData);
   };
 
   useEffect(() => {
-    songCollectionData === null
-      ? callAndSetGigData()
-      : setComponentLoadingState("");
+    callAndSetGigData();
   }, []);
 
-  useEffect(() => {
-    if (songCollectionData && Object.entries(songCollectionData).length) {
-      setComponentLoadingState("");
-    }
-  }, [songCollectionData]);
-
   return (
-    <SiteWrapper
-      sectionId="music"
-      className={`music-collection ${componentLoadingState}`}>
-      {/* <div className="cards" id="cards">
-        {songCollectionData?.data.allSongCollections ? (
-          songCollectionData.data.allSongCollections.map((collection) => (
-            <div
-              className="collection-card"
-              key={collection.id}
-              onClick={() => handleCardClick(toKebabCase(collection.name))}>
-              <div className="artwork">
-                <img src={collection.coverArt?.url} alt="" />
-              </div>
-              <h2>{collection.name}</h2>
-            </div>
-          ))
-        ) : (
-          <div style={{ textAlign: "center" }}>
-            <h2 style={{ paddingBottom: "1em" }}>
-              No music to show at this time.
-            </h2>
-            <p>
-              Some cheeky geezah has probably taken all this down... if you see
-              this error, reach out to us at daydreamersmusic2015@gmail.com!
-            </p>
-          </div>
-        )}
-      </div> */}
-
+    <SiteWrapper sectionId="music" className={"music-collection"}>
       <div className="window-viewer-container">
         <div className="window-nav-header">
           <p>Open</p>
@@ -94,7 +58,7 @@ export default function Music() {
                 name="search-results-input"
                 id="search-results-input"
                 disabled
-                placeholder="My Documents"
+                placeholder="My Music"
               />
               <button className="dropdown-arrow">
                 <IoTriangleSharp />
@@ -124,15 +88,15 @@ export default function Music() {
                 </div>
               ))
             ) : (
-              <div style={{ textAlign: "center" }}>
-                <h2 style={{ paddingBottom: "1em" }}>
-                  No music to show at this time.
-                </h2>
-                <p>
-                  Some cheeky geezah has probably taken all this down... if you
-                  see this error, reach out to us at
-                  daydreamersmusic2015@gmail.com!
-                </p>
+              <div className="no-results">
+                <p className="header-text">This folder is empty.</p>
+                <div className="sub-content">
+                  <p>Some cheeky geezah has probably taken all this down...</p>
+                  <p>
+                    if you see this error, reach out to us at
+                    daydreamersmusic2015@gmail.com!
+                  </p>
+                </div>
               </div>
             )}
           </main>

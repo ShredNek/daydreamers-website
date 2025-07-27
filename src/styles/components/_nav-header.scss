@@ -27,7 +27,7 @@ $max-height: 800px;
   .header-logo-container {
     max-width: 500px;
     min-width: fit-content;
-    height: clamp(160px, 10vw + 5px, 200px);
+    height: clamp(160px, 10vw + 5px, 150px);
     justify-items: center;
     text-shadow: f.generate-text-outline(1.5px, a.$daydreamer-sad-blue, 2px);
     position: relative;

@@ -164,6 +164,23 @@
         grid-template-rows: repeat(auto-fill, 1fr);
         gap: 1rem;
 
+        &:has(.no-results) {
+          grid-template-columns: none;
+        }
+
+        .no-results {
+          text-align: center;
+
+          .header-text {
+            margin: 0.5em 0 2em;
+          }
+
+          .sub-content p {
+            font-style: italic;
+            font-size: 0.85em;
+          }
+        }
+
         .result {
           height: min-content;
         }
