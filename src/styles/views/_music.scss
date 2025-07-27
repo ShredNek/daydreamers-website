@@ -4,6 +4,39 @@
 @use "sass:color";
 
 .music-collection {
+  height: 80vh;
+
+  .window-viewer-container {
+    width: clamp(200px, 75vw, 800px);
+    height: clamp(200px, 100%, 800px);
+    margin: 0 auto;
+    background-color: lightgrey;
+
+    button {
+      background-color: lightgrey;
+      margin: 0 0.15em;
+      padding: 0 0.25em;
+      font-weight: bolder;
+    }
+
+    .window-nav-header {
+      display: flex;
+      justify-content: space-between;
+
+      background-color: grey;
+      color: lightgrey;
+      padding: 0.25em;
+      font-weight: bolder;
+    }
+
+    .search-parent {
+      padding: 0.65em;
+    }
+  }
+}
+
+.file-shortcut-underline {
+  text-decoration: underline;
 }
 
 // $mid-distance-break: 800px;

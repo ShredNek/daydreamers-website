@@ -1,6 +1,6 @@
 # Design brief
 
-This is going to cover what each page should look like
+This document covers what each page should look like
 
 ## Music
 

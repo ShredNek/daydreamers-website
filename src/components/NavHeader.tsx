@@ -66,7 +66,7 @@ export default function NavHeader({
     <>
       <div
         id="header-navigation"
-        className={`header-navigation${hideBackground ? "no-background" : ""}`}>
+        className={`header-navigation${hideBackground ? " no-background" : ""}`}>
         <a className="header-logo-container" onClick={() => navigate("/")}>
           <h1 className={`letters${className ?? ""}`}>{titleNodes}</h1>
           <img className="vector spin-tail" src={SpinTail} />

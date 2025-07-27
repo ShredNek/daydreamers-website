@@ -45,7 +45,7 @@ export default function Music() {
     <SiteWrapper
       sectionId="music"
       className={`music-collection ${componentLoadingState}`}>
-      <div className="cards" id="cards">
+      {/* <div className="cards" id="cards">
         {songCollectionData?.data.allSongCollections ? (
           songCollectionData.data.allSongCollections.map((collection) => (
             <div
@@ -69,6 +69,43 @@ export default function Music() {
             </p>
           </div>
         )}
+      </div> */}
+
+      <div className="window-viewer-container">
+        <div className="window-nav-header">
+          <p>Open</p>
+          <div className="window-action-buttons">
+            <button>?</button>
+            <button>X</button>
+          </div>
+        </div>
+        <div className="search-parent">
+          <div className="search-filters">
+            <label htmlFor="search-results-input">Look in:</label>
+            <input
+              type="text"
+              name="search-results-input"
+              disabled
+              placeholder="My Document"
+            />
+            <button>"Folder Up Icon"</button>
+            <button>"New Folder Icon"</button>
+            <button>"Change View Icon"</button>
+            <button>"Change Sort Icon"</button>
+          </div>
+          <div className="search-results-window">
+            <div className="search-results-actions">
+              <label htmlFor="file-name"></label>
+              <input type="text" name="file-name" />
+              <button>
+                <span className="file-shortcut-underline">O</span>pen
+              </button>
+              <button>
+                <span className="file-shortcut-underline">C</span>ancel
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
     </SiteWrapper>
   );
