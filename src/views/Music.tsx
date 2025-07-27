@@ -140,7 +140,7 @@ export default function Music() {
             <label htmlFor="file-name">
               File <span className="file-shortcut-underline">n</span>ame:
             </label>
-            <input type="text" name="file-name" id="file-name" />
+            <input disabled type="text" name="file-name" id="file-name" />
             <div className="action-buttons">
               <button>
                 <span className="file-shortcut-underline">O</span>pen
