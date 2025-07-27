@@ -44,10 +44,11 @@ export default function SiteWrapper({
 }: SiteWrapperComponent) {
   return (
     <div className="website-content">
+      <NavHeader hideBackground={hideBackground} />
       <div className="background-visuals">
-        <div id="site-backdrop" />
+        <div id="site-backdrop" className="site-backdrop" />
         <LogoLayer />
-        <div id="photo-backdrop">
+        <div id="photo-backdrop" className="photo-backdrop">
           <LazyImage
             lowQualitySrc={lowQualHero}
             highQualitySrc={highQualHero}
@@ -55,7 +56,6 @@ export default function SiteWrapper({
           />
         </div>
       </div>
-      <NavHeader hideBackground={hideBackground} />
       <section id={sectionId} className={className}>
         {children}
       </section>

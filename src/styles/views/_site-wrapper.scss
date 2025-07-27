@@ -3,23 +3,25 @@
 @use "../base/" as b;
 
 .website-content {
+  height: 100vh;
   display: flex;
   flex-direction: column;
-  height: 100vh;
-
-  section {
-    min-height: fit-content;
-  }
+  justify-content: space-between;
 }
 
-#site-backdrop {
-  display: flow-root;
+.site-backdrop,
+.logo-layer {
   top: 0;
-  background: a.$daydreamer-gradient-homepage;
-  opacity: 0.75;
+  position: fixed;
   height: 100%;
   width: 100%;
-  position: fixed;
+}
+
+.site-backdrop {
+  display: flow-root;
+  background: a.$daydreamer-gradient-homepage;
+  opacity: 0.75;
+
   z-index: -10;
 
   transition: b.$default-transition-property;
@@ -30,9 +32,6 @@
 }
 
 .logo-layer {
-  position: fixed;
-  width: 100%;
-  height: 100%;
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 1fr 1fr 1fr;
@@ -48,7 +47,7 @@
   }
 }
 
-#photo-backdrop {
+.photo-backdrop {
   display: flow-root;
   top: 0;
   opacity: 0.15;

@@ -110,7 +110,32 @@ export default function Music() {
               <img src={changeSort} alt="Change sort" />
             </button>
           </div>
-          <div className="search-results-window"></div>
+          <main className="search-results-window">
+            {songCollectionData?.data.allSongCollections ? (
+              songCollectionData.data.allSongCollections.map((collection) => (
+                <div
+                  className="result"
+                  key={collection.id}
+                  onClick={() => handleCardClick(toKebabCase(collection.name))}>
+                  <div className="artwork">
+                    <img src={collection.coverArt?.url} alt="" />
+                  </div>
+                  <p className="result-name">{collection.name}</p>
+                </div>
+              ))
+            ) : (
+              <div style={{ textAlign: "center" }}>
+                <h2 style={{ paddingBottom: "1em" }}>
+                  No music to show at this time.
+                </h2>
+                <p>
+                  Some cheeky geezah has probably taken all this down... if you
+                  see this error, reach out to us at
+                  daydreamersmusic2015@gmail.com!
+                </p>
+              </div>
+            )}
+          </main>
           <div className="search-results-actions">
             <label htmlFor="file-name">
               File <span className="file-shortcut-underline">n</span>ame:

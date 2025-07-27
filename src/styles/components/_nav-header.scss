@@ -11,9 +11,12 @@ $max-height: 800px;
   width: 100%;
   position: sticky;
   top: 0;
-  margin-bottom: 5rem;
+  margin-bottom: 2rem;
+  padding: 0 1.5rem 0;
+  gap: 1.5rem;
   z-index: 1;
   align-items: center;
+  justify-content: space-between;
 
   &:not(.no-background) {
     background-color: color.adjust(a.$daydreamer-off-white, $lightness: 0%);
@@ -24,10 +27,11 @@ $max-height: 800px;
   .header-logo-container {
     max-width: 500px;
     min-width: fit-content;
-    height: fit-content;
+    height: clamp(160px, 10vw + 5px, 200px);
     justify-items: center;
     text-shadow: f.generate-text-outline(1.5px, a.$daydreamer-sad-blue, 2px);
     position: relative;
+    display: flex;
 
     .letters {
       position: relative;
@@ -101,41 +105,39 @@ $max-height: 800px;
       padding: 1em 1.5em;
     }
   }
-}
 
-.page-routes {
-  width: 100%;
-
-  ul {
-    display: flex;
-    flex-wrap: wrap;
-
-    height: 100%;
+  .page-routes {
     width: 100%;
-    justify-content: space-around;
-    align-items: center;
-    padding: 1rem;
+    max-width: 2000px;
 
-    & > li {
-      margin: 1rem;
+    ul {
+      display: flex;
+      flex-wrap: wrap;
 
-      img {
-        max-height: 30px;
+      height: 100%;
+      width: 100%;
+      justify-content: space-around;
+      align-items: center;
+
+      & > li {
+        img {
+          max-height: 30px;
+        }
+
+        @media (max-height: b.$medium-width) {
+          margin: 0.5rem auto;
+          font-size: 1.2em;
+        }
       }
 
       @media (max-height: b.$medium-width) {
-        margin: 0.5rem auto;
-        font-size: 1.2em;
+        padding: 0.5rem 0px;
       }
-    }
 
-    @media (max-height: b.$medium-width) {
-      padding: 0.5rem 0px;
-    }
-
-    @media (max-width: b.$medium-width) {
-      justify-content: center;
-      flex-direction: column;
+      @media (max-width: b.$medium-width) {
+        justify-content: center;
+        flex-direction: column;
+      }
     }
   }
 }
