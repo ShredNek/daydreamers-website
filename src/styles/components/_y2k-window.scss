@@ -1,0 +1,249 @@
+@use "../abstracts" as a;
+@use "../base/" as b;
+
+@use "sass:color";
+
+.window-viewer-container {
+  $filter-control-height: 35px;
+  $border-width: 2px;
+
+  inset: 0;
+  margin: auto;
+  height: clamp(400px, fit-content, 80vh);
+  display: flex;
+  flex-direction: column;
+  width: clamp(200px, 75vw, 800px);
+  margin: 0 auto;
+  padding: 0.15rem;
+  background-color: lightgrey;
+  z-index: 100;
+
+  transition-property: opacity;
+  transition-duration: 0.5s;
+  transition-timing-function: ease-in-out;
+
+  &.modal {
+    position: absolute;
+    inset: 0;
+    margin: auto;
+    height: 65vh;
+    opacity: 0;
+
+    &:not(.open) {
+      pointer-events: none;
+    }
+
+    &.open {
+      opacity: 1;
+      pointer-events: all;
+    }
+  }
+
+  &,
+  button,
+  input,
+  .search-results-window,
+  .artwork {
+    border-style: solid;
+    border-width: $border-width;
+
+    &:disabled {
+      background-color: white;
+    }
+  }
+
+  &,
+  button,
+  .artwork {
+    border-top-color: a.$off-white;
+    border-left-color: a.$off-white;
+    border-right-color: a.$daydreamer-smoky-black;
+    border-bottom-color: a.$daydreamer-smoky-black;
+  }
+
+  button {
+    background-color: lightgrey;
+    margin: 0 0.15em;
+    padding: 0 0.25em;
+    padding: 0.25em 0.75em;
+
+    &:active {
+      border-top-color: a.$daydreamer-smoky-black;
+      border-left-color: a.$daydreamer-smoky-black;
+      border-right-color: a.$off-white;
+      border-bottom-color: a.$off-white;
+      background-color: a.$grey;
+    }
+  }
+
+  label {
+    width: max-content;
+  }
+
+  .search-results-window,
+  input {
+    border-top-color: a.$daydreamer-smoky-black;
+    border-left-color: a.$daydreamer-smoky-black;
+    border-right-color: a.$off-white;
+    border-bottom-color: a.$off-white;
+    font-size: 1rem;
+    padding-left: 0.4em;
+  }
+
+  .file-shortcut-underline {
+    text-decoration: underline;
+  }
+
+  .search-input-combo {
+    height: $filter-control-height;
+    display: flex;
+    position: relative;
+    width: fit-content;
+
+    input {
+      height: 100%;
+    }
+
+    .dropdown-arrow {
+      position: absolute;
+      top: $border-width;
+      right: 0;
+      padding: 0;
+      height: calc(100% - ($border-width * 2));
+      width: calc($filter-control-height * (4 / 5));
+
+      svg {
+        rotate: 180deg;
+        padding: 0.15em;
+        margin: auto;
+        display: inline;
+        height: 100%;
+      }
+    }
+  }
+
+  .window-nav-header,
+  .window-nav-header button {
+    font-weight: bolder;
+  }
+
+  .window-nav-header {
+    display: flex;
+    justify-content: space-between;
+    background-color: grey;
+    color: lightgrey;
+    padding: 0.25em;
+
+    .window-action-buttons button {
+      padding: 0 0.25em;
+      margin-right: 0;
+    }
+  }
+
+  .search-parent {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 0.65em;
+    min-height: 500px;
+    height: 100%;
+    gap: 0.5rem;
+
+    .search-filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      align-items: center;
+      height: $filter-control-height;
+
+      .search-input-combo,
+      .search-input-combo input {
+        flex-grow: 6;
+      }
+
+      input {
+        height: 100%;
+      }
+
+      button:not(.dropdown-arrow) {
+        padding: 0.2em 0.25em 0.05em;
+        height: 100%;
+
+        img {
+          height: 100%;
+        }
+      }
+    }
+
+    .search-results-window {
+      height: 400px;
+      background-color: white;
+      overflow-y: scroll;
+      padding: 1rem;
+      display: grid;
+      grid-template-columns: repeat(4, 0.25fr);
+      grid-template-rows: repeat(auto-fill, 1fr);
+      gap: 1rem;
+
+      &:has(.no-results) {
+        grid-template-columns: none;
+      }
+
+      .no-results {
+        text-align: center;
+
+        .header-text {
+          margin: 0.5em 0 2em;
+        }
+
+        .sub-content p {
+          font-style: italic;
+          font-size: 0.85em;
+        }
+      }
+
+      .result {
+        height: min-content;
+      }
+
+      img {
+        width: 100%;
+        height: 100%;
+        display: block;
+      }
+
+      .result-name {
+        margin-top: 0.5em;
+        text-align: center;
+      }
+    }
+
+    .search-results-actions {
+      display: grid;
+      grid-template-columns: 1fr 4fr 1.5fr;
+      gap: 1em;
+
+      label,
+      input {
+        height: $filter-control-height;
+      }
+
+      label {
+        position: relative;
+        top: calc($filter-control-height / 5);
+      }
+
+      .action-buttons {
+        display: flex;
+        flex-direction: column;
+        align-items: end;
+        gap: 1rem;
+
+        button {
+          height: $filter-control-height;
+          width: 150px;
+        }
+      }
+    }
+  }
+}

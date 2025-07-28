@@ -3,225 +3,178 @@
 
 @use "sass:color";
 
+$border-width: 2px;
+
 .music-collection {
   display: block;
   max-height: fit-content;
-  $filter-control-height: 35px;
-  $border-width: 2px;
   height: clamp(200px, 100%, 600px);
+}
 
-  .window-viewer-container {
+.song-collection-window {
+  z-index: 1000;
+  height: fit-content !important;
+
+  .window-children {
     display: flex;
     flex-direction: column;
-    width: clamp(200px, 75vw, 800px);
-    height: 100%;
-    margin: 0 auto;
-    padding: 0.15rem;
-    background-color: lightgrey;
+    overflow-y: scroll;
 
-    &,
-    button,
-    input,
-    .search-results-window,
-    .artwork {
+    .url-search-row > *,
+    .info-grid > *,
+    .listen {
       border-style: solid;
       border-width: $border-width;
-
-      &:disabled {
-        background-color: white;
-      }
-    }
-
-    &,
-    button,
-    .artwork {
       border-top-color: a.$off-white;
       border-left-color: a.$off-white;
       border-right-color: a.$daydreamer-smoky-black;
       border-bottom-color: a.$daydreamer-smoky-black;
     }
 
-    button {
-      background-color: lightgrey;
-      margin: 0 0.15em;
-      padding: 0 0.25em;
-      padding: 0.25em 0.75em;
-
-      &:active {
-        border-top-color: a.$daydreamer-smoky-black;
-        border-left-color: a.$daydreamer-smoky-black;
-        border-right-color: a.$off-white;
-        border-bottom-color: a.$off-white;
-        background-color: a.$grey;
-      }
+    .info-grid > *:not(:has(img)) {
+      padding: 0.5rem;
     }
 
-    label {
-      width: max-content;
-    }
+    .url-search-row {
+      display: grid;
+      grid-template-columns: 1fr 3fr;
 
-    .search-results-window,
-    input {
-      border-top-color: a.$daydreamer-smoky-black;
-      border-left-color: a.$daydreamer-smoky-black;
-      border-right-color: a.$off-white;
-      border-bottom-color: a.$off-white;
-      font-size: 1rem;
-      padding-left: 0.4em;
-    }
-
-    .file-shortcut-underline {
-      text-decoration: underline;
-    }
-
-    .search-input-combo {
-      height: $filter-control-height;
-      display: flex;
-      position: relative;
-      width: fit-content;
-
-      input {
+      p {
+        padding: 0.5em;
         height: 100%;
       }
 
-      .dropdown-arrow {
-        position: absolute;
-        top: $border-width;
-        right: 0;
-        padding: 0;
-        height: calc(100% - ($border-width * 2));
-        width: calc($filter-control-height * (4 / 5));
-
-        svg {
-          rotate: 180deg;
-          padding: 0.15em;
-          margin: auto;
-          display: inline;
-          height: 100%;
-        }
-      }
-    }
-
-    .window-nav-header,
-    .window-nav-header button {
-      font-weight: bolder;
-    }
-
-    .window-nav-header {
-      display: flex;
-      justify-content: space-between;
-      background-color: grey;
-      color: lightgrey;
-      padding: 0.25em;
-
-      .window-action-buttons button {
-        padding: 0 0.25em;
-        margin-right: 0;
-      }
-    }
-
-    .search-parent {
-      display: flex;
-      flex-direction: column;
-      padding: 0.65em;
-      min-height: 500px;
-      height: 100%;
-      gap: 0.5rem;
-
-      .search-filters {
+      .search-label {
         display: flex;
-        flex-wrap: wrap;
-        gap: 1rem;
-        align-items: center;
-        height: $filter-control-height;
+        justify-content: center;
+        font-weight: bold;
 
-        .search-input-combo,
-        .search-input-combo input {
-          flex-grow: 6;
+        p {
+          width: fit-content;
         }
 
-        input {
-          height: 100%;
-        }
-
-        button:not(.dropdown-arrow) {
-          padding: 0.2em 0.25em 0.05em;
-          height: 100%;
-
-          img {
-            height: 100%;
-          }
+        span,
+        img {
+          margin: auto 0;
         }
       }
 
-      .search-results-window {
-        height: 100%;
+      .url {
         background-color: white;
-        overflow-y: scroll;
-        padding: 1rem;
-        display: grid;
-        grid-template-columns: repeat(4, 0.25fr);
-        grid-template-rows: repeat(auto-fill, 1fr);
-        gap: 1rem;
+      }
+    }
 
-        &:has(.no-results) {
-          grid-template-columns: none;
-        }
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(6, 0.2fr);
+      grid-template-rows: 0.8fr 0.5fr 0.5fr;
+      grid-template-areas:
+        "artwork artwork title-card title-card likes-dislikes likes-dislikes"
+        "lyric-showcase-one lyric-showcase-one lyric-showcase-one lyric-showcase-two lyric-showcase-two lyric-showcase-two"
+        "now-playing now-playing now-playing now-playing now-playing now-playing";
 
-        .no-results {
-          text-align: center;
+      width: 100%;
 
-          .header-text {
-            margin: 0.5em 0 2em;
-          }
+      font-size: 90%;
 
-          .sub-content p {
-            font-style: italic;
-            font-size: 0.85em;
-          }
-        }
+      & > .artwork {
+        grid-area: artwork;
+      }
 
-        .result {
-          height: min-content;
-        }
+      & > .title-card {
+        grid-area: title-card;
+      }
+
+      & > .likes-dislikes {
+        grid-area: likes-dislikes;
+      }
+
+      & > .lyric-showcase-one {
+        grid-area: lyric-showcase-one;
+      }
+
+      & > .lyric-showcase-two {
+        grid-area: lyric-showcase-two;
+      }
+
+      & > .now-playing {
+        grid-area: now-playing;
+      }
+
+      hr {
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+        border-color: a.$daydreamer-smoky-black;
+      }
+
+      .artwork {
+        width: 100%;
+        height: 100%;
 
         img {
           width: 100%;
           height: 100%;
+          object-fit: cover;
           display: block;
-        }
-
-        .result-name {
-          margin-top: 0.5em;
-          text-align: center;
         }
       }
 
-      .search-results-actions {
-        display: grid;
-        grid-template-columns: 1fr 4fr 1.5fr;
-        gap: 1em;
+      .title-card {
+        background-color: a.$off-white;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
 
-        label,
-        input {
-          height: $filter-control-height;
+        h2 {
+          font-family: PlanetKosmos;
+          font-size: 1.5rem;
+          text-align: center;
+          margin-bottom: -0.25rem;
+          padding: 0 1rem;
         }
 
-        label {
-          position: relative;
-          top: calc($filter-control-height / 5);
+        h4 {
+          text-transform: uppercase;
         }
 
-        .action-buttons {
-          display: flex;
-          flex-direction: column;
-          align-items: end;
-          gap: 1rem;
+        .listen {
+          width: 100%;
+          display: block;
+          background-color: grey;
+          color: a.$off-white;
+          text-align: center;
+          letter-spacing: 0.1em;
+          font-weight: bold;
+          padding: 0.25rem;
+          font-size: 2em;
+          margin-top: 0.5rem;
+        }
+      }
 
-          button {
-            height: $filter-control-height;
-            width: 150px;
-          }
+      .likes-dislikes {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        gap: 1rem;
+      }
+
+      .now-playing {
+        background-color: a.$off-white;
+
+        > p {
+          width: fit-content;
+          display: contents;
+        }
+
+        > svg {
+          display: inline-block;
+          width: 30px;
+          rotate: 90deg;
+        }
+
+        .title {
+          font-weight: bold;
         }
       }
     }

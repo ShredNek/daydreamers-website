@@ -1,20 +1,51 @@
-import { useEffect, useState, useContext } from "react";
+import { useEffect, useContext } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import { getAllMusic } from "../api/datoCmsCalls";
 import { toKebabCase } from "../helper/index.tsx";
 import { MusicData } from "../types/index";
-import { useNavigate } from "react-router-dom";
 import { AppContext } from "../utils/AppContext";
 import SiteWrapper from "../SiteWrapper.tsx";
-import newFolder from "../assets/images/y2k-resources/new-folder_active.png";
-import changeSort from "../assets/images/y2k-resources/window-filter-sort.png";
-import changeDisplay from "../assets/images/y2k-resources/window-filter-display.png";
-import { IoTriangleSharp } from "react-icons/io5";
+import Y2kWindowShell from "../components/Y2k/Y2kWindowShell.tsx";
+import Y2kWindowSearch from "../components/Y2k/Y2kWindowSearch.tsx";
+import { IoTriangleOutline } from "react-icons/io5";
+import magnifyingGlass from "../assets/images/y2k-resources/magnifying_glass.png";
+
+import "../styles/views/_music.scss";
 
 export default function Music() {
   const { musicData, setMusicData } = useContext(AppContext);
-  let navigate = useNavigate();
+  const navigate = useNavigate();
+  const urlParams = useParams();
+
+  const currentSongCollection =
+    musicData?.data.allSongCollections.find(
+      (songCollection) =>
+        toKebabCase(songCollection.name) === urlParams.songSlug,
+    ) ?? null;
+
+  const randomTrack = () =>
+    currentSongCollection?.trackList[
+      Math.floor(Math.random() * (currentSongCollection?.trackList.length ?? 0))
+    ];
+
+  const randTrackOne = randomTrack();
+  const randTrackTwo = randomTrack();
 
   const handleCardClick = (songSlug: string) => navigate(`/music/${songSlug}`);
+
+  function formatDuration(secondsInput: number): string {
+    const hours = Math.floor(secondsInput / 3600);
+    const minutes = Math.floor((secondsInput % 3600) / 60);
+    const seconds = Math.floor(secondsInput % 60);
+
+    const pad = (num: number) => num.toString().padStart(2, "0");
+
+    if (hours > 0) {
+      return `${pad(hours)}:${pad(minutes)}:${pad(seconds)}`;
+    } else {
+      return `${pad(minutes)}:${pad(seconds)}`;
+    }
+  }
 
   // ? On page load
 
@@ -38,43 +69,10 @@ export default function Music() {
   }, []);
 
   return (
-    <SiteWrapper sectionId="music" className={"music-collection"}>
-      <div className="window-viewer-container">
-        <div className="window-nav-header">
-          <p>Open</p>
-          <div className="window-action-buttons">
-            <button>?</button>
-            <button>X</button>
-          </div>
-        </div>
-        <div className="search-parent">
-          <div className="search-filters">
-            <label htmlFor="search-results-input">
-              Look <span className="file-shortcut-underline">i</span>n:
-            </label>
-            <div className="search-input-combo">
-              <input
-                type="text"
-                name="search-results-input"
-                id="search-results-input"
-                disabled
-                placeholder="My Music"
-              />
-              <button className="dropdown-arrow">
-                <IoTriangleSharp />
-              </button>
-            </div>
-            <button>
-              <img src={newFolder} alt="New folder icon" />
-            </button>
-            <button>
-              <img src={changeDisplay} alt="Change display" />
-            </button>
-            <button>
-              <img src={changeSort} alt="Change sort" />
-            </button>
-          </div>
-          <main className="search-results-window">
+    <>
+      <SiteWrapper sectionId="music" className={"music-collection"}>
+        <Y2kWindowShell navText="Open">
+          <Y2kWindowSearch>
             {musicData?.data.allSongCollections ? (
               musicData.data.allSongCollections.map((collection) => (
                 <div
@@ -99,23 +97,105 @@ export default function Music() {
                 </div>
               </div>
             )}
-          </main>
-          <div className="search-results-actions">
-            <label htmlFor="file-name">
-              File <span className="file-shortcut-underline">n</span>ame:
-            </label>
-            <input disabled type="text" name="file-name" id="file-name" />
-            <div className="action-buttons">
-              <button>
-                <span className="file-shortcut-underline">O</span>pen
-              </button>
-              <button>
-                <span className="file-shortcut-underline">C</span>ancel
-              </button>
-            </div>
+          </Y2kWindowSearch>
+        </Y2kWindowShell>
+      </SiteWrapper>
+      <Y2kWindowShell
+        isModal
+        className={`song-collection-window ${currentSongCollection ? "open" : ""}`}
+        navText={currentSongCollection?.name ?? "nothing here :/"}>
+        <div className="url-search-row">
+          <div className="search-label">
+            <p>Search URL</p>
+            <span>
+              <img src={magnifyingGlass} alt="Magnifying glass" />
+            </span>
+          </div>
+          <div className="url">
+            <p>{window.location.href}</p>
           </div>
         </div>
-      </div>
-    </SiteWrapper>
+        <div className="info-grid">
+          <div className="artwork">
+            <img
+              src={currentSongCollection?.coverArt.url}
+              alt={`Artwork for ${currentSongCollection?.name}`}
+            />
+          </div>
+          <div className="title-card">
+            <h2>{currentSongCollection?.name}</h2>
+            <hr />
+            <ul>
+              <li>
+                <h4>release date:</h4>{" "}
+                <p>{currentSongCollection?.releaseDate}</p>
+              </li>
+              <li>
+                <h4>{currentSongCollection?.collectionType} length:</h4>{" "}
+                <p>
+                  {formatDuration(Number(currentSongCollection?.duration) ?? 0)}
+                </p>
+              </li>
+              <li>
+                <h4>summary:</h4>
+                <p>
+                  {!!currentSongCollection?.summary?.trim()?.length
+                    ? currentSongCollection?.summary
+                    : "Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque mollitia sunt amet animi, non praesentium."}
+                </p>
+              </li>
+            </ul>
+            <a
+              className="listen"
+              href={currentSongCollection?.spotifyLink}
+              target="_blank">
+              LISTEN
+            </a>
+          </div>
+          <div className="likes-dislikes">
+            <span className="likes">
+              <h4>:(</h4>
+              <p>
+                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Cum,
+                non.
+              </p>
+            </span>
+            <span className="asterisks">* * * * *</span>
+            <span className="dislikes">
+              <h4>:D</h4>
+              <p>
+                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Cum,
+                non.
+              </p>
+            </span>
+          </div>
+          <div className="lyric-showcase-one">
+            <h3 className="song-name">{randTrackOne?.title}</h3>
+            <hr />
+            <p>
+              {!!randTrackOne?.lyrics.trim().length
+                ? randTrackOne?.lyrics
+                : "Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro, enim. In velit itaque ex quas accusantium dolore eum ea voluptatum?"}
+            </p>
+          </div>
+          <div className="lyric-showcase-two">
+            <h3 className="song-name">{randTrackTwo?.title}</h3>
+            <hr />
+            <p>
+              {!!randTrackTwo?.lyrics.trim().length
+                ? randTrackTwo?.lyrics
+                : "Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro, enim. In velit itaque ex quas accusantium dolore eum ea voluptatum?"}
+            </p>
+          </div>
+          <div className="now-playing">
+            <p className="title">Featuring your favourite tracks...</p>
+            <IoTriangleOutline />
+            <p>
+              {currentSongCollection?.trackList.map((t) => t.title).join(", ")}
+            </p>
+          </div>
+        </div>
+      </Y2kWindowShell>
+    </>
   );
 }

@@ -78,8 +78,12 @@ export type SongCollection = {
   id: string;
   name: string;
   otherViewsLink: string;
-  releaseDate: Date;
+  releaseDate: string;
   spotifyLink: string;
+  summary: string;
+  likes: string[]
+  dislikes: string[]
+  description: string;
   trackList: Track[];
   _status: string;
   _firstPublishedAt: Date;

@@ -40,6 +40,10 @@ const views = [
     element: <Music />,
   },
   {
+    path: "/music/:songSlug",
+    element: <Music />,
+  },
+  {
     path: "/about",
     element: <About />,
   },
