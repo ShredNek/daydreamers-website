@@ -4,7 +4,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import Home from "./views/Home";
 import PageNotFound from "./views/PageNotFound";
-import Gigs from "./views/Gigs";
+import Shows from "./views/Shows";
 import GigView from "./views/GigView";
 import Music from "./views/Music";
 import About from "./views/About";
@@ -28,12 +28,12 @@ const views = [
     element: <Links />,
   },
   {
-    path: "/gigs",
-    element: <Gigs />,
+    path: "/shows",
+    element: <Shows />,
   },
   {
-    path: "/gig/:id",
-    element: <GigView />,
+    path: "/shows/:id",
+    element: <Shows />,
   },
   {
     path: "/music",

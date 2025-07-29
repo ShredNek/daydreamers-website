@@ -74,9 +74,9 @@ export const GET_VARIANT_DETAILS = gql`
 
 // ? Dato queries
 
-export const GET_ALL_GIGS = gql`
-  query GetAllGigs {
-    allGigs {
+export const GET_ALL_SHOWS = gql`
+  query GetAllShows {
+    allShows {
       id
       title
       venue
@@ -86,7 +86,7 @@ export const GET_ALL_GIGS = gql`
       }
       datetime
       details
-      gigposter {
+      poster {
         format
         filename
         url
@@ -100,7 +100,7 @@ export const GET_ALL_GIGS = gql`
       _firstPublishedAt
     }
 
-    _allGigsMeta {
+    _allShowsMeta {
       count
     }
   }

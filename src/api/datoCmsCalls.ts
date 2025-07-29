@@ -1,5 +1,5 @@
 import { print } from "graphql";
-import { GET_ALL_GIGS, GET_ALL_MUSIC, GET_ALL_MEDIA } from "./queries";
+import { GET_ALL_SHOWS, GET_ALL_MUSIC, GET_ALL_MEDIA } from "./queries";
 
 async function datoGraphqlCall(query: string) {
   const config: RequestInit = {
@@ -16,8 +16,8 @@ async function datoGraphqlCall(query: string) {
   return await fetch(url, config);
 }
 
-export const getAllGigs = async () =>
-  await datoGraphqlCall(print(GET_ALL_GIGS));
+export const getAllShows = async () =>
+  await datoGraphqlCall(print(GET_ALL_SHOWS));
 
 export const getAllMusic = async () =>
   await datoGraphqlCall(print(GET_ALL_MUSIC));

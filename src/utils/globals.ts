@@ -17,7 +17,7 @@ export type PAGE_LINK = { to: string, innerText: string, tabImg: string, urlIsEx
 
 export const PAGE_LINKS: PAGE_LINK[] = [
   { urlIsExternal: false, to: "/music", innerText: "Music", tabImg: musicTabImg },
-  { urlIsExternal: false, to: "/gigs", innerText: "Gigs", tabImg: showsTabImg },
+  { urlIsExternal: false, to: "/shows", innerText: "Shows", tabImg: showsTabImg },
   { urlIsExternal: false, to: "/about", innerText: "About", tabImg: aboutTabImg },
   { urlIsExternal: false, to: "/contact", innerText: "Contact", tabImg: contactTabImg },
   { urlIsExternal: false, to: "/media", innerText: "Media", tabImg: mediaTabImg },

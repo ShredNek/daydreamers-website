@@ -1,10 +1,10 @@
 import { createContext, ReactNode, useState } from "react";
-import { AppContextInterface, AllGigsEntity, MusicData } from "../types/index";
+import { AppContextInterface, AllShowsEntity, MusicData } from "../types/index";
 
 export const AppContext = createContext<AppContextInterface>({
-  gigData: null,
+  showsData: null,
   musicData: null,
-  setGigData: () => {},
+  setShowsData: () => {},
   setMusicData: () => {},
 });
 
@@ -13,15 +13,15 @@ interface AppContextProvider {
 }
 
 export function AppContextProvider({ children }: AppContextProvider) {
-  const [gigData, setGigData] = useState<AllGigsEntity | null>(null);
+  const [showsData, setShowsData] = useState<AllShowsEntity | null>(null);
   const [musicData, setMusicData] = useState<MusicData | null>(null);
 
   return (
     <AppContext.Provider
       value={{
-        gigData,
+        showsData,
         musicData,
-        setGigData,
+        setShowsData,
         setMusicData,
       }}>
       {children}

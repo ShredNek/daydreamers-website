@@ -9,19 +9,18 @@ export type GetAllItemEdge = {
   };
 };
 
-// ? Merch Types
+interface DatoCmsCall {
+  errors?: Array<{ message: string, [key: string]: unknown }>
+}
 
-export type Size = "XS" | "S" | "M" | "L" | "XL" | "XXL";
-
-export type SizesAvailable = { [K in Size]: number };
-
-export interface AllGigsEntity {
+export interface AllShowsEntity extends DatoCmsCall {
   data: {
-    allGigs: Gig[] | null;
-    _allGigsMeta: AllGigsMeta;
+    allShows: Show[] | null;
+    _allShowsMeta: AllShowsMeta;
   };
 }
-export interface Gig {
+
+export interface Show {
   id: string;
   title: string;
   slugname: string;
@@ -29,7 +28,7 @@ export interface Gig {
   venuelocation: VenueLocation;
   datetime: string;
   details: string;
-  gigposter: GigPoster;
+  poster: ShowPoster;
   ticketslink: string;
   ticketprice: string;
   artistnames: string;
@@ -41,28 +40,14 @@ export interface VenueLocation {
   latitude: number;
   longitude: number;
 }
-export interface GigPoster {
+export interface ShowPoster {
   format: string;
   filename: string;
   url: string;
 }
-export interface AllGigsMeta {
+export interface AllShowsMeta {
   count: number;
 }
-
-export type MerchItem = {
-  merchId: string;
-  name: string;
-  description: string;
-  price: string;
-  imgSrc: string;
-  category: MerchType;
-  dateAdded: string;
-  extraImages: string[];
-  featured: boolean;
-  totalStock: number;
-  sizesAvailable?: SizesAvailable;
-};
 
 export type Track = {
   title: string;
@@ -98,89 +83,14 @@ export type MusicData = {
   };
 };
 
-export type MerchItemGQLSchema = Omit<
-  MerchItem,
-  "merchId" | "name" | "description" | "imgSrc"
-> & {
-  id: string;
-  title: string;
-  // TODO FIX ANY TYPE
-  images: any;
-};
-
-export interface WearableItem extends MerchItem {
-  category: "clothing" | "accessories";
-  availableSizes: Set<Size>;
-  color: string;
-}
-
-export interface CartItem
-  extends Omit<MerchItem, "availableSizes" | "dateAdded"> {
-  isAvailable: true;
-  quantity: number;
-  chosenSize: Size;
-}
-
-export type PaginatorState = {
-  activePage: number;
-  totalPages: number;
-};
-
-export type MerchReqParams = {
-  sortBy: SortType | null;
-  stockPreferences: StockPresencePreferences;
-  priceFrom: string;
-  priceTo: string;
-};
-
-export type StockPresencePreferences = {
-  inStockRequested: boolean;
-  outOfStockRequested: boolean;
-};
-
-export type SearchPreference = {
-  name: string;
-  camelCaseName: SortType;
-};
-
-export type ExtraSearchPreference = {
-  name: string;
-  componentType: "switch" | "price range";
-  stockPresencePreference?: StockPresencePreferences;
-};
-
-export type MerchAvailability = {
-  inStockQuantity: string;
-  outOfStockQuantity: string;
-};
-
-export type MerchType =
-  | "music"
-  | "music accessories"
-  | "accessories"
-  | "clothing"
-  | "decoration"
-  | "miscellaneous";
-
-export type SortType =
-  | Size
-  | MerchType
-  | "featured"
-  | "a to z"
-  | "z to a"
-  | "highest price"
-  | "lowest price"
-  | "newest"
-  | "oldest"
-  | "availability";
-
 export interface AppContextInterface {
-  gigData: AllGigsEntity | null;
+  showsData: AllShowsEntity | null;
   musicData: MusicData | null;
-  setGigData: Dispatch<SetStateAction<AllGigsEntity | null>>;
+  setShowsData: Dispatch<SetStateAction<AllShowsEntity | null>>;
   setMusicData: Dispatch<SetStateAction<MusicData | null>>;
 }
 
+// TODO - REMOVE THIS!!!
 export type ComponentStatus =
   | "error"
   | "loading"

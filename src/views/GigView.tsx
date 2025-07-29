@@ -1,10 +1,10 @@
 import { useContext, useEffect, useState, useRef } from "react";
-import { getAllGigs } from "../api/datoCmsCalls";
+import { getAllShows } from "../api/datoCmsCalls";
 import NavHeader from "../components/NavHeader";
 import { useParams } from "react-router-dom";
 import { AppContext } from "../utils/AppContext";
 import NotFoundError from "../components/NotFoundError";
-import { AllGigsEntity, Gig, ComponentLoadingStatus } from "../types";
+import { AllShowsEntity, Show, ComponentLoadingStatus } from "../types";
 import Pin from "../components/svg/Pin";
 import Calendar from "../components/svg/Calendar";
 import Ticket from "../components/svg/Ticket";
@@ -12,34 +12,35 @@ import {
   returnFormattedArtistNames,
   returnFormattedDate,
   toKebabCase,
-  googleMapUrl
+  googleMapUrl,
 } from "../helper/index.tsx";
 
 export default function GigView() {
   const [componentLoadingState, setComponentLoadingState] =
     useState<ComponentLoadingStatus>("transitioning static");
-  const [currGig, setCurrGig] = useState<Gig | null>(null);
+  const [currGig, setCurrGig] = useState<Show | null>(null);
   const [scrollPosition, setScrollPosition] = useState(50);
   const imgRef = useRef<HTMLImageElement | null>(null);
   const { id } = useParams();
-  const { gigData, setGigData } = useContext(AppContext);
+  const { showsData: gigData, setShowsData: setGigData } =
+    useContext(AppContext);
 
   // ? On page load
 
   const handleGigDataRender = () => {
     setCurrGig(
-      () => gigData?.data.allGigs?.find((gig) => gig.slugname === id) ?? null
+      () => gigData?.data.allShows?.find((gig) => gig.slugname === id) ?? null,
     );
     setComponentLoadingState("");
   };
 
   const callAndSetGigData = async () => {
-    const rawData: AllGigsEntity = await (await getAllGigs()).json();
-    const finalData: AllGigsEntity = {
+    const rawData: AllShowsEntity = await (await getAllShows()).json();
+    const finalData: AllShowsEntity = {
       data: {
         ...rawData.data,
-        allGigs:
-          rawData.data.allGigs?.map((gig) => ({
+        allShows:
+          rawData.data.allShows?.map((gig) => ({
             ...gig,
             slugname: toKebabCase(gig.title),
           })) ?? null,
@@ -47,7 +48,7 @@ export default function GigView() {
     };
     setGigData(finalData);
     setCurrGig(
-      () => finalData.data.allGigs?.find((gig) => gig.slugname === id) ?? null
+      () => finalData.data.allShows?.find((gig) => gig.slugname === id) ?? null,
     );
     setComponentLoadingState("");
   };
@@ -65,7 +66,7 @@ export default function GigView() {
 
       const scrollPercentage =
         (scrolled / (fullHeight - windowHeight + imgRef.current?.height / 2)) *
-        100 +
+          100 +
         40;
       setScrollPosition(() => scrollPercentage);
     };
@@ -80,12 +81,12 @@ export default function GigView() {
   return (
     <>
       <NavHeader className={componentLoadingState} />
-      {currGig?.gigposter.url ? (
+      {currGig?.poster.url ? (
         <div className={"poster-backdrop-parent"}>
           <img
             className={componentLoadingState}
             ref={imgRef}
-            src={currGig.gigposter.url}
+            src={currGig.poster.url}
             alt={`A poster for the day dreamer gig titled ${currGig.title}`}
             style={{ objectPosition: `50% ${scrollPosition}%` }}
           />
@@ -95,7 +96,7 @@ export default function GigView() {
         <main>
           {currGig ? (
             <>
-              <h1 >{currGig.title}</h1>
+              <h1>{currGig.title}</h1>
               <h2>{returnFormattedArtistNames(currGig.artistnames)}</h2>
               <div id="sub-heading">
                 <div>
@@ -113,15 +114,28 @@ export default function GigView() {
               </div>
               <hr />
               <div>
-                <a className="button" target="_blank" href={currGig.ticketslink}>Tickets</a>
-                <a className="button" target="_blank" href={googleMapUrl(currGig.venuelocation)}>Location</a>
+                <a
+                  className="button"
+                  target="_blank"
+                  href={currGig.ticketslink}>
+                  Tickets
+                </a>
+                <a
+                  className="button"
+                  target="_blank"
+                  href={googleMapUrl(currGig.venuelocation)}>
+                  Location
+                </a>
               </div>
               <hr />
               <div id="description-and-poster">
-                <div className="details" dangerouslySetInnerHTML={{ __html: currGig.details }} />
+                <div
+                  className="details"
+                  dangerouslySetInnerHTML={{ __html: currGig.details }}
+                />
                 <div className="poster-parent">
                   <img
-                    src={currGig.gigposter.url}
+                    src={currGig.poster.url}
                     alt={`A poster for the day dreamer gig titled ${currGig.title}`}
                   />
                 </div>
