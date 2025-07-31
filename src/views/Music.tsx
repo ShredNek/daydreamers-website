@@ -2,7 +2,7 @@ import { useEffect, useContext } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { getAllMusic } from "../api/datoCmsCalls";
 import { toKebabCase } from "../helper/index.tsx";
-import { MusicData } from "../types/index";
+import { MusicData, Track } from "../types/index";
 import { AppContext } from "../utils/AppContext";
 import SiteWrapper from "../SiteWrapper.tsx";
 import Y2kWindowShell from "../components/Y2k/Y2kWindowShell.tsx";
@@ -23,13 +23,38 @@ export default function Music() {
         toKebabCase(songCollection.name) === urlParams.songSlug,
     ) ?? null;
 
-  const randomTrack = () =>
-    currentSongCollection?.trackList[
-      Math.floor(Math.random() * (currentSongCollection?.trackList.length ?? 0))
+  type RandTracks = {
+    randTrackOne: null | Track;
+    randTrackTwo: null | Track;
+  };
+
+  const getRandTracks = (): RandTracks => {
+    const selectedRandTracks: RandTracks = {
+      randTrackOne: null,
+      randTrackTwo: null,
+    };
+
+    if (
+      !currentSongCollection?.trackList ||
+      currentSongCollection.trackList.length < 2
+    ) {
+      return selectedRandTracks;
+    }
+
+    const tempTrackList = [
+      ...currentSongCollection.trackList.filter(
+        (t) => t.lyrics.trim().length > 0,
+      ),
     ];
 
-  const randTrackOne = randomTrack();
-  const randTrackTwo = randomTrack();
+    const randInt = () => Math.floor(Math.random() * tempTrackList.length);
+    selectedRandTracks.randTrackOne = tempTrackList.splice(randInt(), 1)[0];
+    selectedRandTracks.randTrackTwo = tempTrackList.splice(randInt(), 1)[0];
+
+    return selectedRandTracks;
+  };
+
+  const randTracks = getRandTracks();
 
   const handleCardClick = (songSlug: string) => navigate(`/music/${songSlug}`);
 
@@ -52,7 +77,7 @@ export default function Music() {
   const callAndSetMusicData = async () => {
     let rawData: MusicData | null = null;
     try {
-      rawData = await (await getAllMusic()).json();
+      rawData = (await (await getAllMusic()).json()) as MusicData | null;
     } catch (error) {
       throw Error(`getAllMusic API call failed - ${JSON.stringify(error)}`);
     }
@@ -170,20 +195,24 @@ export default function Music() {
             </span>
           </div>
           <div className="lyric-showcase-one">
-            <h3 className="song-name">{randTrackOne?.title}</h3>
+            <h3 className="song-name">{randTracks.randTrackOne?.title}</h3>
             <hr />
             <p>
-              {!!randTrackOne?.lyrics.trim().length
-                ? randTrackOne?.lyrics
+              {!!randTracks.randTrackOne?.lyrics.trim().length
+                ? randTracks.randTrackOne?.lyrics
+                    .replaceAll("\n\n", " - ")
+                    .replaceAll("\n", " - ")
                 : "Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro, enim. In velit itaque ex quas accusantium dolore eum ea voluptatum?"}
             </p>
           </div>
           <div className="lyric-showcase-two">
-            <h3 className="song-name">{randTrackTwo?.title}</h3>
+            <h3 className="song-name">{randTracks.randTrackTwo?.title}</h3>
             <hr />
             <p>
-              {!!randTrackTwo?.lyrics.trim().length
-                ? randTrackTwo?.lyrics
+              {!!randTracks.randTrackTwo?.lyrics.trim().length
+                ? randTracks.randTrackTwo?.lyrics
+                    .replaceAll("\n\n", " - ")
+                    .replaceAll("\n", " - ")
                 : "Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro, enim. In velit itaque ex quas accusantium dolore eum ea voluptatum?"}
             </p>
           </div>
