@@ -45,150 +45,71 @@
       }
     }
   }
+
+  .search-bar,
+  .start-and-search-icons,
+  .time-and-date,
+  .windows-start {
+    display: flex;
+  }
+
+  .search-bar {
+    justify-content: space-between;
+    align-content: center;
+    padding-top: 0.2rem;
+
+    .windows-start {
+      align-items: center;
+      gap: 0.1rem;
+      padding: 0 0.15rem;
+      margin: 0 0.25rem 0 0;
+
+      img {
+        height: 20px;
+      }
+
+      p {
+        font-weight: bolder;
+        height: fit-content;
+      }
+    }
+
+    .vertical-line {
+      @extend %y2k-border-inverted;
+      height: 80%;
+      padding: 0.25rem 0;
+      margin: auto 0.25rem;
+    }
+
+    .search-icon {
+      height: 85%;
+      padding: 0.25rem;
+      margin: auto 0;
+
+      img {
+        height: 100%;
+      }
+    }
+
+    .time-and-date {
+      @extend %y2k-border-inverted;
+      padding: 0 0.75rem 0 0.15rem;
+      align-items: center;
+      gap: 0.5rem;
+
+      .settings {
+        height: 80%;
+
+        img {
+          height: 100%;
+          margin: auto;
+        }
+      }
+
+      p.time {
+        width: max-content;
+        white-space: nowrap;
+      }
+    }
+  }
 }
-
-// #gigs {
-//   transition:
-//     transform b.$default-transition-duration ease-in-out,
-//     opacity b.$default-transition-duration ease-in-out;
-//   align-items: center;
-
-//   #cards {
-//     max-width: b.$desktop-width;
-//     padding: 2rem 4rem;
-
-//     .gig-card {
-//       padding: 2rem 0px;
-//       $border-shorthand: 0.75px solid rgb(170, 170, 170);
-//       border-top: $border-shorthand;
-//       border-bottom: $border-shorthand;
-
-//       &:nth-child(even) .body {
-//         flex-direction: row-reverse;
-
-//         @media (max-width: b.$mobile-width) {
-//           flex-direction: column;
-//         }
-//       }
-
-//       h2 {
-//         transition: text-shadow 0.75s ease-out;
-
-//         font-family: BrianScratch;
-//         font-weight: bold;
-//         font-size: 2em;
-//         line-height: 1.25em;
-//         text-shadow:
-//           -5px 2.5px 25px color.adjust(a.$daydreamer-blue, $hue: 5deg),
-//           10px -10px 35px color.adjust(a.$daydreamer-orange, $hue: -5deg);
-//       }
-
-//       .body {
-//         display: flex;
-//         flex-direction: row;
-//         gap: 2rem;
-//         justify-content: space-between;
-
-//         padding: 2rem;
-//         border-radius: 7.5px;
-//         background-color: rgba(a.$daydreamer-purple, 0);
-
-//         transition:
-//           background-color b.$default-transition-duration ease-out,
-//           text-shadow b.$default-transition-duration ease-out;
-
-//         &:hover {
-//           background-color: rgba(a.$daydreamer-purple, 0.1);
-//           cursor: pointer;
-
-//           h2 {
-//             text-shadow: 0px 0px 15px white;
-//           }
-//         }
-
-//         @media (max-width: b.$mobile-width) {
-//           flex-direction: column;
-//           padding: 1rem;
-
-//           a {
-//             margin-top: 1rem;
-//             margin-left: auto;
-//             margin-right: auto;
-//           }
-//         }
-
-//         .gig-details {
-//           display: flex;
-//           flex-direction: column;
-//           justify-content: space-around;
-//           gap: 0.5rem;
-
-//           h3 {
-//             font-size: 1em;
-//             font-weight: bold;
-//           }
-
-//           p {
-//             font-size: 0.75em;
-//           }
-
-//           div {
-//             display: flex;
-//             align-items: center;
-//             justify-content: left;
-
-//             svg {
-//               width: 1.5rem;
-//               margin-right: 1rem;
-//             }
-//           }
-
-//           @media (max-width: b.$mobile-width) {
-//             h2,
-//             h3 {
-//               text-align: center;
-//             }
-
-//             h2 {
-//               font-size: 1.75em;
-//             }
-
-//             h3 {
-//               font-size: 1em;
-//             }
-
-//             div {
-//               font-size: 0.9em;
-//             }
-//           }
-//         }
-
-//         .poster-parent {
-//           display: flex;
-//           justify-content: center;
-//           object-fit: contain;
-
-//           min-width: 50%;
-
-//           img {
-//             margin: auto 0px;
-//             max-height: calc(200px + 10vw);
-//             border-radius: 2px;
-//           }
-//         }
-//       }
-//     }
-
-//     @media (max-width: b.$small-width) {
-//       padding: 0.5rem 2rem;
-//     }
-
-//     @media (min-width: b.$massive-width) {
-//       min-width: calc(b.$massive-width - 200px);
-//     }
-//   }
-
-//   @media (min-width: b.$massive-width) {
-//     font-size: calc(1em * 1.75);
-//   }
-// }

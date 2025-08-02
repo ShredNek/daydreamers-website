@@ -10,10 +10,12 @@ section.lyric-view {
   main {
     height: 65vh;
 
-    h2, span, a {
+    h2,
+    span,
+    a {
       font-family: Pangolin;
       font-weight: bold;
-text-transform: capitalize;
+      text-transform: capitalize;
       z-index: 2;
       position: relative;
       margin: 0px;
@@ -25,13 +27,12 @@ text-transform: capitalize;
 
       a {
         cursor: pointer;
-        transition: color .5s ease-out;
+        transition: color 0.5s ease-out;
 
         &:hover {
           color: a.$daydreamer-orange;
         }
       }
-
     }
 
     .lyric-text {
@@ -44,20 +45,13 @@ text-transform: capitalize;
 
       p {
         padding: 6em 0px;
-        overflow-y: scroll;
+        // overflow-y: scroll;
         font-size: 1em;
       }
 
       .overlay {
         position: absolute;
-        background: linear-gradient(
-          to bottom,
-          white,
-          transparent,
-          transparent 50%,
-          transparent,
-          white
-        );
+        background: linear-gradient(to bottom, white, transparent, transparent 50%, transparent, white);
         pointer-events: none;
         z-index: 1;
         inset: 0;

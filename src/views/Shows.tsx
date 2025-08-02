@@ -1,4 +1,4 @@
-import { useEffect, useContext } from "react";
+import { useEffect, useContext, useState } from "react";
 import { getAllShows } from "../api/datoCmsCalls";
 import { AllShowsEntity } from "../types/index";
 import { toKebabCase } from "../helper/index.tsx";
@@ -19,6 +19,15 @@ import timeAndDate from "../assets/images/y2k-resources/time_and_date.png";
 export default function Shows() {
   const { showsData, setShowsData } = useContext(AppContext);
   let navigate = useNavigate();
+
+  const getTime = () =>
+    new Date().toLocaleTimeString(undefined, {
+      minute: "2-digit",
+      hour: "numeric",
+      hourCycle: "h12",
+    });
+
+  const [time, setTime] = useState(getTime());
 
   // ? On page load
 
@@ -72,58 +81,18 @@ export default function Shows() {
 
   useEffect(() => {
     showsData === null && callAndSetGigData();
+
+    const interval = setInterval(() => {
+      if (time !== getTime()) {
+        setTime(() => getTime());
+      }
+    }, 5000);
+
+    return () => clearInterval(interval); // cleanup on unmount
   }, []);
 
   return (
     <SiteWrapper sectionId="gigs">
-      {/* <div id="cards">
-        {gigData?.data.allGigs ? (
-          gigData.data.allGigs.map((gig) => (
-            <div className="gig-card" key={gig.id}>
-              <div
-                className="body"
-                onClick={() => navigate(`/gig/${gig.slugname}`)}>
-                <div className="gig-details">
-                  <h2>{gig.title}</h2>
-                  <h3>{returnFormattedArtistNames(gig.artistnames)}</h3>
-                  <div>
-                    <Calendar />
-                    <p>{returnFormattedDate(gig.datetime)}</p>
-                  </div>
-                  <div>
-                    <Pin />
-                    <p>{gig.venue}</p>
-                  </div>
-                  <div>
-                    <Ticket />
-                    <p>{gig.ticketprice}</p>
-                  </div>
-                  <div>
-                    <a
-                      className="button"
-                      target="_blank"
-                      href={gig.ticketslink}>
-                      Tickets
-                    </a>
-                  </div>
-                </div>
-                <div className="poster-parent">
-                  <img src={gig.gigposter.url} />
-                </div>
-              </div>
-            </div>
-          ))
-        ) : (
-          <div style={{ textAlign: "center" }}>
-            <h2 style={{ paddingBottom: "1em" }}>No gigs at this time.</h2>
-            <p>
-              check back in later, or reach out if you want a band for your
-              cousin's 10th birthday party!
-            </p>
-          </div>
-        )}
-      </div> */}
-
       <Y2kWindowShell navText="Shows" className="shows-container">
         <div className="menu-icons-parent">
           {desktopIcons.map((icon, index) => (
@@ -134,7 +103,29 @@ export default function Shows() {
           ))}
         </div>
         <div className="search-bar">
-          <button>Start</button>
+          <div className="start-and-search-icons">
+            <button className="windows-start">
+              <img src={windowsStart} alt="windows start logo" />
+              <p>Start</p>
+            </button>
+            <div className="vertical-line" />
+            <a className="search-icon" href="#">
+              <img src={internetExplorer} alt="internet explorer" />
+            </a>
+            <a className="search-icon" href="#">
+              <img src={desktop} alt="desktop" />
+            </a>
+            <a className="search-icon" href="#">
+              <img src={channels} alt="channels" />
+            </a>
+            <div className="vertical-line" />
+          </div>
+          <div className="time-and-date">
+            <a className="settings" href="#">
+              <img src={timeAndDate} alt="time and date" />
+            </a>
+            <p className="time">{time}</p>
+          </div>
         </div>
       </Y2kWindowShell>
     </SiteWrapper>

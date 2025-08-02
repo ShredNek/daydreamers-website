@@ -283,3 +283,27 @@ hr {
     }
   }
 }
+
+// ? ? ? ? ? ? ? ? ?
+// ? UTIL CLASSES ?
+// ? ? ? ? ? ? ? ?
+
+$y2k-border-width: 2px;
+
+%y2k-border {
+  border-style: solid;
+  border-width: $y2k-border-width;
+  border-top-color: a.$off-white;
+  border-left-color: a.$off-white;
+  border-right-color: a.$daydreamer-smoky-black;
+  border-bottom-color: a.$daydreamer-smoky-black;
+}
+
+%y2k-border-inverted {
+  border-style: solid;
+  border-width: $y2k-border-width;
+  border-top-color: a.$daydreamer-smoky-black;
+  border-left-color: a.$daydreamer-smoky-black;
+  border-right-color: a.$off-white;
+  border-bottom-color: a.$off-white;
+}
