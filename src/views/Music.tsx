@@ -96,7 +96,7 @@ export default function Music() {
   return (
     <>
       <SiteWrapper sectionId="music" className={"music-collection"}>
-        <Y2kWindowShell navText="Open">
+        <Y2kWindowShell navText="Open" closeButtonRedirect="/music">
           <Y2kWindowSearch>
             {musicData?.data.allSongCollections ? (
               musicData.data.allSongCollections.map((collection) => (
@@ -126,6 +126,7 @@ export default function Music() {
         </Y2kWindowShell>
         <Y2kWindowShell
           isModal
+          closeButtonRedirect="/music"
           className={`song-collection-window ${currentSongCollection ? "open" : ""}`}
           navText={currentSongCollection?.name ?? "nothing here :/"}>
           <div className="url-search-row">

@@ -4,6 +4,7 @@ import "../../styles/components/_y2k-window.scss";
 type Y2kWindowShellComponent = {
   children?: React.ReactNode;
   navText: string;
+  closeButtonRedirect: string;
   className?: string;
   isModal?: boolean;
 };
@@ -13,6 +14,7 @@ export default function Y2kWindowShell({
   children,
   navText,
   isModal,
+  closeButtonRedirect,
 }: Y2kWindowShellComponent) {
   const navigate = useNavigate();
 
@@ -25,7 +27,7 @@ export default function Y2kWindowShell({
           <button>?</button>
           <button
             onClick={() => {
-              navigate("/music");
+              navigate(closeButtonRedirect);
             }}>
             X
           </button>

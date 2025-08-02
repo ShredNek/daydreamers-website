@@ -5,7 +5,6 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Home from "./views/Home";
 import PageNotFound from "./views/PageNotFound";
 import Shows from "./views/Shows";
-import GigView from "./views/GigView";
 import Music from "./views/Music";
 import About from "./views/About";
 import ErrorBoundary from "./views/ErrorBoundary";
@@ -32,7 +31,7 @@ const views = [
     element: <Shows />,
   },
   {
-    path: "/shows/:id",
+    path: "/shows/:showSlug",
     element: <Shows />,
   },
   {
