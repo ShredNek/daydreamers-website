@@ -8,11 +8,10 @@
 
   inset: 0;
   margin: auto;
-  height: clamp(400px, fit-content, 80vh);
   display: flex;
   flex-direction: column;
   width: clamp(200px, 75vw, 800px);
-  margin: 0 auto;
+  margin: 2rem auto 5rem;
   padding: 0.15rem;
   background-color: lightgrey;
   z-index: 100;
@@ -23,7 +22,8 @@
 
   &.modal {
     position: absolute;
-    inset: 0;
+    top: 0;
+    bottom: auto;
     margin: auto;
     height: 65vh;
     opacity: 0;
@@ -165,14 +165,14 @@
     }
 
     .search-results-window {
-      height: 400px;
+      height: calc(300px + 5vw);
       background-color: white;
-      // overflow-y: scroll;
+      overflow-y: scroll;
       padding: 1rem;
       display: grid;
-      grid-template-columns: repeat(4, 0.25fr);
+      grid-template-columns: repeat(5, 0.25fr);
       grid-template-rows: repeat(auto-fill, 1fr);
-      gap: 1rem;
+      gap: 2rem;
 
       &:has(.no-results) {
         grid-template-columns: none;
@@ -204,6 +204,7 @@
       .result-name {
         margin-top: 0.5em;
         text-align: center;
+        font-size: 0.85em;
       }
     }
 
