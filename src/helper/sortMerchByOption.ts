@@ -3,14 +3,14 @@ import { convertToType } from "./index.tsx";
 
 type MerchComparer = (
   merchItemOne: MerchItem,
-  merchItemTwo: MerchItem
+  merchItemTwo: MerchItem,
 ) => boolean;
 
 const partition = (
   arr: MerchItem[],
   low: number,
   high: number,
-  condition: MerchComparer
+  condition: MerchComparer,
 ): number => {
   // Pivot point (last elem)
   const pivotElem = arr[high];
@@ -35,7 +35,7 @@ const partition = (
 
 const quickSortByCondition = (
   merchItems: MerchItem[],
-  condition: MerchComparer
+  condition: MerchComparer,
 ): MerchItem[] => {
   const toSort = [...merchItems];
 
@@ -58,7 +58,7 @@ const quickSortByCondition = (
 
 export const sortMerchByOptions = (
   unsortedItems: MerchItem[],
-  merchReqParams?: MerchReqParams
+  merchReqParams?: MerchReqParams,
 ): MerchItem[] => {
   if (!unsortedItems.length) return [];
 
@@ -79,7 +79,7 @@ export const sortMerchByOptions = (
             ? merch.sizesAvailable[
                 convertToType<Size>(merchReqParams.sortBy as string)
               ] > 0
-            : []
+            : [],
         ),
       ];
     }
@@ -94,9 +94,9 @@ export const sortMerchByOptions = (
           (merch) =>
             merch.category[
               convertToType<MerchType>(
-                merchReqParams.sortBy as string
+                merchReqParams.sortBy as string,
               ) as keyof MerchType
-            ]
+            ],
         ),
       ];
     }
@@ -125,8 +125,10 @@ export const sortMerchByOptions = (
             Number(merchReqParams.priceFrom ? merchReqParams.priceFrom : 0) &&
           Number(item.price) <=
             Number(
-              merchReqParams.priceTo ? merchReqParams.priceTo : Number.MAX_VALUE
-            )
+              merchReqParams.priceTo
+                ? merchReqParams.priceTo
+                : Number.MAX_VALUE,
+            ),
       ),
     ];
   }
@@ -137,41 +139,41 @@ export const sortMerchByOptions = (
       case "a to z":
         return quickSortByCondition(
           sortedItems,
-          (mi1, mi2) => mi1.name < mi2.name
+          (mi1, mi2) => mi1.name < mi2.name,
         );
       case "z to a":
         return quickSortByCondition(
           sortedItems,
-          (mi1, mi2) => mi1.name > mi2.name
+          (mi1, mi2) => mi1.name > mi2.name,
         );
       case "lowest price":
         return quickSortByCondition(
           sortedItems,
-          (mi1, mi2) => mi1.price < mi2.price
+          (mi1, mi2) => mi1.price < mi2.price,
         );
       case "highest price":
         return quickSortByCondition(
           sortedItems,
-          (mi1, mi2) => mi1.price > mi2.price
+          (mi1, mi2) => mi1.price > mi2.price,
         );
       case "newest":
         return quickSortByCondition(
           sortedItems,
           (mi1, mi2) =>
             new Date(mi1.dateAdded).getTime() <
-            new Date(mi2.dateAdded).getTime()
+            new Date(mi2.dateAdded).getTime(),
         );
       case "oldest":
         return quickSortByCondition(
           sortedItems,
           (mi1, mi2) =>
             new Date(mi1.dateAdded).getTime() >
-            new Date(mi2.dateAdded).getTime()
+            new Date(mi2.dateAdded).getTime(),
         );
       case "availability":
         return quickSortByCondition(
           sortedItems,
-          (mi1, mi2) => mi1.totalStock > mi2.totalStock
+          (mi1, mi2) => mi1.totalStock > mi2.totalStock,
         );
       case "featured":
         return sortedItems.filter((merch) => merch.featured);

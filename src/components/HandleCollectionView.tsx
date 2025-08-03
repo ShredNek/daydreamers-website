@@ -24,7 +24,7 @@ export default function HandleCollectionView({
           return isWithinPageCount(
             index,
             paginatorState.activePage,
-            PAGE_DIFFERENCE
+            PAGE_DIFFERENCE,
           ) ? (
             <MerchCard
               key={`${merch.merchId}-${index}`}

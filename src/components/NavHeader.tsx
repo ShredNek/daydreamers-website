@@ -38,7 +38,7 @@ export default function NavHeader({
   linkToDisable,
   hideBackground,
 }: NavHeader) {
-  let navigate = useNavigate();
+  const navigate = useNavigate();
   const [titleNodes, setTitleNodes] = useState<React.ReactNode[]>([]);
   const title = "Day Dreamers";
 

@@ -5,10 +5,16 @@ type PriceInput = {
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   currencySelection?: boolean;
   compactStyle?: boolean;
-}
+};
 
-export default function PriceInput({ id, placeholder, currState, onChange, currencySelection, compactStyle }: PriceInput) {
-
+export default function PriceInput({
+  id,
+  placeholder,
+  currState,
+  onChange,
+  currencySelection,
+  compactStyle,
+}: PriceInput) {
   const handleInputClick = (e: React.MouseEvent<HTMLInputElement>) => {
     // Stop event propagation to prevent closing the dropdown
     e.stopPropagation();
@@ -38,8 +44,7 @@ export default function PriceInput({ id, placeholder, currState, onChange, curre
             <select
               id="currency"
               name="currency"
-              className="h-full rounded-md border-0 bg-transparent py-0 pl-7 pr-7 text-gray-500 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm"
-            >
+              className="h-full rounded-md border-0 bg-transparent py-0 pl-7 pr-7 text-gray-500 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm">
               <option>AUD</option>
               <option>USD</option>
               <option>EUR</option>
@@ -48,5 +53,5 @@ export default function PriceInput({ id, placeholder, currState, onChange, curre
         ) : null}
       </div>
     </div>
-  )
+  );
 }

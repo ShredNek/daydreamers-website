@@ -3,7 +3,7 @@ type BuyButtonScriptArgs = {
 };
 
 export const buyButtonScript = async ({ productId }: BuyButtonScriptArgs) => {
-  let scriptURL =
+  const scriptURL =
     "https://sdks.shopifycdn.com/buy-button/latest/buy-button-storefront.min.js";
 
   //@ts-ignore
@@ -14,7 +14,7 @@ export const buyButtonScript = async ({ productId }: BuyButtonScriptArgs) => {
   }
 
   function loadScript() {
-    let script = document.createElement("script");
+    const script = document.createElement("script");
     script.async = true;
     script.src = scriptURL;
     (
@@ -26,7 +26,7 @@ export const buyButtonScript = async ({ productId }: BuyButtonScriptArgs) => {
 
   function ShopifyBuyInit() {
     //@ts-ignore
-    let client = ShopifyBuy.buildClient({
+    const client = ShopifyBuy.buildClient({
       domain: import.meta.env.VITE_SHOPIFY_SHOP_DOMAIN,
       storefrontAccessToken: import.meta.env.VITE_SHOPIFY_BUY_CLIENT_TOKEN,
     });

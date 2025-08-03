@@ -1,4 +1,4 @@
-import { ExclamationTriangleIcon } from "@heroicons/react/24/outline"
+import { ExclamationTriangleIcon } from "@heroicons/react/24/outline";
 
 export default function GeneralError() {
   return (
@@ -6,5 +6,5 @@ export default function GeneralError() {
       <ExclamationTriangleIcon />
       <p>There was an error. Please refresh and try again.</p>
     </div>
-  )
+  );
 }

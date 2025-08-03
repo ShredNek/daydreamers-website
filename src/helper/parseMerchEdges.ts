@@ -22,7 +22,7 @@ export const parseMerchEdges = (productData: ProductData): SizesAvailable => {
   const sizesStock = {} as SizesAvailable;
   productData.variants.edges.forEach((variant) => {
     const sizeOption = variant.node.selectedOptions.find(
-      (option) => option.name === "Size"
+      (option) => option.name === "Size",
     );
 
     if (sizeOption) {

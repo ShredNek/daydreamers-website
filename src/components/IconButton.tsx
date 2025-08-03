@@ -10,5 +10,5 @@ export default function IconButton({ onClick, Icon }: IconButton) {
     <button onClick={onClick} className={`h-10 w-10 text-black`}>
       {Icon}
     </button>
-  )
+  );
 }

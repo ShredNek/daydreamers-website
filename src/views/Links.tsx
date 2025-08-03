@@ -64,8 +64,7 @@ export default function Links() {
           playsInline
           autoPlay
           muted
-          loop
-        ></video>
+          loop></video>
       </div>
       <section id="links-home" className="links-home">
         <h1>Day Dreamers</h1>
@@ -77,7 +76,7 @@ export default function Links() {
               key={obj.title}
               href={obj.href}
               target="_blank"
-            >
+              rel="noreferrer">
               <div className="icon-container">
                 {renderLinkTypeImage(obj.linkType)}
               </div>
@@ -89,7 +88,10 @@ export default function Links() {
           <p>Home-made with</p>
           <PiHeartFill />
           <p>by</p>
-          <a target="_blank" href="https://github.com/shredNek/">
+          <a
+            target="_blank"
+            href="https://github.com/shredNek/"
+            rel="noreferrer">
             Daniel Lee.
           </a>
         </footer>

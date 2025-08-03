@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction } from "react";
+import type { Dispatch, SetStateAction } from "react";
 
 // ? API
 
@@ -10,7 +10,7 @@ export type GetAllItemEdge = {
 };
 
 interface DatoCmsCall {
-  errors?: Array<{ message: string, [key: string]: unknown }>
+  errors?: Array<{ message: string; [key: string]: unknown }>;
 }
 
 export interface AllShowsEntity extends DatoCmsCall {
@@ -19,6 +19,42 @@ export interface AllShowsEntity extends DatoCmsCall {
     _allShowsMeta: AllShowsMeta;
   };
 }
+
+export interface MusicData extends DatoCmsCall {
+  data: {
+    allSongCollections: SongCollection[];
+  };
+}
+
+export interface MediaCollection extends DatoCmsCall {
+  data: {
+    mediaCollection: {
+      mediaData: MediaData[];
+    };
+  };
+}
+
+export type MediaData = {
+  id: string;
+  url: string;
+  _createdAt: string;
+  height: number;
+  width: number;
+  alt: string | null;
+  filename: string | null;
+  video: Video | null;
+  blurUpThumb: string;
+};
+
+export type Video = {
+  duration: number;
+  mp4Url: string;
+  streamingUrl: string;
+  thumbnailUrl: string;
+  height: number;
+  width: number;
+  alt: string | null;
+};
 
 export interface Show {
   id: string;
@@ -31,8 +67,10 @@ export interface Show {
   poster: ShowPoster;
   ticketslink: string;
   ticketprice: string;
-  artistnames: string;
-  artistlinks: string;
+  artists?: Array<{
+    name: string;
+    socialsLink: string;
+  }>;
   _status: string;
   _firstPublishedAt: string;
 }
@@ -56,7 +94,7 @@ export type Track = {
   lyrics: string;
 };
 
-export type SongCollection = {
+export interface SongCollection {
   appleMusicLink: string;
   collectionType: "album" | "ep" | "single" | "compilation";
   duration: string;
@@ -66,8 +104,8 @@ export type SongCollection = {
   releaseDate: string;
   spotifyLink: string;
   summary: string;
-  likes: string[]
-  dislikes: string[]
+  likes: string[];
+  dislikes: string[];
   description: string;
   trackList: Track[];
   _status: string;
@@ -75,13 +113,7 @@ export type SongCollection = {
   coverArt: {
     url: string;
   };
-};
-
-export type MusicData = {
-  data: {
-    allSongCollections: SongCollection[];
-  };
-};
+}
 
 export interface AppContextInterface {
   showsData: AllShowsEntity | null;
@@ -130,36 +162,6 @@ export type EnquiryFormSchema = {
   suggestedPunishment: string | null; // For Scathing Review
   codeName: string | null; // For Divulge Covert Information
   levelOfSecrecy: SecretEnquiryType | null; // For Divulge Covert Information
-};
-
-export type MediaCollection = {
-  data: {
-    mediaCollection: {
-      mediaData: MediaData[];
-    };
-  };
-};
-
-export type MediaData = {
-  id: string;
-  url: string;
-  _createdAt: string;
-  height: number;
-  width: number;
-  alt: string | null;
-  filename: string | null;
-  video: Video | null;
-  blurUpThumb: string;
-};
-
-export type Video = {
-  duration: number;
-  mp4Url: string;
-  streamingUrl: string;
-  thumbnailUrl: string;
-  height: number;
-  width: number;
-  alt: string | null;
 };
 
 export type LinkType =

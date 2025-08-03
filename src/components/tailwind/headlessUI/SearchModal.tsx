@@ -4,12 +4,17 @@ interface SearchModal {
   isOpen?: boolean;
   onClose?: (e?: React.MouseEvent<HTMLButtonElement>) => void;
   searchQuery: string;
-  setSearchQuery: React.Dispatch<SetStateAction<string>>
+  setSearchQuery: React.Dispatch<SetStateAction<string>>;
 }
 
-export default function SearchModal({ isOpen, onClose, searchQuery, setSearchQuery }: SearchModal) {
+export default function SearchModal({
+  isOpen,
+  onClose,
+  searchQuery,
+  setSearchQuery,
+}: SearchModal) {
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchQuery(e.currentTarget.value)
+    setSearchQuery(e.currentTarget.value);
   };
 
   useEffect(() => {
@@ -33,9 +38,9 @@ export default function SearchModal({ isOpen, onClose, searchQuery, setSearchQue
 
   return (
     <div
-      className={`fixed z-50 inset-0 w-screen transition-opacity ${isOpen ? "opacity-100" : "opacity-0 pointer-events-none"
-        }`}
-    >
+      className={`fixed z-50 inset-0 w-screen transition-opacity ${
+        isOpen ? "opacity-100" : "opacity-0 pointer-events-none"
+      }`}>
       <div className="overlay fixed inset-0 bg-black opacity-20"></div>
       <div className="relative bg-white w-screen rounded-lg shadow-lg p-8">
         <form className="flex items-center justify-center gap-2 my-12">
@@ -54,15 +59,13 @@ export default function SearchModal({ isOpen, onClose, searchQuery, setSearchQue
          </button> */}
           <button
             className="ml-5 text-gray-500 hover:text-gray-700"
-            onClick={onClose}
-          >
+            onClick={onClose}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-6 w-6"
               fill="none"
               viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
+              stroke="currentColor">
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"
@@ -73,6 +76,6 @@ export default function SearchModal({ isOpen, onClose, searchQuery, setSearchQue
           </button>
         </form>
       </div>
-    </div >
+    </div>
   );
 }

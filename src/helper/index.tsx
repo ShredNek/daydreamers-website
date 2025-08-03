@@ -1,16 +1,12 @@
-import { PAGE_LINKS } from "../utils/globals";
-import { VenueLocation, ComponentLoadingStatus } from "../types";
-import { ReactNode, Dispatch, SetStateAction } from "react";
-import useRedirect from "../hooks/useRedirect";
+import { PAGE_LINKS } from "../utils/globals.ts";
+import { type VenueLocation } from "../types/index.ts";
+import { type ReactElement, type ReactNode } from "react";
+import useRedirect from "../hooks/useRedirect.tsx";
 
 export function toCamelCase(str: string) {
   const splitStr = str.split("");
   console.log(splitStr);
-  const res = splitStr
-    .map((c) => {
-      if (c !== " " && c !== "-") return c;
-    })
-    .join("");
+  const res = splitStr.filter((c) => c !== " " && c !== "-").join("");
   return res.charAt(0).toLowerCase().concat(res.slice(1));
 }
 
@@ -41,7 +37,7 @@ export const convertToType = <T extends string>(value: string): T => {
 };
 
 export const isKeyOfInterface = <T extends Record<string, unknown>>(
-  key: any
+  key: any,
 ): key is keyof T => {
   return {}.hasOwnProperty.call({}, key);
 };
@@ -52,7 +48,7 @@ export const inputIsValid = (input: string) =>
 export const isWithinPageCount = (
   itemIndex: number,
   activePage: number,
-  pageDifference: number
+  pageDifference: number,
 ): boolean => {
   const adjustedIndex = itemIndex + 1;
   const lowerPageRange = (activePage - 1) * pageDifference;
@@ -60,25 +56,46 @@ export const isWithinPageCount = (
   return adjustedIndex > lowerPageRange && adjustedIndex <= higherPageRange;
 };
 
-export const returnFormattedArtistNames = (names: string): string | null => {
-  const namesArray = names.split(",");
+export const returnFormattedArtistNames = (
+  artists: Array<{ name: string; socialsLink: string }>,
+): ReactElement | null => {
+  if (!artists.length) return null;
 
-  if (!namesArray.length) return null;
-
-  let message = null;
-  switch (namesArray.length) {
+  let message: ReactElement | null = null;
+  switch (artists.length) {
     case 1:
-      message = `Featuring ${namesArray[0]}!`;
+      message = (
+        <p>
+          Featuring <a href={artists[0]?.socialsLink}>{artists[0]?.name}</a>
+        </p>
+      );
       break;
     case 2:
-      message = `Featuring ${namesArray[0]} and ${namesArray[1]}!`;
+      message = (
+        <p>
+          Featuring <a href={artists[0]?.socialsLink}>{artists[0]?.name}</a> and{" "}
+          <a href={artists[1]?.socialsLink}>{artists[1]?.name}</a>
+        </p>
+      );
       break;
     case 3:
-      message = `Featuring ${namesArray[0]}, ${namesArray[1]} and ${namesArray[2]}!`;
+      message = (
+        <p>
+          Featuring <a href={artists[0]?.socialsLink}>{artists[0]?.name}</a>,{" "}
+          <a href={artists[1]?.socialsLink}>{artists[1]?.name}</a>, and{" "}
+          <a href={artists[2]?.socialsLink}>{artists[2]?.name}</a>
+        </p>
+      );
       break;
     // ? This is to catch a length that is not 0, 1, 2 or 3
     default:
-      message = `Featuring ${namesArray[0]}, ${namesArray[1]} and many more of our friends!`;
+      message = (
+        <p>
+          Featuring <a href={artists[0]?.socialsLink}>{artists[0]?.name}</a>,{" "}
+          <a href={artists[1]?.socialsLink}>{artists[1]?.name}</a>, and many
+          more of our friends!
+        </p>
+      );
       break;
   }
 
@@ -90,7 +107,7 @@ export const returnFormattedDate = (
   extraConfig = {
     includeTime: true,
     includeDay: true,
-  }
+  },
 ): string => {
   const date = new Date(rawUtcString);
   const options: Intl.DateTimeFormatOptions = {
@@ -181,21 +198,20 @@ export const convertToPng = async (blob: Blob | MediaSource): Promise<Blob> => {
 
 export const returnNavItems = (
   linkToDisable?: string,
-  limitAndBreak?: { limit: number; break: 'before' | 'after' },
+  limitAndBreak?: { limit: number; break: "before" | "after" },
 ): ReactNode[] => {
-  const { handleRedirect } = useRedirect()
+  const { handleRedirect } = useRedirect();
   return PAGE_LINKS.map((link, index) => {
     if (
       !limitAndBreak ||
-      (limitAndBreak.break === 'before' && index < limitAndBreak.limit) ||
-      (limitAndBreak.break === 'after' && index >= limitAndBreak.limit)
+      (limitAndBreak.break === "before" && index < limitAndBreak.limit) ||
+      (limitAndBreak.break === "after" && index >= limitAndBreak.limit)
     ) {
       return (
         <li
           key={index}
-          className={`${index % 2 === 0 ? 'hover v-1' : 'hover v-2'} 
-          ${link.innerText === linkToDisable ? 'disabled' : ''}`}
-        >
+          className={`${index % 2 === 0 ? "hover v-1" : "hover v-2"} 
+          ${link.innerText === linkToDisable ? "disabled" : ""}`}>
           <a href="#" onClick={() => handleRedirect(link.to)}>
             {link.innerText}
           </a>

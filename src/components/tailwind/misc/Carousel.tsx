@@ -36,7 +36,7 @@ export default function Carousel({ photos, className }: Carousel) {
 
   const handlePrevSlide = () => {
     setCurrentSlide(
-      (prevSlide) => (prevSlide - 1 + photos.length) % photos.length
+      (prevSlide) => (prevSlide - 1 + photos.length) % photos.length,
     );
   };
 
@@ -48,17 +48,16 @@ export default function Carousel({ photos, className }: Carousel) {
     <div
       id="default-carousel"
       className={`relative w-full h-min ${className}`}
-      data-carousel="slide"
-    >
+      data-carousel="slide">
       {/* Carousel wrapper */}
       <div className="relative h-56 overflow-hidden rounded-lg md:h-96">
         {photos.map((photo, index) => (
           <div
             key={index}
-            className={`duration-700 ease-in-out ${index === currentSlide ? "" : "hidden"
-              }`}
-            data-carousel-item
-          >
+            className={`duration-700 ease-in-out ${
+              index === currentSlide ? "" : "hidden"
+            }`}
+            data-carousel-item>
             <img
               src={photo}
               onError={(e) => (e.currentTarget.src = MissingImg)}
@@ -74,13 +73,13 @@ export default function Carousel({ photos, className }: Carousel) {
           <button
             key={index}
             type="button"
-            className={`w-3 h-3 rounded-full ${index === currentSlide ? "bg-blue-500" : "bg-gray-300"
-              }`}
+            className={`w-3 h-3 rounded-full ${
+              index === currentSlide ? "bg-blue-500" : "bg-gray-300"
+            }`}
             aria-current={index === currentSlide}
             aria-label={`Slide ${index + 1}`}
             onClick={() => handleSlideTo(index)}
-            data-carousel-slide-to={index}
-          ></button>
+            data-carousel-slide-to={index}></button>
         ))}
       </div>
       {/* Slider controls */}
@@ -88,15 +87,13 @@ export default function Carousel({ photos, className }: Carousel) {
         type="button"
         className="absolute top-0 left-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group"
         data-carousel-prev
-        onClick={handlePrevSlide}
-      >
+        onClick={handlePrevSlide}>
         <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-gray-800/60  ">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
             viewBox="0 0 6 10"
-            className="w-4 h-4 text-white dark:text-gray-800"
-          >
+            className="w-4 h-4 text-white dark:text-gray-800">
             <path
               stroke="currentColor"
               strokeLinecap="round"
@@ -111,15 +108,13 @@ export default function Carousel({ photos, className }: Carousel) {
         type="button"
         className="absolute top-0 right-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group"
         data-carousel-next
-        onClick={handleNextSlide}
-      >
+        onClick={handleNextSlide}>
         <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-gray-800/60  ">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
             viewBox="0 0 6 10"
-            className="w-4 h-4 text-white dark:text-gray-800"
-          >
+            className="w-4 h-4 text-white dark:text-gray-800">
             <path
               stroke="currentColor"
               strokeLinecap="round"

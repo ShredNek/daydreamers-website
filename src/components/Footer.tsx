@@ -1,6 +1,6 @@
 import RoundedButtonLink from "../components/RoundedButtonLink";
 import { FaFacebookF, FaInstagram, FaSpotify, FaMusic } from "react-icons/fa6";
-import { PiHeartFill } from "react-icons/pi"
+import { PiHeartFill } from "react-icons/pi";
 
 export default function Footer() {
   return (
@@ -21,10 +21,10 @@ export default function Footer() {
         <p>Home-made with</p>
         <PiHeartFill />
         <p>by</p>
-        <a target="_blank" href="https://github.com/shredNek/">
+        <a target="_blank" href="https://github.com/shredNek/" rel="noreferrer">
           Daniel Lee.
         </a>
       </div>
     </footer>
-  )
+  );
 }

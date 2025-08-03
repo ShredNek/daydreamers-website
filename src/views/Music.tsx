@@ -166,7 +166,7 @@ export default function Music() {
                 <li>
                   <h4>summary:</h4>
                   <p>
-                    {!!currentSongCollection?.summary?.trim()?.length
+                    {currentSongCollection?.summary?.trim()?.length
                       ? currentSongCollection?.summary
                       : "Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque mollitia sunt amet animi, non praesentium."}
                   </p>
@@ -175,7 +175,8 @@ export default function Music() {
               <a
                 className="listen"
                 href={currentSongCollection?.spotifyLink}
-                target="_blank">
+                target="_blank"
+                rel="noreferrer">
                 LISTEN
               </a>
             </div>
@@ -200,7 +201,7 @@ export default function Music() {
               <h3 className="song-name">{randTracks.randTrackOne?.title}</h3>
               <hr />
               <p>
-                {!!randTracks.randTrackOne?.lyrics.trim().length
+                {randTracks.randTrackOne?.lyrics.trim().length
                   ? randTracks.randTrackOne?.lyrics
                       .replaceAll("\n\n", " - ")
                       .replaceAll("\n", " - ")
@@ -211,7 +212,7 @@ export default function Music() {
               <h3 className="song-name">{randTracks.randTrackTwo?.title}</h3>
               <hr />
               <p>
-                {!!randTracks.randTrackTwo?.lyrics.trim().length
+                {randTracks.randTrackTwo?.lyrics.trim().length
                   ? randTracks.randTrackTwo?.lyrics
                       .replaceAll("\n\n", " - ")
                       .replaceAll("\n", " - ")

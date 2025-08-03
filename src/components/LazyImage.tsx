@@ -6,7 +6,12 @@ interface LazyImage extends React.ImgHTMLAttributes<HTMLImageElement> {
   highQualitySrc: string;
 }
 
-export default function LazyImage({ lowQualitySrc, highQualitySrc, alt, className }: LazyImage) {
+export default function LazyImage({
+  lowQualitySrc,
+  highQualitySrc,
+  alt,
+  className,
+}: LazyImage) {
   const [imageSrc, setImageSrc] = useState(lowQualitySrc);
   const [hasError, setHasError] = useState(false);
 
@@ -20,4 +25,3 @@ export default function LazyImage({ lowQualitySrc, highQualitySrc, alt, classNam
     />
   );
 }
-

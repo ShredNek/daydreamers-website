@@ -53,17 +53,26 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
           <br />
           <p>
             Please email us at
-            <strong className="email"> daydreamersmusic2015@gmail.com</strong>{" "}
+            <strong className="email">
+              {" "}
+              daydreamersmusic2015@gmail.com
+            </strong>{" "}
             reporting this error description:
           </p>
           <br />
-          <pre >
-            {JSON.stringify({
-              timestamp: new Date().toLocaleString(),
-              userAgent: navigator.userAgent,
-              errorMessage: this.state.error ? this.state.error.message : null,
-              stackTrace: this.state.error ? this.state.error.stack : null
-            }, null, 2)}
+          <pre>
+            {JSON.stringify(
+              {
+                timestamp: new Date().toLocaleString(),
+                userAgent: navigator.userAgent,
+                errorMessage: this.state.error
+                  ? this.state.error.message
+                  : null,
+                stackTrace: this.state.error ? this.state.error.stack : null,
+              },
+              null,
+              2,
+            )}
           </pre>
         </section>
       );

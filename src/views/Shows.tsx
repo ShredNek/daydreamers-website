@@ -1,9 +1,9 @@
 import { useEffect, useContext, useState } from "react";
-import { getAllShows } from "../api/datoCmsCalls";
-import { AllShowsEntity } from "../types/index";
+import { getAllShows } from "../api/datoCmsCalls.ts";
+import { type AllShowsEntity } from "../types/index.ts";
 import { returnFormattedArtistNames, toKebabCase } from "../helper/index.tsx";
 import { useNavigate, useParams } from "react-router-dom";
-import { AppContext } from "../utils/AppContext";
+import { AppContext } from "../utils/AppContext.ts";
 import SiteWrapper from "../SiteWrapper.tsx";
 import Y2kWindowShell from "../components/Y2k/Y2kWindowShell.tsx";
 
@@ -20,7 +20,7 @@ import { IoTriangleOutline } from "react-icons/io5";
 
 export default function Shows() {
   const { showsData, setShowsData } = useContext(AppContext);
-  let navigate = useNavigate();
+  const navigate = useNavigate();
   const params = useParams();
 
   const getTime = () =>
@@ -35,7 +35,7 @@ export default function Shows() {
   const callAndSetShowsData = async () => {
     let rawData: AllShowsEntity | null = null;
     try {
-      rawData = await (await getAllShows()).json();
+      rawData = await getAllShows();
 
       if (rawData !== null && rawData.errors !== undefined) {
         throw Error(rawData.errors.map((e) => e.message).join(", "));
@@ -63,7 +63,7 @@ export default function Shows() {
 
   const selectedShow =
     showsData?.data.allShows?.find(
-      (show) => show.slugname === params.showSlug,
+      (show) => show.slugname === params["showSlug"],
     ) ?? null;
 
   const desktopIcons: Array<{
@@ -210,7 +210,8 @@ export default function Shows() {
             <a
               className="listen"
               href={selectedShow?.ticketslink}
-              target="_blank">
+              target="_blank"
+              rel="noreferrer">
               JOIN
             </a>
           </div>
@@ -225,10 +226,10 @@ export default function Shows() {
             <span className="asterisks">* * * * *</span>
             <span className="dislikes">
               <h4>:D</h4>
-              <p>
-                {returnFormattedArtistNames(selectedShow?.artistnames ?? "") ??
-                  "it's just us goofballs!"}
-              </p>
+              <div className="artists">
+                {returnFormattedArtistNames(selectedShow?.artists ?? [])}
+              </div>
+              <p>{}</p>
             </span>
           </div>
           <div className="now-playing">
@@ -236,7 +237,7 @@ export default function Shows() {
             <IoTriangleOutline />
             <div
               dangerouslySetInnerHTML={{
-                __html: !!selectedShow?.details.trim()?.length
+                __html: selectedShow?.details.trim()?.length
                   ? selectedShow?.details
                   : "Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque mollitia sunt amet animi, non praesentium.",
               }}

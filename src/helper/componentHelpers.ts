@@ -4,7 +4,7 @@ import { StockPresencePreferences, MerchReqParams } from "../types";
 export const handleSwitch = (
   e: React.MouseEvent<HTMLButtonElement, MouseEvent> | undefined,
   state: StockPresencePreferences,
-  changeStockPreferenceState: (stock: StockPresencePreferences) => void
+  changeStockPreferenceState: (stock: StockPresencePreferences) => void,
 ): void => {
   const switchPressed = e?.currentTarget.id as keyof StockPresencePreferences;
 
@@ -19,7 +19,7 @@ export const handleSwitch = (
 
   if (Object.values(newState).every((val) => val === false)) {
     newState = Object.fromEntries(
-      Object.entries(state).map(([key, _]) => [key, true])
+      Object.entries(state).map(([key, _]) => [key, true]),
     ) as StockPresencePreferences;
     newState[switchPressed] = false;
   }
@@ -30,7 +30,7 @@ export const handleSwitch = (
 export const onInputChange = (
   e: React.ChangeEvent<HTMLInputElement>,
   merchReqState: MerchReqParams,
-  onMerchReqChange: React.Dispatch<React.SetStateAction<MerchReqParams>>
+  onMerchReqChange: React.Dispatch<React.SetStateAction<MerchReqParams>>,
 ): void => {
   const currentElementId = e.currentTarget.id as keyof MerchReqParams;
 
@@ -46,7 +46,7 @@ export const onInputChange = (
 };
 
 export const getProductTitle = async (
-  productComponentRef: React.RefObject<HTMLDivElement>
+  productComponentRef: React.RefObject<HTMLDivElement>,
 ) => {
   // ? This is a bit of black magic to get the name of the product displayed properly
   const config = { attributes: true, childList: true, subtree: true };
@@ -73,7 +73,7 @@ export const getProductTitle = async (
         if (mutation.type === "childList") {
           productTitle =
             iframe?.contentDocument?.querySelector<HTMLHeadingElement>(
-              ".shopify-buy__product__title"
+              ".shopify-buy__product__title",
             );
           if (productTitle) {
             compObserver.disconnect();
