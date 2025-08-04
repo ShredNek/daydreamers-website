@@ -1,7 +1,7 @@
-import { randomUUID } from "node:crypto";
 import type { ReactElement, ReactNode } from "react";
 import type { VenueLocation } from "../types/index.ts";
 import { PAGE_LINKS } from "../utils/globals.ts";
+import { v4 as uuid } from "uuid";
 
 export function toCamelCase(str: string) {
 	const splitStr = str.split("");
@@ -202,7 +202,7 @@ export const returnNavItems = (
 		) {
 			return (
 				<li
-					key={randomUUID()}
+					key={uuid()}
 					className={`${index % 2 === 0 ? "hover v-1" : "hover v-2"} 
           ${link.innerText === linkToDisable ? "disabled" : ""}`}
 				>

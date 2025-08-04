@@ -1,6 +1,6 @@
 import { useCallback, useContext, useEffect, useState } from "react";
 import { IoTriangleOutline } from "react-icons/io5";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { getAllShows } from "../api/datoCmsCalls.ts";
 import channels from "../assets/images/y2k-resources/channels.png";
 import myComputer from "../assets/images/y2k-resources/computer-explorer.png";
@@ -19,6 +19,7 @@ import { AppContext } from "../utils/AppContext.tsx";
 
 export default function Shows() {
 	const { showsData, setShowsData } = useContext(AppContext);
+	const navigate = useNavigate();
 	const params = useParams();
 
 	const getTime = useCallback(
@@ -116,20 +117,23 @@ export default function Shows() {
 	return (
 		<SiteWrapper sectionId="shows" className="shows">
 			<Y2kWindowShell
-				closeButtonRedirect="/shows"
+				closeButtonRedirect="/"
 				navText="Shows"
 				className="shows-container"
 			>
 				<div className="menu-icons-parent">
 					{desktopIcons.map((icon, index) => (
-						<a
+						<button
 							key={icon.slugName.concat(index.toString())}
 							className="desktop-icon"
-							href={icon.isShow ? `/shows/${toKebabCase(icon.name)}` : "#"}
+							type="button"
+							onClick={() =>
+								icon.isShow && navigate(`/shows/${toKebabCase(icon.name)}`)
+							}
 						>
 							<img src={icon.img} alt={icon.name} />
 							<p>{icon.name}</p>
-						</a>
+						</button>
 					))}
 				</div>
 				<div className="search-bar">

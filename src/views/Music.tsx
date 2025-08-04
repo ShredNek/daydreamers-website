@@ -1,6 +1,6 @@
 import { useCallback, useContext, useEffect } from "react";
 import { IoTriangleOutline } from "react-icons/io5";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { getAllMusic } from "../api/datoCmsCalls";
 import magnifyingGlass from "../assets/images/y2k-resources/magnifying_glass.png";
 import Y2kWindowSearch from "../components/Y2k/Y2kWindowSearch.tsx";
@@ -14,6 +14,7 @@ import "../styles/views/_music.scss";
 
 export default function Music() {
 	const { musicData, setMusicData } = useContext(AppContext);
+	const navigate = useNavigate();
 	const urlParams = useParams();
 
 	const currentSongCollection =
@@ -100,20 +101,23 @@ export default function Music() {
 
 	return (
 		<SiteWrapper sectionId="music" className={"music-collection"}>
-			<Y2kWindowShell navText="Open" closeButtonRedirect="/music">
+			<Y2kWindowShell navText="Open" closeButtonRedirect="/">
 				<Y2kWindowSearch>
 					{musicData?.data.allSongCollections ? (
 						musicData.data.allSongCollections.map((collection) => (
-							<a
+							<button
 								className="result"
 								key={collection.id}
-								href={`/music/${toKebabCase(collection.name)}`}
+								type="button"
+								onClick={() =>
+									navigate(`/music/${toKebabCase(collection.name)}`)
+								}
 							>
 								<div className="artwork">
 									<img src={collection.coverArt?.url} alt="" />
 								</div>
 								<p className="result-name">{collection.name}</p>
-							</a>
+							</button>
 						))
 					) : (
 						<div className="no-results">

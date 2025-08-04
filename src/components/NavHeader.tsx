@@ -1,4 +1,3 @@
-import { randomUUID } from "node:crypto";
 import { useNavigate } from "react-router-dom";
 import SpinTail from "../assets/vectors/day-dreamers-logo/Day-Dreamer-SpinTail.svg";
 import Star1 from "../assets/vectors/day-dreamers-logo/Day-Dreamer-Star_1.svg";
@@ -7,6 +6,7 @@ import { type PAGE_LINK, PAGE_LINKS } from "../utils/globals";
 import Hamburger from "./Hamburger";
 import "../styles/components/_nav-header.scss";
 import { useEffect, useState } from "react";
+import { v4 as uuid } from "uuid";
 
 const generateTitleWithShiftingLetters = (title: string): React.ReactNode[] => {
 	const randomDistance = 8;
@@ -18,11 +18,11 @@ const generateTitleWithShiftingLetters = (title: string): React.ReactNode[] => {
 		};
 
 		return ltr !== " " ? (
-			<span key={randomUUID()} style={style}>
+			<span key={uuid()} style={style}>
 				{ltr}
 			</span>
 		) : (
-			<br key={randomUUID()} />
+			<br key={uuid()} />
 		);
 	});
 };
@@ -73,7 +73,7 @@ export default function NavHeader({ className, hideBackground }: NavHeader) {
 				<ul>
 					{PAGE_LINKS.map((link, index) => (
 						<li
-							key={randomUUID()}
+							key={uuid()}
 							className={index % 2 === 0 ? `hover v-1` : `hover v-2`}
 						>
 							<button type="button" onClick={() => handleNavItemClick(link)}>

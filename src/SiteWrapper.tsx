@@ -1,4 +1,4 @@
-import { randomUUID } from "node:crypto";
+import { v4 as uuid } from "uuid";
 import highQualHero from "./assets/images/hero/DayDreamersCollage_HighQual.jpg";
 import lowQualHero from "./assets/images/hero/DayDreamersCollage_LowQual.jpg";
 import logo1 from "./assets/images/logos/logo_1.png";
@@ -19,7 +19,7 @@ function LogoLayer() {
 		<div id="logo-layer" className="logo-layer">
 			{imgArr.map((src, i) => (
 				<img
-					key={randomUUID()}
+					key={uuid()}
 					src={src}
 					alt={`Band logo number ${i + 1}`}
 					className="day-dreamer-logo"
