@@ -1,8 +1,0 @@
-node_modules
-dist
-build
-public
-.next
-out
-coverage
-.vite
