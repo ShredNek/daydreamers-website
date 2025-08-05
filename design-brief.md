@@ -26,10 +26,28 @@ A popup panel like this (https://au.pinterest.com/pin/31243791160421730/) after 
 
 Something like this for the fields and form layout: (https://au.pinterest.com/pin/25332816647708256/)
 
+Add in personal deets, like number, email
+
 ## Media
 
-Media will be Y2K'ed instagram/pinterest media waterfall style
+<!-- Media will be Y2K'ed instagram/pinterest media waterfall style --> NUP NVM
 
 ## Other ideas
 
 If you don't move your mouse or touch any arrow keys for 5 mins, the browser loads a screensaver. Either the generating pipes (https://www.youtube.com/watch?v=tCpnDTzRAjE&pp=ygUmd2luZG93cyB4cCBtZWRpYSBwbGF5ZXIgdmlzdWFsaXphdGlvbnM%3D) or the bouncing dvd logo (https://www.youtube.com/watch?v=5mGuCdlCcNM&pp=ygUmd2luZG93cyB4cCBtZWRpYSBwbGF5ZXIgdmlzdWFsaXphdGlvbnM%3D)
+
+
+# WEBSITE RECAP / 5/8/20 #
+
+### HOME PAGE NOTES
+Have it be a hub for our other content. Youtube tiktok, pinterest, and have a window browser of some kind to get us to the differnet palces.
+
+### Bouncy logos in the background
+
+once it hits a cornder, some confetti
+
+### Custom day dremaers ctask bar at bottom of the page
+
+start button laucnhes rand shit (popups, etc.) icons looks day dreamery, havea  babckground to macth the top, make everything smaller, 
+
+
