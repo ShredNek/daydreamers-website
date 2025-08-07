@@ -50,4 +50,8 @@ once it hits a cornder, some confetti
 
 start button laucnhes rand shit (popups, etc.) icons looks day dreamery, havea  babckground to macth the top, make everything smaller, 
 
+change the load effect overall so that it is stggered (20%, 40%, 60%, 80%)
+
+? mark is a "i feel lucky" button - a rare click gets you to  apacke you can;t otherwise access
+
 
