@@ -1,3 +1,4 @@
+import { useEffect, useRef } from "react";
 import {
 	GiAlienStare,
 	GiBaseballGlove,
@@ -8,6 +9,7 @@ import {
 	GiMicrophone,
 } from "react-icons/gi";
 import type { IconType } from "react-icons/lib";
+import { useLocation, useNavigate } from "react-router-dom";
 import { v4 as uuid } from "uuid";
 import DanielHead from "../assets/images/band-members/DenHead.png";
 import JordanHead from "../assets/images/band-members/JorgunHead.png";
@@ -21,6 +23,7 @@ const bandMembers: Record<
 	string,
 	{
 		name: string;
+		type: string;
 		icon: IconType;
 		imgDesc: string;
 		img: string;
@@ -29,13 +32,15 @@ const bandMembers: Record<
 > = {
 	Zak: {
 		name: "Zak",
+		type: "Lead Vocalist / Guitarist",
 		icon: GiMicrophone,
 		imgDesc: "You have chosen Zak",
 		img: ZakHead,
-		bio: "Yer favrit lead singur and geeist. Will fuck you up with Jin from Tekken.",
+		bio: "Yer favrit lead singur and geeist. Will fuck you up with Jin from Tekken. Luvs his bob le'ponge.",
 	},
 	Nick: {
 		name: "Nick",
+		type: "Drums / Lead and Backing Vocalist",
 		icon: GiDrumKit,
 		imgDesc: "You have chosen Nick",
 		img: NickHead,
@@ -44,16 +49,18 @@ const bandMembers: Record<
 	Jordan: {
 		name: "Jordan",
 		icon: GiGuitarBassHead,
+		type: "Bass / Costume Enthusiast",
 		imgDesc: "You have chosen Jordan",
 		img: JordanHead,
 		bio: "... bass?",
 	},
 	Daniel: {
 		name: "Daniel",
+		type: "Lead Guitar / Backing Vocalist",
 		icon: GiGuitarHead,
 		imgDesc: "You have chosen Dan",
 		img: DanielHead,
-		bio: "Certified guitar lead. Lafs at any sloit humorous interchange.",
+		bio: "Certified guitar lead. Lafs at any sloit humorous interchange. No want long hair.",
 	},
 	// Lucy: {
 	// 	name: "Lucy",
@@ -69,52 +76,28 @@ const bandMembers: Record<
 	// },
 };
 
+const defaultVals = {
+	name: "Day Dreamers",
+	bio: "Formed in late 2015, Day Dreamers are a Melbourne alt punk band influenced by 90's grunge, punk bands to the alternative Australian scene of today. Day Dreamers is made up of four members, Zak Rakitic, Nick Dordevic, Daniel Lee and Jordan Rakitic. The four have an energetic and fun presence on stage, involving the crowd and bringing in some (attempted) humour when they can.",
+};
+
 export default function About() {
+	const selectedBandMember = useLocation().hash.replace(/^#/, "");
+	const bandMemberDisplay = useRef<HTMLDivElement | null>(null);
+
+	useEffect(() => {
+		const bandMemberElem =
+			bandMemberDisplay.current?.querySelector<HTMLDivElement>(
+				`.${toKebabCase(selectedBandMember)}-band-member`,
+			);
+
+		if (bandMemberElem) {
+			bandMemberElem.focus();
+		}
+	}, [selectedBandMember]);
+
 	return (
 		<SiteWrapper sectionId="about" className="about">
-			{/* <h1 className="large">Day Dreamers</h1>
-			<div className="hero">
-				{imgDescriptions.map((obj) => (
-					<img
-						key={obj.person}
-						className={obj.person}
-						src={obj.img}
-						alt={obj.desc}
-					/>
-				))}
-			</div>
-			<ul className="band-members">
-				<li className="zak">
-					<span>Zak Rakitic</span>
-					<HandleIconHover child={<GiMicrophone />} />
-					<span>Lead Vocal / Rhythm Guitar</span>
-				</li>
-				<li className="nick">
-					<span>Nick Dordevic</span>
-					<HandleIconHover child={<GiDrumKit />} />
-					<span>Lead Vocal / Drums</span>
-				</li>
-				<li className="dan">
-					<span>Daniel Lee</span>
-					<HandleIconHover child={<GiGuitarHead />} />
-					<span>Lead Guitar / Backing Vocals</span>
-				</li>
-				<li className="jordan">
-					<span>Jordan Rakitic</span>
-					<HandleIconHover child={<GiGuitarBassHead />} />
-					<span>Bass Guitar</span>
-				</li>
-			</ul>
-			<hr />
-			<p>
-				Formed in late 2015, Day Dreamers are a Melbourne alt punk band
-				influenced by 90's grunge, punk bands to the alternative Australian
-				scene of today. Day Dreamers is made up of four members, Zak Rakitic,
-				Nick Dordevic, Daniel Lee and Jordan Rakitic. The four have an energetic
-				and fun presence on stage, involving the crowd and bringing in some
-				(attempted) humour when they can.
-			</p> */}
-
 			<Y2kWindowShell navText="About" closeButtonRedirect="/">
 				<div className="input-background">
 					<div className="band-member-display">
@@ -122,13 +105,15 @@ export default function About() {
 							<div className="list-label">Band Members</div>
 							<div className="results-list">
 								{Object.entries(bandMembers).map(([k, v]) => (
-									<a
+									<button
+										type="button"
 										key={uuid()}
-										href={`#${k}`}
+										// href={`#${k}`}
+										tabIndex={-1}
 										className={`${toKebabCase(k)}-band-member`}
 									>
 										{v.name} <v.icon />
-									</a>
+									</button>
 								))}
 							</div>
 						</div>
@@ -143,23 +128,25 @@ export default function About() {
 							))}
 						</div>
 					</div>
+					<div className="bio-content">
+						{Object.entries(bandMembers).map(([k, v]) => (
+							<div key={k} className={`${toKebabCase(k)}-band-member bio`}>
+								<h2>{v.name}</h2>
+								<sub>{v.type}</sub>
+								<p>{v.bio}</p>
+							</div>
+						))}
+						<div className="day-dreamers bio">
+							<h2>{defaultVals.name}</h2>
+							<p>{defaultVals.bio}</p>
+						</div>
+					</div>
 					<div className="action-bar">
 						<button type="button">Set as Default</button>
 						<button type="button">Cancel</button>
 					</div>
 				</div>
 			</Y2kWindowShell>
-			<div className="bio">
-				<h2>Bio</h2>
-				<p>
-					Formed in late 2015, Day Dreamers are a Melbourne alt punk band
-					influenced by 90's grunge, punk bands to the alternative Australian
-					scene of today. Day Dreamers is made up of four members, Zak Rakitic,
-					Nick Dordevic, Daniel Lee and Jordan Rakitic. The four have an
-					energetic and fun presence on stage, involving the crowd and bringing
-					in some (attempted) humour when they can.
-				</p>
-			</div>
 		</SiteWrapper>
 	);
 }

@@ -14,6 +14,26 @@
     justify-content: space-between;
     padding-top: 2rem;
 
+    @mixin band-member-opacity($names) {
+      @each $name in $names {
+        // Only show on hover IF no one is focused
+        &:not(:has(button:focus)):has(button.#{$name}-band-member:hover) img.#{$name}-band-member,
+          // Always show on focus
+          &:has(button.#{$name}-band-member:focus) img.#{$name}-band-member,
+          &:has(a.#{$name}-band-member:focus) .bio.#{$name}-band-member {
+          opacity: 1;
+        }
+
+        // Hide all non-matching icons on focus
+        &:has(button.#{$name}-band-member:focus) img:not(.#{$name}-band-member),
+        &:has(button.#{$name}-band-member:focus) .bio:not(.#{$name}-band-member) {
+          opacity: 0;
+        }
+      }
+    }
+
+    @include band-member-opacity(("zak", "nick", "jordan", "daniel"));
+
     .band-member-display {
       display: grid;
       grid-template-columns: 1fr 1.5fr;
@@ -45,7 +65,7 @@
           display: flex;
           flex-direction: column;
 
-          a[class$="-band-member"] {
+          button[class$="-band-member"] {
             display: flex;
             align-items: center;
             width: 100%;
@@ -67,7 +87,7 @@
 
       .icon-container {
         position: relative;
-        perspective: 1600px;
+        perspective: 1400px;
 
         @keyframes rotate {
           0% {
@@ -92,24 +112,40 @@
           transform-style: preserve-3d;
         }
       }
+    }
 
-      @mixin band-member-opacity($names) {
-        @each $name in $names {
-          // Only show on hover IF no one is focused
-          &:not(:has(a:focus)):has(a.#{$name}-band-member:hover) img.#{$name}-band-member,
-          // Always show on focus
-          &:has(a.#{$name}-band-member:focus) img.#{$name}-band-member {
-            opacity: 1;
-          }
+    .bio-content {
+      text-align: center;
+      margin: 0.5rem auto 2rem;
+      max-width: 90%;
+      color: a.$daydreamer-smoky-black;
+      position: relative;
 
-          // Hide all non-matching icons on focus
-          &:has(a.#{$name}-band-member:focus) img:not(.#{$name}-band-member) {
-            opacity: 0;
-          }
-        }
+      .bio {
+        margin: 0 auto;
       }
 
-      @include band-member-opacity(("zak", "nick", "jordan", "daniel"));
+      .bio:not(.day-dreamers) {
+        inset: 0;
+        position: absolute;
+        opacity: 0;
+      }
+
+      .bio.day-dreamers {
+        opacity: 1;
+      }
+
+      h2 {
+        font-family: PlanetKosmos;
+        letter-spacing: 0.1rem;
+        margin-bottom: -0.15rem;
+      }
+
+      sub {
+        margin-bottom: 1.5rem;
+        display: block;
+        font-style: italic;
+      }
     }
 
     .action-bar {
@@ -121,24 +157,6 @@
       button {
         font-size: 1.2rem;
       }
-    }
-  }
-
-  .bio {
-    text-align: center;
-    margin: auto;
-    width: 65vw;
-
-    p,
-    h2 {
-      text-shadow: u.generate-text-outline(0.5px, black, 1px);
-      color: white;
-    }
-
-    h2 {
-      font-family: PlanetKosmos;
-      letter-spacing: 0.25rem;
-      margin-bottom: 0rem;
     }
   }
 }
