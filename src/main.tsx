@@ -16,62 +16,10 @@ import { createRoot } from "react-dom/client";
 import SiteWrapper from "./SiteWrapper";
 import { AppContextProvider } from "./utils/AppContext";
 
-// const views = [
-// 	{
-// 		path: "/",
-// 		element: <Home />,
-// 		errorElement: <PageNotFound />,
-// 	},
-// 	{
-// 		path: "/links",
-// 		element: <Links />,
-// 	},
-// 	{
-// 		path: "/shows",
-// 		element: <Shows />,
-// 	},
-// 	{
-// 		path: "/shows/:showSlug",
-// 		element: <Shows />,
-// 	},
-// 	{
-// 		path: "/music",
-// 		element: <Music />,
-// 	},
-// 	{
-// 		path: "/music/:songSlug",
-// 		element: <Music />,
-// 	},
-// 	{
-// 		path: "/about",
-// 		element: <About />,
-// 	},
-// 	{
-// 		path: "/contact",
-// 		element: <Contact />,
-// 	},
-// 	{
-// 		path: "/media",
-// 		element: <Media />,
-// 	},
-// ];
-
-// const router = createBrowserRouter(
-// 	views.map((view) => ({
-// 		...view,
-// 		element:
-// 			view.path !== "/" ? (
-// 				<ErrorBoundary>{view.element}</ErrorBoundary>
-// 			) : (
-// 				<SiteWrapper>{view.element}</SiteWrapper>
-// 			),
-// 	})),
-// );
-
 const router = createBrowserRouter([
 	{
 		path: "/",
-		element: <SiteWrapper />, // This wraps all child routes
+		element: <SiteWrapper />,
 		errorElement: <PageNotFound />,
 		children: [
 			{ path: "/", element: <Home /> },
