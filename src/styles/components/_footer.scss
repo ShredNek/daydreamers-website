@@ -3,8 +3,17 @@
 @use "sass:color";
 
 footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  gap: 2rem;
+
+  margin: 0 calc(0.5rem + 5vw);
+  padding: 0.5rem;
+
   & > * {
     margin: 1rem 0;
+    height: fit-content;
   }
 
   .social-links {

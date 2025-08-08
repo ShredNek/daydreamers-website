@@ -7,7 +7,6 @@ import VideoPlayerHls from "../components/VideoPlayerHls";
 import { convertToPng, downloadImage } from "../helper/index.tsx";
 import type { MediaCollection, MediaData } from "../types";
 import "react-toastify/dist/ReactToastify.css";
-import SiteWrapper from "../SiteWrapper.tsx";
 
 export default function Media() {
 	const [media, setMedia] = useState<null | MediaData[]>(null);
@@ -51,7 +50,7 @@ export default function Media() {
 	return (
 		<>
 			<ToastContainer />
-			<SiteWrapper sectionId="media">
+			<section id="media">
 				<div className="media-container">
 					{media?.map((media) =>
 						media.video ? (
@@ -88,7 +87,7 @@ export default function Media() {
 						),
 					)}
 				</div>
-			</SiteWrapper>
+			</section>
 		</>
 	);
 }

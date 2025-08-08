@@ -9,16 +9,17 @@ import { useEffect, useState } from "react";
 import { v4 as uuid } from "uuid";
 
 const generateTitleWithShiftingLetters = (title: string): React.ReactNode[] => {
-	const randomDistance = 8;
+	const randomDistance = 5;
 	const randomVal = () => Math.random() * randomDistance - 5;
 
-	return title.split("").map((ltr) => {
+	return title.split("").map((ltr, index) => {
 		const style = {
 			transform: `translate(${randomVal()}px, ${randomVal()}px)`,
 		};
 
 		return ltr !== " " ? (
-			<span key={uuid()} style={style}>
+			// biome-ignore lint/suspicious/noArrayIndexKey: I do not want to re-render letters each change
+			<span key={index} style={style}>
 				{ltr}
 			</span>
 		) : (
@@ -41,10 +42,9 @@ export default function NavHeader({ className, hideBackground }: NavHeader) {
 		// Initial render
 		setTitleNodes(generateTitleWithShiftingLetters(title));
 
-		// Update every 5 seconds
 		const interval = setInterval(() => {
 			setTitleNodes(generateTitleWithShiftingLetters(title));
-		}, 2500);
+		}, 5000);
 
 		return () => clearInterval(interval); // Cleanup
 	}, []);
@@ -60,10 +60,10 @@ export default function NavHeader({ className, hideBackground }: NavHeader) {
 	return (
 		<div
 			id="header-navigation"
-			className={`header-navigation${hideBackground ? " no-background" : ""}`}
+			className={`header-navigation ${hideBackground ? " no-background" : ""}`}
 		>
 			<a className="header-logo-container" href="/">
-				<h1 className={`letters${className ?? ""}`}>{titleNodes}</h1>
+				<h1 className={`letters ${className ?? ""}`}>{titleNodes}</h1>
 				<img alt="spin-tail" className="vector spin-tail" src={SpinTail} />
 				<img alt="star-1" className="vector star-1" src={Star1} />
 				<img alt="star-2" className="vector star-2" src={Star2} />

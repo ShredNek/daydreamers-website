@@ -13,7 +13,6 @@ import timeAndDate from "../assets/images/y2k-resources/time_and_date.png";
 import windowsStart from "../assets/images/y2k-resources/windows.png";
 import Y2kWindowShell from "../components/Y2k/Y2kWindowShell.tsx";
 import { returnFormattedArtistNames, toKebabCase } from "../helper/index.tsx";
-import SiteWrapper from "../SiteWrapper.tsx";
 import type { AllShowsEntity } from "../types/index.ts";
 import { AppContext } from "../utils/AppContext.tsx";
 
@@ -115,7 +114,7 @@ export default function Shows() {
 	}, [showsData, time, callAndSetShowsData, getTime]);
 
 	return (
-		<SiteWrapper sectionId="shows" className="shows">
+		<section id="shows" className="shows">
 			<Y2kWindowShell
 				closeButtonRedirect="/"
 				navText="Shows"
@@ -255,6 +254,6 @@ export default function Shows() {
 					</div>
 				</div>
 			</Y2kWindowShell>
-		</SiteWrapper>
+		</section>
 	);
 }

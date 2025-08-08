@@ -20,7 +20,7 @@
         &:not(:has(button:focus)):has(button.#{$name}-band-member:hover) img.#{$name}-band-member,
           // Always show on focus
           &:has(button.#{$name}-band-member:focus) img.#{$name}-band-member,
-          &:has(a.#{$name}-band-member:focus) .bio.#{$name}-band-member {
+          &:has(button.#{$name}-band-member:focus) .bio.#{$name}-band-member {
           opacity: 1;
         }
 
@@ -50,8 +50,9 @@
         background-color: white;
 
         .list-label,
-        .results-list a {
-          padding: 0.1rem 0.25rem;
+        .results-list button {
+          padding: 0.25rem 0.5rem;
+          font-size: 1em;
         }
 
         .list-label {
@@ -70,6 +71,8 @@
             align-items: center;
             width: 100%;
             border: dotted white 2px;
+            background-color: white;
+            margin: 0;
 
             &:hover,
             &:focus {
@@ -105,7 +108,6 @@
           inset: 0;
           margin: auto;
           opacity: 0;
-          // box-shadow: inset 0 5px 15px rgba(0, 0, 0, 0.3);
 
           filter: drop-shadow(2px 15px 10px a.$daydreamer-smoky-black);
           animation: rotate 5s linear infinite;

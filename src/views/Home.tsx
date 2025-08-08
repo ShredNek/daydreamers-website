@@ -1,5 +1,3 @@
-import SiteWrapper from "../SiteWrapper";
-
 export default function Home() {
-	return <SiteWrapper sectionId="home" />;
+	return <section id="home" />;
 }

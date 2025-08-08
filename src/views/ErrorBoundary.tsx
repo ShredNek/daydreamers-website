@@ -1,8 +1,8 @@
 import { Component, type ErrorInfo, type ReactNode } from "react";
 import { Link } from "react-router-dom";
-import LazyImage from "../components/LazyImage";
 import Motivation from "../assets/images/misc/HQ_FoundBug.png";
 import LQ_Motivation from "../assets/images/misc/LQ_FoundBug.png";
+import LazyImage from "../components/LazyImage";
 
 interface ErrorBoundaryProps {
 	children: ReactNode;
@@ -23,11 +23,11 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
 		return { hasError: true, error };
 	}
 
-	componentDidCatch(error: Error, errorInfo: ErrorInfo): void {
+	override componentDidCatch(error: Error, errorInfo: ErrorInfo): void {
 		console.error("Error Boundary caught an error:", error, errorInfo);
 	}
 
-	render(): ReactNode {
+	override render(): ReactNode {
 		if (this.state.hasError) {
 			return (
 				<section id="page-not-found">

@@ -1,4 +1,3 @@
-import { useEffect, useRef } from "react";
 import {
 	GiAlienStare,
 	GiBaseballGlove,
@@ -9,7 +8,6 @@ import {
 	GiMicrophone,
 } from "react-icons/gi";
 import type { IconType } from "react-icons/lib";
-import { useLocation, useNavigate } from "react-router-dom";
 import { v4 as uuid } from "uuid";
 import DanielHead from "../assets/images/band-members/DenHead.png";
 import JordanHead from "../assets/images/band-members/JorgunHead.png";
@@ -17,7 +15,6 @@ import NickHead from "../assets/images/band-members/NikHead.png";
 import ZakHead from "../assets/images/band-members/ZekHead.png";
 import Y2kWindowShell from "../components/Y2k/Y2kWindowShell";
 import { toKebabCase } from "../helper";
-import SiteWrapper from "../SiteWrapper";
 
 const bandMembers: Record<
 	string,
@@ -82,22 +79,8 @@ const defaultVals = {
 };
 
 export default function About() {
-	const selectedBandMember = useLocation().hash.replace(/^#/, "");
-	const bandMemberDisplay = useRef<HTMLDivElement | null>(null);
-
-	useEffect(() => {
-		const bandMemberElem =
-			bandMemberDisplay.current?.querySelector<HTMLDivElement>(
-				`.${toKebabCase(selectedBandMember)}-band-member`,
-			);
-
-		if (bandMemberElem) {
-			bandMemberElem.focus();
-		}
-	}, [selectedBandMember]);
-
 	return (
-		<SiteWrapper sectionId="about" className="about">
+		<section id="about" className="about">
 			<Y2kWindowShell navText="About" closeButtonRedirect="/">
 				<div className="input-background">
 					<div className="band-member-display">
@@ -108,8 +91,6 @@ export default function About() {
 									<button
 										type="button"
 										key={uuid()}
-										// href={`#${k}`}
-										tabIndex={-1}
 										className={`${toKebabCase(k)}-band-member`}
 									>
 										{v.name} <v.icon />
@@ -147,6 +128,6 @@ export default function About() {
 					</div>
 				</div>
 			</Y2kWindowShell>
-		</SiteWrapper>
+		</section>
 	);
 }

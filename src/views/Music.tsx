@@ -6,7 +6,6 @@ import magnifyingGlass from "../assets/images/y2k-resources/magnifying_glass.png
 import Y2kWindowSearch from "../components/Y2k/Y2kWindowSearch.tsx";
 import Y2kWindowShell from "../components/Y2k/Y2kWindowShell.tsx";
 import { toKebabCase } from "../helper/index.tsx";
-import SiteWrapper from "../SiteWrapper.tsx";
 import type { MusicData, Track } from "../types/index";
 import { AppContext } from "../utils/AppContext";
 
@@ -100,7 +99,7 @@ export default function Music() {
 	}, [callAndSetMusicData]);
 
 	return (
-		<SiteWrapper sectionId="music" className={"music-collection"}>
+		<section id="music" className={"music-collection"}>
 			<Y2kWindowShell navText="Open" closeButtonRedirect="/">
 				<Y2kWindowSearch>
 					{musicData?.data.allSongCollections ? (
@@ -216,6 +215,7 @@ export default function Music() {
 										.replaceAll("\n", " - ")
 								: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro, enim. In velit itaque ex quas accusantium dolore eum ea voluptatum?"}
 						</p>
+						<div className="fade-overlay" />
 					</div>
 					<div className="lyric-showcase-two">
 						<h3 className="song-name">{randTracks.randTrackTwo?.title}</h3>
@@ -227,6 +227,7 @@ export default function Music() {
 										.replaceAll("\n", " - ")
 								: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro, enim. In velit itaque ex quas accusantium dolore eum ea voluptatum?"}
 						</p>
+						<div className="fade-overlay" />
 					</div>
 					<div className="now-playing">
 						<p className="title">Featuring your favourite tracks...</p>
@@ -237,6 +238,6 @@ export default function Music() {
 					</div>
 				</div>
 			</Y2kWindowShell>
-		</SiteWrapper>
+		</section>
 	);
 }

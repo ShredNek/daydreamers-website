@@ -11,6 +11,7 @@ import Footer from "./components/Footer";
 import LazyImage from "./components/LazyImage";
 import NavHeader from "./components/NavHeader";
 import "./styles/views/_site-wrapper.scss";
+import { Outlet } from "react-router-dom";
 
 const imgArr = [logo1, logo2, logo3, logo4, logo5, logo6];
 
@@ -30,18 +31,10 @@ function LogoLayer() {
 }
 
 type SiteWrapperComponent = {
-	children?: React.ReactNode;
 	hideBackground?: boolean;
-	sectionId: string;
-	className?: string;
 };
 
-export default function SiteWrapper({
-	children,
-	hideBackground,
-	sectionId,
-	className,
-}: SiteWrapperComponent) {
+export default function SiteWrapper({ hideBackground }: SiteWrapperComponent) {
 	return (
 		<div className="website-content">
 			<NavHeader hideBackground={hideBackground} />
@@ -56,9 +49,9 @@ export default function SiteWrapper({
 					/>
 				</div>
 			</div>
-			<section id={sectionId} className={className}>
-				{children}
-			</section>
+			<div className="content-container">
+				<Outlet />
+			</div>
 			<Footer />
 		</div>
 	);
