@@ -9,6 +9,8 @@ import {
 } from "react-icons/gi";
 import type { IconType } from "react-icons/lib";
 import { v4 as uuid } from "uuid";
+import AlienHead from "../assets/images/band-members/AlienHead.png";
+import BobsonDougnuttHead from "../assets/images/band-members/BobsonDougnuttHead.png";
 import DanielHead from "../assets/images/band-members/DenHead.png";
 import JordanHead from "../assets/images/band-members/JorgunHead.png";
 import NickHead from "../assets/images/band-members/NikHead.png";
@@ -63,22 +65,32 @@ const bandMembers: Record<
 	// 	name: "Lucy",
 	// 	icon: GiDogBowl,
 	// },
-	// Alien: {
-	// 	name: "Alien",
-	// 	icon: GiAlienStare,
-	// },
-	// BobsonDougnutt: {
-	// 	name: "Bobson Dougnutt",
-	// 	icon: GiBaseballGlove,
-	// },
+	Alien: {
+		name: "Alien",
+		type: "Pizza time initiator",
+		icon: GiAlienStare,
+		imgDesc: "You have chosen Brock",
+		img: AlienHead,
+		bio: "Friendly neighborhood alien man thing. Loves sharing free pizza on cliff sides with men in suits.",
+	},
+	BobsonDougnutt: {
+		name: "Bobson Dougnutt",
+		type: "Baseball specialist",
+		icon: GiBaseballGlove,
+		imgDesc: "You have chosen Bobson Dougnutt",
+		img: BobsonDougnuttHead,
+		bio: "When the world said no he also said no back. When his feet touch the plate the earths heart attacks.",
+	},
 };
 
 const defaultVals = {
 	name: "Day Dreamers",
-	bio: "Formed in late 2015, Day Dreamers are a Melbourne alt punk band influenced by 90's grunge, punk bands to the alternative Australian scene of today. Day Dreamers is made up of four members, Zak Rakitic, Nick Dordevic, Daniel Lee and Jordan Rakitic. The four have an energetic and fun presence on stage, involving the crowd and bringing in some (attempted) humour when they can.",
+	bio: "From playing backyard gigs in the suburbs during their teens to now playing at some of Naarm's iconic bars and band rooms, Day dreamers have not only grown up together but so has their alternative garage rock sound. Influenced by the nostalgic sounds of the 90s and early 2000s imagery, Day Dreamers will have you feeling like you're playing Pro Skater with your cool older cousin on a summer's day. ",
 };
 
 export default function About() {
+	const bandMemberEntries = Object.entries(bandMembers);
+
 	return (
 		<section id="about" className="about">
 			<Y2kWindowShell navText="About" closeButtonRedirect="/">
@@ -87,7 +99,7 @@ export default function About() {
 						<div className="dropdown">
 							<div className="list-label">Band Members</div>
 							<div className="results-list">
-								{Object.entries(bandMembers).map(([k, v]) => (
+								{bandMemberEntries.map(([k, v]) => (
 									<button
 										type="button"
 										key={uuid()}
@@ -99,7 +111,7 @@ export default function About() {
 							</div>
 						</div>
 						<div className="icon-container">
-							{Object.entries(bandMembers).map(([k, v]) => (
+							{bandMemberEntries.map(([k, v]) => (
 								<img
 									key={uuid()}
 									className={`${toKebabCase(k)}-band-member`}
@@ -110,7 +122,7 @@ export default function About() {
 						</div>
 					</div>
 					<div className="bio-content">
-						{Object.entries(bandMembers).map(([k, v]) => (
+						{bandMemberEntries.map(([k, v]) => (
 							<div key={k} className={`${toKebabCase(k)}-band-member bio`}>
 								<h2>{v.name}</h2>
 								<sub>{v.type}</sub>
