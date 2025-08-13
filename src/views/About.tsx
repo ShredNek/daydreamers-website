@@ -11,10 +11,12 @@ import type { IconType } from "react-icons/lib";
 import { v4 as uuid } from "uuid";
 import AlienHead from "../assets/images/band-members/AlienHead.png";
 import BobsonDougnuttHead from "../assets/images/band-members/BobsonDougnuttHead.png";
-import DanielHead from "../assets/images/band-members/DenHead.png";
-import JordanHead from "../assets/images/band-members/JorgunHead.png";
-import NickHead from "../assets/images/band-members/NikHead.png";
-import ZakHead from "../assets/images/band-members/ZekHead.png";
+import DanielHead from "../assets/images/band-members/Daniel_HeadIcon.png";
+import JordanHead from "../assets/images/band-members/Jordan_HeadIcon.png";
+import LucyHead from "../assets/images/band-members/Lucy_HeadIcon.png";
+import NickHead from "../assets/images/band-members/Nick_HeadIcon.png";
+import ZakHead from "../assets/images/band-members/Zak_HeadIcon.png";
+
 import Y2kWindowShell from "../components/Y2k/Y2kWindowShell";
 import { toKebabCase } from "../helper";
 
@@ -61,10 +63,14 @@ const bandMembers: Record<
 		img: DanielHead,
 		bio: "Certified guitar lead. Lafs at any sloit humorous interchange. No want long hair.",
 	},
-	// Lucy: {
-	// 	name: "Lucy",
-	// 	icon: GiDogBowl,
-	// },
+	Lucy: {
+		name: "Lucy",
+		icon: GiDogBowl,
+		type: "Bark inspector",
+		imgDesc: "You have chosen Lucy",
+		img: LucyHead,
+		bio: "The goodest girl in the whole dang world. Faithful furry companion of Zak and Jordan.",
+	},
 	Alien: {
 		name: "Alien",
 		type: "Pizza time initiator",

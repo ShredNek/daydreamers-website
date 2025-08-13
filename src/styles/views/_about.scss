@@ -32,7 +32,7 @@
       }
     }
 
-    @include band-member-opacity(("zak", "nick", "jordan", "daniel", "bobsondougnutt", "alien"));
+    @include band-member-opacity(("zak", "nick", "jordan", "daniel", "bobsondougnutt", "alien", "lucy"));
 
     .band-member-display {
       display: grid;
