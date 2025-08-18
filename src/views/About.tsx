@@ -9,8 +9,8 @@ import {
 } from "react-icons/gi";
 import type { IconType } from "react-icons/lib";
 import { v4 as uuid } from "uuid";
-import AlienHead from "../assets/images/band-members/AlienHead.png";
-import BobsonDougnuttHead from "../assets/images/band-members/BobsonDougnuttHead.png";
+import AlienHead from "../assets/images/band-members/Alien_Head.png";
+import BobsonDougnuttHead from "../assets/images/band-members/BobsonDougnutt_Head.png";
 import DanielHead from "../assets/images/band-members/Daniel_HeadIcon.png";
 import JordanHead from "../assets/images/band-members/Jordan_HeadIcon.png";
 import LucyHead from "../assets/images/band-members/Lucy_HeadIcon.png";
