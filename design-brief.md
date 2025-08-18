@@ -16,7 +16,7 @@ Shows will be windows XP background, and the app icons will be the shows. (https
 
 ### - Individual shows
 
-When you DOUBLE-CLICK click on the app, it opens up a new window with the gig details ()
+When you click on the app, it opens up a new window with the gig details ()
 
 ## About
 

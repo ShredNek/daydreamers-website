@@ -17,10 +17,7 @@ dist-ssr
 
 package-lock.json
 
-*.firebase/*
-.firebase/*
 
-.firebase/**
 
 # Editor directories and files
 .vscode/*
@@ -32,3 +29,5 @@ package-lock.json
 *.njsproj
 *.sln
 *.sw?
+
+.firebase

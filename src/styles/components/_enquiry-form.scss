@@ -4,23 +4,55 @@
 
 @use "sass:color";
 
-$hue-degree-shift: 90deg;
+@property --angle {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 0deg;
+}
 
 .enquiry-form-container {
+  position: relative;
+
+  $hue-degree-shift: 90deg;
+
+  @keyframes flipHue {
+    0% {
+      filter: hue-rotate($hue-degree-shift);
+    }
+    50% {
+      filter: hue-rotate(-$hue-degree-shift);
+    }
+    100% {
+      filter: hue-rotate($hue-degree-shift);
+    }
+  }
+
+  @keyframes rotateBackground {
+    from {
+      --angle: 0deg;
+    }
+    to {
+      --angle: 360deg;
+    }
+  }
+
   .enquiry-form-filter,
   .enquiry-form-backdrop {
     position: fixed;
-    top: 0;
+    margin: auto;
+    inset: 0;
     height: 100vh;
     width: 100vw;
     opacity: 0.25;
   }
 
   .enquiry-form-filter {
-    filter: hue-rotate($hue-degree-shift);
-    animation: flipHue 5s ease-in-out infinite alternate;
-    background: linear-gradient(to top, var(--favourite-colour), white, transparent);
-
+    --angle: 0deg;
+    animation:
+      rotateBackground 10s linear infinite,
+      flipHue 5s linear infinite alternate;
+    display: inline-block;
+    background: linear-gradient(var(--angle), var(--favourite-colour), transparent);
     z-index: -1;
   }
 
@@ -29,23 +61,16 @@ $hue-degree-shift: 90deg;
     z-index: -2;
   }
 
-  h1 {
-    text-align: center;
-    font-size: clamp(2rem, 8vw + 2rem, 6rem);
-    margin: 1rem 0px;
-  }
-
   form {
-    background-color: white;
+    $form-gap: 1rem;
+
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
 
-    width: clamp(250px, 90%, 600px);
-    gap: 1em;
-    margin: auto;
-    padding: 3rem;
-    outline: 5px solid black;
+    min-width: clamp(250px, 90%, 1200px);
+    gap: calc($form-gap / 2);
+    padding: $form-gap;
     border-radius: b.$border-radius-heavy;
 
     .input-container,
@@ -56,27 +81,29 @@ $hue-degree-shift: 90deg;
       width: 100%;
     }
 
-    label {
-      width: fit-content;
+    input,
+    select,
+    textarea {
+      @extend %y2k-border-inverted;
+      box-sizing: border-box;
     }
 
-    input[type="text"],
-    input[type="email"],
-    input[type="color"],
-    input[type="color"],
-    input[type="number"],
-    textarea,
+    input,
     select {
-      border-radius: b.$border-radius-subtle;
+      height: 2.2rem;
+      font-size: 1rem;
     }
 
     input[type="color"] {
-      height: 2.75rem;
+      padding-left: 0;
     }
 
     textarea {
       max-height: 300px;
       min-height: 100px;
+      resize: vertical;
+      padding: 0.4rem;
+      font-size: 1rem;
     }
 
     span.error {
@@ -91,38 +118,19 @@ $hue-degree-shift: 90deg;
     .favourite-colour-enquiry-type,
     .code-name-level-of-secrecy {
       display: flex;
-      gap: 1em;
+      gap: $form-gap;
     }
 
     & > .input-container,
     div:not(.favourite-colour-enquiry-type) .input-container {
-      position: relative;
-
-      label {
-        color: a.$ash;
-        position: absolute;
-        background: white;
-        height: fit-content;
-        margin: auto 1em;
-        inset: 0;
-        padding: 0px 0.5em;
-        border-radius: b.$border-radius-heavy;
-
-        transform-origin: left;
-        transition-property: translate transform;
-        transition-duration: 0.1s;
-        transition-timing-function: ease-out;
-      }
-
-      label[for="message"] {
-        margin: 0.7em auto 0px 0.9em;
-      }
+      display: flex;
+      gap: calc($form-gap / 4);
     }
 
     .favourite-colour-enquiry-type .input-container {
       display: flex;
       flex-direction: column;
-      gap: 0.5em;
+      gap: calc($form-gap / 4);
 
       &:has([type="color"]) {
         justify-content: space-between;
@@ -135,70 +143,40 @@ $hue-degree-shift: 90deg;
       width: 100%;
 
       &:has(input:focus),
-      &:has(input:not(:placeholder-shown):not([name="favouriteColour"])),
-      &:has(textarea:focus),
-      &:has(textarea:not(:placeholder-shown)) {
-        label:not([for="favouriteColour"]) {
-          transform: scale(0.75);
-          translate: 0% -100%;
-        }
-      }
-
-      &:has(input:focus),
       &:has(textarea:focus),
       &:has(select:focus) {
         label {
-          color: color.adjust(a.$daydreamer-orange, $lightness: -20%);
+          color: color.adjust(a.$daydreamer-sad-blue, $lightness: -20%);
         }
 
         input,
         textarea,
         select {
-          border-color: a.$daydreamer-orange !important;
-          outline: a.$daydreamer-orange;
-          box-shadow: 0px 0px 5px a.$daydreamer-orange;
+          border-color: a.$daydreamer-sad-blue !important;
+          outline: a.$daydreamer-sad-blue;
+          box-shadow: 0px 0px 5px a.$daydreamer-sad-blue;
         }
       }
     }
   }
 
   button[type="submit"] {
-    $button-blue: a.$daydreamer-blue;
-    margin-top: 2em;
-    padding: 0.5em 0px;
-    background-color: white;
-    border: 2px solid $button-blue;
-    color: $button-blue;
-    font-size: 1.75em;
-    border-radius: b.$border-radius-subtle;
-    box-shadow:
-      0px 0px 30px 0px color.adjust($button-blue, $lightness: 30%),
-      0px 0px 30px 0px color.adjust($button-blue, $lightness: 30%);
+    font-size: 2rem;
+    font-weight: bold;
+    background-color: grey;
+    color: a.$daydreamer-off-white;
+    margin: 2rem 0 0;
 
-    transition-property: background-color color font-weight opacity;
-    transition-duration: 0.25s;
-    transition-timing-function: ease-out;
-
-    &:hover,
-    &:focus {
-      background-color: $button-blue;
-      font-weight: 600;
-      color: white;
-      box-shadow:
-        0px 0px 15px 5px color.adjust($button-blue, $lightness: 20%),
-        0px 0px 15px 5px color.adjust($button-blue, $lightness: 20%);
-    }
-
-    &:focus {
-      outline: color.adjust($button-blue, $lightness: 20%) 2px solid;
+    &:active,
+    &:disabled {
+      transform: translate(4px, 4px);
+      color: color.adjust(a.$daydreamer-off-white, $lightness: -10%);
     }
 
     &:disabled {
-      border: 2px solid color.adjust(indigo, $lightness: 10%);
-      color: color.adjust(indigo, $lightness: 10%);
-      box-shadow: 0px 0px 30px -10px color.adjust(indigo, $lightness: 30%);
-      opacity: 0.34;
-
+      @extend %y2k-border-inverted;
+      background-color: a.$daydreamer-faded-blue;
+      color: white;
       pointer-events: none;
     }
   }
@@ -214,17 +192,5 @@ $hue-degree-shift: 90deg;
         flex-direction: column;
       }
     }
-  }
-}
-
-@keyframes flipHue {
-  0% {
-    filter: hue-rotate($hue-degree-shift);
-  }
-  50% {
-    filter: hue-rotate(-$hue-degree-shift);
-  }
-  100% {
-    filter: hue-rotate($hue-degree-shift);
   }
 }
