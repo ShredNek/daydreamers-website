@@ -23,9 +23,9 @@ export default function Footer() {
 					<PiHeartFill />
 					<p>by</p>
 					<a
-						target="_blank"
 						href="https://github.com/shredNek/"
 						rel="noreferrer"
+						target="_blank"
 					>
 						Daniel Lee.
 					</a>

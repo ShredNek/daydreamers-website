@@ -5,5 +5,12 @@
 				"useLiteralKeys": "off"
 			}
 		}
+	},
+	"assist": {
+		"actions": {
+			"source": {
+				"useSortedAttributes": "on"
+			}
+		}
 	}
 }

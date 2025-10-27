@@ -146,11 +146,14 @@
       height: $filter-control-height;
 
       .search-input-combo,
-      .search-input-combo input {
+      .search-input-combo input,
+      .search-input-combo select {
+        min-width: 200px;
         flex-grow: 6;
       }
 
-      input {
+      input,
+      select {
         height: 100%;
       }
 
