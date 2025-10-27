@@ -19,8 +19,8 @@ $max-height: 800px;
   justify-content: space-between;
 
   &:not(.no-background) {
-    background-color: color.adjust(a.$daydreamer-off-white, $lightness: 0%);
-    box-shadow: 0px 0px 20px -7.5px black;
+    background-color: color.adjust(a.$daydreamer-off-white);
+    box-shadow: 0px 0px 12.5px -7.5px black;
     z-index: 1000;
   }
 

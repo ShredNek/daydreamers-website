@@ -23,6 +23,11 @@ $daydreamer-gradient-main: radial-gradient(
   $daydreamer-sad-blue 50%,
   $daydreamer-smoky-black 85%
 );
+$daydreamer-gradient-main-transparent: radial-gradient(
+  circle,
+  color.adjust($daydreamer-sad-blue, $lightness: 10%) 0%,
+  transparent 65%
+);
 $daydreamer-gradient-homepage: radial-gradient(
   circle,
   color.adjust($grey, $lightness: 15%) 0%,
@@ -37,6 +42,7 @@ $daydreamer-gradient-faded: radial-gradient(
   #ffffff 85%
 );
 $daydreamer-gradient-alt: radial-gradient(circle, rgba($daydreamer-hot-yellow, 0.6) 0%, white 75%);
+$daydreamer-gradient-alt-transparent: radial-gradient(circle, rgba($daydreamer-hot-yellow, 0.6) 0%, transparent 75%);
 $stripe-primary: #635bff;
 $zak-red: rgb(247, 50, 11);
 $zak-red-gradient: radial-gradient(

@@ -3,104 +3,104 @@
 @use "sass:color";
 
 footer {
-  display: flex;
-  align-items: center;
-  justify-content: space-evenly;
-  gap: 2rem;
+  background-color: color.adjust(a.$daydreamer-off-white);
+  box-shadow: 0px 0px 12.5px -7.5px black;
+  z-index: 1000;
 
-  margin: 0 calc(0.5rem + 5vw);
-  padding: 0.5rem;
-
-  & > * {
-    margin: 1rem 0;
-    height: fit-content;
-  }
-
-  .social-links {
+  .footer-content {
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-evenly;
+    gap: 2rem;
+    width: 90vw;
+    max-width: 1800px;
+    margin: auto;
     flex-wrap: wrap;
-  }
 
-  .rounded-button-link {
-    overflow: hidden;
-    margin: 0.5rem;
-    padding: 1rem;
-    background: white;
-    border: black 0.075rem solid;
-    font-size: calc(1rem + 0.75vw);
-    border-radius: 0.75rem;
-    display: flex;
-    place-self: center;
-    position: relative;
+    margin: 0 calc(0.5rem + 5vw);
+    padding: 0.5rem;
 
-    opacity: 1;
-    transition-property: background, color, border-color, box-shadow;
-    transition-timing-function: ease-in-out;
-    transition-duration: 350ms;
-
-    & > .bg {
-      position: absolute;
-      height: 100%;
-      width: 100%;
-      inset: 0;
-
-      background: a.$daydreamer-gradient-alt;
-      z-index: -1;
-
-      transition-property: background, color, border-color, box-shadow;
-      transition-timing-function: ease-in-out;
-      transition-duration: 350ms;
+    & > * {
+      margin: 0 auto;
+      height: fit-content;
     }
 
-    &:hover {
-      // ? This is a very stinky hack to get the opacity to change on hover
-      background: rgba(255, 255, 255, 0.1);
-      color: color.adjust(a.$daydreamer-hot-yellow, $lightness: -25%);
-      border-color: color.adjust(a.$daydreamer-hot-yellow, $lightness: 20%);
-      box-shadow: 3px -2px 20px 0px a.$daydreamer-hot-yellow;
-    }
-  }
-
-  .link {
-    font-size: 1.25em;
-    cursor: pointer;
-
-    transition-property: color, text-decoration-color, text-shadow;
-    transition-timing-function: ease-in-out;
-    transition-duration: 350ms;
-
-    &:hover {
-      color: color.adjust(a.$daydreamer-hot-yellow, $lightness: -32.5%);
-      text-decoration-color: color.adjust(a.$daydreamer-hot-yellow, $lightness: -32.5%);
-      text-shadow:
-        -3px -2px 50px color.adjust(a.$daydreamer-hot-yellow, $hue: 5deg),
-        3px 5px 20px a.$daydreamer-hot-yellow;
-    }
-  }
-
-  p {
-    pointer-events: none;
-  }
-
-  @media (min-width: 850px) {
-    flex-direction: row;
-  }
-
-  @media (max-height: 700px) {
     .social-links {
-      margin-bottom: 0px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
     }
 
     .rounded-button-link {
-      font-size: 0.75rem;
-      padding: 0.5rem;
+      overflow: hidden;
+      margin: 0.5rem;
+      padding: 1rem;
+      font-size: calc(1rem + 0.75vw);
+      display: flex;
+      place-self: center;
+      position: relative;
+
+      transition-property: opacity;
+      transition-timing-function: ease-in-out;
+      transition-duration: 350ms;
+
+      & > .bg {
+        position: absolute;
+        height: 100%;
+        width: 100%;
+        inset: 0;
+        opacity: 0;
+        background: a.$daydreamer-gradient-main-transparent;
+
+        transition-property: opacity;
+        transition-timing-function: ease-in-out;
+        transition-duration: 350ms;
+
+        z-index: -1;
+      }
+
+      &:hover > .bg {
+        opacity: 1;
+      }
     }
 
-    .extra-links {
-      font-size: 0.75em;
-      margin: 0.5rem 0px;
+    .link {
+      font-size: 1.25em;
+      cursor: pointer;
+      transition-property: text-shadow;
+      transition-timing-function: ease-in-out;
+      transition-duration: 350ms;
+
+      &:hover {
+        text-shadow:
+          -3px -2px 50px color.adjust(a.$daydreamer-sad-blue, $hue: -2.5deg),
+          3px 5px 20px color.adjust(a.$daydreamer-sad-blue, $hue: 2.5deg);
+      }
+    }
+
+    p {
+      pointer-events: none;
+    }
+
+    @media (min-width: 850px) {
+      flex-direction: row;
+    }
+
+    @media (max-height: 700px) {
+      .social-links {
+        margin-bottom: 0px;
+      }
+
+      .rounded-button-link {
+        font-size: 0.75rem;
+        padding: 0.5rem;
+      }
+
+      .extra-links {
+        font-size: 0.75em;
+        margin: 0.5rem 0px;
+      }
     }
   }
 }
