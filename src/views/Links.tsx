@@ -50,36 +50,36 @@ export default function Links() {
 
 	return (
 		<>
-			<div id="site-backdrop" className="site-backdrop" />
-			<div id="photo-backdrop" className="photo-backdrop">
+			<div className="site-backdrop" id="site-backdrop" />
+			<div className="photo-backdrop" id="photo-backdrop">
 				<img
-					src={duhBend}
 					alt="Hero shot of your local wacky band, Day Dreamers"
 					className={videoHadLoaded ? "fadeout" : ""}
+					src={duhBend}
 				/>
 			</div>
 			<div className="video-backdrop">
 				<video
-					className={videoHadLoaded ? "" : "fadeout"}
-					onCanPlay={() => setVideoHasLoaded(true)}
-					src={DayDreamerVideo}
-					playsInline
 					autoPlay
-					muted
+					className={videoHadLoaded ? "" : "fadeout"}
 					loop
+					muted
+					onCanPlay={() => setVideoHasLoaded(true)}
+					playsInline
+					src={DayDreamerVideo}
 				></video>
 			</div>
-			<section id="links-home" className="links-home">
+			<section className="links-home" id="links-home">
 				<h1>Day Dreamers</h1>
 				<h2>Conglaturations, you've stumbled upon the band of your dreams</h2>
 				<menu>
 					{SOCIAL_LINKS.map((obj) => (
 						<a
 							className={`${obj.linkType}  link-box`}
-							key={obj.title}
 							href={obj.href}
-							target="_blank"
+							key={obj.title}
 							rel="noreferrer"
+							target="_blank"
 						>
 							<div className="icon-container">
 								{renderLinkTypeImage(obj.linkType)}
@@ -93,9 +93,9 @@ export default function Links() {
 					<PiHeartFill />
 					<p>by</p>
 					<a
-						target="_blank"
 						href="https://github.com/shredNek/"
 						rel="noreferrer"
+						target="_blank"
 					>
 						Daniel Lee.
 					</a>

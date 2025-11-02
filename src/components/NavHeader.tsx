@@ -59,25 +59,29 @@ export default function NavHeader({ className, hideBackground }: NavHeader) {
 
 	return (
 		<div
-			id="header-navigation"
 			className={`header-navigation ${hideBackground ? " no-background" : ""}`}
+			id="header-navigation"
 		>
-			<a className="header-logo-container" href="/">
+			<button
+				className="header-logo-container"
+				onClick={() => navigate("/")}
+				type="button"
+			>
 				<h1 className={`letters ${className ?? ""}`}>{titleNodes}</h1>
 				<img alt="spin-tail" className="vector spin-tail" src={SpinTail} />
 				<img alt="star-1" className="vector star-1" src={Star1} />
 				<img alt="star-2" className="vector star-2" src={Star2} />
-			</a>
-			<nav id="page-routes" className="page-routes">
+			</button>
+			<nav className="page-routes" id="page-routes">
 				<Hamburger />
 				<ul>
 					{PAGE_LINKS.map((link, index) => (
 						<li
-							key={uuid()}
 							className={index % 2 === 0 ? `hover v-1` : `hover v-2`}
+							key={uuid()}
 						>
-							<button type="button" onClick={() => handleNavItemClick(link)}>
-								<img src={link.tabImg} alt={`Link to ${link.to}`} />
+							<button onClick={() => handleNavItemClick(link)} type="button">
+								<img alt={`Link to ${link.to}`} src={link.tabImg} />
 							</button>
 						</li>
 					))}
