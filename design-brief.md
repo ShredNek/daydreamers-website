@@ -30,7 +30,7 @@ Add in personal deets, like number, email
 
 ## Media
 
-<!-- Media will be Y2K'ed instagram/pinterest media waterfall style --> NUP NVM
+Inspo: https://au.pinterest.com/pin/1688918606520671/ - Have it so that the medias are the dropdown items.
 
 ## Other ideas
 
