@@ -43,7 +43,7 @@ $max-height: 800px;
   }
 
   .header-logo-container {
-    min-width: 500px;
+    min-width: 400px;
     height: clamp(160px, 10vw + 5px, 150px);
     justify-items: center;
     text-shadow: f.generate-text-outline(1.5px, a.$daydreamer-sad-blue, 2px);
@@ -58,6 +58,7 @@ $max-height: 800px;
       margin: auto;
       z-index: 10;
       line-height: 0.8em;
+      font-size: clamp(1.5rem, 5vw, 3rem);
     }
 
     .vector {
@@ -145,7 +146,7 @@ $max-height: 800px;
     }
   }
 
-  @media (max-width: b.$medium-width) {
+  @media (max-width: b.$large-width) {
     flex-direction: column;
     padding: 0;
     gap: 0;
@@ -157,10 +158,34 @@ $max-height: 800px;
       box-shadow: 0px 0px 12.5px -7.5px black;
     }
 
-    .home-and-dropdown-toggle .dropdown-button {
-      display: block; // ? Will be hidden on desktop screens
-    }
+    .home-and-dropdown-toggle {
+      gap: 0;
+      padding: 0 1.5rem;
 
+      .header-logo-container {
+        min-width: 150px;
+
+        .spin-tail {
+          max-width: clamp(150px, 30.5vw + 20px, 300px);
+        }
+
+        .star-1 {
+          transform: translateX(clamp(-75px, -9.5vw, -35px)) translateY(clamp(10px, 3.5vw, 30px));
+          max-width: clamp(20px, 4.5vw, 40px);
+          max-height: clamp(20px, 4.5vw, 40px);
+        }
+
+        .star-2 {
+          transform: translateX(clamp(40px, 9.5vw, 80px)) translateY(clamp(-30px, -4.5vw, -20px));
+          max-height: clamp(70px, 18.5vw, 250px);
+          max-width: clamp(30px, 5.5vw, 60px);
+        }
+      }
+
+      .dropdown-button {
+        display: block; // ? Will be hidden on desktop screens
+      }
+    }
     .page-routes {
       transition: transform 0.5s ease-in-out;
 
@@ -171,13 +196,6 @@ $max-height: 800px;
       &.dropdown-inactive {
         transform: translateY(-750px);
       }
-    }
-  }
-
-  @media (min-width: b.$medium-width) {
-    h1 {
-      font-size: clamp(2.5rem, 2.5vw + 2px, 4rem);
-      padding: 1em 1.5em;
     }
   }
 }
