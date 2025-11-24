@@ -3,8 +3,8 @@ import SpinTail from "../assets/vectors/day-dreamers-logo/Day-Dreamer-SpinTail.s
 import Star1 from "../assets/vectors/day-dreamers-logo/Day-Dreamer-Star_1.svg";
 import Star2 from "../assets/vectors/day-dreamers-logo/Day-Dreamer-Star_2.svg";
 import { type PAGE_LINK, PAGE_LINKS } from "../utils/globals";
-import Hamburger from "./Hamburger";
 import "../styles/components/_nav-header.scss";
+import { Twirl as Hamburger } from "hamburger-react";
 import { useEffect, useState } from "react";
 import { v4 as uuid } from "uuid";
 
@@ -36,6 +36,7 @@ interface NavHeader {
 export default function NavHeader({ className, hideBackground }: NavHeader) {
 	const navigate = useNavigate();
 	const [titleNodes, setTitleNodes] = useState<React.ReactNode[]>([]);
+	const [isDropdownActive, setIsDropdownActive] = useState(false);
 	const title = "Day Dreamers";
 
 	useEffect(() => {
@@ -59,21 +60,31 @@ export default function NavHeader({ className, hideBackground }: NavHeader) {
 
 	return (
 		<div
-			className={`header-navigation ${hideBackground ? " no-background" : ""}`}
+			className={`header-navigation ${hideBackground ? "no-background" : ""}`}
 			id="header-navigation"
 		>
-			<button
-				className="header-logo-container"
-				onClick={() => navigate("/")}
-				type="button"
+			<nav className="home-and-dropdown-toggle">
+				<button
+					className="header-logo-container"
+					onClick={() => navigate("/")}
+					type="button"
+				>
+					<h1 className={`letters ${className ?? ""}`}>{titleNodes}</h1>
+					<img alt="spin-tail" className="vector spin-tail" src={SpinTail} />
+					<img alt="star-1" className="vector star-1" src={Star1} />
+					<img alt="star-2" className="vector star-2" src={Star2} />
+				</button>
+				<div className="dropdown-button">
+					<Hamburger
+						onToggle={() => setIsDropdownActive((prev) => !prev)}
+						toggled={isDropdownActive}
+					/>
+				</div>
+			</nav>
+			<nav
+				className={`page-routes dropdown-${isDropdownActive ? "active" : "inactive"}`}
+				id="page-routes"
 			>
-				<h1 className={`letters ${className ?? ""}`}>{titleNodes}</h1>
-				<img alt="spin-tail" className="vector spin-tail" src={SpinTail} />
-				<img alt="star-1" className="vector star-1" src={Star1} />
-				<img alt="star-2" className="vector star-2" src={Star2} />
-			</button>
-			<nav className="page-routes" id="page-routes">
-				<Hamburger />
 				<ul>
 					{PAGE_LINKS.map((link, index) => (
 						<li

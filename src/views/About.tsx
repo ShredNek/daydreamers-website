@@ -98,8 +98,8 @@ export default function About() {
 	const bandMemberEntries = Object.entries(bandMembers);
 
 	return (
-		<section id="about" className="about">
-			<Y2kWindowShell navText="About" closeButtonRedirect="/">
+		<section className="about" id="about">
+			<Y2kWindowShell closeButtonRedirect="/" navText="About">
 				<div className="input-background">
 					<div className="band-member-display">
 						<div className="dropdown">
@@ -107,9 +107,9 @@ export default function About() {
 							<div className="results-list">
 								{bandMemberEntries.map(([k, v]) => (
 									<button
-										type="button"
-										key={uuid()}
 										className={`${toKebabCase(k)}-band-member`}
+										key={uuid()}
+										type="button"
 									>
 										{v.name} <v.icon />
 									</button>
@@ -119,17 +119,17 @@ export default function About() {
 						<div className="icon-container">
 							{bandMemberEntries.map(([k, v]) => (
 								<img
-									key={uuid()}
-									className={`${toKebabCase(k)}-band-member`}
-									src={v.img}
 									alt={v.imgDesc}
+									className={`${toKebabCase(k)}-band-member`}
+									key={uuid()}
+									src={v.img}
 								/>
 							))}
 						</div>
 					</div>
 					<div className="bio-content">
 						{bandMemberEntries.map(([k, v]) => (
-							<div key={k} className={`${toKebabCase(k)}-band-member bio`}>
+							<div className={`${toKebabCase(k)}-band-member bio`} key={k}>
 								<h2>{v.name}</h2>
 								<sub>{v.type}</sub>
 								<p>{v.bio}</p>

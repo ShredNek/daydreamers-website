@@ -1,7 +1,19 @@
 import type { ReactElement, ReactNode } from "react";
-import type { VenueLocation } from "../types/index.ts";
-import { PAGE_LINKS } from "../utils/globals.ts";
+import {
+	FaBandcamp,
+	FaCode,
+	FaFacebookF,
+	FaInstagram,
+	FaMusic,
+	FaRecordVinyl,
+	FaSpotify,
+	FaTiktok,
+	FaYoutube,
+} from "react-icons/fa6";
 import { v4 as uuid } from "uuid";
+import TripleJ from "../components/svg/TripleJ";
+import type { LinkType, VenueLocation } from "../types/index.ts";
+import { PAGE_LINKS } from "../utils/globals.ts";
 
 export function toCamelCase(str: string) {
 	const splitStr = str.split("");
@@ -202,9 +214,9 @@ export const returnNavItems = (
 		) {
 			return (
 				<li
-					key={uuid()}
 					className={`${index % 2 === 0 ? "hover v-1" : "hover v-2"} 
           ${link.innerText === linkToDisable ? "disabled" : ""}`}
+					key={uuid()}
 				>
 					<a href={`/${link.to}`}>{link.innerText}</a>
 				</li>
@@ -212,4 +224,29 @@ export const returnNavItems = (
 		}
 		return null; // return null for cases where the link shouldn't be rendered
 	});
+};
+
+export const renderLinkTypeImage = (linkType: LinkType) => {
+	switch (linkType) {
+		case "instagram":
+			return <FaInstagram />;
+		case "facebook":
+			return <FaFacebookF />;
+		case "youtube":
+			return <FaYoutube />;
+		case "tiktok":
+			return <FaTiktok />;
+		case "spotify":
+			return <FaSpotify />;
+		case "triple j":
+			return <TripleJ />;
+		case "bandcamp":
+			return <FaBandcamp />;
+		case "song":
+			return <FaMusic />;
+		case "album":
+			return <FaRecordVinyl />;
+		case "website":
+			return <FaCode />;
+	}
 };

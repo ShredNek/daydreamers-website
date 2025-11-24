@@ -1,16 +1,24 @@
-import { FaFacebookF, FaInstagram, FaMusic, FaSpotify } from "react-icons/fa6";
 import { PiHeartFill } from "react-icons/pi";
 import RoundedButtonLink from "../components/RoundedButtonLink";
+import { renderLinkTypeImage } from "../helper";
+import { SOCIAL_LINKS } from "../utils/globals";
 
 export default function Footer() {
 	return (
 		<footer>
 			<div className="footer-content">
 				<div className="social-links">
-					<RoundedButtonLink imageChild={<FaFacebookF />} />
-					<RoundedButtonLink imageChild={<FaInstagram />} />
-					<RoundedButtonLink imageChild={<FaSpotify />} />
-					<RoundedButtonLink imageChild={<FaMusic />} />
+					{SOCIAL_LINKS.filter(
+						(social) =>
+							social.linkType !== "album" &&
+							social.linkType !== "song" &&
+							social.linkType !== "website",
+					).map((social, index) => (
+						<RoundedButtonLink
+							imageChild={renderLinkTypeImage(social.linkType)}
+							key={`${index}::${social.title}`}
+						/>
+					))}
 				</div>
 				<ul className="extra-links">
 					<li className="link">Press Kit</li>
