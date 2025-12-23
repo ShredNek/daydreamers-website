@@ -14,7 +14,7 @@ $max-height: 800px;
   margin-bottom: 2rem;
   padding: 0 1.5rem 0;
   gap: 1.5rem;
-  z-index: 1;
+  z-index: 1000;
   align-items: center;
   justify-content: space-between;
 
@@ -139,7 +139,7 @@ $max-height: 800px;
         padding: 0.5rem 0px;
       }
 
-      @media (max-width: b.$medium-width) {
+      @media (max-width: b.$large-width) {
         justify-content: center;
         flex-direction: column;
       }
@@ -186,15 +186,17 @@ $max-height: 800px;
         display: block; // ? Will be hidden on desktop screens
       }
     }
+
     .page-routes {
+      position: absolute;
       transition: transform 0.5s ease-in-out;
 
       &.dropdown-active {
-        transform: translateY(0px);
+        transform: translateY(150px);
       }
 
       &.dropdown-inactive {
-        transform: translateY(-750px);
+        transform: translateY(-500px);
       }
     }
   }

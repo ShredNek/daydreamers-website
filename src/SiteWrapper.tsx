@@ -17,13 +17,13 @@ const imgArr = [logo1, logo2, logo3, logo4, logo5, logo6];
 
 function LogoLayer() {
 	return (
-		<div id="logo-layer" className="logo-layer">
+		<div className="logo-layer" id="logo-layer">
 			{imgArr.map((src, i) => (
 				<img
-					key={uuid()}
-					src={src}
 					alt={`Band logo number ${i + 1}`}
 					className="day-dreamer-logo"
+					key={uuid()}
+					src={src}
 				></img>
 			))}
 		</div>
@@ -39,13 +39,13 @@ export default function SiteWrapper({ hideBackground }: SiteWrapperComponent) {
 		<div className="website-content">
 			<NavHeader hideBackground={hideBackground} />
 			<div className="background-visuals">
-				<div id="site-backdrop" className="site-backdrop" />
+				<div className="site-backdrop" id="site-backdrop" />
 				<LogoLayer />
-				<div id="photo-backdrop" className="photo-backdrop">
+				<div className="photo-backdrop" id="photo-backdrop">
 					<LazyImage
-						lowQualitySrc={lowQualHero}
-						highQualitySrc={highQualHero}
 						alt="Hero shot of your local wacky band, Day Dreamers"
+						highQualitySrc={highQualHero}
+						lowQualitySrc={lowQualHero}
 					/>
 				</div>
 			</div>

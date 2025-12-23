@@ -98,146 +98,150 @@ export default function Music() {
 		callAndSetMusicData();
 	}, [callAndSetMusicData]);
 
-	return (
-		<section id="music" className={"music-collection"}>
-			<Y2kWindowShell navText="Open" closeButtonRedirect="/">
-				<Y2kWindowSearch>
-					{musicData?.data.allSongCollections ? (
-						musicData.data.allSongCollections.map((collection) => (
-							<button
-								className="result"
-								key={collection.id}
-								type="button"
-								onClick={() =>
-									navigate(`/music/${toKebabCase(collection.name)}`)
-								}
-							>
-								<div className="artwork">
-									<img src={collection.coverArt?.url} alt="" />
-								</div>
-								<p className="result-name">{collection.name}</p>
-							</button>
-						))
-					) : (
-						<div className="no-results">
-							<p className="header-text">This folder is empty.</p>
-							<div className="sub-content">
-								<p>Some cheeky geezah has probably taken all this down...</p>
-								<p>
-									if you see this error, reach out to us at
-									daydreamersmusic2015@gmail.com!
-								</p>
-							</div>
-						</div>
-					)}
-				</Y2kWindowSearch>
-			</Y2kWindowShell>
-			<Y2kWindowShell
-				isModal
-				closeButtonRedirect="/music"
-				className={`song-collection-window ${currentSongCollection ? "open" : ""}`}
-				navText={currentSongCollection?.name ?? "nothing here :/"}
-			>
-				<div className="url-search-row">
-					<div className="search-label">
-						<p>Search URL</p>
-						<span>
-							<img src={magnifyingGlass} alt="Magnifying glass" />
-						</span>
-					</div>
-					<div className="url">
-						<p>{window.location.href}</p>
-					</div>
-				</div>
-				<div className="info-grid">
-					<div className="artwork">
-						<img
-							src={currentSongCollection?.coverArt.url}
-							alt={`Artwork for ${currentSongCollection?.name}`}
-						/>
-					</div>
-					<div className="title-card">
-						<h2>{currentSongCollection?.name}</h2>
-						<hr />
-						<ul>
-							<li>
-								<h4>release date:</h4>{" "}
-								<p>{currentSongCollection?.releaseDate}</p>
-							</li>
-							<li>
-								<h4>{currentSongCollection?.collectionType} length:</h4>{" "}
-								<p>
-									{formatDuration(Number(currentSongCollection?.duration) ?? 0)}
-								</p>
-							</li>
-							<li>
-								<h4>summary:</h4>
-								<p>
-									{currentSongCollection?.summary?.trim()?.length
-										? currentSongCollection?.summary
-										: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque mollitia sunt amet animi, non praesentium."}
-								</p>
-							</li>
-						</ul>
-						<a
-							className="listen"
-							href={currentSongCollection?.spotifyLink}
-							target="_blank"
-							rel="noreferrer"
+	const MusicSearch = () => (
+		<Y2kWindowShell closeButtonRedirect="/" navText="Open">
+			<Y2kWindowSearch>
+				{musicData?.data.allSongCollections ? (
+					musicData.data.allSongCollections.map((collection) => (
+						<button
+							className="result"
+							key={collection.id}
+							onClick={() => navigate(`/music/${toKebabCase(collection.name)}`)}
+							type="button"
 						>
-							LISTEN
-						</a>
-					</div>
-					<div className="likes-dislikes">
-						<span className="likes">
-							<h4>:(</h4>
+							<div className="artwork">
+								<img alt="" src={collection.coverArt?.url} />
+							</div>
+							<p className="result-name">{collection.name}</p>
+						</button>
+					))
+				) : (
+					<div className="no-results">
+						<p className="header-text">This folder is empty.</p>
+						<div className="sub-content">
+							<p>Some cheeky geezah has probably taken all this down...</p>
 							<p>
-								Lorem ipsum, dolor sit amet consectetur adipisicing elit. Cum,
-								non.
+								if you see this error, reach out to us at
+								daydreamersmusic2015@gmail.com!
 							</p>
-						</span>
-						<span className="asterisks">* * * * *</span>
-						<span className="dislikes">
-							<h4>:D</h4>
-							<p>
-								Lorem ipsum, dolor sit amet consectetur adipisicing elit. Cum,
-								non.
-							</p>
-						</span>
+						</div>
 					</div>
-					<div className="lyric-showcase-one">
-						<h3 className="song-name">{randTracks.randTrackOne?.title}</h3>
-						<hr />
-						<p>
-							{randTracks.randTrackOne?.lyrics.trim().length
-								? randTracks.randTrackOne?.lyrics
-										.replaceAll("\n\n", " - ")
-										.replaceAll("\n", " - ")
-								: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro, enim. In velit itaque ex quas accusantium dolore eum ea voluptatum?"}
-						</p>
-						<div className="fade-overlay" />
-					</div>
-					<div className="lyric-showcase-two">
-						<h3 className="song-name">{randTracks.randTrackTwo?.title}</h3>
-						<hr />
-						<p>
-							{randTracks.randTrackTwo?.lyrics.trim().length
-								? randTracks.randTrackTwo?.lyrics
-										.replaceAll("\n\n", " - ")
-										.replaceAll("\n", " - ")
-								: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro, enim. In velit itaque ex quas accusantium dolore eum ea voluptatum?"}
-						</p>
-						<div className="fade-overlay" />
-					</div>
-					<div className="now-playing">
-						<p className="title">Featuring your favourite tracks...</p>
-						<IoTriangleOutline />
-						<p>
-							{currentSongCollection?.trackList.map((t) => t.title).join(", ")}
-						</p>
-					</div>
+				)}
+			</Y2kWindowSearch>
+		</Y2kWindowShell>
+	);
+
+	const SelectedMusicResult = () => (
+		<Y2kWindowShell
+			className={`song-collection-window`}
+			closeButtonRedirect="/music"
+			isModal
+			navText={currentSongCollection?.name ?? "nothing here :/"}
+		>
+			<div className="url-search-row">
+				<div className="search-label">
+					<p>Search URL</p>
+					<span>
+						<img alt="Magnifying glass" src={magnifyingGlass} />
+					</span>
 				</div>
-			</Y2kWindowShell>
+				<div className="url">
+					<p>{window.location.href}</p>
+				</div>
+			</div>
+			<div className="info-grid">
+				<div className="artwork">
+					<img
+						alt={`Artwork for ${currentSongCollection?.name}`}
+						src={currentSongCollection?.coverArt.url}
+					/>
+				</div>
+				<div className="title-card">
+					<h2>{currentSongCollection?.name}</h2>
+					<hr />
+					<ul>
+						<li>
+							<h4>release date:</h4> <p>{currentSongCollection?.releaseDate}</p>
+						</li>
+						<li>
+							<h4>{currentSongCollection?.collectionType} length:</h4>{" "}
+							<p>
+								{formatDuration(Number(currentSongCollection?.duration) ?? 0)}
+							</p>
+						</li>
+						<li>
+							<h4>summary:</h4>
+							<p>
+								{currentSongCollection?.summary?.trim()?.length
+									? currentSongCollection?.summary
+									: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque mollitia sunt amet animi, non praesentium."}
+							</p>
+						</li>
+					</ul>
+					<a
+						className="listen"
+						href={currentSongCollection?.spotifyLink}
+						rel="noreferrer"
+						target="_blank"
+					>
+						LISTEN
+					</a>
+				</div>
+				<div className="likes-dislikes">
+					<span className="likes">
+						<h4>:(</h4>
+						<p>
+							Lorem ipsum, dolor sit amet consectetur adipisicing elit. Cum,
+							non.
+						</p>
+					</span>
+					<span className="asterisks">* * * * *</span>
+					<span className="dislikes">
+						<h4>:D</h4>
+						<p>
+							Lorem ipsum, dolor sit amet consectetur adipisicing elit. Cum,
+							non.
+						</p>
+					</span>
+				</div>
+				<div className="lyric-showcase-one">
+					<h3 className="song-name">{randTracks.randTrackOne?.title}</h3>
+					<hr />
+					<p>
+						{randTracks.randTrackOne?.lyrics.trim().length
+							? randTracks.randTrackOne?.lyrics
+									.replaceAll("\n\n", " - ")
+									.replaceAll("\n", " - ")
+							: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro, enim. In velit itaque ex quas accusantium dolore eum ea voluptatum?"}
+					</p>
+					<div className="fade-overlay" />
+				</div>
+				<div className="lyric-showcase-two">
+					<h3 className="song-name">{randTracks.randTrackTwo?.title}</h3>
+					<hr />
+					<p>
+						{randTracks.randTrackTwo?.lyrics.trim().length
+							? randTracks.randTrackTwo?.lyrics
+									.replaceAll("\n\n", " - ")
+									.replaceAll("\n", " - ")
+							: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro, enim. In velit itaque ex quas accusantium dolore eum ea voluptatum?"}
+					</p>
+					<div className="fade-overlay" />
+				</div>
+				<div className="now-playing">
+					<p className="title">Featuring your favourite tracks...</p>
+					<IoTriangleOutline />
+					<p>
+						{currentSongCollection?.trackList.map((t) => t.title).join(", ")}
+					</p>
+				</div>
+			</div>
+		</Y2kWindowShell>
+	);
+
+	return (
+		<section className={"music-collection"} id="music">
+			{currentSongCollection ? <SelectedMusicResult /> : <MusicSearch />}
 		</section>
 	);
 }

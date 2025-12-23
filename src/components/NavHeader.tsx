@@ -5,7 +5,7 @@ import Star2 from "../assets/vectors/day-dreamers-logo/Day-Dreamer-Star_2.svg";
 import { type PAGE_LINK, PAGE_LINKS } from "../utils/globals";
 import "../styles/components/_nav-header.scss";
 import { Twirl as Hamburger } from "hamburger-react";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { v4 as uuid } from "uuid";
 
 const generateTitleWithShiftingLetters = (title: string): React.ReactNode[] => {
@@ -37,17 +37,30 @@ export default function NavHeader({ className, hideBackground }: NavHeader) {
 	const navigate = useNavigate();
 	const [titleNodes, setTitleNodes] = useState<React.ReactNode[]>([]);
 	const [isDropdownActive, setIsDropdownActive] = useState(false);
+	const navRef = useRef<HTMLDivElement | null>(null);
 	const title = "Day Dreamers";
 
 	useEffect(() => {
 		// Initial render
 		setTitleNodes(generateTitleWithShiftingLetters(title));
 
-		const interval = setInterval(() => {
+		const titleNodeInterval = setInterval(() => {
 			setTitleNodes(generateTitleWithShiftingLetters(title));
 		}, 5000);
 
-		return () => clearInterval(interval); // Cleanup
+		const clickListener = (e: MouseEvent) => {
+			if (navRef.current && !navRef.current.contains(e.target as Node)) {
+				setIsDropdownActive(false);
+			}
+		};
+
+		document.addEventListener("click", clickListener);
+
+		return () => {
+			// Cleanup
+			clearInterval(titleNodeInterval);
+			removeEventListener("click", clickListener);
+		};
 	}, []);
 
 	const handleNavItemClick = (link: PAGE_LINK) => {
@@ -62,6 +75,7 @@ export default function NavHeader({ className, hideBackground }: NavHeader) {
 		<div
 			className={`header-navigation ${hideBackground ? "no-background" : ""}`}
 			id="header-navigation"
+			ref={navRef}
 		>
 			<nav className="home-and-dropdown-toggle">
 				<button

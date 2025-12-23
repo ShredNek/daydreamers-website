@@ -113,147 +113,154 @@ export default function Shows() {
 		return () => clearInterval(interval); // cleanup on unmount
 	}, [showsData, time, callAndSetShowsData, getTime]);
 
-	return (
-		<section id="shows" className="shows">
-			<Y2kWindowShell
-				closeButtonRedirect="/"
-				navText="Shows"
-				className="shows-container"
-			>
-				<div className="menu-icons-parent">
-					{desktopIcons.map((icon, index) => (
-						<button
-							key={icon.slugName.concat(index.toString())}
-							className="desktop-icon"
-							type="button"
-							onClick={() =>
-								icon.isShow && navigate(`/shows/${toKebabCase(icon.name)}`)
-							}
-						>
-							<img src={icon.img} alt={icon.name} />
-							<p>{icon.name}</p>
-						</button>
-					))}
+	const ShowSearch = () => (
+		<Y2kWindowShell
+			className="shows-container"
+			closeButtonRedirect="/"
+			navText="Shows"
+		>
+			<div className="menu-icons-parent">
+				{desktopIcons.map((icon, index) => (
+					<button
+						className="desktop-icon"
+						key={icon.slugName.concat(index.toString())}
+						onClick={() =>
+							icon.isShow && navigate(`/shows/${toKebabCase(icon.name)}`)
+						}
+						type="button"
+					>
+						<img alt={icon.name} src={icon.img} />
+						<p>{icon.name}</p>
+					</button>
+				))}
+			</div>
+			<div className="search-bar">
+				<div className="start-and-search-icons">
+					<button className="windows-start" type="button">
+						<img alt="windows start logo" src={windowsStart} />
+						<p>Start</p>
+					</button>
+					<div className="vertical-line" />
+					<a className="search-icon" href="#internet-explorer">
+						<img alt="internet explorer" src={internetExplorer} />
+					</a>
+					<a className="search-icon" href="#desktop">
+						<img alt="desktop" src={desktop} />
+					</a>
+					<a className="search-icon" href="#channels">
+						<img alt="channels" src={channels} />
+					</a>
+					<div className="vertical-line" />
 				</div>
-				<div className="search-bar">
-					<div className="start-and-search-icons">
-						<button type="button" className="windows-start">
-							<img src={windowsStart} alt="windows start logo" />
-							<p>Start</p>
-						</button>
-						<div className="vertical-line" />
-						<a className="search-icon" href="#internet-explorer">
-							<img src={internetExplorer} alt="internet explorer" />
-						</a>
-						<a className="search-icon" href="#desktop">
-							<img src={desktop} alt="desktop" />
-						</a>
-						<a className="search-icon" href="#channels">
-							<img src={channels} alt="channels" />
-						</a>
-						<div className="vertical-line" />
-					</div>
-					<div className="time-and-date">
-						<a className="settings" href="#time-and-date">
-							<img src={timeAndDate} alt="time and date" />
-						</a>
-						<p className="time">{time}</p>
-					</div>
+				<div className="time-and-date">
+					<a className="settings" href="#time-and-date">
+						<img alt="time and date" src={timeAndDate} />
+					</a>
+					<p className="time">{time}</p>
 				</div>
-			</Y2kWindowShell>
-			<Y2kWindowShell
-				isModal
-				closeButtonRedirect="/shows"
-				className={`show-collection-window ${selectedShow ? "open" : ""}`}
-				navText={selectedShow?.title ?? "nothing here :/"}
-			>
-				<div className="url-search-row">
-					<div className="search-label">
-						<p>Search URL</p>
-						<span>
-							<img src={magnifyingGlass} alt="Magnifying glass" />
-						</span>
-					</div>
-					<div className="url">
-						<p>{window.location.href}</p>
-					</div>
+			</div>
+		</Y2kWindowShell>
+	);
+
+	const SelectedShowResults = () => (
+		<Y2kWindowShell
+			className={`show-collection-window ${selectedShow ? "open" : ""}`}
+			closeButtonRedirect="/shows"
+			isModal
+			navText={selectedShow?.title ?? "nothing here :/"}
+		>
+			<div className="url-search-row">
+				<div className="search-label">
+					<p>Search URL</p>
+					<span>
+						<img alt="Magnifying glass" src={magnifyingGlass} />
+					</span>
 				</div>
-				<div className="info-grid">
-					<div className="artwork">
-						<img
-							src={selectedShow?.poster.url}
-							alt={selectedShow?.poster.filename}
-						/>
-					</div>
-					<div className="title-card">
-						<h2>{selectedShow?.title}</h2>
-						<hr />
-						<ul>
-							<li>
-								<h4>performance date: </h4>
-								<p>
-									{selectedShow?.datetime
-										? new Date(selectedShow?.datetime).toLocaleDateString(
-												undefined,
-												{
-													minute: "2-digit",
-													hour: "numeric",
-													hourCycle: "h12",
-													hour12: true,
-												},
-											)
-										: "unknown"}
-								</p>
-							</li>
-							<li>
-								<h4>venue: </h4>
-								<p>{selectedShow?.venue}</p>
-							</li>
-							<li>
-								<h4>ticket price: </h4>
-								<p>{selectedShow?.ticketprice}</p>
-							</li>
-						</ul>
-						<a
-							className="listen"
-							href={selectedShow?.ticketslink}
-							target="_blank"
-							rel="noreferrer"
-						>
-							JOIN
-						</a>
-					</div>
-					<div className="likes-dislikes">
-						<span className="likes">
-							<h4>:(</h4>
+				<div className="url">
+					<p>{window.location.href}</p>
+				</div>
+			</div>
+			<div className="info-grid">
+				<div className="artwork">
+					<img
+						alt={selectedShow?.poster.filename}
+						src={selectedShow?.poster.url}
+					/>
+				</div>
+				<div className="title-card">
+					<h2>{selectedShow?.title}</h2>
+					<hr />
+					<ul>
+						<li>
+							<h4>performance date: </h4>
 							<p>
-								Lorem ipsum, dolor sit amet consectetur adipisicing elit. Cum,
-								non.
+								{selectedShow?.datetime
+									? new Date(selectedShow?.datetime).toLocaleDateString(
+											undefined,
+											{
+												minute: "2-digit",
+												hour: "numeric",
+												hourCycle: "h12",
+												hour12: true,
+											},
+										)
+									: "unknown"}
 							</p>
-						</span>
-						<span className="asterisks">* * * * *</span>
-						<span className="dislikes">
-							<h4>:D</h4>
-							<div className="artists">
-								{returnFormattedArtistNames(selectedShow?.artists ?? [])}
-							</div>
-							<p>{}</p>
-						</span>
-					</div>
-					<div className="now-playing">
-						<p className="title">Details released to the public...</p>
-						<IoTriangleOutline />
-						<div
-							// biome-ignore lint/security/noDangerouslySetInnerHtml: what other suggestion do you friggin' have to parse markup?
-							dangerouslySetInnerHTML={{
-								__html: selectedShow?.details.trim()?.length
-									? selectedShow?.details
-									: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque mollitia sunt amet animi, non praesentium.",
-							}}
-						/>
-					</div>
+						</li>
+						<li>
+							<h4>venue: </h4>
+							<p>{selectedShow?.venue}</p>
+						</li>
+						<li>
+							<h4>ticket price: </h4>
+							<p>{selectedShow?.ticketprice}</p>
+						</li>
+					</ul>
+					<a
+						className="listen"
+						href={selectedShow?.ticketslink}
+						rel="noreferrer"
+						target="_blank"
+					>
+						JOIN
+					</a>
 				</div>
-			</Y2kWindowShell>
+				<div className="likes-dislikes">
+					<span className="likes">
+						<h4>:(</h4>
+						<p>
+							Lorem ipsum, dolor sit amet consectetur adipisicing elit. Cum,
+							non.
+						</p>
+					</span>
+					<span className="asterisks">* * * * *</span>
+					<span className="dislikes">
+						<h4>:D</h4>
+						<div className="artists">
+							{returnFormattedArtistNames(selectedShow?.artists ?? [])}
+						</div>
+						<p>{}</p>
+					</span>
+				</div>
+				<div className="now-playing">
+					<p className="title">Details released to the public...</p>
+					<IoTriangleOutline />
+					<div
+						// biome-ignore lint/security/noDangerouslySetInnerHtml: what other suggestion do you friggin' have to parse markup?
+						dangerouslySetInnerHTML={{
+							__html: selectedShow?.details.trim()?.length
+								? selectedShow?.details
+								: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque mollitia sunt amet animi, non praesentium.",
+						}}
+					/>
+				</div>
+			</div>
+		</Y2kWindowShell>
+	);
+
+	return (
+		<section className="shows" id="shows">
+			{selectedShow ? <SelectedShowResults /> : <ShowSearch />}
 		</section>
 	);
 }
