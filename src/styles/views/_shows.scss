@@ -168,6 +168,18 @@
       .url {
         background-color: white;
       }
+
+      @media (max-width: b.$mobile-width) {
+        display: flex;
+
+        .search-label {
+          display: none;
+        }
+
+        .url {
+          width: 100%;
+        }
+      }
     }
 
     .info-grid {
@@ -302,6 +314,14 @@
         .title {
           font-weight: bold;
         }
+      }
+
+      @media (max-width: b.$mobile-width) {
+        grid-template-areas:
+          "artwork artwork artwork artwork artwork artwork"
+          "title-card title-card title-card title-card title-card title-card"
+          "likes-dislikes likes-dislikes likes-dislikes likes-dislikes likes-dislikes likes-dislikes"
+          "now-playing now-playing now-playing now-playing now-playing now-playing";
       }
     }
   }

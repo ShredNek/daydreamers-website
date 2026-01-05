@@ -22,21 +22,10 @@
   transition-timing-function: ease-in-out;
 
   &.modal {
-    // position: absolute;
     top: 0;
     bottom: auto;
     margin: auto;
     height: 65vh;
-    // opacity: 0;
-
-    // &:not(.open) {
-    //   pointer-events: none;
-    // }
-
-    // &.open {
-    //   opacity: 1;
-    //   pointer-events: all;
-    // }
   }
 
   &,
@@ -124,9 +113,14 @@
     color: lightgrey;
     padding: 0.25em;
 
-    .window-action-buttons button {
-      padding: 0 0.25em;
-      margin-right: 0;
+    .window-action-buttons {
+      min-width: 45px;
+
+      button {
+        width: 20px;
+        padding: 0 0.25em;
+        margin-right: 0;
+      }
     }
   }
 
@@ -249,7 +243,11 @@
 
         @media (max-width: b.$mobile-width) {
           flex-wrap: wrap;
-          align-content: flex-start;
+          flex-direction: row;
+          grid-column: 1 / -1;
+          width: auto;
+          justify-content: space-evenly;
+          padding-top: 0.5rem;
         }
       }
 

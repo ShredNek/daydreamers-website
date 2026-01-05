@@ -120,21 +120,21 @@ export default function EnquiryForm({
 		<div className="enquiry-form-container" style={customStyle}>
 			<div className="enquiry-form-filter" />
 			<div className="enquiry-form-backdrop" />
-			<Y2kWindowShell navText="Contact us" closeButtonRedirect="/">
+			<Y2kWindowShell closeButtonRedirect="/" navText="Contact us">
 				<form onSubmit={handleSubmit}>
 					<div className="first-last-name">
 						<div className="field-container">
 							<div className="input-container">
-								<label htmlFor="firstName" className="placeholder">
+								<label className="placeholder" htmlFor="firstName">
 									First Name
 								</label>
 								<input
-									type="text"
 									id="firstName"
 									name="firstName"
-									value={formData.firstName}
 									onChange={handleChange}
 									placeholder=" "
+									type="text"
+									value={formData.firstName}
 								/>
 							</div>
 							{errors["firstName"] ? (
@@ -143,16 +143,16 @@ export default function EnquiryForm({
 						</div>
 						<div className="field-container">
 							<div className="input-container">
-								<label htmlFor="lastName" className="placeholder">
+								<label className="placeholder" htmlFor="lastName">
 									Last Name
 								</label>
 								<input
-									type="text"
 									id="lastName"
 									name="lastName"
-									value={formData.lastName}
 									onChange={handleChange}
 									placeholder=" "
+									type="text"
+									value={formData.lastName}
 								/>
 							</div>
 							{errors["lastName"] ? (
@@ -162,16 +162,16 @@ export default function EnquiryForm({
 					</div>
 					<div className="field-container">
 						<div className="input-container">
-							<label htmlFor="email" className="placeholder">
+							<label className="placeholder" htmlFor="email">
 								Email
 							</label>
 							<input
-								type="email"
 								id="email"
 								name="email"
-								value={formData.email}
 								onChange={handleChange}
 								placeholder=" "
+								type="email"
+								value={formData.email}
 							/>
 						</div>
 						{errors["email"] ? (
@@ -180,16 +180,16 @@ export default function EnquiryForm({
 					</div>
 					<div className="field-container">
 						<div className="input-container">
-							<label htmlFor="mobileNumber" className="placeholder">
+							<label className="placeholder" htmlFor="mobileNumber">
 								Mobile Number
 							</label>
 							<input
-								type="text"
 								id="mobileNumber"
 								name="mobileNumber"
-								value={formData.mobileNumber}
 								onChange={handleChange}
 								placeholder=" "
+								type="text"
+								value={formData.mobileNumber}
 							/>
 						</div>
 						{errors["mobileNumber"] ? (
@@ -199,15 +199,15 @@ export default function EnquiryForm({
 
 					<div className="favourite-colour-enquiry-type">
 						<div className="input-container">
-							<label htmlFor="favouriteColour" className="placeholder">
+							<label className="placeholder" htmlFor="favouriteColour">
 								Favourite Colour
 							</label>
 							<input
-								type="color"
 								id="favouriteColour"
 								name="favouriteColour"
-								value={formData.favouriteColour}
 								onChange={handleChange}
+								type="color"
+								value={formData.favouriteColour}
 							/>
 							{errors["favouriteColour"] ? (
 								<span className="error">{errors["favouriteColour"]}</span>
@@ -215,14 +215,14 @@ export default function EnquiryForm({
 						</div>
 
 						<div className="input-container">
-							<label htmlFor="enquiryType" className="placeholder">
+							<label className="placeholder" htmlFor="enquiryType">
 								Enquiry Type
 							</label>
 							<select
 								id="enquiryType"
 								name="enquiryType"
-								value={formData.enquiryType}
 								onChange={handleChange}
+								value={formData.enquiryType}
 							>
 								<option value="General">General</option>
 								<option value="Booking">Booking</option>
@@ -239,16 +239,16 @@ export default function EnquiryForm({
 					</div>
 					<div className="field-container">
 						<div className="input-container">
-							<label htmlFor="subject" className="placeholder">
+							<label className="placeholder" htmlFor="subject">
 								Subject
 							</label>
 							<input
-								type="text"
 								id="subject"
 								name="subject"
-								value={formData.subject}
 								onChange={handleChange}
 								placeholder=" "
+								type="text"
+								value={formData.subject}
 							/>
 						</div>
 						{errors["subject"] ? (
@@ -257,15 +257,15 @@ export default function EnquiryForm({
 					</div>
 					<div className="field-container">
 						<div className="input-container">
-							<label htmlFor="message" className="placeholder">
+							<label className="placeholder" htmlFor="message">
 								Message
 							</label>
 							<textarea
 								id="message"
 								name="message"
+								onChange={handleChange}
 								placeholder="  "
 								value={formData.message}
-								onChange={handleChange}
 							/>
 						</div>
 						{errors["message"] ? (
@@ -276,16 +276,16 @@ export default function EnquiryForm({
 						<>
 							<div className="field-container">
 								<div className="input-container">
-									<label htmlFor="angerLevel" className="placeholder">
+									<label className="placeholder" htmlFor="angerLevel">
 										Anger Level (1 to 10)
 									</label>
 									<input
-										type="number"
 										id="angerLevel"
 										name="angerLevel"
-										value={formData.angerLevel ?? ""}
 										onChange={handleChange}
 										placeholder=" "
+										type="number"
+										value={formData.angerLevel ?? ""}
 									/>
 								</div>
 								{errors["angerLevel"] ? (
@@ -294,16 +294,16 @@ export default function EnquiryForm({
 							</div>
 							<div className="field-container">
 								<div className="input-container">
-									<label htmlFor="suggestedPunishment" className="placeholder">
+									<label className="placeholder" htmlFor="suggestedPunishment">
 										Suggested Punishment for the Band
 									</label>
 									<input
-										type="text"
 										id="suggestedPunishment"
 										name="suggestedPunishment"
-										value={formData.suggestedPunishment ?? ""}
 										onChange={handleChange}
 										placeholder=" "
+										type="text"
+										value={formData.suggestedPunishment ?? ""}
 									/>
 								</div>
 								{errors["suggestedPunishment"] ? (
@@ -317,12 +317,12 @@ export default function EnquiryForm({
 							<div className="input-container">
 								<label htmlFor="codeName">Code Name</label>
 								<input
-									type="text"
 									id="codeName"
 									name="codeName"
-									value={formData.codeName ?? ""}
 									onChange={handleChange}
 									placeholder=" "
+									type="text"
+									value={formData.codeName ?? ""}
 								/>
 							</div>
 							{errors["codeName"] ? (
@@ -334,8 +334,8 @@ export default function EnquiryForm({
 								<select
 									id="levelOfSecrecy"
 									name="levelOfSecrecy"
-									value={formData.levelOfSecrecy ?? ""}
 									onChange={handleChange}
+									value={formData.levelOfSecrecy ?? ""}
 								>
 									<option value="Top Secret">Top Secret</option>
 									<option value="For Your Eyes Only">For Your Eyes Only</option>
@@ -348,7 +348,7 @@ export default function EnquiryForm({
 							) : null}
 						</div>
 					) : null}
-					<button type="submit" disabled={submissionStatus === "loading"}>
+					<button disabled={submissionStatus === "loading"} type="submit">
 						Submit
 					</button>
 				</form>

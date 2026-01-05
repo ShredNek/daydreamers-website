@@ -4,8 +4,7 @@
 
 .about {
   .window-viewer-container {
-    // height: 20rem;
-    width: 40rem;
+    max-width: 40rem;
   }
 
   .input-background {
@@ -39,7 +38,7 @@
       grid-template-columns: 1fr 1.5fr;
       padding: 0 1em;
       gap: 1rem;
-      height: 20rem;
+      min-height: 20rem;
 
       .dropdown,
       .icon-container {
@@ -92,6 +91,10 @@
         position: relative;
         perspective: 1400px;
 
+        min-width: 200px;
+
+        background-color: white;
+
         @keyframes rotate {
           0% {
             transform: rotateY(-90deg);
@@ -112,6 +115,15 @@
           filter: drop-shadow(2px 15px 10px a.$daydreamer-smoky-black);
           animation: rotate 5s linear infinite;
           transform-style: preserve-3d;
+        }
+      }
+
+      @media (max-width: b.$small-width) {
+        display: flex;
+        flex-direction: column-reverse;
+
+        .icon-container {
+          height: 300px;
         }
       }
     }

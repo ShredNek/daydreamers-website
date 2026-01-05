@@ -178,6 +178,9 @@ export default function Media() {
 						/>
 					</div>
 					<div className="button-row">
+						<button className="record" type="button">
+							<FaCircle />
+						</button>
 						<button
 							className="back-track"
 							onClick={() => handleSkipButtonClick(-1)}
@@ -213,9 +216,6 @@ export default function Media() {
 						</button>
 						<button className="stop" type="button">
 							<FaSquare />
-						</button>
-						<button className="record" type="button">
-							<FaCircle />
 						</button>
 					</div>
 				</div>

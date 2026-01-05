@@ -12,7 +12,11 @@
 
     .social-image-container {
       @extend %y2k-border-inverted;
+
+      display: flex;
+      justify-content: center;
       padding: 2rem;
+      background-color: white;
 
       svg {
         height: $image-height;
@@ -69,11 +73,26 @@
       .button-row {
         display: flex;
         justify-content: space-between;
+        gap: clamp(0rem, 0rem + 2vw, 1.5rem);
 
         button {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          margin: 0;
           font-size: 1rem;
-          padding: 0.25rem 2rem;
+          padding: 0.5rem;
+          width: 100%;
         }
+      }
+    }
+
+    @media (max-width: b.$large-width) {
+      display: flex;
+      flex-direction: column;
+
+      .social-information {
+        gap: 2rem;
       }
     }
   }
