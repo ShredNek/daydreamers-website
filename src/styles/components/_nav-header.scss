@@ -25,13 +25,10 @@ $max-height: 800px;
   }
 
   .home-and-dropdown-toggle {
-    width: 100%;
     z-index: 1000;
-    display: flex;
     gap: 2rem;
     justify-content: space-between;
     padding: 0 2rem;
-    align-items: center;
 
     .dropdown-button {
       display: none; // ? Will be rendered on mobile screens
@@ -164,6 +161,9 @@ $max-height: 800px;
     }
 
     .home-and-dropdown-toggle {
+      display: flex;
+      align-items: center;
+      width: 100%;
       gap: 0;
       padding: 0 1.5rem;
 
