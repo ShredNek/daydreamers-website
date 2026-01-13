@@ -11,7 +11,7 @@ import {
 	FaYoutube,
 } from "react-icons/fa6";
 import { v4 as uuid } from "uuid";
-import TripleJ from "../components/svg/TripleJ";
+import TripleJ from "../components/svg/TripleJ.tsx";
 import type { LinkType, VenueLocation } from "../types/index.ts";
 import { PAGE_LINKS } from "../utils/globals.ts";
 
@@ -227,26 +227,32 @@ export const returnNavItems = (
 };
 
 export const renderLinkTypeImage = (linkType: LinkType) => {
+	const defaultProps = {
+		height: "auto",
+		width: "auto",
+		size: "auto",
+	};
+
 	switch (linkType) {
 		case "instagram":
-			return <FaInstagram />;
+			return <FaInstagram {...defaultProps} />;
 		case "facebook":
-			return <FaFacebookF />;
+			return <FaFacebookF {...defaultProps} />;
 		case "youtube":
-			return <FaYoutube />;
+			return <FaYoutube {...defaultProps} />;
 		case "tiktok":
-			return <FaTiktok />;
+			return <FaTiktok {...defaultProps} />;
 		case "spotify":
-			return <FaSpotify />;
+			return <FaSpotify {...defaultProps} />;
 		case "triple j":
-			return <TripleJ />;
+			return <TripleJ {...defaultProps} />;
 		case "bandcamp":
-			return <FaBandcamp />;
+			return <FaBandcamp {...defaultProps} />;
 		case "song":
-			return <FaMusic />;
+			return <FaMusic {...defaultProps} />;
 		case "album":
-			return <FaRecordVinyl />;
+			return <FaRecordVinyl {...defaultProps} />;
 		case "website":
-			return <FaCode />;
+			return <FaCode {...defaultProps} />;
 	}
 };
