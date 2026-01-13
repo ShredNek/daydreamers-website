@@ -18,10 +18,10 @@ import {
 	FaYoutube,
 } from "react-icons/fa6";
 import { IoTriangleSharp } from "react-icons/io5";
-import TripleJ from "../components/svg/TripleJ";
-import Y2kWindowShell from "../components/Y2k/Y2kWindowShell";
-import type { LinkType } from "../types";
-import { SOCIAL_LINKS } from "../utils/globals";
+import TripleJ from "../components/svg/TripleJ.tsx";
+import Y2kWindowShell from "../components/Y2k/Y2kWindowShell.tsx";
+import type { LinkType } from "../types/index.ts";
+import { SOCIAL_LINKS } from "../utils/globals.ts";
 
 export default function Media() {
 	const [media, setMedia] = useState<{

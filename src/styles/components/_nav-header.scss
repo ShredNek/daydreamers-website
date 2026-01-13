@@ -44,11 +44,16 @@ $max-height: 800px;
 
   .header-logo-container {
     min-width: 400px;
-    height: clamp(160px, 10vw + 5px, 150px);
+    height: clamp(90px, 10vw + 5px, 140px);
+    margin: 1rem 0;
     justify-items: center;
     text-shadow: f.generate-text-outline(1.5px, a.$daydreamer-sad-blue, 2px);
     position: relative;
     display: flex;
+
+    @media (max-width: 400px) {
+      margin: 0;
+    }
 
     .letters {
       position: relative;
