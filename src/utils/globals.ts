@@ -4,7 +4,7 @@ import mediaTabImg from "../assets/images/tabs/tabs_media.png";
 import merchTabImg from "../assets/images/tabs/tabs_merch.png";
 import musicTabImg from "../assets/images/tabs/tabs_music.png";
 import showsTabImg from "../assets/images/tabs/tabs_shows.png";
-import type { LinkType } from "../types";
+import type { LinkType, SocialMediaEntry } from "../types/index.ts";
 
 export const PAGE_DIFFERENCE = 8;
 
@@ -58,12 +58,7 @@ export const PAGE_LINKS: PAGE_LINK[] = [
 	},
 ];
 
-export const SOCIAL_LINKS: Array<{
-	linkType: LinkType;
-	href: string;
-	title: string;
-	bannerData?: string;
-}> = [
+export const SOCIAL_LINKS: Array<SocialMediaEntry> = [
 	{
 		linkType: "album",
 		title: "Stream 'BLUE ROOM'!",

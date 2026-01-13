@@ -164,6 +164,13 @@ export type EnquiryFormSchema = {
 	levelOfSecrecy: SecretEnquiryType | null; // For Divulge Covert Information
 };
 
+export type SocialMediaEntry = {
+	linkType: LinkType;
+	href: string;
+	title: string;
+	bannerData?: string;
+};
+
 export type LinkType =
 	| "instagram"
 	| "facebook"

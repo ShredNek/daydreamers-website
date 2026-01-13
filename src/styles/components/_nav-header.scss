@@ -51,7 +51,7 @@ $max-height: 800px;
     position: relative;
     display: flex;
 
-    @media (max-width: 400px) {
+    @media (max-width: b.$small-width) {
       margin: 0;
     }
 
@@ -197,11 +197,22 @@ $max-height: 800px;
       transition: transform 0.5s ease-in-out;
 
       &.dropdown-active {
-        transform: translateY(150px);
+        transform: translateY(120px);
       }
 
       &.dropdown-inactive {
         transform: translateY(-500px);
+      }
+    }
+  }
+
+  @media (max-width: b.$small-width) {
+    .page-routes {
+      position: absolute;
+      transition: transform 0.5s ease-in-out;
+
+      &.dropdown-active {
+        transform: translateY(90px);
       }
     }
   }
