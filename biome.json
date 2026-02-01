@@ -4,9 +4,6 @@
 			"complexity": {
 				"useLiteralKeys": "off"
 			}
-		},
-		"suspicious": {
-			"noAssignInExpressions": "off"
 		}
 	},
 	"assist": {

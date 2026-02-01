@@ -27,58 +27,52 @@ footer {
 
     .social-links {
       display: flex;
-      flex-direction: row;
       align-items: center;
+      justify-content: space-around;
       flex-wrap: wrap;
       gap: 0.5rem;
-
-      & > * {
-        width: 100%;
-        justify-content: space-around;
-        display: flex;
-
-        svg {
-          max-height: 0.75rem;
-          max-width: 30px;
-        }
-      }
-    }
-
-    .rounded-button-link {
-      overflow: hidden;
       margin: 0;
-      padding: 0.25rem;
+      min-width: 18rem;
+      width: 100%;
 
-      font-size: calc(1.5rem + 0.5vw);
-      display: flex;
-      place-self: center;
-      position: relative;
+      .rounded-button-link {
+        overflow: hidden;
+        margin: 0;
+        padding: 0.25rem;
 
-      transition-property: opacity;
-      transition-timing-function: ease-in-out;
-      transition-duration: 350ms;
-
-      & > .bg {
-        position: absolute;
-        height: 100%;
-        width: 100%;
-        inset: 0;
-        opacity: 0;
-        background: a.$daydreamer-gradient-main-transparent;
+        font-size: calc(1.5rem + 0.5vw);
+        display: flex;
+        place-self: center;
+        position: relative;
 
         transition-property: opacity;
         transition-timing-function: ease-in-out;
         transition-duration: 350ms;
 
-        z-index: -1;
-      }
+        & > .bg {
+          position: absolute;
+          height: 100%;
+          width: 100%;
+          inset: 0;
+          opacity: 0;
+          background: a.$daydreamer-gradient-main-transparent;
 
-      &:hover > .bg {
-        opacity: 1;
-      }
+          transition-property: opacity;
+          transition-timing-function: ease-in-out;
+          transition-duration: 350ms;
 
-      & > svg {
-        min-height: 20px;
+          z-index: -1;
+        }
+
+        &:hover > .bg {
+          opacity: 1;
+        }
+
+        & > svg {
+          min-height: 20px;
+          max-height: 0.75rem;
+          max-width: 30px;
+        }
       }
     }
 
@@ -101,18 +95,12 @@ footer {
     }
 
     @media (min-width: b.$small-width) {
-      flex-direction: row;
-
       .footer-content {
         padding: calc(0.5rem + 2vw);
       }
 
       .social-links {
-        gap: 0;
-
-        & > * {
-          width: auto;
-        }
+        width: auto;
       }
 
       .rounded-button-link {
@@ -121,8 +109,6 @@ footer {
     }
 
     @media (min-width: b.$mobile-width) {
-      flex-direction: row;
-
       > * {
         padding: clamp(1rem, 0.5rem + 1vw, 0.5rem);
       }
