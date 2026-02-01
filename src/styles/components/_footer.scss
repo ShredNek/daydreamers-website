@@ -37,6 +37,7 @@ footer {
         display: flex;
 
         svg {
+          max-height: 0.75rem;
           max-width: 30px;
         }
       }
@@ -106,6 +107,9 @@ footer {
 
       .social-links > * {
         width: auto;
+
+        .rounded-button-link svg {
+        }
       }
     }
 
@@ -117,6 +121,8 @@ footer {
       }
     }
 
+    // ? PLEASE READ CAREFULLY BEFORE YOU THROW YOUR COMPUTER OUT THE WINDOW
+    // ? This triggers on small VIEW HEIGHT
     @media (max-height: b.$mobile-width) {
       .social-links {
         margin-bottom: 0px;
