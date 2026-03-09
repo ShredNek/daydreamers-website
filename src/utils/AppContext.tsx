@@ -1,5 +1,9 @@
 import { createContext, type ReactNode, useState } from "react";
-import type { AppContextInterface, AllShowsEntity, MusicData } from "../types/index";
+import type {
+	AllShowsEntity,
+	AppContextInterface,
+	MusicData,
+} from "../types/index.ts";
 
 export const AppContext = createContext<AppContextInterface>({
 	showsData: null,

@@ -1,6 +1,10 @@
 import { print } from "graphql";
-import type { AllShowsEntity, MediaCollection, MusicData } from "../types";
-import { GET_ALL_MEDIA, GET_ALL_MUSIC, GET_ALL_SHOWS } from "./queries";
+import type {
+	AllShowsEntity,
+	MediaCollection,
+	MusicData,
+} from "../types/index.ts";
+import { GET_ALL_MEDIA, GET_ALL_MUSIC, GET_ALL_SHOWS } from "./queries.ts";
 
 const datoGraphqlCall = async <T>(query: string): Promise<T> => {
 	const config: RequestInit = {

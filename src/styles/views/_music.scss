@@ -135,6 +135,7 @@
       h2 {
         font-family: PlanetKosmos;
         font-size: 1.5rem;
+        font-weight: 100;
         text-align: center;
         margin-bottom: -0.25rem;
         padding: 0 1rem;
@@ -217,5 +218,12 @@
         "lyric-showcase-one lyric-showcase-one lyric-showcase-one lyric-showcase-two lyric-showcase-two lyric-showcase-two"
         "now-playing now-playing now-playing now-playing now-playing now-playing";
     }
+  }
+
+  &.single .info-grid {
+    grid-template-rows: 0.9fr 0.5fr;
+    grid-template-areas:
+      "artwork artwork title-card title-card likes-dislikes likes-dislikes"
+      "now-playing now-playing now-playing now-playing now-playing now-playing";
   }
 }

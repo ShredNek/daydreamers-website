@@ -1,13 +1,13 @@
 import { useCallback, useContext, useEffect } from "react";
 import { IoTriangleOutline } from "react-icons/io5";
 import { useNavigate, useParams } from "react-router-dom";
-import { getAllMusic } from "../api/datoCmsCalls";
+import { getAllMusic } from "../api/datoCmsCalls.ts";
 import magnifyingGlass from "../assets/images/y2k-resources/magnifying_glass.png";
 import Y2kWindowSearch from "../components/Y2k/Y2kWindowSearch.tsx";
 import Y2kWindowShell from "../components/Y2k/Y2kWindowShell.tsx";
 import { toKebabCase } from "../helper/index.tsx";
-import type { MusicData, Track } from "../types/index";
-import { AppContext } from "../utils/AppContext";
+import type { MusicData, Track } from "../types/index.ts";
+import { AppContext } from "../utils/AppContext.tsx";
 
 import "../styles/views/_music.scss";
 
@@ -133,7 +133,7 @@ export default function Music() {
 
 	const SelectedMusicResult = () => (
 		<Y2kWindowShell
-			className={`song-collection-window`}
+			className={`song-collection-window ${currentSongCollection?.collectionType === "single" && "single"}`}
 			closeButtonRedirect="/music"
 			isModal
 			navText={currentSongCollection?.name ?? "nothing here :/"}
@@ -204,37 +204,50 @@ export default function Music() {
 						</p>
 					</span>
 				</div>
-				<div className="lyric-showcase-one">
-					<h3 className="song-name">{randTracks.randTrackOne?.title}</h3>
-					<hr />
-					<p>
-						{randTracks.randTrackOne?.lyrics.trim().length
-							? randTracks.randTrackOne?.lyrics
-									.replaceAll("\n\n", " - ")
-									.replaceAll("\n", " - ")
-							: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro, enim. In velit itaque ex quas accusantium dolore eum ea voluptatum?"}
-					</p>
-					<div className="fade-overlay" />
-				</div>
-				<div className="lyric-showcase-two">
-					<h3 className="song-name">{randTracks.randTrackTwo?.title}</h3>
-					<hr />
-					<p>
-						{randTracks.randTrackTwo?.lyrics.trim().length
-							? randTracks.randTrackTwo?.lyrics
-									.replaceAll("\n\n", " - ")
-									.replaceAll("\n", " - ")
-							: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro, enim. In velit itaque ex quas accusantium dolore eum ea voluptatum?"}
-					</p>
-					<div className="fade-overlay" />
-				</div>
-				<div className="now-playing">
-					<p className="title">Featuring your favourite tracks...</p>
-					<IoTriangleOutline />
-					<p>
-						{currentSongCollection?.trackList.map((t) => t.title).join(", ")}
-					</p>
-				</div>
+				{currentSongCollection?.collectionType === "album" ||
+				(currentSongCollection?.trackList.length ?? 0) > 1 ? (
+					<>
+						<div className="lyric-showcase-one">
+							<h3 className="song-name">{randTracks.randTrackOne?.title}</h3>
+							<hr />
+							<p>
+								{randTracks.randTrackOne?.lyrics.trim().length
+									? randTracks.randTrackOne?.lyrics
+											.replaceAll("\n\n", " - ")
+											.replaceAll("\n", " - ")
+									: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro, enim. In velit itaque ex quas accusantium dolore eum ea voluptatum?"}
+							</p>
+							<div className="fade-overlay" />
+						</div>
+						<div className="lyric-showcase-two">
+							<h3 className="song-name">{randTracks.randTrackTwo?.title}</h3>
+							<hr />
+							<p>
+								{randTracks.randTrackTwo?.lyrics.trim().length
+									? randTracks.randTrackTwo?.lyrics
+											.replaceAll("\n\n", " - ")
+											.replaceAll("\n", " - ")
+									: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro, enim. In velit itaque ex quas accusantium dolore eum ea voluptatum?"}
+							</p>
+							<div className="fade-overlay" />
+						</div>
+						<div className="now-playing">
+							<p className="title">Featuring your favourite tracks...</p>
+							<IoTriangleOutline />
+							<p>
+								{currentSongCollection?.trackList
+									.map((t) => t.title)
+									.join(", ")}
+							</p>
+						</div>
+					</>
+				) : (
+					<div className="now-playing">
+						<p className="title">Lyrics provided for your convenience...</p>
+						<IoTriangleOutline />
+						<p>{currentSongCollection?.trackList[0]?.lyrics}</p>
+					</div>
+				)}
 			</div>
 		</Y2kWindowShell>
 	);
