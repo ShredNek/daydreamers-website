@@ -10,11 +10,11 @@ import {
 import type { IconType } from "react-icons/lib";
 import { v4 as uuid } from "uuid";
 import AlienHead from "../assets/images/band-members/Alien_Head.png";
+import BenHead from "../assets/images/band-members/Ben_Head.png";
 import BobsonDougnuttHead from "../assets/images/band-members/BobsonDougnutt_Head.png";
 import DanielHead from "../assets/images/band-members/Daniel_HeadIcon.png";
 import JordanHead from "../assets/images/band-members/Jordan_HeadIcon.png";
 import LucyHead from "../assets/images/band-members/Lucy_HeadIcon.png";
-import NickHead from "../assets/images/band-members/Nick_HeadIcon.png";
 import ZakHead from "../assets/images/band-members/Zak_HeadIcon.png";
 
 import Y2kWindowShell from "../components/Y2k/Y2kWindowShell.tsx";
@@ -37,15 +37,23 @@ const bandMembers: Record<
 		icon: GiMicrophone,
 		imgDesc: "You have chosen Zak",
 		img: ZakHead,
-		bio: "Yer favrit lead singur and geeist. Will fuck you up with Jin from Tekken. Luvs his bob le'ponge.",
+		bio: "Yer favrit lead singur and geeist. Will fuck you up with Jin from Tekken.",
 	},
-	Nick: {
-		name: "Nick",
-		type: "Drums / Lead and Backing Vocalist",
+	Daniel: {
+		name: "Daniel",
+		type: "Lead Guitar / Backing Vocalist",
+		icon: GiGuitarHead,
+		imgDesc: "You have chosen Dan",
+		img: DanielHead,
+		bio: "Certified guitar lead. Lafs at any sloit humorous interchange.",
+	},
+	Ben: {
+		name: "Ben",
+		type: "Drums / Backing Vocalist",
 		icon: GiDrumKit,
-		imgDesc: "You have chosen Nick",
-		img: NickHead,
-		bio: "Funny baby man who happens to drum liek a beast. Finger-dipping drinks is a treasured past-time.",
+		imgDesc: "You have chosen Ben",
+		img: BenHead,
+		bio: "Luvs a bit of food. Will sleep anywhere guaranteed.",
 	},
 	Jordan: {
 		name: "Jordan",
@@ -54,14 +62,6 @@ const bandMembers: Record<
 		imgDesc: "You have chosen Jordan",
 		img: JordanHead,
 		bio: "... bass?",
-	},
-	Daniel: {
-		name: "Daniel",
-		type: "Lead Guitar / Backing Vocalist",
-		icon: GiGuitarHead,
-		imgDesc: "You have chosen Dan",
-		img: DanielHead,
-		bio: "Certified guitar lead. Lafs at any sloit humorous interchange. No want long hair.",
 	},
 	Lucy: {
 		name: "Lucy",

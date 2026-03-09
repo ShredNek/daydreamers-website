@@ -31,7 +31,8 @@
       }
     }
 
-    @include band-member-opacity(("zak", "nick", "jordan", "daniel", "bobsondougnutt", "alien", "lucy"));
+    // ! I'M SORRY DEVELOPERS FOR PUTTING HARDCODED VALUES IN CSS FOR BAND MEMBER IMAGES I'M SORRY
+    @include band-member-opacity(("zak", "ben", "jordan", "daniel", "bobsondougnutt", "alien", "lucy"));
 
     .band-member-display {
       display: grid;
@@ -77,6 +78,13 @@
             &:focus {
               background-color: black;
               color: white;
+
+              span,
+              svg {
+                color: white;
+                fill: white;
+                stroke: white;
+              }
             }
 
             svg {
