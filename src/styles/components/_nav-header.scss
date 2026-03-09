@@ -40,8 +40,8 @@ $max-height: 800px;
   }
 
   .header-logo-container {
-    min-width: 400px;
-    height: clamp(90px, 10vw + 5px, 140px);
+    min-width: 300px;
+    height: clamp(90px, 10vw + 5px, 110px);
     margin: 1rem 0;
     justify-items: center;
     text-shadow: f.generate-text-outline(1.5px, a.$daydreamer-sad-blue, 2px);
@@ -60,7 +60,7 @@ $max-height: 800px;
       margin: auto;
       z-index: 10;
       line-height: 0.8em;
-      font-size: clamp(1.5rem, 5vw, 3rem);
+      font-size: clamp(1.5rem, 5vw, 2.5rem);
     }
 
     .vector {
@@ -71,17 +71,17 @@ $max-height: 800px;
       filter: a.$daydreamer-sad-blue-svg-fill;
 
       &.spin-tail {
-        height: 85px;
+        height: 65px;
       }
 
       &.star-1 {
-        height: 45px;
-        transform: translate(-75px, 30px);
+        height: 30px;
+        transform: translate(-55px, 30px);
       }
 
       &.star-2 {
-        height: 75px;
-        transform: translate(80px, -35px) scaleX(140%);
+        height: 55px;
+        transform: translate(75px, -30px) scaleX(140%);
       }
     }
   }
@@ -128,7 +128,7 @@ $max-height: 800px;
 
       & > li {
         img {
-          max-height: 30px;
+          max-height: 25px;
         }
 
         @media (max-height: b.$medium-width) {
