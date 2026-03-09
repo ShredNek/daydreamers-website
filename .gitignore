@@ -28,7 +28,9 @@ package-lock.json
 *.sln
 *.sw?
 
+.firebase/daydreamers-website/**
 .firebase
 .firebase/**
-!.firebase/**
+.firebase/hosting
+.firebase/**
 **.firebase/**

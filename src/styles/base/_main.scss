@@ -78,8 +78,30 @@ ul > li {
   transition: opacity $default-transition-duration ease-out;
 }
 
-a {
+a,
+option,
+select,
+input,
+button > span,
+button > * > span,
+button > p,
+button > * > p,
+button > svg,
+button > * > svg {
   color: black;
+  fill: black;
+  stroke: black;
+}
+
+option,
+select,
+input,
+textarea {
+  background-color: white;
+  border-radius: 0px;
+}
+
+a {
   text-decoration: none;
   height: fit-content;
 }
@@ -87,11 +109,6 @@ a {
 button {
   background-color: transparent;
   border-color: transparent;
-}
-
-button > span,
-button > * > span {
-  color: black;
 }
 
 span {

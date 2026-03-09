@@ -17,8 +17,8 @@ import LucyHead from "../assets/images/band-members/Lucy_HeadIcon.png";
 import NickHead from "../assets/images/band-members/Nick_HeadIcon.png";
 import ZakHead from "../assets/images/band-members/Zak_HeadIcon.png";
 
-import Y2kWindowShell from "../components/Y2k/Y2kWindowShell";
-import { toKebabCase } from "../helper";
+import Y2kWindowShell from "../components/Y2k/Y2kWindowShell.tsx";
+import { toKebabCase } from "../helper/index.tsx";
 
 const bandMembers: Record<
 	string,
@@ -111,7 +111,8 @@ export default function About() {
 										key={uuid()}
 										type="button"
 									>
-										{v.name} <v.icon />
+										<span>{v.name}</span>
+										<v.icon />
 									</button>
 								))}
 							</div>
@@ -141,8 +142,12 @@ export default function About() {
 						</div>
 					</div>
 					<div className="action-bar">
-						<button type="button">Set as Default</button>
-						<button type="button">Cancel</button>
+						<button type="button">
+							<span> Set as Default</span>
+						</button>
+						<button type="button">
+							<span>Cancel</span>
+						</button>
 					</div>
 				</div>
 			</Y2kWindowShell>
