@@ -18,24 +18,24 @@ export default function Y2kWindowSearch({
 				</label>
 				<div className="search-input-combo">
 					<input
-						type="text"
-						name="search-results-input"
-						id="search-results-input"
 						disabled
+						id="search-results-input"
+						name="search-results-input"
 						placeholder="My Music"
+						type="text"
 					/>
-					<button type="button" className="dropdown-arrow">
+					<button className="dropdown-arrow" type="button">
 						<IoTriangleSharp />
 					</button>
 				</div>
 				<button type="button">
-					<img src={newFolder} alt="New folder icon" />
+					<img alt="New folder icon" src={newFolder} />
 				</button>
 				<button type="button">
-					<img src={changeDisplay} alt="Change display" />
+					<img alt="Change display" src={changeDisplay} />
 				</button>
 				<button type="button">
-					<img src={changeSort} alt="Change sort" />
+					<img alt="Change sort" src={changeSort} />
 				</button>
 			</div>
 			<main className="search-results-window">{children}</main>
@@ -43,13 +43,17 @@ export default function Y2kWindowSearch({
 				<label htmlFor="file-name">
 					File <span className="file-shortcut-underline">n</span>ame:
 				</label>
-				<input disabled type="text" name="file-name" id="file-name" />
+				<input disabled id="file-name" name="file-name" type="text" />
 				<div className="action-buttons">
 					<button type="button">
-						<span className="file-shortcut-underline">O</span>pen
+						<span>
+							<span className="file-shortcut-underline">O</span>pen
+						</span>
 					</button>
 					<button type="button">
-						<span className="file-shortcut-underline">C</span>ancel
+						<span>
+							<span className="file-shortcut-underline">C</span>ancel
+						</span>
 					</button>
 				</div>
 			</div>

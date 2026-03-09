@@ -47,6 +47,10 @@
     @extend %y2k-border;
   }
 
+  .artwork > img {
+    max-height: 100px;
+  }
+
   button {
     background-color: lightgrey;
     margin: 0 0.15em;
@@ -90,6 +94,7 @@
       padding: 0;
       height: calc(100% - (b.$y2k-border-width * 2));
       width: calc($filter-control-height * (4 / 5));
+      color: black;
 
       svg {
         rotate: 180deg;

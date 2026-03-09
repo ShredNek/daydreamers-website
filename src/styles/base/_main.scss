@@ -89,6 +89,11 @@ button {
   border-color: transparent;
 }
 
+button > span,
+button > * > span {
+  color: black;
+}
+
 span {
   word-break: break-all;
 }

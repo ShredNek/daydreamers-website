@@ -25,14 +25,16 @@ export default function Y2kWindowShell({
 			<div className="window-nav-header">
 				<p>{navText}</p>
 				<div className="window-action-buttons">
-					<button type="button">?</button>
+					<button type="button">
+						<span>?</span>
+					</button>
 					<button
-						type="button"
 						onClick={() => {
 							navigate(closeButtonRedirect);
 						}}
+						type="button"
 					>
-						X
+						<span>X</span>
 					</button>
 				</div>
 			</div>
