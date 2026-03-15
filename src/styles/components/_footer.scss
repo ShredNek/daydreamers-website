@@ -4,9 +4,16 @@
 @use "sass:color";
 
 footer {
-  background-color: color.adjust(a.$daydreamer-off-white);
+  background-color: color.adjust(a.$daydreamer-smoky-black);
+  color: color.adjust(a.$daydreamer-off-white);
+  fill: color.adjust(a.$daydreamer-off-white);
   box-shadow: 0px 0px 12.5px -7.5px black;
   z-index: 1000;
+
+  & a {
+    color: color.adjust(a.$daydreamer-off-white);
+    text-decoration-color: color.adjust(a.$daydreamer-off-white);
+  }
 
   .footer-content {
     display: flex;

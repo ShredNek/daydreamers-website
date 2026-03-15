@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import SpinTail from "../assets/vectors/day-dreamers-logo/Day-Dreamer-SpinTail.svg";
 import Star1 from "../assets/vectors/day-dreamers-logo/Day-Dreamer-Star_1.svg";
 import Star2 from "../assets/vectors/day-dreamers-logo/Day-Dreamer-Star_2.svg";
-import { type PAGE_LINK, PAGE_LINKS } from "../utils/globals";
+import { type PAGE_LINK, PAGE_LINKS } from "../utils/globals.ts";
 import "../styles/components/_nav-header.scss";
 import { Twirl as Hamburger } from "hamburger-react";
 import { useEffect, useRef, useState } from "react";
@@ -90,6 +90,8 @@ export default function NavHeader({ className, hideBackground }: NavHeader) {
 				</button>
 				<div className="dropdown-button">
 					<Hamburger
+						// I need this colour to be unset so I can apply my own
+						color=""
 						onToggle={() => setIsDropdownActive((prev) => !prev)}
 						toggled={isDropdownActive}
 					/>

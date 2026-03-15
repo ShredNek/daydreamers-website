@@ -21,7 +21,9 @@ export default function Footer() {
 			<div className="footer-content">
 				<div className="social-links">{socialLinks}</div>
 				<ul className="extra-links">
-					<li className="link">Press Kit</li>
+					<li className="link">
+						<a href="/">Press Kit</a>
+					</li>
 				</ul>
 				<p className="extra-links">
 					<strong>© 2015-{new Date().getFullYear()} Day Dreamers</strong>

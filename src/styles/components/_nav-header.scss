@@ -18,7 +18,7 @@ $max-height: 800px;
   align-items: center;
   justify-content: space-between;
 
-  background-color: color.adjust(a.$daydreamer-off-white);
+  background-color: color.adjust(a.$daydreamer-smoky-black);
 
   &.no-background {
     background-color: transparent;
@@ -44,7 +44,7 @@ $max-height: 800px;
     height: clamp(90px, 10vw + 5px, 110px);
     margin: 1rem 0;
     justify-items: center;
-    text-shadow: f.generate-text-outline(1.5px, a.$daydreamer-sad-blue, 2px);
+    text-shadow: f.generate-text-outline(1.5px, a.$daydreamer-smoky-black, 2px);
     position: relative;
     display: flex;
 
@@ -68,7 +68,7 @@ $max-height: 800px;
       inset: 0;
       margin: auto;
       z-index: 1;
-      filter: a.$daydreamer-sad-blue-svg-fill;
+      filter: a.$daydreamer-smoky-black-svg-fill;
 
       &.spin-tail {
         height: 65px;
@@ -156,7 +156,7 @@ $max-height: 800px;
 
     .home-and-dropdown-toggle,
     .page-routes {
-      background-color: color.adjust(a.$daydreamer-off-white);
+      background-color: color.adjust(a.$daydreamer-smoky-black);
       box-shadow: 0px 0px 12.5px -7.5px black;
     }
 
@@ -189,6 +189,10 @@ $max-height: 800px;
 
       .dropdown-button {
         display: block; // ? Will be hidden on desktop screens
+
+        & [role="button"] div {
+          background-color: color.adjust(a.$daydreamer-off-white);
+        }
       }
     }
 

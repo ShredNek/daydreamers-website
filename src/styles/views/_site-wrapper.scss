@@ -24,12 +24,10 @@
 
 .site-backdrop {
   display: flow-root;
-  background: a.$daydreamer-gradient-homepage;
-  opacity: 0.75;
-
+  opacity: 0.45;
   z-index: -10;
-
   transition: b.$default-transition-property;
+  background-color: a.$daydreamer-smoky-black;
 
   &.transitioning {
     opacity: 0;

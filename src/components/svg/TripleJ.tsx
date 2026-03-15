@@ -9,7 +9,6 @@ export default function TripleJ(props: IconBaseProps) {
 	return (
 		<svg
 			aria-hidden="true"
-			fill="#000000"
 			focusable="false"
 			role="img"
 			viewBox="0 0 14 14"

@@ -7,9 +7,9 @@ import logo3 from "./assets/images/logos/logo_3.png";
 import logo4 from "./assets/images/logos/logo_4.png";
 import logo5 from "./assets/images/logos/logo_5.png";
 import logo6 from "./assets/images/logos/logo_6.png";
-import Footer from "./components/Footer";
-import LazyImage from "./components/LazyImage";
-import NavHeader from "./components/NavHeader";
+import Footer from "./components/Footer.tsx";
+import LazyImage from "./components/LazyImage.tsx";
+import NavHeader from "./components/NavHeader.tsx";
 import "./styles/views/_site-wrapper.scss";
 import { Outlet } from "react-router-dom";
 
@@ -40,7 +40,7 @@ export default function SiteWrapper({ hideBackground }: SiteWrapperComponent) {
 			<NavHeader hideBackground={hideBackground} />
 			<div className="background-visuals">
 				<div className="site-backdrop" id="site-backdrop" />
-				<LogoLayer />
+				{/* <LogoLayer /> */}
 				<div className="photo-backdrop" id="photo-backdrop">
 					<LazyImage
 						alt="Hero shot of your local wacky band, Day Dreamers"
