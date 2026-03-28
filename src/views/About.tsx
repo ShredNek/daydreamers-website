@@ -92,8 +92,6 @@ export default function About() {
 		BandMemberDetails,
 	][];
 
-	console.log(bandMemberEntries);
-
 	const [selected, setSelected] = useState<null | BandMember>(null);
 
 	return (
