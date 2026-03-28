@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
-import EnquiryForm from "../components/EnquiryForm";
-import type { ComponentStatus } from "../types";
+import EnquiryForm from "../components/EnquiryForm.tsx";
+import type { ComponentStatus } from "../types/index.ts";
 import "react-toastify/dist/ReactToastify.css";
 
 export default function Contact() {
@@ -22,8 +22,8 @@ export default function Contact() {
 		<>
 			<section id="contact">
 				<EnquiryForm
-					submissionStatus={dataSubmissionStatus}
 					setSubmissionStatus={setDataSubmissionStatus}
+					submissionStatus={dataSubmissionStatus}
 				/>
 			</section>
 			<ToastContainer />

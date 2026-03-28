@@ -1,9 +1,9 @@
 import type React from "react";
 import { useState } from "react";
 import { type ZodSchema, z } from "zod";
-import { sendEnquiryToDayDreamers } from "../api/emailCalls";
-import type { ComponentStatus, EnquiryFormSchema } from "../types/index";
-import Y2kWindowShell from "./Y2k/Y2kWindowShell";
+import { sendEnquiryToDayDreamers } from "../api/emailCalls.ts";
+import type { ComponentStatus, EnquiryFormSchema } from "../types/index.ts";
+import Y2kWindowShell from "./Y2k/Y2kWindowShell.tsx";
 
 const formSchema: ZodSchema<EnquiryFormSchema> = z.object({
 	firstName: z.string().min(1, "First name is required"),
@@ -78,7 +78,6 @@ export default function EnquiryForm({
 	const validateForm = async () => {
 		const result = formSchema.safeParse(formData);
 		if (result.success) {
-			// console.log("Form is valid:", result.data);
 			setErrors({});
 			setSubmissionStatus("loading");
 			let res = null;
