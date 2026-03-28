@@ -1,21 +1,17 @@
 import axios from "axios";
-// In your web app's main entry file (e.g., app.ts or index.ts)
-import { initializeApp } from "firebase/app";
+import { getApp, getApps, initializeApp } from "firebase/app";
 import {
 	getToken,
 	initializeAppCheck,
 	ReCaptchaEnterpriseProvider,
 } from "firebase/app-check";
 import type { EnquiryFormSchema } from "../types/index.ts";
+import { credentialsMap } from "./credentials.ts";
 
-const firebaseConfig = {
-	apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
-	authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
-	projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
-	storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
-	messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
-	appId: import.meta.env.VITE_FIREBASE_APP_ID,
-};
+const currMode = import.meta.env.PROD ? "prod" : "dev";
+
+const { firebaseConfig, recaptchaKey, middlewareRoot } =
+	credentialsMap[currMode];
 
 Object.entries(firebaseConfig).forEach(([key, value]) => {
 	if (!value) {
@@ -25,10 +21,10 @@ Object.entries(firebaseConfig).forEach(([key, value]) => {
 	}
 });
 
-const app = initializeApp(firebaseConfig);
+const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
 
 const appCheckInstance = initializeAppCheck(app, {
-	provider: new ReCaptchaEnterpriseProvider(import.meta.env.VITE_RECAPTCHA_KEY),
+	provider: new ReCaptchaEnterpriseProvider(recaptchaKey),
 	isTokenAutoRefreshEnabled: true,
 });
 
@@ -38,10 +34,7 @@ export const sendEnquiryToDayDreamers = async (enquiry: EnquiryFormSchema) => {
 	try {
 		// 1. Get the App Check token using the standalone getToken function
 		// It takes the appCheckInstance as the first argument.
-		const tokenResponse = await getToken(
-			appCheckInstance,
-			/* forceRefresh */ false,
-		);
+		const tokenResponse = await getToken(appCheckInstance, false);
 		appCheckToken = tokenResponse.token;
 	} catch (error) {
 		console.error("Error getting App Check token:", error);
@@ -56,11 +49,5 @@ export const sendEnquiryToDayDreamers = async (enquiry: EnquiryFormSchema) => {
 		headers["X-Firebase-AppCheck"] = appCheckToken;
 	}
 
-	const middlewareEndpoint = import.meta.env.DEV
-		? import.meta.env.VITE_TEST_MIDDLEWARE_URL
-		: import.meta.env.VITE_MIDDLEWARE_URL;
-
-	return axios.post(`${middlewareEndpoint}/enquiry`, enquiry, {
-		headers,
-	});
+	return axios.post(`${middlewareRoot}/enquiry`, enquiry, { headers });
 };
