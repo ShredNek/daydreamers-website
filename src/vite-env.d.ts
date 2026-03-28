@@ -11,6 +11,7 @@ interface ImportMetaEnv {
 	readonly VITE_MIDDLEWARE_URL: string;
 	readonly VITE_TEST_MIDDLEWARE_URL: string;
 	readonly VITE_RECAPTCHA_KEY: string;
+	readonly VITE_APP_CHECK_DEBUG_TOKEN: string;
 	readonly VITE_FIREBASE_API_KEY: string;
 	readonly VITE_FIREBASE_AUTH_DOMAIN: string;
 	readonly VITE_FIREBASE_PROJECT_ID: string;

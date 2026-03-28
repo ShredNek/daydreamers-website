@@ -23,6 +23,12 @@ Object.entries(firebaseConfig).forEach(([key, value]) => {
 
 const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
 
+// ? This line of code will instead use a debug token to use locally
+if (import.meta.env.DEV) {
+	(window as any).FIREBASE_APPCHECK_DEBUG_TOKEN =
+		import.meta.env.VITE_APP_CHECK_DEBUG_TOKEN;
+}
+
 const appCheckInstance = initializeAppCheck(app, {
 	provider: new ReCaptchaEnterpriseProvider(recaptchaKey),
 	isTokenAutoRefreshEnabled: true,
@@ -50,4 +56,26 @@ export const sendEnquiryToDayDreamers = async (enquiry: EnquiryFormSchema) => {
 	}
 
 	return axios.post(`${middlewareRoot}/enquiry`, enquiry, { headers });
+};
+
+export const testGet = async () => {
+	let appCheckToken: string | undefined;
+
+	try {
+		const tokenResponse = await getToken(appCheckInstance, true);
+		appCheckToken = tokenResponse.token;
+	} catch (error) {
+		console.error("Error getting App Check token:", error);
+	}
+
+	// 2. Include the App Check token in the request headers
+	const headers: Record<string, string> = {
+		"Content-Type": "application/json",
+	};
+
+	if (appCheckToken) {
+		headers["X-Firebase-AppCheck"] = appCheckToken;
+	}
+
+	return axios.get(`${middlewareRoot}/enquiry`, { headers });
 };
