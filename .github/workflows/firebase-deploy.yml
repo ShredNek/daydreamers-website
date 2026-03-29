@@ -33,4 +33,5 @@ jobs:
         run: |
           export GOOGLE_APPLICATION_CREDENTIALS=gcp_key.json
           echo '${{ secrets.WEBSITE_SERVICE_ACCOUNT_JSON }}' > gcp_key.json
+          bun x firebase experiments:enable webframeworks
           firebase deploy --only hosting -P daydreamers-website
