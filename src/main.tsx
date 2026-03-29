@@ -1,102 +1,51 @@
-import React from "react";
-import ReactDOM from "react-dom/client";
-import {
-  createBrowserRouter,
-  RouterProvider,
-} from "react-router-dom";
-
-import Home from "./views/Home";
-import PageNotFound from "./views/PageNotFound";
-import Merch from "./views/Merch";
-import MerchItem from "./views/MerchItem";
-import Cart from "./views/Cart";
-import Gigs from "./views/Gigs";
-import GigView from "./views/GigView";
-import Music from "./views/Music";
-import MusicView from "./views/MusicView";
-import Lyrics from "./views/Lyrics";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import About from "./views/About";
-import ErrorBoundary from "./views/ErrorBoundary";
 import Contact from "./views/Contact";
-import Media from "./views/Media"
-import Links from "./views/Links"
+import ErrorBoundary from "./views/ErrorBoundary";
+import Home from "./views/Home";
+import Links from "./views/Links";
+import Media from "./views/Media";
+import Music from "./views/Music";
+import PageNotFound from "./views/PageNotFound";
+import Shows from "./views/Shows";
 
 import "./styles/style.scss";
 
+import React from "react";
+import { createRoot } from "react-dom/client";
+import SiteWrapper from "./SiteWrapper";
 import { AppContextProvider } from "./utils/AppContext";
 
-const views = [{
-  path: "/",
-  element: <Home />,
-  errorElement: <PageNotFound />,
-},
-{
-  path: "/merch",
-  element: <Merch />,
-},
-{
-  path: "/links",
-  element: <Links />,
-},
-{
-  path: "/merch/:id",
-  element: <MerchItem />
-},
-{
-  path: "/merch/cart",
-  element: <Cart />
-},
-{
-  path: "/gigs",
-  element: <Gigs />
-},
-{
-  path: "/gig/:id",
-  element: <GigView />
-},
-{
-  path: "/music",
-  element: <Music />
-},
-{
-  path: "/music/:songCollectionName",
-  element: <MusicView />
-},
-{
-  path: "/music/:songCollectionName/lyrics/:trackName",
-  element: <Lyrics />
-},
-{
-  path: "/about",
-  element: <About />
-},
-{
-  path: "/contact",
-  element: <Contact />
-},
-{
-  path: "/media",
-  element: <Media />
-}
-]
-
-const router = createBrowserRouter(
-  views.map(view => ({
-    ...view,
-    element: view.path !== "/" ? <ErrorBoundary>{view.element}</ErrorBoundary> : view.element,
-  }))
-);
+const router = createBrowserRouter([
+	{
+		path: "/",
+		element: <SiteWrapper />,
+		errorElement: <PageNotFound />,
+		children: [
+			{ path: "/", element: <Home /> },
+			{ path: "/links", element: <Links /> },
+			{ path: "/shows", element: <Shows /> },
+			{ path: "/shows/:showSlug", element: <Shows /> },
+			{ path: "/music", element: <Music /> },
+			{ path: "/music/:songSlug", element: <Music /> },
+			{ path: "/about", element: <About /> },
+			{ path: "/contact", element: <Contact /> },
+			{ path: "/media", element: <Media /> },
+		],
+	},
+]);
 
 const App = () => {
-  return (
-    <React.StrictMode>
-      <ErrorBoundary>
-        <AppContextProvider>
-          <RouterProvider router={router} />
-        </AppContextProvider>
-      </ErrorBoundary>
-    </React.StrictMode >
-  );
+	return (
+		<React.StrictMode>
+			<ErrorBoundary>
+				<AppContextProvider>
+					<RouterProvider router={router} />
+				</AppContextProvider>
+			</ErrorBoundary>
+		</React.StrictMode>
+	);
 };
 
-ReactDOM.createRoot(document.getElementById("root")!).render(<App />);
+// biome-ignore lint/style/noNonNullAssertion: this is never null
+createRoot(document.getElementById("root")!).render(<App />);

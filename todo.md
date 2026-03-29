@@ -1,3 +1,16 @@
+# ZAKS TODO
+- Logo as different layer
+- collage abackground for other tabs
+- get rid of polaroid images / swap in for 
+  - Music page
+  - reference img: https://au.pinterest.com/pin/35395547064416348/ 
+- merch tab to bandcamp
+- random floating heads (skoimialr to bakers eddie)
+  - Reference for floating things: https://www.bakerseddy.com/contact
+- grab links for socials, (yt, tiktok)
+
+
+
 # To Do
 - make nav header reusable for stock screen - make space for other components, like stock search, to live there too 
 - see if it's possible to have an event fire when you want the screen to fade. It's complicated to fade from one page to the next.

@@ -1,52 +1,223 @@
 @use "../base" as b;
 @use "../abstracts" as a;
+@use "../utilities/functions" as f;
 
-.header-nav {
+@use "sass:color";
+
+$max-height: 800px;
+
+.header-navigation {
+  display: flex;
   width: 100%;
-  // position: sticky;
-  position: relative;
-  margin-bottom: 2rem;
+  position: sticky;
   top: 0;
+  margin-bottom: 2rem;
+  padding: 0 1.5rem 0;
+  gap: 1.5rem;
+  z-index: 1000;
+  align-items: center;
+  justify-content: space-between;
 
-  .desktop-nav-links-parent {
+  background-color: color.adjust(a.$daydreamer-smoky-black);
+
+  &.no-background {
+    background-color: transparent;
+  }
+
+  .home-and-dropdown-toggle {
+    z-index: 1000;
+    gap: 2rem;
+    justify-content: space-between;
+    padding: 0 2rem;
+
+    .dropdown-button {
+      display: none; // ? Will be rendered on mobile screens
+      padding: 0 1rem;
+
+      width: fit-content;
+      height: fit-content;
+    }
+  }
+
+  .header-logo-container {
+    min-width: 300px;
+    height: clamp(90px, 10vw + 5px, 110px);
+    margin: 1rem 0;
+    justify-items: center;
+    text-shadow: f.generate-text-outline(1.5px, a.$daydreamer-smoky-black, 2px);
     position: relative;
-    width: clamp(b.$tiny-width, 80vw, b.$desktop-width);
-    margin: 0px auto;
+    display: flex;
 
-    menu {
-      width: 100%;
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      justify-content: space-around;
+    @media (max-width: b.$small-width) {
+      margin: 0;
+    }
 
-      a.img-parent img {
-        $spread: 50px;
-        $origin: 30px;
-        min-width: 140px;
-        border-radius: 100%;
-        box-shadow: white 0px 0px $spread $origin, white 0px 0px $spread $origin,
-          white 0px 0px $spread $origin;
+    .letters {
+      position: relative;
+      padding-top: 0;
+      padding-bottom: 0;
+      text-align: center;
+      margin: auto;
+      z-index: 10;
+      line-height: 0.8em;
+      font-size: clamp(1.5rem, 5vw, 2.5rem);
+    }
+
+    .vector {
+      position: absolute;
+      inset: 0;
+      margin: auto;
+      z-index: 1;
+      filter: a.$daydreamer-smoky-black-svg-fill;
+
+      &.spin-tail {
+        height: 65px;
       }
 
-      li {
-        width: calc(0.5em + 5vw);
-        height: fit-content;
-        display: flex;
-        justify-content: center;
+      &.star-1 {
+        height: 30px;
+        transform: translate(-55px, 30px);
+      }
+
+      &.star-2 {
+        height: 55px;
+        transform: translate(75px, -30px) scaleX(140%);
       }
     }
   }
 
-  @media (min-width: b.$desktop-width) {
-    min-width: calc(b.$desktop-width - 300px);
-    padding-top: 2rem;
-    font-size: 1.5em;
+  span {
+    transition:
+      transform 2.5s a.$custom-ease,
+      scale 5s a.$custom-ease,
+      color 5s a.$custom-ease;
+    display: inline-block;
+    font-size: 1em;
+    font-family: PlanetKosmos;
+    scale: 1;
+    color: white;
+
+    &:hover {
+      scale: 1.5;
+      cursor: default;
+
+      &:nth-child(odd) {
+        color: color.adjust(a.$daydreamer-sad-blue, $lightness: 0%);
+      }
+
+      &:nth-child(even) {
+        color: color.adjust(a.$daydreamer-hot-yellow, $lightness: 10%);
+      }
+    }
   }
 
-  @media (max-width: b.$mobile-width) {
-    .desktop-nav-links-parent menu li {
-      display: none;
+  .page-routes {
+    width: 100%;
+    max-width: 2000px;
+
+    ul {
+      display: flex;
+      flex-wrap: wrap;
+
+      height: 100%;
+      width: 100%;
+      justify-content: space-around;
+      align-items: center;
+
+      padding: 1rem 0;
+
+      & > li {
+        img {
+          max-height: 25px;
+        }
+
+        @media (max-height: b.$medium-width) {
+          margin: 0.5rem auto;
+          font-size: 1.2em;
+        }
+      }
+
+      @media (max-height: b.$medium-width) {
+        padding: 0.5rem 0px;
+      }
+
+      @media (max-width: b.$large-width) {
+        justify-content: center;
+        flex-direction: column;
+      }
+    }
+  }
+
+  @media (max-width: b.$large-width) {
+    flex-direction: column;
+    padding: 0;
+    gap: 0;
+    background-color: transparent;
+
+    .home-and-dropdown-toggle,
+    .page-routes {
+      background-color: color.adjust(a.$daydreamer-smoky-black);
+      box-shadow: 0px 0px 12.5px -7.5px black;
+    }
+
+    .home-and-dropdown-toggle {
+      display: flex;
+      align-items: center;
+      width: 100%;
+      gap: 0;
+      padding: 0 1.5rem;
+
+      .header-logo-container {
+        min-width: 150px;
+
+        .spin-tail {
+          max-width: clamp(150px, 30.5vw + 20px, 300px);
+        }
+
+        .star-1 {
+          transform: translateX(clamp(-75px, -9.5vw, -35px)) translateY(clamp(10px, 3.5vw, 30px));
+          max-width: clamp(20px, 4.5vw, 40px);
+          max-height: clamp(20px, 4.5vw, 40px);
+        }
+
+        .star-2 {
+          transform: translateX(clamp(40px, 9.5vw, 80px)) translateY(clamp(-30px, -4.5vw, -20px));
+          max-height: clamp(70px, 18.5vw, 250px);
+          max-width: clamp(30px, 5.5vw, 60px);
+        }
+      }
+
+      .dropdown-button {
+        display: block; // ? Will be hidden on desktop screens
+
+        & [role="button"] div {
+          background-color: color.adjust(a.$daydreamer-off-white);
+        }
+      }
+    }
+
+    .page-routes {
+      position: absolute;
+      transition: transform 0.5s ease-in-out;
+
+      &.dropdown-active {
+        transform: translateY(120px);
+      }
+
+      &.dropdown-inactive {
+        transform: translateY(-500px);
+      }
+    }
+  }
+
+  @media (max-width: b.$small-width) {
+    .page-routes {
+      position: absolute;
+      transition: transform 0.5s ease-in-out;
+
+      &.dropdown-active {
+        transform: translateY(90px);
+      }
     }
   }
 }

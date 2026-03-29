@@ -1,8 +1,10 @@
 @use "../abstracts/colors" as c;
 
-$main: darken(c.$daydreamer-orange, 10%);
-$between: lighten(c.$daydreamer-blue, 20%);
-$contrast: lighten(c.$daydreamer-blue, 10%);
+@use "sass:color";
+
+$main: color.adjust(c.$daydreamer-orange, $lightness: -10%);
+$between: color.adjust(c.$daydreamer-blue, $lightness: 20%);
+$contrast: color.adjust(c.$daydreamer-blue, $lightness: 10%);
 
 .custom-loader {
   display: flex;

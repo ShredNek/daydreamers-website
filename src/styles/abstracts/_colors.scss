@@ -2,17 +2,39 @@
 // ? GLOBAL COLORS ?
 // ? ? ? ? ? ? ? ? ?
 
-$off-white: darken(white, 10%); 
-$grey: darken(white, 30%); 
-$ash: darken(white, 65%); 
+@use "sass:color";
+
+$off-white: color.adjust(white, $lightness: -10%);
+$grey: color.adjust(white, $lightness: -30%);
+$ash: color.adjust(white, $lightness: -65%);
 $daydreamer-orange: #f1b83f;
 $daydreamer-blue: #4fdbf0;
 $daydreamer-purple: #5a2494;
+$daydreamer-sad-blue: #6aadff;
+$daydreamer-sad-blue-svg-fill: invert(66%) sepia(14%) saturate(3110%) hue-rotate(186deg) brightness(100%) contrast(101%); /* ? Colour generated here: https://codepen.io/sosuke/pen/Pjoqqp */
+$daydreamer-faded-blue: #bcdaf0;
+$daydreamer-hot-yellow: #ffde00;
+$daydreamer-off-white: #f4f7f8;
+$daydreamer-smoky-black: #1b1b19;
+$daydreamer-smoky-black-svg-fill: invert(8%) sepia(2%) saturate(1928%) hue-rotate(21deg) brightness(95%) contrast(94%); /* ? Colour generated here: https://codepen.io/sosuke/pen/Pjoqqp */
+
 $daydreamer-gradient-main: radial-gradient(
   circle,
-  $daydreamer-orange 0%,
-  $daydreamer-blue 50%,
-  #ffffff 85%
+  $daydreamer-faded-blue 0%,
+  $daydreamer-sad-blue 50%,
+  $daydreamer-smoky-black 85%
+);
+$daydreamer-gradient-main-transparent: radial-gradient(
+  circle,
+  color.adjust($daydreamer-sad-blue, $lightness: 10%) 0%,
+  transparent 65%
+);
+$daydreamer-gradient-homepage: radial-gradient(
+  circle,
+  color.adjust($grey, $lightness: 15%) 0%,
+  color.adjust($ash, $lightness: 20%) 45%,
+  75%,
+  $daydreamer-smoky-black 100%
 );
 $daydreamer-gradient-faded: radial-gradient(
   circle,
@@ -20,12 +42,9 @@ $daydreamer-gradient-faded: radial-gradient(
   rgba($daydreamer-blue, 0.6) 75%,
   #ffffff 85%
 );
-$daydreamer-gradient-alt: radial-gradient(
-  circle,
-  rgba($daydreamer-blue, 0.6) 0%,
-  white 75%
-);
-$stripe-primary: #635BFF;
+$daydreamer-gradient-alt: radial-gradient(circle, rgba($daydreamer-hot-yellow, 0.6) 0%, white 75%);
+$daydreamer-gradient-alt-transparent: radial-gradient(circle, rgba($daydreamer-hot-yellow, 0.6) 0%, transparent 75%);
+$stripe-primary: #635bff;
 $zak-red: rgb(247, 50, 11);
 $zak-red-gradient: radial-gradient(
   hsl(0deg 100% 81%) 0%,
@@ -126,4 +145,3 @@ $jordan-blue-gradient: radial-gradient(
   hsl(204deg 100% 100%) 50%,
   hsl(0deg 0% 100%) 78%
 );
-

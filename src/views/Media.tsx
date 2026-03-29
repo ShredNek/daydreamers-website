@@ -1,78 +1,166 @@
-import { getAllMedia } from "../api/datoCmsCalls"
-import { MediaCollection, MediaData } from "../types"
-import { useEffect, useState } from "react"
-import VideoPlayerHls from "../components/VideoPlayerHls"
-import NavHeader from "../components/NavHeader"
-import Footer from "../components/Footer"
-import LazyImage from "../components/LazyImage"
-import { MdOutlineFileDownload, MdOutlineShare } from "react-icons/md";
-import { downloadImage, convertToPng } from "../helper/index.tsx"
-import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useState } from "react";
+import {
+	FaBackwardFast,
+	FaBandcamp,
+	FaCircle,
+	FaCode,
+	FaFacebookF,
+	FaForwardFast,
+	FaInstagram,
+	FaMusic,
+	FaPlay,
+	FaRecordVinyl,
+	FaSpotify,
+	FaSquare,
+	FaTiktok,
+	FaYoutube,
+} from "react-icons/fa6";
+import { IoTriangleSharp } from "react-icons/io5";
+import TripleJ from "../components/svg/TripleJ.tsx";
+import Y2kWindowShell from "../components/Y2k/Y2kWindowShell.tsx";
+import type { LinkType } from "../types/index.ts";
+import { SOCIAL_LINKS } from "../utils/globals.ts";
 
 export default function Media() {
-  const [media, setMedia] = useState<null | MediaData[]>(null)
+	const [media, setMedia] = useState<{
+		currentSocial: LinkType;
+	}>({ currentSocial: "album" });
 
-  const callMediaOnLoad = async () => {
-    const res: MediaCollection = (await (await getAllMedia()).json())
-    setMedia(res.data.mediaCollection.mediaData)
-  }
+	const isLinkType = (value: string): value is LinkType =>
+		SOCIAL_LINKS.some((v) => v.linkType === value);
 
-  const handleShare = async (imgUrl: string) => {
-    try {
-      if (navigator.share) {
-        await navigator.share({
-          title: 'Check out this image',
-          text: 'Here is an image I wanted to share with you',
-          url: imgUrl
-        });
-      } else {
-        const response = await fetch(imgUrl);
-        let blob: Blob = await response.blob();
+	const handleSkipButtonClick = (newIndex: number) => {
+		const newSocial =
+			SOCIAL_LINKS[
+				SOCIAL_LINKS.findIndex(
+					(social) => social.linkType === media.currentSocial,
+				) + newIndex
+			]?.linkType;
 
-        if (!blob.type.startsWith('image/png')) blob = await convertToPng(blob)
+		setMedia((prev) => ({
+			...prev,
+			currentSocial: newSocial ?? prev.currentSocial,
+		}));
+	};
 
-        const item = new ClipboardItem({ [blob.type]: blob });
-        await navigator.clipboard.write([item]);
-        toast.info("Image copied to clipboard")
-      }
-    } catch (error) {
-      toast.error("There was an error sharing this image")
-      console.error(`Error sharing this image link ${imgUrl}. Error caught:`, error);
-    }
-  }
+	const handleRedirect = () => {
+		const urlToNavigateTo = SOCIAL_LINKS.find(
+			(v) => v.linkType === media.currentSocial,
+		)?.href;
 
-  useEffect(() => {
-    callMediaOnLoad()
-  }, [])
+		if (!urlToNavigateTo) {
+			throw new Error(`Url for social media ${media.currentSocial} is falsy.`);
+		}
 
-  return (
-    <>
-      <NavHeader linkToDisable="Media" />
-      <ToastContainer />
-      <section className="media">
-        <div className="media-container">
-          {media?.map(media => (
-            media.video ? (
-              <VideoPlayerHls src={media.video.streamingUrl} key={media.id} />
-            ) :
-              <div className="lazy-image-parent" id={media.filename ?? media.id} key={media.id}>
-                <div className="button-row">
-                  <a onClick={() => handleShare(media.url)}><MdOutlineShare /></a>
-                  <a onClick={() => downloadImage(media.url, media.filename ?? "downloaded image")} ><MdOutlineFileDownload /></a>
-                </div>
-                <div className="overlay" />
-                <LazyImage
-                  highQualitySrc={media.url}
-                  lowQualitySrc={media.blurUpThumb}
-                  alt={media.alt ?? media.filename ?? ""}
-                />
-              </div>
-          ))
-          }
-        </div>
-      </section>
-      <Footer />
-    </>
-  )
+		window.open(urlToNavigateTo, "_blank");
+	};
+
+	return (
+		<section className="media" id="media">
+			<Y2kWindowShell closeButtonRedirect="/" navText="Media">
+				<a
+					className="social-image-container"
+					href={
+						SOCIAL_LINKS.find((v) => v.linkType === media.currentSocial)?.href
+					}
+					target="_blank"
+				>
+					<CurrentSocialImage linkType={media.currentSocial} />
+				</a>
+
+				<div className="social-information">
+					<div className="social-media-select">
+						<label htmlFor="search-results-input">Social Media:</label>
+						<div className="search-input-combo">
+							<select
+								id="search-results-input"
+								name="search-results-input"
+								onChange={(e) => {
+									const currentSocial = e.currentTarget.value;
+									if (!isLinkType(currentSocial)) {
+										return console.warn(`${currentSocial} not of link type`);
+									}
+									setMedia((prev) => ({ ...prev, currentSocial }));
+								}}
+								value={media.currentSocial}
+							>
+								{SOCIAL_LINKS.map((v) => (
+									<option key={v.linkType} value={v.linkType}>
+										{v.title}
+									</option>
+								))}
+							</select>
+							<button className="dropdown-arrow" type="button">
+								<IoTriangleSharp />
+							</button>
+						</div>
+					</div>
+					<div className="button-row">
+						<button className="record" onClick={handleRedirect} type="button">
+							<FaCircle />
+						</button>
+						<button
+							className="back-track"
+							onClick={() => handleSkipButtonClick(-1)}
+							type="button"
+						>
+							<FaBackwardFast />
+						</button>
+						<button
+							className="play-pause"
+							onClick={handleRedirect}
+							type="button"
+						>
+							<FaPlay />
+						</button>
+						<button
+							className="fast-forward"
+							onClick={() => handleSkipButtonClick(1)}
+							type="button"
+						>
+							<FaForwardFast />
+						</button>
+						<button
+							className="stop"
+							onClick={() => {
+								setMedia((prev) => ({
+									...prev,
+									currentSocial: "album",
+								}));
+							}}
+							type="button"
+						>
+							<FaSquare />
+						</button>
+					</div>
+				</div>
+			</Y2kWindowShell>
+		</section>
+	);
 }
+
+const CurrentSocialImage = ({ linkType }: { linkType: LinkType }) => {
+	switch (linkType) {
+		case "instagram":
+			return <FaInstagram />;
+		case "facebook":
+			return <FaFacebookF />;
+		case "youtube":
+			return <FaYoutube />;
+		case "tiktok":
+			return <FaTiktok />;
+		case "spotify":
+			return <FaSpotify />;
+		case "triple j":
+			return <TripleJ />;
+		case "bandcamp":
+			return <FaBandcamp />;
+		case "song":
+			return <FaMusic />;
+		case "album":
+			return <FaRecordVinyl />;
+		case "website":
+			return <FaCode />;
+	}
+};
