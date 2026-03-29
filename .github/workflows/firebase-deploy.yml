@@ -13,7 +13,7 @@ jobs:
       - uses: oven-sh/setup-bun@v2
       - name: Biome Lint Check & Build-step Check
         run: |
-          bun add @biomejs/biome
+          bun i
           bunx --bun @biomejs/biome lint
           tsc && vite build
   deploy-client:
