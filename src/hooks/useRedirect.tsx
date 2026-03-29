@@ -1,7 +1,7 @@
-import { useNavigate } from "react-router-dom";
 import type { Dispatch, SetStateAction } from "react";
-import { FADE_SPEED } from "../utils/globals";
-import type { ComponentLoadingStatus } from "../types";
+import { useNavigate } from "react-router-dom";
+import type { ComponentLoadingStatus } from "../types/index.ts";
+import { FADE_SPEED } from "../utils/globals.ts";
 
 export default function useRedirect() {
 	const navigate = useNavigate();

@@ -1,12 +1,16 @@
 import { useCallback, useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { getAllMusic } from "../api/datoCmsCalls";
-import Footer from "../components/Footer";
-import NavHeader from "../components/NavHeader";
-import NotFoundError from "../components/NotFoundError";
+import { getAllMusic } from "../api/datoCmsCalls.ts";
+import Footer from "../components/Footer.tsx";
+import NavHeader from "../components/NavHeader.tsx";
+import NotFoundError from "../components/NotFoundError.tsx";
 import { toKebabCase } from "../helper/index.tsx";
-import type { ComponentLoadingStatus, MusicData, Track } from "../types/index";
-import { AppContext } from "../utils/AppContext";
+import type {
+	ComponentLoadingStatus,
+	MusicData,
+	Track,
+} from "../types/index.ts";
+import { AppContext } from "../utils/AppContext.tsx";
 
 export default function MusicView() {
 	const [componentLoadingState, setComponentLoadingState] =

@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import Motivation from "../assets/images/misc/HQ_SuppawtiveDaeDrummeh.jpg";
 import LQ_Motivation from "../assets/images/misc/LQ_SuppawtiveDaeDrummeh.jpg";
-import LazyImage from "../components/LazyImage";
+import LazyImage from "../components/LazyImage.tsx";
 
 export default function PageNotFound() {
 	return (
@@ -9,13 +9,13 @@ export default function PageNotFound() {
 			<div id="site-backdrop" />
 			<h1 className="goofy">404 ERROR</h1>
 			<LazyImage
-				lowQualitySrc={LQ_Motivation}
-				highQualitySrc={Motivation}
 				alt="All four day dreamers cheering you on, to help motivate your search for the right page"
+				highQualitySrc={Motivation}
+				lowQualitySrc={LQ_Motivation}
 			/>
 			<p>
 				Hey, champion. Looks like you are lost.{" "}
-				<Link to={"/"} className="link orange-reroute">
+				<Link className="link orange-reroute" to={"/"}>
 					Click me to come home.
 				</Link>
 			</p>

@@ -2,7 +2,7 @@ import { Component, type ErrorInfo, type ReactNode } from "react";
 import { Link } from "react-router-dom";
 import Motivation from "../assets/images/misc/HQ_FoundBug.png";
 import LQ_Motivation from "../assets/images/misc/LQ_FoundBug.png";
-import LazyImage from "../components/LazyImage";
+import LazyImage from "../components/LazyImage.tsx";
 
 interface ErrorBoundaryProps {
 	children: ReactNode;
@@ -34,13 +34,13 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
 					<div id="site-backdrop" />
 					<h1>500 ERROR</h1>
 					<LazyImage
-						lowQualitySrc={LQ_Motivation}
-						highQualitySrc={Motivation}
 						alt="All four day dreamers cheering you on, to help motivate your search for the right page"
+						highQualitySrc={Motivation}
+						lowQualitySrc={LQ_Motivation}
 					/>
 					<p>
 						Hey bub. Looks like this page is unaccessible right now.{" "}
-						<Link to={"/"} className="link orange-reroute">
+						<Link className="link orange-reroute" to={"/"}>
 							Click me to come home.
 						</Link>
 					</p>

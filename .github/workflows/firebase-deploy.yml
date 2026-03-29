@@ -11,10 +11,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: oven-sh/setup-bun@v2
-      - name: Biome Lint Check
+      - name: Biome Lint Check & Build-step Check
         run: |
           bun add @biomejs/biome
           bunx --bun @biomejs/biome lint
+          tsc && vite build
   deploy-client:
     needs: lint-check
     if: github.ref == 'refs/heads/main'
