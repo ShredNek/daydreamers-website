@@ -1,0 +1,35 @@
+name: Firebase Deploy
+run-name: Deploy middleware to Firebase
+on:
+  push:
+    branches:
+      - main
+      - test
+jobs:
+  lint-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+      - name: Biome Lint Check
+        run: |
+          bun add @biomejs/biome
+          bunx --bun @biomejs/biome lint
+  deploy-client:
+    needs: lint-check
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+      - name: Build and create env file
+        run: | 
+          bun i --allow-scripts
+          bun run build
+      - name: Install Firebase CLI
+        run: bun add -g firebase-tools
+      - name: Deploy to Firebase
+        run: |
+          export GOOGLE_APPLICATION_CREDENTIALS=gcp_key.json
+          echo '${{ secrets.WEBSITE_SERVICE_ACCOUNT_JSON }}' > gcp_key.json
+          firebase deploy --only hosting -P daydreamers-website

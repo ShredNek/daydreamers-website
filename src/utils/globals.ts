@@ -4,7 +4,7 @@ import mediaTabImg from "../assets/images/tabs/tabs_media.png";
 import merchTabImg from "../assets/images/tabs/tabs_merch.png";
 import musicTabImg from "../assets/images/tabs/tabs_music.png";
 import showsTabImg from "../assets/images/tabs/tabs_shows.png";
-import type { LinkType, SocialMediaEntry } from "../types/index.ts";
+import type { SocialMediaEntry } from "../types/index.ts";
 
 export const PAGE_DIFFERENCE = 8;
 

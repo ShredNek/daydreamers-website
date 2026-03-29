@@ -64,6 +64,7 @@ export default function Media() {
 					href={
 						SOCIAL_LINKS.find((v) => v.linkType === media.currentSocial)?.href
 					}
+					rel="noreferrer"
 					target="_blank"
 				>
 					<CurrentSocialImage linkType={media.currentSocial} />

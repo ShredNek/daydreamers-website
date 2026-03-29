@@ -23,8 +23,8 @@ Object.entries(firebaseConfig).forEach(([key, value]) => {
 
 const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
 
-// ? This line of code will instead use a debug token to use locally
 if (import.meta.env.DEV) {
+	// biome-ignore lint/suspicious/noExplicitAny: For dev only... and we can do what we want as a developer
 	(window as any).FIREBASE_APPCHECK_DEBUG_TOKEN =
 		import.meta.env.VITE_APP_CHECK_DEBUG_TOKEN;
 }

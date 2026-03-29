@@ -15,7 +15,6 @@ import React from "react";
 import { createRoot } from "react-dom/client";
 import SiteWrapper from "./SiteWrapper.tsx";
 import { AppContextProvider } from "./utils/AppContext.tsx";
-import { Sandbox } from "./views/Sandbox.tsx";
 
 const router = createBrowserRouter([
 	{
@@ -32,7 +31,6 @@ const router = createBrowserRouter([
 			{ path: "/about", element: <About /> },
 			{ path: "/contact", element: <Contact /> },
 			{ path: "/media", element: <Media /> },
-			{ path: "/sandbox", element: <Sandbox /> },
 		],
 	},
 ]);

@@ -1,20 +1,14 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import {
-	GiAlienStare,
-	GiBaseballGlove,
-	GiDogBowl,
 	GiDrumKit,
 	GiGuitarBassHead,
 	GiGuitarHead,
 	GiMicrophone,
 } from "react-icons/gi";
 import type { IconType } from "react-icons/lib";
-import AlienHead from "../assets/images/band-members/Alien_Head.png";
 import BenHead from "../assets/images/band-members/Ben_Head.png";
-import BobsonDougnuttHead from "../assets/images/band-members/BobsonDougnutt_Head.png";
 import DanielHead from "../assets/images/band-members/Daniel_HeadIcon.png";
 import JordanHead from "../assets/images/band-members/Jordan_HeadIcon.png";
-import LucyHead from "../assets/images/band-members/Lucy_HeadIcon.png";
 import ZakHead from "../assets/images/band-members/Zak_HeadIcon.png";
 import Y2kWindowShell from "../components/Y2k/Y2kWindowShell.tsx";
 import { toKebabCase } from "../helper/index.tsx";
@@ -70,15 +64,6 @@ const bandMembers: Record<BandMember, BandMemberDetails> = {
 		img: JordanHead,
 		bio: "... bass?",
 	},
-
-	// Alien: {
-	// 	formattedName: "Alien",
-	// 	type: "Pizza time initiator",
-	// 	icon: GiAlienStare,
-	// 	imgDesc: "You have chosen Brock",
-	// 	img: AlienHead,
-	// 	bio: "Friendly neighborhood alien man thing. Loves sharing free pizza on cliff sides with men in suits.",
-	// },
 } as const;
 
 const defaultVals = {
