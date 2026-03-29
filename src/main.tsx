@@ -1,20 +1,20 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import About from "./views/About";
-import Contact from "./views/Contact";
-import ErrorBoundary from "./views/ErrorBoundary";
-import Home from "./views/Home";
-import Links from "./views/Links";
-import Media from "./views/Media";
-import Music from "./views/Music";
-import PageNotFound from "./views/PageNotFound";
-import Shows from "./views/Shows";
+import About from "./views/About.tsx";
+import Contact from "./views/Contact.tsx";
+import ErrorBoundary from "./views/ErrorBoundary.tsx";
+import Home from "./views/Home.tsx";
+import Links from "./views/Links.tsx";
+import Media from "./views/Media.tsx";
+import Music from "./views/Music.tsx";
+import PageNotFound from "./views/PageNotFound.tsx";
+import Shows from "./views/Shows.tsx";
 
 import "./styles/style.scss";
 
 import React from "react";
 import { createRoot } from "react-dom/client";
-import SiteWrapper from "./SiteWrapper";
-import { AppContextProvider } from "./utils/AppContext";
+import SiteWrapper from "./SiteWrapper.tsx";
+import { AppContextProvider } from "./utils/AppContext.tsx";
 
 const router = createBrowserRouter([
 	{

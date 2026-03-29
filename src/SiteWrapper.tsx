@@ -1,34 +1,10 @@
-import { v4 as uuid } from "uuid";
 import highQualHero from "./assets/images/hero/DayDreamersCollage_HighQual.jpg";
 import lowQualHero from "./assets/images/hero/DayDreamersCollage_LowQual.jpg";
-import logo1 from "./assets/images/logos/logo_1.png";
-import logo2 from "./assets/images/logos/logo_2.png";
-import logo3 from "./assets/images/logos/logo_3.png";
-import logo4 from "./assets/images/logos/logo_4.png";
-import logo5 from "./assets/images/logos/logo_5.png";
-import logo6 from "./assets/images/logos/logo_6.png";
 import Footer from "./components/Footer.tsx";
 import LazyImage from "./components/LazyImage.tsx";
 import NavHeader from "./components/NavHeader.tsx";
 import "./styles/views/_site-wrapper.scss";
 import { Outlet } from "react-router-dom";
-
-const imgArr = [logo1, logo2, logo3, logo4, logo5, logo6];
-
-function LogoLayer() {
-	return (
-		<div className="logo-layer" id="logo-layer">
-			{imgArr.map((src, i) => (
-				<img
-					alt={`Band logo number ${i + 1}`}
-					className="day-dreamer-logo"
-					key={uuid()}
-					src={src}
-				></img>
-			))}
-		</div>
-	);
-}
 
 type SiteWrapperComponent = {
 	hideBackground?: boolean;
