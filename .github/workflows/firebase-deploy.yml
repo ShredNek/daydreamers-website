@@ -1,5 +1,5 @@
 name: Firebase Deploy
-run-name: Deploy middleware to Firebase
+run-name: Deploy website to Firebase
 on:
   push:
     branches:
@@ -11,10 +11,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: oven-sh/setup-bun@v2
-      - name: Biome Lint Check
+      - name: Biome Lint Check & Build-step Check
         run: |
-          bun add @biomejs/biome
+          bun i
           bunx --bun @biomejs/biome lint
+          bun run build
   deploy-client:
     needs: lint-check
     if: github.ref == 'refs/heads/main'

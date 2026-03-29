@@ -13,14 +13,7 @@ import ZakHead from "../assets/images/band-members/Zak_HeadIcon.png";
 import Y2kWindowShell from "../components/Y2k/Y2kWindowShell.tsx";
 import { toKebabCase } from "../helper/index.tsx";
 
-type BandMember =
-	| "Zak"
-	| "Daniel"
-	| "Ben"
-	| "Jordan"
-	| "Lucy"
-	| "Alien"
-	| "BobsonDougnutt";
+type BandMember = "Zak" | "Daniel" | "Ben" | "Jordan";
 
 type BandMemberDetails = {
 	formattedName: string;

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { returnNavItems } from "../helper";
+import { returnNavItems } from "../helper/index.tsx";
 
 export default function Hamburger({
 	linkToDisable,

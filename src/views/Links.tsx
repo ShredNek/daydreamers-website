@@ -2,8 +2,8 @@ import { useState } from "react";
 import { PiHeartFill } from "react-icons/pi";
 import duhBend from "../assets/images/hero/DeiDronkers.jpg";
 import DayDreamerVideo from "../assets/videos/DayDreamersLogoVisualiser_1920-1080.mp4";
-import { renderLinkTypeImage } from "../helper";
-import { SOCIAL_LINKS } from "../utils/globals";
+import { renderLinkTypeImage } from "../helper/index.tsx";
+import { SOCIAL_LINKS } from "../utils/globals.ts";
 
 export default function Links() {
 	const [videoHadLoaded, setVideoHasLoaded] = useState<boolean>(false);
