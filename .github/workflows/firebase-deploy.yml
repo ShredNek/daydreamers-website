@@ -1,5 +1,5 @@
 name: Firebase Deploy
-run-name: Deploy middleware to Firebase
+run-name: Deploy website to Firebase
 on:
   push:
     branches:
