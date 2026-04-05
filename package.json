@@ -7,7 +7,7 @@
 		"dev": "vite",
 		"build": "bun x tsc && bun x vite build",
 		"preview": "vite preview",
-		"lint": "npx @biomejs/biome lint --write ./src",
+		"lint": "bun x tsc && bun x @biomejs/biome lint --write ./src",
 		"deploy": "firebase deploy"
 	},
 	"dependencies": {

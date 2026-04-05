@@ -8,7 +8,6 @@ import Y2kWindowShell from "../components/Y2k/Y2kWindowShell.tsx";
 import { toKebabCase } from "../helper/index.tsx";
 import type { MusicData, Track } from "../types/index.ts";
 import { AppContext } from "../utils/AppContext.tsx";
-
 import "../styles/views/_music.scss";
 
 export default function Music() {
