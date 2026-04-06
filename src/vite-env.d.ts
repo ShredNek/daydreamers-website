@@ -4,10 +4,6 @@
 interface ImportMetaEnv {
 	readonly VITE_DATO_GRAPHQL_ENDPOINT: string;
 	readonly VITE_DATO_GRAPHQL_READONLY_KEY: string;
-	readonly VITE_SMTP_EMAIL_SERVER: string;
-	readonly VITE_SMTP_EMAIL_PORT: string;
-	readonly VITE_SMTP_EMAIL_USERNAME: string;
-	readonly VITE_SMTP_EMAIL_PASSWORD: string;
 	readonly VITE_MIDDLEWARE_URL: string;
 	readonly VITE_TEST_MIDDLEWARE_URL: string;
 	readonly VITE_RECAPTCHA_KEY: string;

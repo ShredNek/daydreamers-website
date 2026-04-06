@@ -27,10 +27,13 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: oven-sh/setup-bun@v2
-      - name: Build and create env file
+      - name: Build
         run: | 
           bun i --allow-scripts
           bun run build
+      - name: Create .env file
+        run: |
+          echo "${{ secrets.ENV_FILE }}" > .env
       - name: Install Firebase CLI
         run: bun add -g firebase-tools
       - name: Deploy to Firebase
