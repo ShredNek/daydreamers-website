@@ -164,6 +164,11 @@ export type EnquiryFormSchema = {
 	levelOfSecrecy: SecretEnquiryType | null; // For Divulge Covert Information
 };
 
+export type MailingListEntry = {
+	email: string;
+	fullName: string;
+};
+
 export type SocialMediaEntry = {
 	linkType: LinkType;
 	href: string;
