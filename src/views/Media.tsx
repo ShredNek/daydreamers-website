@@ -58,7 +58,7 @@ export default function Media() {
 
 	return (
 		<section className="media" id="media">
-			<Y2kWindowShell closeButtonRedirect="/" navText="Media">
+			<Y2kWindowShell closeButtonRedirect="/" windowHeader="Media">
 				<a
 					className="social-image-container"
 					href={

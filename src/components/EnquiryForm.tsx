@@ -104,7 +104,7 @@ export default function EnquiryForm({
 
 	const handleSubmit = (e: React.FormEvent) => {
 		e.preventDefault();
-		validateForm();
+		void validateForm();
 	};
 
 	interface CustomCSSProperties extends React.CSSProperties {
@@ -119,7 +119,7 @@ export default function EnquiryForm({
 		<div className="enquiry-form-container" style={customStyle}>
 			<div className="enquiry-form-filter" />
 			<div className="enquiry-form-backdrop" />
-			<Y2kWindowShell closeButtonRedirect="/" navText="Contact us">
+			<Y2kWindowShell closeButtonRedirect="/" windowHeader="Contact us">
 				<form onSubmit={handleSubmit}>
 					<div className="first-last-name">
 						<div className="field-container">

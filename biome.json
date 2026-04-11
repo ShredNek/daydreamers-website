@@ -15,6 +15,9 @@
 				"useValidAnchor": "error",
 				"useValidAutocomplete": "error",
 				"useValidLang": "error"
+			},
+			"style": {
+				"useBlockStatements": "error"
 			}
 		}
 	},

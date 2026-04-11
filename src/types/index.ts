@@ -127,8 +127,10 @@ export type ComponentStatus =
 	| "error"
 	| "loading"
 	| "ok"
+	| "no change ok"
 	| "not found"
-	| "neutral";
+	| "neutral"
+	| "missing information";
 
 export type ComponentLoadingStatus =
 	| "transitioning static"

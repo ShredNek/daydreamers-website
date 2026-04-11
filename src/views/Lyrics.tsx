@@ -49,8 +49,9 @@ export default function MusicView() {
 			throw Error(`getAllMusic API call failed - ${error}`);
 		}
 
-		if (rawData === null)
+		if (rawData === null) {
 			throw Error("getAllMusic API call failed - rawData is null");
+		}
 
 		setSongCollectionData(rawData);
 	}, [setSongCollectionData]);
@@ -58,10 +59,14 @@ export default function MusicView() {
 	// ? Effects
 
 	useEffect(() => {
-		if (!songCollectionData) callAndSetData();
+		if (!songCollectionData) {
+			void callAndSetData();
+		}
 
 		// ? This will always run as this is always null on load
-		if (!currTrack) handleDataRender();
+		if (!currTrack) {
+			handleDataRender();
+		}
 	}, [callAndSetData, currTrack, handleDataRender, songCollectionData]);
 
 	return (

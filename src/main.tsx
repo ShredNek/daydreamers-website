@@ -15,7 +15,8 @@ import React from "react";
 import { createRoot } from "react-dom/client";
 import SiteWrapper from "./SiteWrapper.tsx";
 import { AppContextProvider } from "./utils/AppContext.tsx";
-import { Sandbox } from "./views/Sandbox.tsx";
+import EmailSubscribe from "./views/EmailSubscribe.tsx";
+import EmailUnsubscribe from "./views/EmailUnsubscribe.tsx";
 
 const router = createBrowserRouter([
 	{
@@ -32,7 +33,8 @@ const router = createBrowserRouter([
 			{ path: "/about", element: <About /> },
 			{ path: "/contact", element: <Contact /> },
 			{ path: "/media", element: <Media /> },
-			{ path: "/sandbox", element: <Sandbox /> },
+			{ path: "/email-unsubscribe", element: <EmailUnsubscribe /> },
+			{ path: "/email-subscribe", element: <EmailSubscribe /> },
 		],
 	},
 ]);

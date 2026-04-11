@@ -1,0 +1,13 @@
+.email-unsubscribe-form {
+  padding: 3rem 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  width: 50%;
+  margin: 0 auto;
+
+  .input-group {
+    display: flex;
+    flex-direction: column;
+  }
+}
