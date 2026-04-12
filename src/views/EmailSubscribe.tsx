@@ -5,8 +5,10 @@ import { middleware } from "../api/index.ts";
 import Y2kWindowShell from "../components/Y2k/Y2kWindowShell.tsx";
 import type { ComponentStatus } from "../types/index.ts";
 import "react-toastify/dist/ReactToastify.css";
+import { useNavigate } from "react-router-dom";
 
 const EmailUnsubscribe = () => {
+	const navigate = useNavigate();
 	const [formInput, setFormInput] = useState<{
 		email: string;
 		fullName: string;
@@ -95,6 +97,16 @@ const EmailUnsubscribe = () => {
 					</div>
 					<button type="submit">Subscribe to mailing list</button>
 				</form>
+				<div className="unsubscribe-prompt">
+					<p>No longer want to receive emails?</p>
+					<button
+						onClick={() => navigate("/email-unsubscribe")}
+						onKeyUp={() => navigate("/email-unsubscribe")}
+						type="button"
+					>
+						Unsubscribe here
+					</button>
+				</div>
 			</Y2kWindowShell>
 			<ToastContainer />
 		</>
