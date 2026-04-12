@@ -171,6 +171,10 @@ export type MailingListEntry = {
 	fullName: string;
 };
 
+export type MailingListRemoval = {
+	email: string;
+};
+
 export type SocialMediaEntry = {
 	linkType: LinkType;
 	href: string;

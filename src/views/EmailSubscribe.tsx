@@ -33,6 +33,7 @@ const EmailUnsubscribe = () => {
 				console.warn("OK status code is not recognised.");
 				setDataSubmissionStatus("ok");
 			}
+			setFormInput(() => ({ fullName: "", email: "" }));
 		} catch {
 			setDataSubmissionStatus("error");
 		}
@@ -45,7 +46,7 @@ const EmailUnsubscribe = () => {
 	useEffect(() => {
 		switch (dataSubmissionStatus) {
 			case "error":
-				toast.error("There was an error submitting your enquiry.");
+				toast.error("There was an error adding you to our mailing list.");
 				break;
 			case "missing information":
 				toast.error(
@@ -92,7 +93,7 @@ const EmailUnsubscribe = () => {
 							value={formInput.fullName}
 						/>
 					</div>
-					<button type="submit">Add to mailing list</button>
+					<button type="submit">Subscribe to mailing list</button>
 				</form>
 			</Y2kWindowShell>
 			<ToastContainer />

@@ -1,5 +1,9 @@
 import { type AppCheck, getToken } from "firebase/app-check";
-import type { EnquiryFormSchema, MailingListEntry } from "../types/index.ts";
+import type {
+	EnquiryFormSchema,
+	MailingListEntry,
+	MailingListRemoval,
+} from "../types/index.ts";
 import {
 	createAppCheckInstance,
 	getCredentialsByMode,
@@ -59,6 +63,23 @@ export const middleware = {
 			endpoint: "addMailingListUser",
 			method: "PATCH",
 			body: JSON.stringify({ email, fullName }),
+		});
+	},
+
+	deleteFromMailingList: async (user: MailingListRemoval) => {
+		const appCheckInstance: AppCheck | null = createAppCheckInstance();
+
+		const { email } = user;
+
+		if (!email) {
+			throw new Error("Email was not provided");
+		}
+
+		return handleAppCheckMiddlewareRequest({
+			appCheckInstance,
+			endpoint: "deleteMailingListEmail",
+			method: "DELETE",
+			body: JSON.stringify({ email }),
 		});
 	},
 };

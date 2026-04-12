@@ -1,17 +1,35 @@
 import { useState } from "react";
+import { useSearchParams } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
 import { middleware } from "../api/index.ts";
 import Y2kWindowShell from "../components/Y2k/Y2kWindowShell.tsx";
 
 const EmailUnsubscribe = () => {
-	const [formInput, setFormInput] = useState<{
-		email: string;
-		fullName: string;
-	}>({ email: "", fullName: "" });
+	const [searchParams] = useSearchParams();
+	const [formInput, setFormInput] = useState<{ email: string }>({
+		email: searchParams.get("email") ?? "",
+	});
 
-	const handleSubmit: React.FormEventHandler<HTMLFormElement> = (e) => {
+	const handleSubmit: React.FormEventHandler<HTMLFormElement> = async (e) => {
 		e.preventDefault();
-		const { email, fullName } = formInput;
-		void middleware.addToMailingList({ email, fullName });
+		const { email } = formInput;
+
+		if (!email) {
+			toast.error("There was an error submitting your enquiry.");
+			return;
+		}
+
+		try {
+			const addResult = await middleware.deleteFromMailingList({ email });
+
+			if (addResult.ok) {
+				toast.success("You have been removed from our mailing list.");
+			} else {
+				toast.error("There was an error removing you from our mailing list.");
+			}
+		} catch {
+			toast.error("There was an error removing you from our mailing list.");
+		}
 	};
 
 	const handleChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
@@ -19,38 +37,32 @@ const EmailUnsubscribe = () => {
 	};
 
 	return (
-		<Y2kWindowShell
-			closeButtonRedirect="/"
-			windowHeader="Unsubscribe from mailing list :("
-		>
-			<form
-				action="submit"
-				className="email-unsubscribe-form"
-				onSubmit={handleSubmit}
+		<>
+			<Y2kWindowShell
+				closeButtonRedirect="/"
+				windowHeader="Unsubscribe from mailing list :("
 			>
-				<div className="input-group">
-					<label htmlFor="email">Email</label>
-					<input
-						id="email"
-						name="email"
-						onChange={handleChange}
-						type="email"
-						value={formInput.email}
-					/>
-				</div>
-				<div className="input-group">
-					<label htmlFor="full-name">Full Name</label>
-					<input
-						id="full-name"
-						name="fullName"
-						onChange={handleChange}
-						type="text"
-						value={formInput.fullName}
-					/>
-				</div>
-				<button type="submit">Add to mailing list</button>
-			</form>
-		</Y2kWindowShell>
+				<form
+					action="submit"
+					className="email-unsubscribe-form"
+					onSubmit={handleSubmit}
+				>
+					<div className="input-group">
+						<label htmlFor="email">Email</label>
+						<input
+							id="email"
+							name="email"
+							onChange={handleChange}
+							type="email"
+							value={formInput.email}
+						/>
+					</div>
+
+					<button type="submit">Unsubscribe from mailing list</button>
+				</form>
+			</Y2kWindowShell>
+			<ToastContainer />
+		</>
 	);
 };
 
