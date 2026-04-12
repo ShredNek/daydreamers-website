@@ -3,7 +3,7 @@ import "../../styles/components/_y2k-window.scss";
 
 type Y2kWindowShellComponent = {
 	children?: React.ReactNode;
-	navText: string;
+	windowHeader: string;
 	closeButtonRedirect: string;
 	className?: string;
 	isModal?: boolean;
@@ -12,7 +12,7 @@ type Y2kWindowShellComponent = {
 export default function Y2kWindowShell({
 	className,
 	children,
-	navText,
+	windowHeader,
 	isModal,
 	closeButtonRedirect,
 }: Y2kWindowShellComponent) {
@@ -23,7 +23,7 @@ export default function Y2kWindowShell({
 			className={`window-viewer-container ${className ?? ""} ${isModal ? "modal" : ""}`}
 		>
 			<div className="window-nav-header">
-				<p>{navText}</p>
+				<p>{windowHeader}</p>
 				<div className="window-action-buttons">
 					<button type="button">
 						<span>?</span>

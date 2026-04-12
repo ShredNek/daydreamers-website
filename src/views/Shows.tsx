@@ -101,7 +101,7 @@ export default function Shows() {
 
 	useEffect(() => {
 		if (showsData === null) {
-			callAndSetShowsData();
+			void callAndSetShowsData();
 		}
 
 		const interval = setInterval(() => {
@@ -117,7 +117,7 @@ export default function Shows() {
 		<Y2kWindowShell
 			className="shows-container"
 			closeButtonRedirect="/"
-			navText="Shows"
+			windowHeader="Shows"
 		>
 			<div className="menu-icons-parent">
 				{desktopIcons.map((icon, index) => (
@@ -167,7 +167,7 @@ export default function Shows() {
 			className={`show-collection-window ${selectedShow ? "open" : ""}`}
 			closeButtonRedirect="/shows"
 			isModal
-			navText={selectedShow?.title ?? "nothing here :/"}
+			windowHeader={selectedShow?.title ?? "nothing here :/"}
 		>
 			<div className="url-search-row">
 				<div className="search-label">

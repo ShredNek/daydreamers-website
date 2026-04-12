@@ -10,8 +10,9 @@ export default function useRedirect() {
 		linkTo: string,
 		transitionOnNavItemClick?: Dispatch<SetStateAction<ComponentLoadingStatus>>,
 	): void => {
-		if (transitionOnNavItemClick)
+		if (transitionOnNavItemClick) {
 			transitionOnNavItemClick("transitioning static");
+		}
 		setTimeout(() => navigate(linkTo), FADE_SPEED);
 	};
 

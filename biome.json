@@ -1,6 +1,9 @@
 {
 	"linter": {
 		"rules": {
+			"nursery": {
+				"noFloatingPromises": "error"
+			},
 			"complexity": {
 				"useLiteralKeys": "off"
 			},
@@ -12,6 +15,9 @@
 				"useValidAnchor": "error",
 				"useValidAutocomplete": "error",
 				"useValidLang": "error"
+			},
+			"style": {
+				"useBlockStatements": "error"
 			}
 		}
 	},

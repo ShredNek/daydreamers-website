@@ -94,11 +94,11 @@ export default function Music() {
 	}, [setMusicData]);
 
 	useEffect(() => {
-		callAndSetMusicData();
+		void callAndSetMusicData();
 	}, [callAndSetMusicData]);
 
 	const MusicSearch = () => (
-		<Y2kWindowShell closeButtonRedirect="/" navText="Open">
+		<Y2kWindowShell closeButtonRedirect="/" windowHeader="Open">
 			<Y2kWindowSearch>
 				{musicData?.data.allSongCollections ? (
 					musicData.data.allSongCollections.map((collection) => (
@@ -135,7 +135,7 @@ export default function Music() {
 			className={`song-collection-window ${currentSongCollection?.collectionType === "single" && "single"}`}
 			closeButtonRedirect="/music"
 			isModal
-			navText={currentSongCollection?.name ?? "nothing here :/"}
+			windowHeader={currentSongCollection?.name ?? "nothing here :/"}
 		>
 			<div className="url-search-row">
 				<div className="search-label">

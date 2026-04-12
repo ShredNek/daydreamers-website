@@ -1,9 +1,12 @@
 import { PiHeartFill } from "react-icons/pi";
+import { useNavigate } from "react-router-dom";
 import RoundedButtonLink from "../components/RoundedButtonLink.tsx";
 import { renderLinkTypeImage } from "../helper/index.tsx";
 import { SOCIAL_LINKS } from "../utils/globals.ts";
 
 export default function Footer() {
+	const navigate = useNavigate();
+
 	const socialLinks = SOCIAL_LINKS.filter(
 		(social) =>
 			social.linkType !== "album" &&
@@ -23,6 +26,15 @@ export default function Footer() {
 				<ul className="extra-links">
 					<li className="link">
 						<a href="/">Press Kit</a>
+					</li>
+					<li className="link">
+						<button
+							onClick={() => navigate("/email-subscribe")}
+							onKeyDown={() => navigate("/email-subscribe")}
+							type="button"
+						>
+							Mailing List
+						</button>
 					</li>
 				</ul>
 				<p className="extra-links">

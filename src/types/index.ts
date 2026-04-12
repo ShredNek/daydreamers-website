@@ -127,8 +127,10 @@ export type ComponentStatus =
 	| "error"
 	| "loading"
 	| "ok"
+	| "no change ok"
 	| "not found"
-	| "neutral";
+	| "neutral"
+	| "missing information";
 
 export type ComponentLoadingStatus =
 	| "transitioning static"
@@ -162,6 +164,15 @@ export type EnquiryFormSchema = {
 	suggestedPunishment: string | null; // For Scathing Review
 	codeName: string | null; // For Divulge Covert Information
 	levelOfSecrecy: SecretEnquiryType | null; // For Divulge Covert Information
+};
+
+export type MailingListEntry = {
+	email: string;
+	fullName: string;
+};
+
+export type MailingListRemoval = {
+	email: string;
 };
 
 export type SocialMediaEntry = {

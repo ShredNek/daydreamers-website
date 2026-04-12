@@ -4,7 +4,7 @@ import type {
 	MediaCollection,
 	MusicData,
 } from "../types/index.ts";
-import { GET_ALL_MEDIA, GET_ALL_MUSIC, GET_ALL_SHOWS } from "./queries.ts";
+import { GET_ALL_MEDIA, GET_ALL_MUSIC, GET_ALL_SHOWS } from "./cmsQueries.ts";
 
 const datoGraphqlCall = async <T>(query: string): Promise<T> => {
 	const config: RequestInit = {

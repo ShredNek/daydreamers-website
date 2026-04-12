@@ -74,7 +74,7 @@ export default function About() {
 
 	return (
 		<section className="about" id="about">
-			<Y2kWindowShell closeButtonRedirect="/" navText="About">
+			<Y2kWindowShell closeButtonRedirect="/" windowHeader="About">
 				<div className="input-background">
 					<div className="band-member-display">
 						<div className="dropdown">

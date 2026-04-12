@@ -65,7 +65,9 @@ export const isWithinPageCount = (
 export const returnFormattedArtistNames = (
 	artists: Array<{ name: string; socialsLink: string }>,
 ): ReactElement | null => {
-	if (!artists.length) return null;
+	if (!artists.length) {
+		return null;
+	}
 
 	let message: ReactElement | null = null;
 	switch (artists.length) {
@@ -182,13 +184,15 @@ export const convertToPng = async (blob: Blob | MediaSource): Promise<Blob> => {
 			canvas.width = img.width;
 			canvas.height = img.height;
 
-			if (!ctx)
+			if (!ctx) {
 				throw Error("Couldn't convert image to PNG - 2d Context is null");
+			}
 
 			ctx.drawImage(img, 0, 0);
 			canvas.toBlob((pngBlob) => {
-				if (!pngBlob)
+				if (!pngBlob) {
 					throw Error("Couldn't convert image to PNG - pngBlob is null");
+				}
 
 				resolve(pngBlob);
 			}, "image/png");

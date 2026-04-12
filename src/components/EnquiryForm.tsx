@@ -1,7 +1,7 @@
 import type React from "react";
 import { useState } from "react";
 import { type ZodSchema, z } from "zod";
-import { sendEnquiryToDayDreamers } from "../api/emailCalls.ts";
+import { middleware } from "../api/index.ts";
 import type { ComponentStatus, EnquiryFormSchema } from "../types/index.ts";
 import Y2kWindowShell from "./Y2k/Y2kWindowShell.tsx";
 
@@ -82,7 +82,7 @@ export default function EnquiryForm({
 			setSubmissionStatus("loading");
 			let res = null;
 			try {
-				res = await sendEnquiryToDayDreamers(result.data);
+				res = await middleware.sendEnquiryToDayDreamers(result.data);
 				if (res.status === 200 || res.status === 201 || res.status === 202) {
 					setSubmissionStatus("ok");
 					setFormData(() => defaultFormFields);
@@ -104,7 +104,7 @@ export default function EnquiryForm({
 
 	const handleSubmit = (e: React.FormEvent) => {
 		e.preventDefault();
-		validateForm();
+		void validateForm();
 	};
 
 	interface CustomCSSProperties extends React.CSSProperties {
@@ -119,7 +119,7 @@ export default function EnquiryForm({
 		<div className="enquiry-form-container" style={customStyle}>
 			<div className="enquiry-form-filter" />
 			<div className="enquiry-form-backdrop" />
-			<Y2kWindowShell closeButtonRedirect="/" navText="Contact us">
+			<Y2kWindowShell closeButtonRedirect="/" windowHeader="Contact us">
 				<form onSubmit={handleSubmit}>
 					<div className="first-last-name">
 						<div className="field-container">
