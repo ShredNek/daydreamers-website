@@ -1,14 +1,9 @@
-import { type AppCheck, getToken } from "firebase/app-check";
 import type {
 	EnquiryFormSchema,
 	MailingListEntry,
 	MailingListRemoval,
 } from "../types/index.ts";
-import {
-	createAppCheckInstance,
-	getCredentialsByMode,
-	handleAppCheckMiddlewareRequest,
-} from "./helpers.ts";
+import { handleAppCheckMiddlewareRequest } from "./helpers.ts";
 
 if (import.meta.env.DEV) {
 	// biome-ignore lint/suspicious/noExplicitAny: Expose a debug token for dev only
@@ -16,42 +11,16 @@ if (import.meta.env.DEV) {
 		import.meta.env.VITE_APP_CHECK_DEBUG_TOKEN;
 }
 
-const { middlewareRoot } = getCredentialsByMode();
-
 export const middleware = {
 	sendEnquiryToDayDreamers: async (enquiry: EnquiryFormSchema) => {
-		const appCheckInstance: AppCheck | null = createAppCheckInstance();
-
-		let appCheckToken: string | undefined;
-
-		try {
-			// 1. Get the App Check token using the standalone getToken function
-			// It takes the appCheckInstance as the first argument.
-			const tokenResponse = await getToken(appCheckInstance, false);
-			appCheckToken = tokenResponse.token;
-		} catch (error) {
-			console.error("Error getting App Check token:", error);
-		}
-
-		// 2. Include the App Check token in the request headers
-		const headers: Record<string, string> = {
-			"Content-Type": "application/json",
-		};
-
-		if (appCheckToken) {
-			headers["X-Firebase-AppCheck"] = appCheckToken;
-		}
-
-		return await fetch(`${middlewareRoot}/enquiry`, {
-			body: JSON.stringify(enquiry),
+		return handleAppCheckMiddlewareRequest({
+			endpoint: "postEnquiry",
 			method: "POST",
-			headers,
+			body: JSON.stringify({ enquiry }),
 		});
 	},
 
 	addToMailingList: async (user: MailingListEntry) => {
-		const appCheckInstance: AppCheck | null = createAppCheckInstance();
-
 		const { email, fullName } = user;
 
 		if (!(email && fullName)) {
@@ -59,16 +28,13 @@ export const middleware = {
 		}
 
 		return handleAppCheckMiddlewareRequest({
-			appCheckInstance,
-			endpoint: "addMailingListUser",
-			method: "PATCH",
+			endpoint: "addToMailingList",
+			method: "POST",
 			body: JSON.stringify({ email, fullName }),
 		});
 	},
 
 	deleteFromMailingList: async (user: MailingListRemoval) => {
-		const appCheckInstance: AppCheck | null = createAppCheckInstance();
-
 		const { email } = user;
 
 		if (!email) {
@@ -76,8 +42,7 @@ export const middleware = {
 		}
 
 		return handleAppCheckMiddlewareRequest({
-			appCheckInstance,
-			endpoint: "deleteMailingListEmail",
+			endpoint: "deleteFromMailingList",
 			method: "DELETE",
 			body: JSON.stringify({ email }),
 		});
