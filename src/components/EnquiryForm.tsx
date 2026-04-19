@@ -50,7 +50,7 @@ export default function EnquiryForm({
 		lastName: "",
 		email: "",
 		mobileNumber: "",
-		favouriteColour: "#ffffff00",
+		favouriteColour: "#ffffff",
 		enquiryType: "General",
 		subject: "",
 		message: "",
@@ -82,6 +82,7 @@ export default function EnquiryForm({
 			setSubmissionStatus("loading");
 			let res = null;
 			try {
+				console.log(result.data);
 				res = await middleware.sendEnquiryToDayDreamers(result.data);
 				if (res.status === 200 || res.status === 201 || res.status === 202) {
 					setSubmissionStatus("ok");

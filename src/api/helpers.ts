@@ -33,18 +33,18 @@ export const createAppCheckInstance = () => {
 };
 
 type HandleAppCheckMiddlewareRequest = {
-	appCheckInstance: AppCheck;
 	body: string;
 	method: (typeof Methods)[number];
 	endpoint: string;
 };
 
 export const handleAppCheckMiddlewareRequest = async ({
-	appCheckInstance,
 	endpoint,
 	method,
 	body,
 }: HandleAppCheckMiddlewareRequest) => {
+	const appCheckInstance: AppCheck | null = createAppCheckInstance();
+
 	const { middlewareRoot } = getCredentialsByMode();
 
 	let appCheckToken: string | undefined;
