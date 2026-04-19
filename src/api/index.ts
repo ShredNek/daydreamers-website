@@ -16,7 +16,7 @@ export const middleware = {
 		return handleAppCheckMiddlewareRequest({
 			endpoint: "postEnquiry",
 			method: "POST",
-			body: JSON.stringify({ enquiry }),
+			body: JSON.stringify({ ...enquiry }),
 		});
 	},
 
