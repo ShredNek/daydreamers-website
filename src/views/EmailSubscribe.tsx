@@ -7,7 +7,7 @@ import type { ComponentStatus } from "../types/index.ts";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
 
-const EmailUnsubscribe = () => {
+const EmailSubscribe = () => {
 	const navigate = useNavigate();
 	const [formInput, setFormInput] = useState<{
 		email: string;
@@ -33,7 +33,7 @@ const EmailUnsubscribe = () => {
 				setDataSubmissionStatus("ok");
 			} else {
 				console.warn("OK status code is not recognised.");
-				setDataSubmissionStatus("ok");
+				setDataSubmissionStatus("error");
 			}
 			setFormInput(() => ({ fullName: "", email: "" }));
 		} catch {
@@ -113,4 +113,4 @@ const EmailUnsubscribe = () => {
 	);
 };
 
-export default EmailUnsubscribe;
+export default EmailSubscribe;

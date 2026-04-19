@@ -24,6 +24,7 @@ const EmailUnsubscribe = () => {
 
 			if (addResult.ok) {
 				toast.success("You have been removed from our mailing list.");
+				setFormInput({ email: "" });
 			} else {
 				toast.error("There was an error removing you from our mailing list.");
 			}
