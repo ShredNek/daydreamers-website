@@ -1,5 +1,5 @@
-import highQualHero from "./assets/images/hero/DayDreamersCollage_HighQual.jpg";
-import lowQualHero from "./assets/images/hero/DayDreamersCollage_LowQual.jpg";
+import highQualHero from "./assets/images/hero/new-dreamers_hq.jpg";
+import lowQualHero from "./assets/images/hero/new-dreamers_lq.jpeg";
 import Footer from "./components/Footer.tsx";
 import LazyImage from "./components/LazyImage.tsx";
 import NavHeader from "./components/NavHeader.tsx";

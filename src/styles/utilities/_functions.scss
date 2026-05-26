@@ -6,16 +6,12 @@
 @use "sass:list";
 
 @function generate-text-outline($outline-width, $outline-color, $outline-blur: 0px) {
-  $offsets:
-    $outline-width $outline-width $outline-blur $outline-color,
-    $outline-width (0px - $outline-width) $outline-blur $outline-color,
-    (0px - $outline-width) $outline-width $outline-blur $outline-color,
-    (0px - $outline-width) (0px - $outline-width) $outline-blur $outline-color;
+  // Only create horizontal (left/right) outline offsets to avoid
+  // shadows on the top and bottom of the text.
   $text-shadow: ();
 
-  @for $i from 1 through 4 {
-    $text-shadow: list.append($text-shadow, list.nth($offsets, $i), comma);
-  }
+  $text-shadow: list.append($text-shadow, $outline-width 0px $outline-blur $outline-color, comma);
+  $text-shadow: list.append($text-shadow, (0px - $outline-width) 0px $outline-blur $outline-color, comma);
 
   @return $text-shadow;
 }

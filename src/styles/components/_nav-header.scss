@@ -18,7 +18,7 @@ $max-height: 800px;
   align-items: center;
   justify-content: space-between;
 
-  background-color: color.adjust(a.$daydreamer-smoky-black);
+  background-color: color.adjust(a.$daydreamer-off-white);
 
   &.no-background {
     background-color: transparent;
@@ -44,7 +44,7 @@ $max-height: 800px;
     height: clamp(90px, 10vw + 5px, 110px);
     margin: 1rem 0;
     justify-items: center;
-    text-shadow: f.generate-text-outline(1.5px, a.$daydreamer-smoky-black, 2px);
+    text-shadow: f.generate-text-outline(8px, color.adjust(a.$daydreamer-smoky-black, $alpha: -0.4), 4px);
     position: relative;
     display: flex;
 
@@ -62,28 +62,6 @@ $max-height: 800px;
       line-height: 0.8em;
       font-size: clamp(1.5rem, 5vw, 2.5rem);
     }
-
-    .vector {
-      position: absolute;
-      inset: 0;
-      margin: auto;
-      z-index: 1;
-      filter: a.$daydreamer-smoky-black-svg-fill;
-
-      &.spin-tail {
-        height: 65px;
-      }
-
-      &.star-1 {
-        height: 30px;
-        transform: translate(-55px, 30px);
-      }
-
-      &.star-2 {
-        height: 55px;
-        transform: translate(75px, -30px) scaleX(140%);
-      }
-    }
   }
 
   span {
@@ -95,7 +73,7 @@ $max-height: 800px;
     font-size: 1em;
     font-family: PlanetKosmos;
     scale: 1;
-    color: white;
+    color: color.adjust(a.$daydreamer-smoky-black);
 
     &:hover {
       scale: 1.5;
@@ -156,7 +134,7 @@ $max-height: 800px;
 
     .home-and-dropdown-toggle,
     .page-routes {
-      background-color: color.adjust(a.$daydreamer-smoky-black);
+      background-color: color.adjust(a.$daydreamer-off-white);
       box-shadow: 0px 0px 12.5px -7.5px black;
     }
 
@@ -169,29 +147,13 @@ $max-height: 800px;
 
       .header-logo-container {
         min-width: 150px;
-
-        .spin-tail {
-          max-width: clamp(150px, 30.5vw + 20px, 300px);
-        }
-
-        .star-1 {
-          transform: translateX(clamp(-75px, -9.5vw, -35px)) translateY(clamp(10px, 3.5vw, 30px));
-          max-width: clamp(20px, 4.5vw, 40px);
-          max-height: clamp(20px, 4.5vw, 40px);
-        }
-
-        .star-2 {
-          transform: translateX(clamp(40px, 9.5vw, 80px)) translateY(clamp(-30px, -4.5vw, -20px));
-          max-height: clamp(70px, 18.5vw, 250px);
-          max-width: clamp(30px, 5.5vw, 60px);
-        }
       }
 
       .dropdown-button {
         display: block; // ? Will be hidden on desktop screens
 
         & [role="button"] div {
-          background-color: color.adjust(a.$daydreamer-off-white);
+          background-color: color.adjust(a.$daydreamer-smoky-black);
         }
       }
     }
