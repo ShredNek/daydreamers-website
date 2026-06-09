@@ -194,4 +194,5 @@ export type LinkType =
 	| "bandcamp"
 	| "song"
 	| "album"
-	| "website";
+	| "website"
+	| "external";

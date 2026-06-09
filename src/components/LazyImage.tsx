@@ -17,11 +17,11 @@ export default function LazyImage({
 
 	return (
 		<img
-			className={className}
-			src={hasError ? missingImage : imageSrc}
 			alt={alt}
-			onLoad={() => setImageSrc(highQualitySrc)}
+			className={className}
 			onError={() => setHasError(true)}
+			onLoad={() => setImageSrc(highQualitySrc)}
+			src={hasError ? missingImage : imageSrc}
 		/>
 	);
 }

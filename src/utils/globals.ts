@@ -106,4 +106,9 @@ export const SOCIAL_LINKS: Array<SocialMediaEntry> = [
 		href: "https://daydreamers-website.web.app/",
 		bannerData: "FUN!",
 	},
+	{
+		linkType: "external",
+		title: "Linktree",
+		href: "https://linktr.ee/daydreamerssband",
+	},
 ];

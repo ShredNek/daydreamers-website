@@ -6,13 +6,20 @@
 @use "sass:list";
 @use "sass:math";
 
-@function generate-text-outline($outline-width, $outline-color, $outline-blur: 0px) {
+@function generate-text-outline($outline-width, $color) {
+  @return $outline-width 0px 0px $color, 0px $outline-width 0px $color, 0px - $outline-width 0px 0px $color,
+    0px 0px - $outline-width 0px $color;
+}
+
+@function generate-super-blur($outline-width, $outline-color, $outline-blur: 0px) {
   // Double the number of iterations to 18, and increase the total
   // horizontal length by 50% (48px -> 72px). Shifts are computed
   // evenly from 0 to $max-shift so spacing is proportional.
   $count: 18;
   $max-shift: 72px;
-  $step: if(sass($count > 1): math.div($max-shift, ($count - 1)); else: 0px);
+  $step: if(
+    sass($count > 1): math.div($max-shift, ($count - 1)) ; else: 0px
+  );
   $text-shadow: ();
 
   @for $i from 1 through $count {
