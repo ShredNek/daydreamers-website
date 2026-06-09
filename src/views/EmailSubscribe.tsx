@@ -1,7 +1,6 @@
 import { ToastContainer } from "react-toastify";
-import Y2kWindowShell from "../components/Y2k/Y2kWindowShell.tsx";
-import "react-toastify/dist/ReactToastify.css";
 import SubscribeToMailingListDialogContent from "../components/SubscribeToMailingList.tsx";
+import Y2kWindowShell from "../components/Y2k/Y2kWindowShell.tsx";
 
 const EmailSubscribe = () => {
 	return (

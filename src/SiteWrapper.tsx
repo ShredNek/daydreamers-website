@@ -6,6 +6,7 @@ import NavHeader from "./components/NavHeader.tsx";
 import "./styles/views/_site-wrapper.scss";
 import { useContext } from "react";
 import { Outlet } from "react-router-dom";
+import { useGlobalStartupProcedures } from "./hooks/useGlobalFunctions.tsx";
 import { AppContext } from "./utils/AppContext.tsx";
 
 type SiteWrapperComponent = {
@@ -14,6 +15,9 @@ type SiteWrapperComponent = {
 
 export default function SiteWrapper({ hideBackground }: SiteWrapperComponent) {
 	const { dialogContent } = useContext(AppContext);
+	const globalStartupProcedures = useGlobalStartupProcedures();
+
+	void globalStartupProcedures();
 
 	return (
 		<>
