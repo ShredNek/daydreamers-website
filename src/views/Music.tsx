@@ -98,7 +98,7 @@ export default function Music() {
 	}, [callAndSetMusicData]);
 
 	const MusicSearch = () => (
-		<Y2kWindowShell closeButtonRedirect="/" windowHeader="Open">
+		<Y2kWindowShell closeButtonAction={{ redirectTo: "/" }} windowHeader="Open">
 			<Y2kWindowSearch>
 				{musicData?.data.allSongCollections ? (
 					musicData.data.allSongCollections.map((collection) => (
@@ -133,7 +133,7 @@ export default function Music() {
 	const SelectedMusicResult = () => (
 		<Y2kWindowShell
 			className={`song-collection-window ${currentSongCollection?.collectionType === "single" && "single"}`}
-			closeButtonRedirect="/music"
+			closeButtonAction={{ redirectTo: "/" }}
 			isModal
 			windowHeader={currentSongCollection?.name ?? "nothing here :/"}
 		>

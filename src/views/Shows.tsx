@@ -116,7 +116,7 @@ export default function Shows() {
 	const ShowSearch = () => (
 		<Y2kWindowShell
 			className="shows-container"
-			closeButtonRedirect="/"
+			closeButtonAction={{ redirectTo: "/" }}
 			windowHeader="Shows"
 		>
 			<div className="menu-icons-parent">
@@ -165,7 +165,7 @@ export default function Shows() {
 	const SelectedShowResults = () => (
 		<Y2kWindowShell
 			className={`show-collection-window ${selectedShow ? "open" : ""}`}
-			closeButtonRedirect="/shows"
+			closeButtonAction={{ redirectTo: "/" }}
 			isModal
 			windowHeader={selectedShow?.title ?? "nothing here :/"}
 		>

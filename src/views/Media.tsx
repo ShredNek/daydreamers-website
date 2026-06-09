@@ -58,7 +58,10 @@ export default function Media() {
 
 	return (
 		<section className="media" id="media">
-			<Y2kWindowShell closeButtonRedirect="/" windowHeader="Media">
+			<Y2kWindowShell
+				closeButtonAction={{ redirectTo: "/" }}
+				windowHeader="Media"
+			>
 				<a
 					className="social-image-container"
 					href={
