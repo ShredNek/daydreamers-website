@@ -4,7 +4,10 @@ import "../../styles/components/_y2k-window.scss";
 type Y2kWindowShellComponent = {
 	children?: React.ReactNode;
 	windowHeader: string;
-	closeButtonRedirect: string;
+	closeButtonAction: {
+		redirectTo?: string;
+		performAction?: () => void;
+	};
 	className?: string;
 	isModal?: boolean;
 };
@@ -14,7 +17,7 @@ export default function Y2kWindowShell({
 	children,
 	windowHeader,
 	isModal,
-	closeButtonRedirect,
+	closeButtonAction,
 }: Y2kWindowShellComponent) {
 	const navigate = useNavigate();
 
@@ -30,7 +33,13 @@ export default function Y2kWindowShell({
 					</button>
 					<button
 						onClick={() => {
-							navigate(closeButtonRedirect);
+							if (closeButtonAction.performAction) {
+								closeButtonAction.performAction();
+							}
+
+							if (closeButtonAction.redirectTo) {
+								navigate(closeButtonAction.redirectTo);
+							}
 						}}
 						type="button"
 					>

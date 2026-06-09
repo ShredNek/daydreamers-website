@@ -1,4 +1,4 @@
-import type { Dispatch, SetStateAction } from "react";
+import type { Dispatch, ReactNode, SetStateAction } from "react";
 
 // ? API
 
@@ -118,8 +118,10 @@ export interface SongCollection {
 export interface AppContextInterface {
 	showsData: AllShowsEntity | null;
 	musicData: MusicData | null;
+	dialogContent: ReactNode | null;
 	setShowsData: Dispatch<SetStateAction<AllShowsEntity | null>>;
 	setMusicData: Dispatch<SetStateAction<MusicData | null>>;
+	setDialogContent: Dispatch<SetStateAction<ReactNode | null>>;
 }
 
 // TODO - REMOVE THIS!!!

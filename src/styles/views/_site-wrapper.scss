@@ -2,6 +2,10 @@
 @use "../utilities/functions" as fn;
 @use "../base/" as b;
 
+#root {
+  position: relative;
+}
+
 .website-content {
   min-height: 100vh;
   max-height: fit-content;
@@ -14,8 +18,7 @@
   position: absolute;
 }
 
-.site-backdrop,
-.logo-layer {
+.site-backdrop {
   top: 0;
   position: fixed;
   height: 100%;
@@ -31,22 +34,6 @@
 
   &.transitioning {
     opacity: 0;
-  }
-}
-
-.logo-layer {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: 1fr 1fr 1fr;
-  column-gap: 15rem;
-  align-items: center;
-  justify-items: center;
-  z-index: -20;
-
-  .day-dreamer-logo {
-    max-width: 250px;
-    max-height: max-content;
-    opacity: 0.75;
   }
 }
 
@@ -74,4 +61,22 @@
 
 .content-container {
   padding: 0 0 6rem;
+}
+
+.dialog-layer {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  width: 100%;
+
+  dialog {
+    z-index: 1000;
+    inset: 0;
+    margin: auto;
+    border: none;
+
+    .window-viewer-container {
+      padding: 0;
+    }
+  }
 }
