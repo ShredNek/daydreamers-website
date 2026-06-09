@@ -4,6 +4,7 @@
 
 @use "sass:color";
 @use "sass:list";
+@use "sass:math";
 
 @function generate-text-outline($outline-width, $outline-color, $outline-blur: 0px) {
   // Double the number of iterations to 18, and increase the total
@@ -11,7 +12,7 @@
   // evenly from 0 to $max-shift so spacing is proportional.
   $count: 18;
   $max-shift: 72px;
-  $step: if($count > 1, $max-shift / ($count - 1), 0px);
+  $step: if(sass($count > 1): math.div($max-shift, ($count - 1)); else: 0px);
   $text-shadow: ();
 
   @for $i from 1 through $count {
