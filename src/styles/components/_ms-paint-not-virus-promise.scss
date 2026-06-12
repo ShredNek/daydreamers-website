@@ -152,8 +152,12 @@
       justify-content: flex-end;
 
       img {
+        --width-discrepancy: 30px;
+
+        min-width: 600px;
+
         @media (max-width: b.$mobile-width) {
-          min-width: b.$small-width - 30px;
+          min-width: calc(b.$small-width - var(--width-discrepancy));
         }
 
         @media (max-width: b.$small-width) {

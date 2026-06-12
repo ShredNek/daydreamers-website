@@ -1,48 +1,12 @@
 import { useState } from "react";
-import bliss from "../../assets/images/y2k-resources/mspaint/goat-background.jpg";
-import colourBar from "../../assets/images/y2k-resources/mspaint/mspaint_colours.png";
-import freeSelect from "../../assets/images/y2k-resources/mspaint/mspaint_tool-01.png";
-import rectangleSelect from "../../assets/images/y2k-resources/mspaint/mspaint_tool-02.png";
-import eraser from "../../assets/images/y2k-resources/mspaint/mspaint_tool-03.png";
-import paintBucketTool from "../../assets/images/y2k-resources/mspaint/mspaint_tool-04.png";
-import eyeDropTool from "../../assets/images/y2k-resources/mspaint/mspaint_tool-05.png";
-import magnifyingGlassTool from "../../assets/images/y2k-resources/mspaint/mspaint_tool-06.png";
-import pencilTool from "../../assets/images/y2k-resources/mspaint/mspaint_tool-07.png";
-import paintbrushTool from "../../assets/images/y2k-resources/mspaint/mspaint_tool-08.png";
-import sprayCanTool from "../../assets/images/y2k-resources/mspaint/mspaint_tool-09.png";
-import textTool from "../../assets/images/y2k-resources/mspaint/mspaint_tool-10.png";
-import straightLineTool from "../../assets/images/y2k-resources/mspaint/mspaint_tool-11.png";
-import splineTool from "../../assets/images/y2k-resources/mspaint/mspaint_tool-12.png";
-import squareTool from "../../assets/images/y2k-resources/mspaint/mspaint_tool-13.png";
-import shapeTool from "../../assets/images/y2k-resources/mspaint/mspaint_tool-14.png";
-import circleTool from "../../assets/images/y2k-resources/mspaint/mspaint_tool-15.png";
-import roundedSquareTool from "../../assets/images/y2k-resources/mspaint/mspaint_tool-16.png";
+import blissHq from "../../assets/images/y2k-resources/mspaint/hq/goat-background.jpg";
+import colourBarHq from "../../assets/images/y2k-resources/mspaint/hq/mspaint_colours.png";
+import blissLq from "../../assets/images/y2k-resources/mspaint/lq/goat-background.jpeg";
+import colourBarLq from "../../assets/images/y2k-resources/mspaint/lq/mspaint_colours.jpeg";
 import { SOCIAL_LINKS } from "../../utils/globals.ts";
+import LazyImage from "../LazyImage.tsx";
 import Y2kWindowShell from "../Y2k/Y2kWindowShell.tsx";
-
-type MsPaintTool = {
-	name: string;
-	img: string;
-};
-
-const msPaintTools: MsPaintTool[] = [
-	{ name: "free select", img: freeSelect },
-	{ name: "rectangle select", img: rectangleSelect },
-	{ name: "eraser", img: eraser },
-	{ name: "paint bucket tool", img: paintBucketTool },
-	{ name: "eye-drop tool", img: eyeDropTool },
-	{ name: "magnifying glass tool", img: magnifyingGlassTool },
-	{ name: "pencil tool", img: pencilTool },
-	{ name: "paintbrush tool", img: paintbrushTool },
-	{ name: "spray can tool", img: sprayCanTool },
-	{ name: "text", img: textTool },
-	{ name: "straight line tool", img: straightLineTool },
-	{ name: "spline tool", img: splineTool },
-	{ name: "square tool", img: squareTool },
-	{ name: "shape tool", img: shapeTool },
-	{ name: "circle tool", img: circleTool },
-	{ name: "rounded square tool", img: roundedSquareTool },
-] as const;
+import { MS_PAINT_TOOLS, type MsPaintTool } from "./MsPaintTools.ts";
 
 const MsPaintNotVirusPromise = () => {
 	const [isOpen, setIsOpen] = useState(true);
@@ -86,13 +50,18 @@ const MsPaintNotVirusPromise = () => {
 					<div className="top-level-tools">
 						<div className="sidebar">
 							<div className="tools">
-								{msPaintTools.map((tool) => (
+								{MS_PAINT_TOOLS.map((tool) => (
 									<button
 										key={tool.name}
 										onClick={() => setSelectedTool(tool)}
 										type="button"
 									>
-										<img alt={tool.name} draggable={false} src={tool.img} />
+										<LazyImage
+											alt={tool.name}
+											draggable={false}
+											highQualitySrc={tool.img.hq}
+											lowQualitySrc={tool.img.lq}
+										/>
 									</button>
 								))}
 							</div>
@@ -101,7 +70,7 @@ const MsPaintNotVirusPromise = () => {
 									<img
 										alt={selectedTool.name}
 										draggable={false}
-										src={selectedTool.img}
+										src={selectedTool.img.hq}
 									/>
 								) : null}
 							</div>
@@ -124,12 +93,21 @@ const MsPaintNotVirusPromise = () => {
 								</button>
 							</div>
 							<div className="img-layer">
-								<img alt="Bliss background" className="bliss" src={bliss} />
+								<LazyImage
+									alt="Bliss background"
+									className="bliss"
+									highQualitySrc={blissHq}
+									lowQualitySrc={blissLq}
+								/>
 							</div>
 						</div>
 					</div>
 					<div className="colour-bar">
-						<img alt="colour bar" src={colourBar} />
+						<LazyImage
+							alt="colour bar"
+							highQualitySrc={colourBarHq}
+							lowQualitySrc={colourBarLq}
+						/>
 					</div>
 				</div>
 			</div>
