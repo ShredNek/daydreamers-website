@@ -133,7 +133,7 @@ export default function Music() {
 	const SelectedMusicResult = () => (
 		<Y2kWindowShell
 			className={`song-collection-window ${currentSongCollection?.collectionType === "single" && "single"}`}
-			closeButtonAction={{ redirectTo: "/" }}
+			closeButtonAction={{ redirectTo: "/music" }}
 			isModal
 			windowHeader={currentSongCollection?.name ?? "nothing here :/"}
 		>
@@ -188,19 +188,13 @@ export default function Music() {
 				</div>
 				<div className="likes-dislikes">
 					<span className="likes">
-						<h4>:(</h4>
-						<p>
-							Lorem ipsum, dolor sit amet consectetur adipisicing elit. Cum,
-							non.
-						</p>
+						<h4>:D</h4>
+						<p>{currentSongCollection?.pros}</p>
 					</span>
 					<span className="asterisks">* * * * *</span>
 					<span className="dislikes">
-						<h4>:D</h4>
-						<p>
-							Lorem ipsum, dolor sit amet consectetur adipisicing elit. Cum,
-							non.
-						</p>
+						<h4>:(</h4>
+						<p>{currentSongCollection?.cons}</p>
 					</span>
 				</div>
 				{currentSongCollection?.collectionType === "album" ||

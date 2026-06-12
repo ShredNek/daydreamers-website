@@ -18,6 +18,11 @@
       padding: 2rem;
       background-color: white;
 
+      &:is([href*="triplej"]) svg {
+        stroke-width: 0px;
+        transform: translateX(-12px);
+      }
+
       svg {
         height: $image-height;
         width: $image-height;
@@ -27,7 +32,7 @@
     .social-information {
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
+      justify-content: space-evenly;
 
       .social-media-select {
         display: flex;
@@ -36,7 +41,7 @@
         flex: auto;
         gap: 0.5rem;
 
-        max-height: 100px;
+        max-height: min-content;
 
         label[for="search-results-input"] {
           font-weight: bold;

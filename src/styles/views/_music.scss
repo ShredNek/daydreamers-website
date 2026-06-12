@@ -72,7 +72,7 @@
     grid-template-columns: repeat(6, 0.2fr);
     grid-template-rows: 0.9fr 0.3fr 0.1fr;
     grid-template-areas:
-      "artwork artwork title-card title-card likes-dislikes likes-dislikes"
+      "artwork artwork title-card title-card title-card likes-dislikes"
       "lyric-showcase-one lyric-showcase-one lyric-showcase-one lyric-showcase-two lyric-showcase-two lyric-showcase-two"
       "now-playing now-playing now-playing now-playing now-playing now-playing";
 
@@ -189,6 +189,11 @@
       flex-direction: column;
       justify-content: flex-start;
       gap: 1rem;
+
+      p {
+        text-align: justify;
+        word-break: keep-all;
+      }
     }
 
     .now-playing {
@@ -223,7 +228,7 @@
   &.single .info-grid {
     grid-template-rows: 0.9fr 0.5fr;
     grid-template-areas:
-      "artwork artwork title-card title-card likes-dislikes likes-dislikes"
+      "artwork artwork title-card title-card title-card likes-dislikes"
       "now-playing now-playing now-playing now-playing now-playing now-playing";
 
     @media (max-width: b.$mobile-width) {

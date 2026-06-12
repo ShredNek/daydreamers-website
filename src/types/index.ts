@@ -107,6 +107,8 @@ export interface SongCollection {
 	likes: string[];
 	dislikes: string[];
 	description: string;
+	pros: string;
+	cons: string;
 	trackList: Track[];
 	_status: string;
 	_firstPublishedAt: Date;

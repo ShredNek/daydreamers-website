@@ -166,5 +166,7 @@ const CurrentSocialImage = ({ linkType }: { linkType: LinkType }) => {
 			return <FaRecordVinyl />;
 		case "website":
 			return <FaCode />;
+		default:
+			return <FaCode />;
 	}
 };

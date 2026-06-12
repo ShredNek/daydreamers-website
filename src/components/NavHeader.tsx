@@ -102,7 +102,11 @@ export default function NavHeader({ className, hideBackground }: NavHeader) {
 							key={uuid()}
 						>
 							<button onClick={() => handleNavItemClick(link)} type="button">
-								<img alt={`Link to ${link.to}`} src={link.tabImg} />
+								<img
+									alt={`Link to ${link.to}`}
+									draggable="false"
+									src={link.tabImg}
+								/>
 							</button>
 						</li>
 					))}
