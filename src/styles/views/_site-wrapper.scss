@@ -56,6 +56,16 @@
         opacity: 0;
       }
     }
+
+    .video-backdrop {
+      top: 0;
+      border: none;
+      z-index: -1;
+      display: flow-root;
+      position: fixed;
+      height: 120%;
+      width: 100%;
+    }
   }
 
   .content-container {

@@ -25,7 +25,6 @@ export default function SiteWrapper({ hideBackground }: SiteWrapperComponent) {
 				<NavHeader hideBackground={hideBackground} />
 				<div className="background-visuals">
 					<div className="site-backdrop" id="site-backdrop" />
-					{/* <LogoLayer /> */}
 					<div className="photo-backdrop" id="photo-backdrop">
 						<LazyImage
 							alt="Hero shot of your local wacky band, Day Dreamers"
@@ -33,6 +32,13 @@ export default function SiteWrapper({ hideBackground }: SiteWrapperComponent) {
 							lowQualitySrc={lowQualHero}
 						/>
 					</div>
+					<iframe
+						allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+						className="video-backdrop"
+						referrerPolicy="strict-origin-when-cross-origin"
+						src="https://www.youtube.com/embed/BXBw2Dvl2fQ?si=y2lXcPFlcs_w2K3G&amp;controls=0&amp;start=3&amp;autoplay=1&amp;mute=1&amp;loop=1&amp;showinfo=0"
+						title="YouTube video player"
+					/>
 				</div>
 				<div className="content-container">
 					<Outlet />

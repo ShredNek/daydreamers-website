@@ -1,26 +1,24 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import blissHq from "../../assets/images/y2k-resources/mspaint/hq/goat-background.jpg";
 import colourBarHq from "../../assets/images/y2k-resources/mspaint/hq/mspaint_colours.png";
 import blissLq from "../../assets/images/y2k-resources/mspaint/lq/goat-background.jpeg";
 import colourBarLq from "../../assets/images/y2k-resources/mspaint/lq/mspaint_colours.jpeg";
+import { AppContext } from "../../utils/AppContext.tsx";
 import { SOCIAL_LINKS } from "../../utils/globals.ts";
 import LazyImage from "../LazyImage.tsx";
 import Y2kWindowShell from "../Y2k/Y2kWindowShell.tsx";
 import { MS_PAINT_TOOLS, type MsPaintTool } from "./MsPaintTools.ts";
 
 const MsPaintNotVirusPromise = () => {
-	const [isOpen, setIsOpen] = useState(true);
+	const { setDialogContent } = useContext(AppContext);
 	const [selectedTool, setSelectedTool] = useState<MsPaintTool | null>(null);
-
-	if (!isOpen) {
-		return null;
-	}
 
 	return (
 		<Y2kWindowShell
 			closeButtonAction={{
 				performAction: () => {
-					setIsOpen(false);
+					sessionStorage.setItem("has_closed_follow_us_modal", "true");
+					setDialogContent(null);
 				},
 			}}
 			windowHeader="untitled - Paint"
