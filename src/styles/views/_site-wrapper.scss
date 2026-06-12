@@ -2,6 +2,8 @@
 @use "../utilities/functions" as fn;
 @use "../base/" as b;
 
+@use "sass:color";
+
 #root {
   position: relative;
 }
@@ -67,6 +69,10 @@
   top: 0;
   height: 100%;
   width: 100%;
+
+  &:has(dialog) {
+    background-color: color.adjust(a.$daydreamer-smoky-black, $alpha: -0.6);
+  }
 
   dialog {
     inset: 0;

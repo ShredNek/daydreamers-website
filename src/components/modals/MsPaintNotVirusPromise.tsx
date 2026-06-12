@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import bliss from "../../assets/images/y2k-resources/mspaint/goat-background.jpg";
 import colourBar from "../../assets/images/y2k-resources/mspaint/mspaint_colours.png";
 import freeSelect from "../../assets/images/y2k-resources/mspaint/mspaint_tool-01.png";
@@ -21,32 +21,38 @@ import { AppContext } from "../../utils/AppContext.tsx";
 import { SOCIAL_LINKS } from "../../utils/globals.ts";
 import Y2kWindowShell from "../Y2k/Y2kWindowShell.tsx";
 
+type MsPaintTool = {
+	name: string;
+	img: string;
+};
+
+const msPaintTools: MsPaintTool[] = [
+	{ name: "free select", img: freeSelect },
+	{ name: "rectangle select", img: rectangleSelect },
+	{ name: "eraser", img: eraser },
+	{ name: "paint bucket tool", img: paintBucketTool },
+	{ name: "eye-drop tool", img: eyeDropTool },
+	{ name: "magnifying glass tool", img: magnifyingGlassTool },
+	{ name: "pencil tool", img: pencilTool },
+	{ name: "paintbrush tool", img: paintbrushTool },
+	{ name: "spray can tool", img: sprayCanTool },
+	{ name: "text", img: textTool },
+	{ name: "straight line tool", img: straightLineTool },
+	{ name: "spline tool", img: splineTool },
+	{ name: "square tool", img: squareTool },
+	{ name: "shape tool", img: shapeTool },
+	{ name: "circle tool", img: circleTool },
+	{ name: "rounded square tool", img: roundedSquareTool },
+] as const;
+
 const MsPaintNotVirusPromise = () => {
 	const { setDialogContent } = useContext(AppContext);
+	const [selectedTool, setSelectedTool] = useState<MsPaintTool | null>(null);
 
 	const closeModal = () => {
 		sessionStorage.setItem("has_closed_follow_modal", "true");
 		setDialogContent(null);
 	};
-
-	const toolData = [
-		{ name: "free select", img: freeSelect },
-		{ name: "rectangle select", img: rectangleSelect },
-		{ name: "eraser", img: eraser },
-		{ name: "paint bucket tool", img: paintBucketTool },
-		{ name: "eye-drop tool", img: eyeDropTool },
-		{ name: "magnifying glass tool", img: magnifyingGlassTool },
-		{ name: "pencil tool", img: pencilTool },
-		{ name: "paintbrush tool", img: paintbrushTool },
-		{ name: "spray can tool", img: sprayCanTool },
-		{ name: "text", img: textTool },
-		{ name: "straight line tool", img: straightLineTool },
-		{ name: "spline tool", img: splineTool },
-		{ name: "square tool", img: squareTool },
-		{ name: "shape tool", img: shapeTool },
-		{ name: "circle tool", img: circleTool },
-		{ name: "rounded square tool", img: roundedSquareTool },
-	];
 
 	return (
 		<Y2kWindowShell
@@ -82,13 +88,25 @@ const MsPaintNotVirusPromise = () => {
 					<div className="top-level-tools">
 						<div className="sidebar">
 							<div className="tools">
-								{toolData.map((entry) => (
-									<button key={entry.name} type="button">
-										<img alt={entry.name} draggable={false} src={entry.img} />
+								{msPaintTools.map((tool) => (
+									<button
+										key={tool.name}
+										onClick={() => setSelectedTool(tool)}
+										type="button"
+									>
+										<img alt={tool.name} draggable={false} src={tool.img} />
 									</button>
 								))}
 							</div>
-							<div className="selected-tool"></div>
+							<div className="selected-tool">
+								{selectedTool ? (
+									<img
+										alt={selectedTool.name}
+										draggable={false}
+										src={selectedTool.img}
+									/>
+								) : null}
+							</div>
 						</div>
 						<div className="canvas">
 							<div className="canvas-content-layer">
