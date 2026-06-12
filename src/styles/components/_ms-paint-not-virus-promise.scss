@@ -5,6 +5,12 @@
 @use "sass:color";
 
 .ms-paint-not-virus-promise {
+  --tool-button-size: 50px;
+
+  @media (max-width: b.$mobile-width) {
+    --tool-button-size: 28px;
+  }
+
   .file-options {
     display: flex;
     gap: 1rem;
@@ -28,17 +34,16 @@
       .sidebar {
         .tools {
           display: grid;
-          $button-size: 50px;
 
-          grid-template-columns: repeat(2, $button-size);
-          grid-auto-rows: $button-size;
+          grid-template-columns: repeat(2, var(--tool-button-size));
+          grid-auto-rows: var(--tool-button-size);
 
           & > button {
             @extend %y2k-border;
 
             display: flex;
-            height: $button-size;
-            width: $button-size;
+            height: var(--tool-button-size);
+            width: var(--tool-button-size);
             padding: 0;
             margin: 0;
             cursor: pointer;
@@ -55,14 +60,18 @@
         }
 
         .selected-tool {
-          $tool-height: 60px;
-          height: $tool-height;
-          width: $tool-height;
+          height: calc(var(--tool-button-size) * 1.2);
+          width: calc(var(--tool-button-size) * 1.2);
           margin: 1rem auto;
           border: grey inset 2.5px;
           display: flex;
           align-items: center;
           justify-content: center;
+
+          img {
+            height: 100%;
+            width: 100%;
+          }
         }
       }
 
@@ -77,14 +86,14 @@
           display: flex;
           flex-direction: column;
           justify-content: space-between;
-          padding: 2rem;
+          padding: clamp(1rem, 1rem + 2vw, 2rem);
 
           & * {
             font-family: Melodica;
           }
 
           h3 {
-            font-size: 5.5rem;
+            font-size: clamp(3rem, 1rem + 6.5vw, 5.5rem);
             color: white;
 
             $outline-width: 5px;
@@ -141,6 +150,17 @@
       display: flex;
       flex-wrap: wrap;
       justify-content: flex-end;
+
+      img {
+        @media (max-width: b.$mobile-width) {
+          min-width: b.$small-width - 30px;
+        }
+
+        @media (max-width: b.$small-width) {
+          width: 100%;
+          min-width: 0px;
+        }
+      }
     }
   }
 }
