@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useState } from "react";
 import bliss from "../../assets/images/y2k-resources/mspaint/goat-background.jpg";
 import colourBar from "../../assets/images/y2k-resources/mspaint/mspaint_colours.png";
 import freeSelect from "../../assets/images/y2k-resources/mspaint/mspaint_tool-01.png";
@@ -17,7 +17,6 @@ import squareTool from "../../assets/images/y2k-resources/mspaint/mspaint_tool-1
 import shapeTool from "../../assets/images/y2k-resources/mspaint/mspaint_tool-14.png";
 import circleTool from "../../assets/images/y2k-resources/mspaint/mspaint_tool-15.png";
 import roundedSquareTool from "../../assets/images/y2k-resources/mspaint/mspaint_tool-16.png";
-import { AppContext } from "../../utils/AppContext.tsx";
 import { SOCIAL_LINKS } from "../../utils/globals.ts";
 import Y2kWindowShell from "../Y2k/Y2kWindowShell.tsx";
 
@@ -46,19 +45,18 @@ const msPaintTools: MsPaintTool[] = [
 ] as const;
 
 const MsPaintNotVirusPromise = () => {
-	const { setDialogContent } = useContext(AppContext);
+	const [isOpen, setIsOpen] = useState(true);
 	const [selectedTool, setSelectedTool] = useState<MsPaintTool | null>(null);
 
-	const closeModal = () => {
-		sessionStorage.setItem("has_closed_follow_modal", "true");
-		setDialogContent(null);
-	};
+	if (!isOpen) {
+		return null;
+	}
 
 	return (
 		<Y2kWindowShell
 			closeButtonAction={{
 				performAction: () => {
-					closeModal();
+					setIsOpen(false);
 				},
 			}}
 			windowHeader="untitled - Paint"
