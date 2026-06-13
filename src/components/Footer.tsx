@@ -1,7 +1,7 @@
 import { PiHeartFill } from "react-icons/pi";
 import { useNavigate } from "react-router-dom";
+import pressKit from "../assets/files/day-dreamers-press-kit.pdf";
 import RoundedButtonLink from "../components/RoundedButtonLink.tsx";
-import { renderLinkTypeImage } from "../helper/index.tsx";
 import { SOCIAL_LINKS } from "../utils/globals.ts";
 
 export default function Footer() {
@@ -12,7 +12,7 @@ export default function Footer() {
 			social.linkType !== "album" &&
 			social.linkType !== "song" &&
 			social.linkType !== "website",
-	).map((social) => <RoundedButtonLink social={social} key={social.title} />);
+	).map((social) => <RoundedButtonLink key={social.title} social={social} />);
 
 	return (
 		<footer>
@@ -20,7 +20,12 @@ export default function Footer() {
 				<div className="social-links">{socialLinks}</div>
 				<ul className="extra-links">
 					<li className="link">
-						<a href="/">Press Kit</a>
+						<a
+							download="Day Dreamers Press Kit - EP and Wreckage"
+							href={pressKit}
+						>
+							Press Kit
+						</a>
 					</li>
 					<li className="link">
 						<button
