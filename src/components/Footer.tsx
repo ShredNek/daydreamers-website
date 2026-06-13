@@ -12,12 +12,7 @@ export default function Footer() {
 			social.linkType !== "album" &&
 			social.linkType !== "song" &&
 			social.linkType !== "website",
-	).map((social) => (
-		<RoundedButtonLink
-			imageChild={renderLinkTypeImage(social.linkType)}
-			key={social.title}
-		/>
-	));
+	).map((social) => <RoundedButtonLink social={social} key={social.title} />);
 
 	return (
 		<footer>

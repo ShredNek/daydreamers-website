@@ -107,7 +107,7 @@ export const SOCIAL_LINKS: Array<SocialMediaEntry> = [
 		bannerData: "FUN!",
 	},
 	{
-		linkType: "external",
+		linkType: "linktree",
 		title: "Linktree",
 		href: "https://linktr.ee/daydreamerssband",
 	},

@@ -197,4 +197,5 @@ export type LinkType =
 	| "song"
 	| "album"
 	| "website"
+	| "linktree"
 	| "external";

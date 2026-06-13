@@ -14,19 +14,21 @@
   button {
     min-width: calc(40px + 5vw);
     left: 1vw;
-    z-index: 400;
+    z-index: 1000;
     top: 1vh;
 
     .hamburger {
       stroke: black;
-      transition: translate 1s, rotate .5s;
+      transition:
+        translate 1s,
+        rotate 0.5s;
       translate: 0px 0px;
       background-color: white;
       box-shadow: 0px 0px 15px 20px white;
     }
 
     .line {
-      transition: .5s;
+      transition: 0.5s;
       stroke-dasharray: 60 31 60 300;
     }
 
@@ -42,7 +44,6 @@
   }
 
   &:has(button[aria-expanded="false"]) {
-
     .hamburger-links {
       transform: translate(0, -100%);
     }
@@ -62,7 +63,7 @@
     background-color: white;
     transform: translate(0, 0);
     transition: transform a.$custom-ease 0.25s 0.125s;
-    z-index: 300;
+    z-index: 10;
 
     li {
       $padding: 1em;
@@ -80,18 +81,19 @@
     width: 100vw;
     background-color: black;
     opacity: 0.75;
-    z-index: 200;
+    z-index: 1;
     transition: opacity a.$custom-ease 0.25s 0.075s;
   }
 
   @media (min-width: calc(b.$mobile-width + 1px)) {
-      display: none;
+    display: none;
   }
 
   @media (max-width: b.$mobile-width) {
     .hamburger-parent,
     .hamburger-links,
-    .hamburger-overlay, button {
+    .hamburger-overlay,
+    button {
       display: block;
       position: fixed;
     }

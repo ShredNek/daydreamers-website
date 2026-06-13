@@ -20,11 +20,6 @@
       padding: 2rem;
       background-color: white;
 
-      &:is([href*="triplej"]) svg {
-        stroke-width: 0px;
-        transform: translateX(-12px);
-      }
-
       svg {
         height: $image-height;
         width: $image-height;
