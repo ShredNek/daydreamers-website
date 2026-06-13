@@ -26,13 +26,26 @@ export default function SiteWrapper({ hideBackground }: SiteWrapperComponent) {
 				<NavHeader hideBackground={hideBackground} />
 				<div className="background-visuals">
 					<div className="video-backdrop">
+						{/* DESKTOP VIDEO */}
 						<iframe
 							allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
+							className="desktop-ratio"
 							onLoad={() => {
 								setVideoLoaded(true);
 							}}
 							referrerPolicy="strict-origin-when-cross-origin"
 							src="https://player.vimeo.com/video/1200922975?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479&amp;autoplay=1&amp;muted=1&amp;loop=1"
+							title="DayDreamers_y2k-OMV"
+						/>
+						{/* MOBILE VIDEO */}
+						<iframe
+							allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
+							className="mobile-ratio"
+							onLoad={() => {
+								setVideoLoaded(true);
+							}}
+							referrerPolicy="strict-origin-when-cross-origin"
+							src="https://player.vimeo.com/video/1200938703?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479&amp;autoplay=1&amp;muted=1&amp;loop=1"
 							title="DayDreamers_y2k-OMV"
 						/>
 					</div>
