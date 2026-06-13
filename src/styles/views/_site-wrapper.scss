@@ -19,30 +19,33 @@
   .background-visuals {
     position: absolute;
 
-    .site-backdrop {
+    .video-backdrop {
       top: 0;
+      display: block;
       position: fixed;
       height: 100%;
       width: 100%;
-      display: flow-root;
-      opacity: 0.45;
-      z-index: -10;
-      transition: b.$default-transition-property;
-      background-color: a.$daydreamer-smoky-black;
 
-      &.transitioning {
-        opacity: 0;
+      pointer-events: none;
+
+      iframe {
+        inset: 0;
+        top: -200px;
+        border: none;
+        z-index: -100;
+        position: fixed;
+        height: 150%;
+        width: 100%;
+        background-color: color.adjust(a.$daydreamer-smoky-black, $alpha: -0.1);
       }
     }
 
     .photo-backdrop {
       display: flow-root;
       top: 0;
-      opacity: 0.45;
       height: 100%;
       width: 100%;
       position: fixed;
-      z-index: -30;
 
       img {
         height: 100%;
@@ -50,22 +53,22 @@
         object-fit: cover;
       }
 
-      transition: b.$default-transition-property;
+      transition: opacity 5s linear;
 
-      &.transitioning {
+      &.fade-out {
         opacity: 0;
       }
     }
+  }
 
-    .video-backdrop {
-      top: 0;
-      border: none;
-      z-index: -1;
-      display: flow-root;
-      position: fixed;
-      height: 120%;
-      width: 100%;
-    }
+  .site-backdrop {
+    top: 0;
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    display: block;
+    opacity: 0.8;
+    background-color: a.$daydreamer-smoky-black;
   }
 
   .content-container {
