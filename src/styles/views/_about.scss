@@ -3,6 +3,8 @@
 @use "../utilities" as u;
 
 .about {
+  position: relative;
+
   .window-viewer-container {
     max-width: 40rem;
   }

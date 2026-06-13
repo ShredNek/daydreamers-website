@@ -109,6 +109,8 @@ $max-height: 800px;
       & > li {
         img {
           max-height: 25px;
+          filter: brightness(0.1);
+          mix-blend-mode: multiply;
         }
 
         @media (max-height: b.$medium-width) {

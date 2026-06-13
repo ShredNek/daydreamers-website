@@ -1,6 +1,8 @@
 @use "../base" as b;
 
 .media {
+  position: relative;
+
   .window-children {
     display: grid;
     grid-auto-flow: column;
