@@ -2,9 +2,7 @@ import { useContext } from "react";
 import MsPaintNotVirusPromise from "../components/modals/MsPaintNotVirusPromise.tsx";
 import YouHaveNotSubscribed from "../components/modals/YouHaveNotSubscribedPrompt.tsx";
 import { AppContext } from "../utils/AppContext.tsx";
-
-const POPUP_DURATION = 10_000;
-// const FOLLOW_US_DURATION = 3000;
+import { SHOW_POPUP_INTERVAL } from "../utils/globals.ts";
 
 export const useGlobalStartupProcedures = () => {
 	const { setDialogContent } = useContext(AppContext);
@@ -19,6 +17,6 @@ export const useGlobalStartupProcedures = () => {
 			) {
 				return setDialogContent(<MsPaintNotVirusPromise />);
 			}
-		}, POPUP_DURATION);
+		}, SHOW_POPUP_INTERVAL);
 	};
 };

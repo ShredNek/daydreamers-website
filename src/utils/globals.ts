@@ -1,21 +1,11 @@
-import aboutTabImg from "../assets/images/tabs/tabs_about.png";
-import contactTabImg from "../assets/images/tabs/tabs_contact.png";
-import mediaTabImg from "../assets/images/tabs/tabs_media.png";
-import merchTabImg from "../assets/images/tabs/tabs_merch.png";
-import musicTabImg from "../assets/images/tabs/tabs_music.png";
-import showsTabImg from "../assets/images/tabs/tabs_shows.png";
 import type { SocialMediaEntry } from "../types/index.ts";
 
-export const PAGE_DIFFERENCE = 8;
-
 export const FADE_SPEED = 500;
-
-export const AUTO_HIDE_MODAL_DURATION = 5000;
+export const SHOW_POPUP_INTERVAL = 30_000;
 
 export type PAGE_LINK = {
 	to: string;
 	innerText: string;
-	tabImg: string;
 	urlIsExternal: boolean;
 };
 
@@ -24,37 +14,31 @@ export const PAGE_LINKS: PAGE_LINK[] = [
 		urlIsExternal: false,
 		to: "/music",
 		innerText: "Music",
-		tabImg: musicTabImg,
 	},
 	{
 		urlIsExternal: false,
 		to: "/shows",
 		innerText: "Shows",
-		tabImg: showsTabImg,
 	},
 	{
 		urlIsExternal: false,
 		to: "/about",
 		innerText: "About",
-		tabImg: aboutTabImg,
 	},
 	{
 		urlIsExternal: false,
 		to: "/contact",
 		innerText: "Contact",
-		tabImg: contactTabImg,
 	},
 	{
 		urlIsExternal: false,
 		to: "/media",
 		innerText: "Media",
-		tabImg: mediaTabImg,
 	},
 	{
 		urlIsExternal: true,
 		to: "https://daydreamers.bandcamp.com/merch",
 		innerText: "Merch",
-		tabImg: merchTabImg,
 	},
 ];
 

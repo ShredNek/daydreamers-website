@@ -187,52 +187,6 @@ hr {
   }
 }
 
-.hover {
-  transform: scale(1);
-  transition-property: transform, text-shadow, opacity;
-  transition-duration: $default-transition-duration;
-  transition-timing-function: ease-out;
-
-  $hover-v-1:
-    2px 10px 25px color.adjust(a.$daydreamer-blue, $hue: 30deg),
-    -5px -10px 40px color.adjust(a.$daydreamer-blue, $hue: 75deg);
-
-  $hover-v-2:
-    -10px 10px 25px color.adjust(a.$daydreamer-orange, $hue: 20deg),
-    2px 5px 20px color.adjust(a.$daydreamer-orange, $hue: -10deg),
-    12px 8px 15px color.adjust(a.$daydreamer-orange, $hue: -30deg);
-
-  &.v-1:hover,
-  &.v-2:hover {
-    transform: scale(1.1);
-  }
-
-  &.v-1:hover {
-    text-shadow: $hover-v-1;
-  }
-
-  &.v-2:hover {
-    text-shadow: $hover-v-2;
-  }
-
-  &.v-1.disabled,
-  &.v-2.disabled {
-    pointer-events: none;
-
-    & > a {
-      color: rgb(162, 162, 162);
-    }
-  }
-
-  &.v-1.disabled {
-    text-shadow: $hover-v-1;
-  }
-
-  &.v-2.disabled {
-    text-shadow: $hover-v-2;
-  }
-}
-
 .heading {
   margin: 2rem auto;
   padding: 0px 1em;
