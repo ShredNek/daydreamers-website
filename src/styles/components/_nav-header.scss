@@ -107,8 +107,9 @@ $max-height: 800px;
       .hover {
         & * {
           letter-spacing: normal;
+          margin: 0;
 
-          transition-property: transform, letter-spacing, text-shadow;
+          transition-property: transform, letter-spacing, text-shadow, margin;
           transition-duration: b.$default-transition-duration;
           transition-timing-function: ease-out;
         }
@@ -124,6 +125,7 @@ $max-height: 800px;
 
         &:is(.v-1:hover, .v-2:hover) * {
           letter-spacing: 0.05em;
+          margin: 0 -0.15em;
         }
 
         &.v-1:hover * {
