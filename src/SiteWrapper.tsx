@@ -6,6 +6,8 @@ import NavHeader from "./components/NavHeader.tsx";
 import "./styles/views/_site-wrapper.scss";
 import { useContext, useState } from "react";
 import { Outlet } from "react-router-dom";
+import bagOfSand_Desktop from "./assets/videos/bag-of-sand_LQ.mov";
+import bagOfSand_Mobile from "./assets/videos/bag-of-sand_mobile_LQ.mov";
 import { useGlobalStartupProcedures } from "./hooks/useGlobalFunctions.tsx";
 import { AppContext } from "./utils/AppContext.tsx";
 
@@ -27,29 +29,28 @@ export default function SiteWrapper({ hideBackground }: SiteWrapperComponent) {
 				<div className="background-visuals">
 					<div className="video-backdrop">
 						{/* DESKTOP VIDEO */}
-						<iframe
-							allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
+						<video
+							autoPlay
 							className="desktop-ratio"
-							onLoad={() => {
+							loop
+							muted
+							onPlaying={() => {
 								setVideoLoaded(true);
 							}}
-							referrerPolicy="strict-origin-when-cross-origin"
-							src="https://player.vimeo.com/video/1200922975?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479&amp;autoplay=1&amp;muted=1&amp;loop=1"
-							title="DayDreamers_y2k-OMV"
+							src={bagOfSand_Desktop}
 						/>
 						{/* MOBILE VIDEO */}
-						<iframe
-							allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
+						<video
+							autoPlay
 							className="mobile-ratio"
-							onLoad={() => {
+							loop
+							muted
+							onPlaying={() => {
 								setVideoLoaded(true);
 							}}
-							referrerPolicy="strict-origin-when-cross-origin"
-							src="https://player.vimeo.com/video/1200938703?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479&amp;autoplay=1&amp;muted=1&amp;loop=1"
-							title="DayDreamers_y2k-OMV"
+							src={bagOfSand_Mobile}
 						/>
 					</div>
-					<script defer src="https://player.vimeo.com/api/player.js" />
 					<div
 						className={`photo-backdrop${videoLoaded ? " fade-out" : " "}`}
 						id="photo-backdrop"

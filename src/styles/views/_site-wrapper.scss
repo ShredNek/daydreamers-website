@@ -29,16 +29,12 @@
       inset: 0;
       height: 100%;
       width: 100%;
-
       pointer-events: none;
 
-      iframe {
-        position: fixed;
-        top: -500px;
-        height: 200%;
+      video {
+        object-fit: cover;
+        height: 100%;
         width: 100%;
-
-        border: none;
         background-color: color.adjust(a.$daydreamer-smoky-black, $alpha: -0.1);
       }
 
