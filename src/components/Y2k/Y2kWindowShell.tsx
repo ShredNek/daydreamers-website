@@ -4,7 +4,7 @@ import "../../styles/components/_y2k-window.scss";
 type Y2kWindowShellComponent = {
 	children?: React.ReactNode;
 	windowHeader: string;
-	closeButtonAction: {
+	closeButtonAction?: {
 		redirectTo?: string;
 		performAction?: () => void;
 	};
@@ -33,11 +33,11 @@ export default function Y2kWindowShell({
 					</button>
 					<button
 						onClick={() => {
-							if (closeButtonAction.performAction) {
+							if (closeButtonAction?.performAction) {
 								closeButtonAction.performAction();
 							}
 
-							if (closeButtonAction.redirectTo) {
+							if (closeButtonAction?.redirectTo) {
 								navigate(closeButtonAction.redirectTo);
 							}
 						}}

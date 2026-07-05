@@ -1,8 +1,8 @@
+import magnifyingGlass from "@app/assets/images/y2k-resources/magnifying_glass.png";
+import Y2kWindowShell from "@app/components/Y2k/Y2kWindowShell.tsx";
+import type { SongCollection, Track } from "@app/types/index.ts";
 import { IoTriangleOutline } from "react-icons/io5";
-import magnifyingGlass from "../assets/images/y2k-resources/magnifying_glass.png";
-import Y2kWindowShell from "../components/Y2k/Y2kWindowShell.tsx";
-import type { SongCollection, Track } from "../types/index.ts";
-import "../styles/views/_music.scss";
+import "@app/styles/views/_music.scss";
 
 export default function MusicResult({
 	currentSongCollection,

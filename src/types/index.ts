@@ -121,9 +121,11 @@ export interface AppContextInterface {
 	showsData: AllShowsEntity | null;
 	musicData: MusicData | null;
 	dialogContent: ReactNode | null;
+	secretMusicDirectoryAccessed: boolean;
 	setShowsData: Dispatch<SetStateAction<AllShowsEntity | null>>;
 	setMusicData: Dispatch<SetStateAction<MusicData | null>>;
 	setDialogContent: Dispatch<SetStateAction<ReactNode | null>>;
+	setSecretMusicDirectoryAccessed: Dispatch<SetStateAction<boolean>>;
 }
 
 // TODO - REMOVE THIS!!!

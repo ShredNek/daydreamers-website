@@ -1,16 +1,18 @@
+import { getAllMusic } from "@app/api/datoCmsCalls.ts";
+import MusicResult from "@app/components/music/MusicResult.tsx";
+import MusicSearch from "@app/components/music/MusicSearch.tsx";
+import { toKebabCase } from "@app/helper/index.tsx";
+import type { MusicData } from "@app/types/index.ts";
+import { AppContext } from "@app/utils/AppContext.tsx";
+import { SUPER_SECRET_CODE } from "@app/utils/globals.ts";
 import { useCallback, useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { getAllMusic } from "../api/datoCmsCalls.ts";
-import { toKebabCase } from "../helper/index.tsx";
-import type { MusicData } from "../types/index.ts";
-import { AppContext } from "../utils/AppContext.tsx";
-import "../styles/views/_music.scss";
-import { SUPER_SECRET_CODE } from "../utils/globals.ts";
-import MusicResult from "./Music.result.tsx";
-import MusicSearch from "./Music.search.tsx";
+
+import "@app/styles/views/_music.scss";
 
 export default function Music() {
-	const { musicData, setMusicData } = useContext(AppContext);
+	const { musicData, setMusicData, setSecretMusicDirectoryAccessed } =
+		useContext(AppContext);
 	const [musicSearchInput, setMusicSearchInput] = useState("");
 	const urlParams = useParams();
 
@@ -23,12 +25,12 @@ export default function Music() {
 			const buttonWasNotPressed = event.type !== "click";
 
 			if (codeIsIncorrect || (enterWasNotPressed && buttonWasNotPressed)) {
-				return;
+				return setSecretMusicDirectoryAccessed(false);
 			}
 
-			console.log("Bingo!");
+			setSecretMusicDirectoryAccessed(true);
 		},
-		[musicSearchInput],
+		[musicSearchInput, setSecretMusicDirectoryAccessed],
 	);
 
 	const currentSongCollection =
