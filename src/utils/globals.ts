@@ -1,7 +1,7 @@
 import type { SocialMediaEntry } from "../types/index.ts";
 
 export const FADE_SPEED = 500;
-export const SHOW_POPUP_INTERVAL = 30_000;
+export const SHOW_POPUP_INTERVAL = 60_000;
 
 export type PAGE_LINK = {
 	to: string;

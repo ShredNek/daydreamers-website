@@ -99,7 +99,7 @@ export default function NavHeader({ className, hideBackground }: NavHeader) {
 					{PAGE_LINKS.map((link, index) => (
 						<li
 							className={index % 2 === 0 ? `hover v-1` : `hover v-2`}
-							key={uuid()}
+							key={link.to}
 						>
 							<button onClick={() => handleNavItemClick(link)} type="button">
 								<h2>{link.innerText}</h2>
