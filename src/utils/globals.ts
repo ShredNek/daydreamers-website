@@ -2,6 +2,7 @@ import type { SocialMediaEntry } from "../types/index.ts";
 
 export const FADE_SPEED = 500;
 export const SHOW_POPUP_INTERVAL = 60_000;
+export const SUPER_SECRET_CODE = "/DAY_DREAMERS";
 
 export type PAGE_LINK = {
 	to: string;
