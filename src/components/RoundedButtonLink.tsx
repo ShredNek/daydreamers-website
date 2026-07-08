@@ -1,4 +1,3 @@
-import type { ReactNode } from "react";
 import { renderLinkTypeImage } from "../helper/index.tsx";
 import type { SocialMediaEntry } from "../types/index.ts";
 
