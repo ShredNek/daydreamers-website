@@ -1,6 +1,8 @@
 @use "../base" as b;
 
 .media {
+  position: relative;
+
   .window-children {
     display: grid;
     grid-auto-flow: column;
@@ -27,7 +29,7 @@
     .social-information {
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
+      justify-content: space-evenly;
 
       .social-media-select {
         display: flex;
@@ -36,7 +38,7 @@
         flex: auto;
         gap: 0.5rem;
 
-        max-height: 100px;
+        max-height: min-content;
 
         label[for="search-results-input"] {
           font-weight: bold;

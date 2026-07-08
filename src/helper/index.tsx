@@ -3,6 +3,7 @@ import {
 	FaBandcamp,
 	FaCode,
 	FaFacebookF,
+	FaGlobe,
 	FaInstagram,
 	FaMusic,
 	FaRecordVinyl,
@@ -10,6 +11,7 @@ import {
 	FaTiktok,
 	FaYoutube,
 } from "react-icons/fa6";
+import { SiLinktree } from "react-icons/si";
 import { v4 as uuid } from "uuid";
 import TripleJ from "../components/svg/TripleJ.tsx";
 import type { LinkType, VenueLocation } from "../types/index.ts";
@@ -258,5 +260,9 @@ export const renderLinkTypeImage = (linkType: LinkType) => {
 			return <FaRecordVinyl {...defaultProps} />;
 		case "website":
 			return <FaCode {...defaultProps} />;
+		case "linktree":
+			return <SiLinktree {...defaultProps} />;
+		case "external":
+			return <FaGlobe {...defaultProps} />;
 	}
 };

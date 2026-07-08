@@ -74,7 +74,10 @@ export default function About() {
 
 	return (
 		<section className="about" id="about">
-			<Y2kWindowShell closeButtonRedirect="/" windowHeader="About">
+			<Y2kWindowShell
+				closeButtonAction={{ redirectTo: "/" }}
+				windowHeader="About"
+			>
 				<div className="input-background">
 					<div className="band-member-display">
 						<div className="dropdown">

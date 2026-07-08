@@ -40,7 +40,7 @@ const EmailUnsubscribe = () => {
 	return (
 		<>
 			<Y2kWindowShell
-				closeButtonRedirect="/"
+				closeButtonAction={{ redirectTo: "/" }}
 				windowHeader="Unsubscribe from mailing list :("
 			>
 				<form

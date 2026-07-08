@@ -1,3 +1,3 @@
-export default function Home() {
-	return <section id="home" />;
-}
+const Home = () => <section id="home" />;
+
+export default Home;

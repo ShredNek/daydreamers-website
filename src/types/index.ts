@@ -1,4 +1,4 @@
-import type { Dispatch, SetStateAction } from "react";
+import type { Dispatch, ReactNode, SetStateAction } from "react";
 
 // ? API
 
@@ -107,6 +107,8 @@ export interface SongCollection {
 	likes: string[];
 	dislikes: string[];
 	description: string;
+	pros: string;
+	cons: string;
 	trackList: Track[];
 	_status: string;
 	_firstPublishedAt: Date;
@@ -118,8 +120,12 @@ export interface SongCollection {
 export interface AppContextInterface {
 	showsData: AllShowsEntity | null;
 	musicData: MusicData | null;
+	dialogContent: ReactNode | null;
+	secretMusicDirectoryAccessed: boolean;
 	setShowsData: Dispatch<SetStateAction<AllShowsEntity | null>>;
 	setMusicData: Dispatch<SetStateAction<MusicData | null>>;
+	setDialogContent: Dispatch<SetStateAction<ReactNode | null>>;
+	setSecretMusicDirectoryAccessed: Dispatch<SetStateAction<boolean>>;
 }
 
 // TODO - REMOVE THIS!!!
@@ -192,4 +198,6 @@ export type LinkType =
 	| "bandcamp"
 	| "song"
 	| "album"
-	| "website";
+	| "website"
+	| "linktree"
+	| "external";

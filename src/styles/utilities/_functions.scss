@@ -4,17 +4,38 @@
 
 @use "sass:color";
 @use "sass:list";
+@use "sass:math";
 
-@function generate-text-outline($outline-width, $outline-color, $outline-blur: 0px) {
-  $offsets:
-    $outline-width $outline-width $outline-blur $outline-color,
-    $outline-width (0px - $outline-width) $outline-blur $outline-color,
-    (0px - $outline-width) $outline-width $outline-blur $outline-color,
-    (0px - $outline-width) (0px - $outline-width) $outline-blur $outline-color;
+@function generate-text-outline($outline-width, $color) {
+  @return $outline-width 0px 0px $color, 0px $outline-width 0px $color, 0px - $outline-width 0px 0px $color,
+    0px 0px - $outline-width 0px $color;
+}
+
+@function generate-super-blur($outline-width, $outline-color, $outline-blur: 0px) {
+  // Double the number of iterations to 18, and increase the total
+  // horizontal length by 50% (48px -> 72px). Shifts are computed
+  // evenly from 0 to $max-shift so spacing is proportional.
+  $count: 18;
+  $max-shift: 72px;
+  $step: if(
+    sass($count > 1): math.div($max-shift, ($count - 1)) ; else: 0px
+  );
   $text-shadow: ();
 
-  @for $i from 1 through 4 {
-    $text-shadow: list.append($text-shadow, list.nth($offsets, $i), comma);
+  @for $i from 1 through $count {
+    $shift: ($i - 1) * $step;
+    // Alpha ramp so farther layers fade out. Final alpha will be near -0.95.
+    $alpha: 0 - (($i - 1) * 0.056);
+    @if $alpha < -1 {
+      $alpha: -1;
+    }
+    $color-variant: color.adjust($outline-color, $alpha: $alpha);
+
+    $pos-offset: ($outline-width + $shift) 0px $outline-blur $color-variant;
+    $neg-offset: (0px - ($outline-width + $shift)) 0px $outline-blur $color-variant;
+
+    $text-shadow: list.append($text-shadow, $pos-offset, comma);
+    $text-shadow: list.append($text-shadow, $neg-offset, comma);
   }
 
   @return $text-shadow;

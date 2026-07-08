@@ -1,11 +1,10 @@
 import { StatusCodes } from "http-status-codes";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import { middleware } from "../api/index.ts";
 import Y2kWindowShell from "../components/Y2k/Y2kWindowShell.tsx";
 import type { ComponentStatus } from "../types/index.ts";
-import "react-toastify/dist/ReactToastify.css";
-import { useNavigate } from "react-router-dom";
 
 const EmailSubscribe = () => {
 	const navigate = useNavigate();
@@ -67,7 +66,7 @@ const EmailSubscribe = () => {
 	return (
 		<>
 			<Y2kWindowShell
-				closeButtonRedirect="/"
+				closeButtonAction={{ redirectTo: "/" }}
 				windowHeader="Subscribe to mailing list :D"
 			>
 				<form

@@ -120,7 +120,10 @@ export default function EnquiryForm({
 		<div className="enquiry-form-container" style={customStyle}>
 			<div className="enquiry-form-filter" />
 			<div className="enquiry-form-backdrop" />
-			<Y2kWindowShell closeButtonRedirect="/" windowHeader="Contact us">
+			<Y2kWindowShell
+				closeButtonAction={{ redirectTo: "/" }}
+				windowHeader="Contact us"
+			>
 				<form onSubmit={handleSubmit}>
 					<div className="first-last-name">
 						<div className="field-container">

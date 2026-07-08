@@ -1,13 +1,19 @@
-import type { ReactNode } from "react";
+import { renderLinkTypeImage } from "../helper/index.tsx";
+import type { SocialMediaEntry } from "../types/index.ts";
 
 interface RoundedButtonLink {
-	imageChild: ReactNode;
+	social: SocialMediaEntry;
 }
 
-export default function RoundedButtonLink({ imageChild }: RoundedButtonLink) {
+export default function RoundedButtonLink({ social }: RoundedButtonLink) {
 	return (
-		<div className="rounded-button-link">
-			<div className="bg" /> {imageChild}
-		</div>
+		<a
+			className="rounded-button-link"
+			href={social.href}
+			rel="noopener"
+			target="_blank"
+		>
+			<div className="bg" /> {renderLinkTypeImage(social.linkType)}
+		</a>
 	);
 }

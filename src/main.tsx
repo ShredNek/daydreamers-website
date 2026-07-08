@@ -10,6 +10,7 @@ import PageNotFound from "./views/PageNotFound.tsx";
 import Shows from "./views/Shows.tsx";
 
 import "./styles/style.scss";
+import "react-toastify/dist/ReactToastify.css";
 
 import React from "react";
 import { createRoot } from "react-dom/client";

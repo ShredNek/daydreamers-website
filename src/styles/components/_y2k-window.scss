@@ -173,7 +173,7 @@
     }
 
     .search-results-window {
-      height: calc(300px + 5vw);
+      min-height: calc(300px + 5vw);
       background-color: white;
       // overflow-y: scroll;
       padding: 1rem;

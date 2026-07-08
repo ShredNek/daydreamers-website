@@ -1,0 +1,43 @@
+/* ? Control parental elem styling ? */
+*:is(dialog, .window-viewer-container):has(.you-have-not-subscribed) {
+  width: 600px;
+}
+
+.oh-no-bamboozle-time {
+  padding: 3rem;
+  display: flex;
+  flex-direction: column;
+
+  .container-parent {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+
+    img {
+      $img-size: 200px;
+      width: $img-size;
+      height: $img-size;
+      margin-right: 1rem;
+    }
+
+    .content-container {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 3rem;
+
+      h3,
+      p {
+        text-align: center;
+        font-size: 150%;
+      }
+    }
+  }
+
+  button {
+    margin: auto;
+    padding: 0.5em 2em;
+    font-size: larger;
+  }
+}

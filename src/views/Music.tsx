@@ -1,19 +1,37 @@
-import { useCallback, useContext, useEffect } from "react";
-import { IoTriangleOutline } from "react-icons/io5";
-import { useNavigate, useParams } from "react-router-dom";
-import { getAllMusic } from "../api/datoCmsCalls.ts";
-import magnifyingGlass from "../assets/images/y2k-resources/magnifying_glass.png";
-import Y2kWindowSearch from "../components/Y2k/Y2kWindowSearch.tsx";
-import Y2kWindowShell from "../components/Y2k/Y2kWindowShell.tsx";
-import { toKebabCase } from "../helper/index.tsx";
-import type { MusicData, Track } from "../types/index.ts";
-import { AppContext } from "../utils/AppContext.tsx";
-import "../styles/views/_music.scss";
+import { getAllMusic } from "@app/api/datoCmsCalls.ts";
+import MusicResult from "@app/components/music/MusicResult.tsx";
+import MusicSearch from "@app/components/music/MusicSearch.tsx";
+import { toKebabCase } from "@app/helper/index.tsx";
+import type { MusicData } from "@app/types/index.ts";
+import { AppContext } from "@app/utils/AppContext.tsx";
+import { SUPER_SECRET_CODE } from "@app/utils/globals.ts";
+import { useCallback, useContext, useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+
+import "@app/styles/views/_music.scss";
 
 export default function Music() {
-	const { musicData, setMusicData } = useContext(AppContext);
-	const navigate = useNavigate();
+	const { musicData, setMusicData, setSecretMusicDirectoryAccessed } =
+		useContext(AppContext);
+	const [musicSearchInput, setMusicSearchInput] = useState("");
 	const urlParams = useParams();
+
+	const handleSecretCodeAttempt = useCallback(
+		(event: Event | React.FormEvent<HTMLInputElement | HTMLButtonElement>) => {
+			const codeIsIncorrect = musicSearchInput !== SUPER_SECRET_CODE;
+			const enterWasNotPressed = !(
+				event instanceof KeyboardEvent && event.key === "Enter"
+			);
+			const buttonWasNotPressed = event.type !== "click";
+
+			if (codeIsIncorrect || (enterWasNotPressed && buttonWasNotPressed)) {
+				return setSecretMusicDirectoryAccessed(false);
+			}
+
+			setSecretMusicDirectoryAccessed(true);
+		},
+		[musicSearchInput, setSecretMusicDirectoryAccessed],
+	);
 
 	const currentSongCollection =
 		musicData?.data.allSongCollections.find(
@@ -21,63 +39,7 @@ export default function Music() {
 				toKebabCase(songCollection.name) === urlParams["songSlug"],
 		) ?? null;
 
-	type RandTracks = {
-		randTrackOne: null | Track;
-		randTrackTwo: null | Track;
-	};
-
-	const getRandTracks = (): RandTracks => {
-		const selectedRandTracks: RandTracks = {
-			randTrackOne: null,
-			randTrackTwo: null,
-		};
-
-		if (
-			!currentSongCollection?.trackList ||
-			currentSongCollection.trackList.length < 2
-		) {
-			return selectedRandTracks;
-		}
-
-		const tempTrackList = [
-			...currentSongCollection.trackList.filter(
-				(t) => t.lyrics.trim().length > 0,
-			),
-		];
-
-		const randInt = () => Math.floor(Math.random() * tempTrackList.length);
-		selectedRandTracks.randTrackOne =
-			tempTrackList.splice(randInt(), 1)[0] ?? null;
-		selectedRandTracks.randTrackTwo =
-			tempTrackList.splice(randInt(), 1)[0] ?? null;
-
-		if (selectedRandTracks.randTrackOne || selectedRandTracks.randTrackTwo) {
-			console.warn(
-				"selectedRandTracks.randTrackOne or selectedRandTracks.randTrackTwo is null",
-			);
-		}
-
-		return selectedRandTracks;
-	};
-
-	const randTracks = getRandTracks();
-
-	function formatDuration(secondsInput: number): string {
-		const hours = Math.floor(secondsInput / 3600);
-		const minutes = Math.floor((secondsInput % 3600) / 60);
-		const seconds = Math.floor(secondsInput % 60);
-
-		const pad = (num: number) => num.toString().padStart(2, "0");
-
-		if (hours > 0) {
-			return `${pad(hours)}:${pad(minutes)}:${pad(seconds)}`;
-		} else {
-			return `${pad(minutes)}:${pad(seconds)}`;
-		}
-	}
-
 	// ? On page load
-
 	const callAndSetMusicData = useCallback(async () => {
 		let rawData: MusicData | null = null;
 		try {
@@ -97,163 +59,29 @@ export default function Music() {
 		void callAndSetMusicData();
 	}, [callAndSetMusicData]);
 
-	const MusicSearch = () => (
-		<Y2kWindowShell closeButtonRedirect="/" windowHeader="Open">
-			<Y2kWindowSearch>
-				{musicData?.data.allSongCollections ? (
-					musicData.data.allSongCollections.map((collection) => (
-						<button
-							className="result"
-							key={collection.id}
-							onClick={() => navigate(`/music/${toKebabCase(collection.name)}`)}
-							type="button"
-						>
-							<div className="artwork">
-								<img alt="" src={collection.coverArt?.url} />
-							</div>
-							<p className="result-name">{collection.name}</p>
-						</button>
-					))
-				) : (
-					<div className="no-results">
-						<p className="header-text">This folder is empty.</p>
-						<div className="sub-content">
-							<p>Some cheeky geezah has probably taken all this down...</p>
-							<p>
-								if you see this error, reach out to us at
-								daydreamersmusic2015@gmail.com!
-							</p>
-						</div>
-					</div>
-				)}
-			</Y2kWindowSearch>
-		</Y2kWindowShell>
-	);
-
-	const SelectedMusicResult = () => (
-		<Y2kWindowShell
-			className={`song-collection-window ${currentSongCollection?.collectionType === "single" && "single"}`}
-			closeButtonRedirect="/music"
-			isModal
-			windowHeader={currentSongCollection?.name ?? "nothing here :/"}
-		>
-			<div className="url-search-row">
-				<div className="search-label">
-					<p>Search URL</p>
-					<span>
-						<img alt="Magnifying glass" src={magnifyingGlass} />
-					</span>
-				</div>
-				<div className="url">
-					<p>{window.location.href}</p>
-				</div>
-			</div>
-			<div className="info-grid">
-				<div className="artwork">
-					<img
-						alt={`Artwork for ${currentSongCollection?.name}`}
-						src={currentSongCollection?.coverArt.url}
-					/>
-				</div>
-				<div className="title-card">
-					<h2>{currentSongCollection?.name}</h2>
-					<hr />
-					<ul>
-						<li>
-							<h4>release date:</h4> <p>{currentSongCollection?.releaseDate}</p>
-						</li>
-						<li>
-							<h4>{currentSongCollection?.collectionType} length:</h4>{" "}
-							<p>
-								{formatDuration(Number(currentSongCollection?.duration) ?? 0)}
-							</p>
-						</li>
-						<li>
-							<h4>summary:</h4>
-							<p>
-								{currentSongCollection?.summary?.trim()?.length
-									? currentSongCollection?.summary
-									: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque mollitia sunt amet animi, non praesentium."}
-							</p>
-						</li>
-					</ul>
-					<a
-						className="listen"
-						href={currentSongCollection?.spotifyLink}
-						rel="noreferrer"
-						target="_blank"
-					>
-						LISTEN
-					</a>
-				</div>
-				<div className="likes-dislikes">
-					<span className="likes">
-						<h4>:(</h4>
-						<p>
-							Lorem ipsum, dolor sit amet consectetur adipisicing elit. Cum,
-							non.
-						</p>
-					</span>
-					<span className="asterisks">* * * * *</span>
-					<span className="dislikes">
-						<h4>:D</h4>
-						<p>
-							Lorem ipsum, dolor sit amet consectetur adipisicing elit. Cum,
-							non.
-						</p>
-					</span>
-				</div>
-				{currentSongCollection?.collectionType === "album" ||
-				(currentSongCollection?.trackList.length ?? 0) > 1 ? (
-					<>
-						<div className="lyric-showcase-one">
-							<h3 className="song-name">{randTracks.randTrackOne?.title}</h3>
-							<hr />
-							<p>
-								{randTracks.randTrackOne?.lyrics.trim().length
-									? randTracks.randTrackOne?.lyrics
-											.replaceAll("\n\n", " - ")
-											.replaceAll("\n", " - ")
-									: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro, enim. In velit itaque ex quas accusantium dolore eum ea voluptatum?"}
-							</p>
-							<div className="fade-overlay" />
-						</div>
-						<div className="lyric-showcase-two">
-							<h3 className="song-name">{randTracks.randTrackTwo?.title}</h3>
-							<hr />
-							<p>
-								{randTracks.randTrackTwo?.lyrics.trim().length
-									? randTracks.randTrackTwo?.lyrics
-											.replaceAll("\n\n", " - ")
-											.replaceAll("\n", " - ")
-									: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro, enim. In velit itaque ex quas accusantium dolore eum ea voluptatum?"}
-							</p>
-							<div className="fade-overlay" />
-						</div>
-						<div className="now-playing">
-							<p className="title">Featuring your favourite tracks...</p>
-							<IoTriangleOutline />
-							<p>
-								{currentSongCollection?.trackList
-									.map((t) => t.title)
-									.join(", ")}
-							</p>
-						</div>
-					</>
-				) : (
-					<div className="now-playing">
-						<p className="title">Lyrics provided for your convenience...</p>
-						<IoTriangleOutline />
-						<p>{currentSongCollection?.trackList[0]?.lyrics}</p>
-					</div>
-				)}
-			</div>
-		</Y2kWindowShell>
-	);
+	useEffect(() => {
+		window.addEventListener("keydown", handleSecretCodeAttempt);
+		return () => window.removeEventListener("keydown", handleSecretCodeAttempt);
+	}, [handleSecretCodeAttempt]);
 
 	return (
 		<section className={"music-collection"} id="music">
-			{currentSongCollection ? <SelectedMusicResult /> : <MusicSearch />}
+			{currentSongCollection ? (
+				<MusicResult
+					{...{
+						currentSongCollection,
+					}}
+				/>
+			) : (
+				<MusicSearch
+					{...{
+						handleSecretCodeAttempt,
+						setMusicSearchInput,
+						musicSearchInput,
+						musicData,
+					}}
+				/>
+			)}
 		</section>
 	);
 }

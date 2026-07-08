@@ -16,7 +16,6 @@ section.lyric-view {
       font-family: Pangolin;
       font-weight: bold;
       text-transform: capitalize;
-      z-index: 2;
       position: relative;
       margin: 0px;
       color: a.$grey;
@@ -53,7 +52,6 @@ section.lyric-view {
         position: absolute;
         background: linear-gradient(to bottom, white, transparent, transparent 50%, transparent, white);
         pointer-events: none;
-        z-index: 1;
         inset: 0;
         height: 100%;
         width: 100%;

@@ -44,6 +44,9 @@ export const GET_ALL_MUSIC = gql`
       duration
       id
       name
+      summary
+      pros
+      cons
       otherViewsLink
       releaseDate
       spotifyLink
