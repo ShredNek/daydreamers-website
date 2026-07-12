@@ -109,10 +109,6 @@ footer {
     }
 
     @media (min-width: b.$small-width) {
-      .footer-content {
-        padding: calc(0.5rem + 2vw);
-      }
-
       .social-links {
         width: auto;
       }
@@ -120,6 +116,10 @@ footer {
       .rounded-button-link {
         margin: 0.5rem;
       }
+    }
+
+    @media (max-width: b.$mobile-width) {
+      gap: 0.5rem;
     }
 
     @media (min-width: b.$mobile-width) {

@@ -1,3 +1,5 @@
+@use "../base/index" as b;
+
 /* ? Control parental elem styling ? */
 *:is(dialog, .window-viewer-container):has(.oh-no-bamboozle-time) {
   max-width: 600px;
@@ -11,15 +13,26 @@
 
   .container-parent {
     display: flex;
+    flex-direction: row;
     align-items: center;
     justify-content: space-between;
     gap: 2rem;
+
+    @media (max-width: b.$mobile-width) {
+      flex-direction: column;
+    }
 
     img {
       $img-size: 200px;
       width: $img-size;
       height: $img-size;
       margin-right: 1rem;
+
+      @media (max-width: b.$mobile-width) {
+        $sml-img-size: 150px;
+        width: $sml-img-size;
+        height: $sml-img-size;
+      }
     }
 
     .content-container {
@@ -31,7 +44,7 @@
       h3,
       p {
         text-align: center;
-        font-size: 150%;
+        font-size: 125%;
       }
     }
   }
