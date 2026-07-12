@@ -1,0 +1,53 @@
+name: Require explicit version bump
+
+on:
+  pull_request:
+    branches:
+      - main
+      - test
+  push:
+    branches:
+      - main
+      - test
+
+jobs:
+  verify-version:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: Ensure package.json version changed explicitly
+        run: |
+          set -euo pipefail
+
+          CURRENT_VERSION=$(node -p "require('./package.json').version")
+
+          if [[ "${{ github.event_name }}" == "pull_request" ]]; then
+            BASE_SHA="${{ github.event.pull_request.base.sha }}"
+            git fetch origin "${{ github.event.pull_request.base.ref }}" --depth=1 >/dev/null 2>&1
+            git show "$BASE_SHA:package.json" > /tmp/base-package.json
+            BASE_VERSION=$(node -p "require('/tmp/base-package.json').version")
+          else
+            PREV_SHA=$(git rev-parse HEAD~1 2>/dev/null || true)
+            if [[ -z "$PREV_SHA" ]]; then
+              echo "No previous commit found to compare against."
+              echo "Please set a new version explicitly before pushing to test or main."
+              exit 1
+            fi
+
+            git show "$PREV_SHA:package.json" > /tmp/base-package.json
+            BASE_VERSION=$(node -p "require('/tmp/base-package.json').version")
+          fi
+
+          echo "Current version: $CURRENT_VERSION"
+          echo "Base version: $BASE_VERSION"
+
+          if [[ "$CURRENT_VERSION" == "$BASE_VERSION" ]]; then
+            echo "package.json version must be changed explicitly before merging or pushing to test/main."
+            echo "Use the 'Set package version' workflow to specify a new version."
+            exit 1
+          fi

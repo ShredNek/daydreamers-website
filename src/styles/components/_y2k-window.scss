@@ -175,16 +175,10 @@
     .search-results-window {
       min-height: calc(300px + 5vw);
       background-color: white;
-      // overflow-y: scroll;
       padding: 1rem;
-      display: grid;
-      grid-template-columns: repeat(5, 0.25fr);
-      grid-template-rows: repeat(auto-fill, 1fr);
+      display: flex;
+      flex-wrap: wrap;
       gap: 2rem;
-
-      &:has(.no-results) {
-        grid-template-columns: none;
-      }
 
       .no-results {
         text-align: center;
@@ -200,6 +194,7 @@
       }
 
       .result {
+        max-width: 100px;
         background-color: white;
         border-color: white;
         height: min-content;

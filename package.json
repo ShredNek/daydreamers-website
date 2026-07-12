@@ -1,13 +1,14 @@
 {
 	"name": "daydreamers-website",
 	"private": true,
-	"version": "2.0.0",
+	"version": "2.0.5",
 	"type": "module",
 	"scripts": {
 		"dev": "vite",
 		"build": "bun x tsc && bun x vite build",
 		"preview": "vite preview",
 		"lint": "bun x tsc && bun x @biomejs/biome lint --write ./src",
+		"check-package-version": "node ./scripts/check-package-version.js",
 		"deploy": "firebase deploy"
 	},
 	"dependencies": {
@@ -18,6 +19,8 @@
 		"@heroicons/react": "^2.2.0",
 		"@tailwindcss/forms": "^0.5.11",
 		"@types/methods": "^1.1.4",
+		"baseline-browser-mapping": "^2.10.43",
+		"caniuse-lite": "^1.0.30001805",
 		"class-variance-authority": "^0.7.1",
 		"clsx": "^2.1.1",
 		"firebase": "^12.12.0",
@@ -34,7 +37,6 @@
 		"react-toastify": "^10.0.6",
 		"sass": "^1.99.0",
 		"scss": "^0.2.4",
-		"uuid": "^11.1.0",
 		"zod": "^3.25.76"
 	},
 	"devDependencies": {

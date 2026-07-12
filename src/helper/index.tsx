@@ -12,7 +12,6 @@ import {
 	FaYoutube,
 } from "react-icons/fa6";
 import { SiLinktree } from "react-icons/si";
-import { v4 as uuid } from "uuid";
 import TripleJ from "../components/svg/TripleJ.tsx";
 import type { LinkType, VenueLocation } from "../types/index.ts";
 import { PAGE_LINKS } from "../utils/globals.ts";
@@ -222,7 +221,7 @@ export const returnNavItems = (
 				<li
 					className={`${index % 2 === 0 ? "hover v-1" : "hover v-2"} 
           ${link.innerText === linkToDisable ? "disabled" : ""}`}
-					key={uuid()}
+					key={link.to}
 				>
 					<a href={`/${link.to}`}>{link.innerText}</a>
 				</li>
@@ -233,36 +232,30 @@ export const returnNavItems = (
 };
 
 export const renderLinkTypeImage = (linkType: LinkType) => {
-	const defaultProps = {
-		height: "auto",
-		width: "auto",
-		size: "auto",
-	};
-
 	switch (linkType) {
 		case "instagram":
-			return <FaInstagram {...defaultProps} />;
+			return <FaInstagram />;
 		case "facebook":
-			return <FaFacebookF {...defaultProps} />;
+			return <FaFacebookF />;
 		case "youtube":
-			return <FaYoutube {...defaultProps} />;
+			return <FaYoutube />;
 		case "tiktok":
-			return <FaTiktok {...defaultProps} />;
+			return <FaTiktok />;
 		case "spotify":
-			return <FaSpotify {...defaultProps} />;
+			return <FaSpotify />;
 		case "triple j":
-			return <TripleJ {...defaultProps} />;
+			return <TripleJ />;
 		case "bandcamp":
-			return <FaBandcamp {...defaultProps} />;
+			return <FaBandcamp />;
 		case "song":
-			return <FaMusic {...defaultProps} />;
+			return <FaMusic />;
 		case "album":
-			return <FaRecordVinyl {...defaultProps} />;
+			return <FaRecordVinyl />;
 		case "website":
-			return <FaCode {...defaultProps} />;
+			return <FaCode />;
 		case "linktree":
-			return <SiLinktree {...defaultProps} />;
+			return <SiLinktree />;
 		case "external":
-			return <FaGlobe {...defaultProps} />;
+			return <FaGlobe />;
 	}
 };
