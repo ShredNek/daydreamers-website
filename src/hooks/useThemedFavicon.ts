@@ -3,10 +3,11 @@ export const useThemedFavicon = () =>
 		const isDarkMode = window.matchMedia(
 			"(prefers-color-scheme: dark)",
 		).matches;
-		const favicon = document.querySelector<HTMLAnchorElement>("#favicon");
+		const favicon =
+			document.head.querySelector<HTMLLinkElement>("[href*=favicon]");
 
 		if (!favicon) {
-			return console.warn("could not dynamically set favicon");
+			return;
 		}
 
 		if (isDarkMode) {
