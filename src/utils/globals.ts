@@ -47,12 +47,6 @@ export const PAGE_LINKS: PAGE_LINK[] = [
 
 export const SOCIAL_LINKS: Array<SocialMediaEntry> = [
 	{
-		linkType: "album",
-		title: "Stream 'BLUE ROOM'!",
-		bannerData: "NEW!",
-		href: "https://open.spotify.com/album/30l3wTIlynn32Kh1Y6Geeg?si=0o-C9WM8RqemFlWnbpIuSQ",
-	},
-	{
 		linkType: "tiktok",
 		title: "Tiktok",
 		href: "https://tiktok.com/@daydreamersband",
