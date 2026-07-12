@@ -47,10 +47,6 @@
     @extend %y2k-border;
   }
 
-  // .artwork > img {
-  //   max-height: 100px;
-  // }
-
   button {
     background-color: lightgrey;
     margin: 0 0.15em;
@@ -115,13 +111,18 @@
     display: flex;
     justify-content: space-between;
     background-color: grey;
-    color: lightgrey;
     padding: 0.25em;
+
+    & > * {
+      color: lightgrey;
+      font-weight: bold;
+    }
 
     .window-action-buttons {
       min-width: 45px;
 
       button {
+        color: a.$daydreamer-smoky-black;
         width: 20px;
         padding: 0 0.25em;
         margin-right: 0;

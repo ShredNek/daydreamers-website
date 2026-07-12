@@ -156,11 +156,13 @@
           width: fit-content;
         }
 
-        span,
-        img {
+        span {
+          display: inline-block;
           margin: auto 0;
-          margin: auto 0;
-          height: 80%;
+
+          img {
+            height: 24px;
+          }
         }
       }
 

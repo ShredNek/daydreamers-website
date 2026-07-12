@@ -33,6 +33,7 @@ $border-radius-heavy: calc(5px + 1vw);
   box-sizing: border-box;
   font-family: Helvetica, sans-serif;
   font-style: normal;
+  color: a.$daydreamer-smoky-black;
 }
 
 *:focus-visible {
@@ -88,7 +89,6 @@ button > p,
 button > * > p,
 button > svg,
 button > * > svg {
-  color: black;
   fill: black;
   stroke: black;
 }
@@ -242,14 +242,6 @@ hr {
 // ? ? ? ? ? ? ? ? ?
 // ? COLOR CLASSES ?
 // ? ? ? ? ? ? ? ? ?
-
-.white {
-  color: white;
-}
-
-.grey {
-  color: a.$grey;
-}
 
 .transitioning {
   &,
