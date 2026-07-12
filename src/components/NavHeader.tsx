@@ -3,7 +3,6 @@ import { type PAGE_LINK, PAGE_LINKS } from "../utils/globals.ts";
 import "../styles/components/_nav-header.scss";
 import { Twirl as Hamburger } from "hamburger-react";
 import { useEffect, useRef, useState } from "react";
-import { v4 as uuid } from "uuid";
 
 const generateTitleWithShiftingLetters = (title: string): React.ReactNode[] => {
 	const randomDistance = 5;
@@ -20,7 +19,8 @@ const generateTitleWithShiftingLetters = (title: string): React.ReactNode[] => {
 				{ltr}
 			</span>
 		) : (
-			<br key={uuid()} />
+			// biome-ignore lint/suspicious/noArrayIndexKey: I do not want to re-render spaces each change
+			<br key={index} />
 		);
 	});
 };

@@ -12,7 +12,6 @@ import {
 	FaYoutube,
 } from "react-icons/fa6";
 import { SiLinktree } from "react-icons/si";
-import { v4 as uuid } from "uuid";
 import TripleJ from "../components/svg/TripleJ.tsx";
 import type { LinkType, VenueLocation } from "../types/index.ts";
 import { PAGE_LINKS } from "../utils/globals.ts";
@@ -222,7 +221,7 @@ export const returnNavItems = (
 				<li
 					className={`${index % 2 === 0 ? "hover v-1" : "hover v-2"} 
           ${link.innerText === linkToDisable ? "disabled" : ""}`}
-					key={uuid()}
+					key={link.to}
 				>
 					<a href={`/${link.to}`}>{link.innerText}</a>
 				</li>
