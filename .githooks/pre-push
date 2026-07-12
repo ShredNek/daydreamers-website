@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+REPO_ROOT="$(git rev-parse --show-toplevel)"
+cd "$REPO_ROOT"
+
+if node ./scripts/check-package-version.js; then
+  exit 0
+fi
+
+echo "\nPre-push check failed: package.json version must be updated for changes on test/main."
+exit 1

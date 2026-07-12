@@ -8,6 +8,7 @@
 		"build": "bun x tsc && bun x vite build",
 		"preview": "vite preview",
 		"lint": "bun x tsc && bun x @biomejs/biome lint --write ./src",
+		"check-package-version": "node ./scripts/check-package-version.js",
 		"deploy": "firebase deploy"
 	},
 	"dependencies": {
