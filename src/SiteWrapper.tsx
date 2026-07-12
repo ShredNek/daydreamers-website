@@ -37,6 +37,7 @@ export default function SiteWrapper({ hideBackground }: SiteWrapperComponent) {
 							onPlaying={() => {
 								setVideoLoaded(true);
 							}}
+							playsInline
 							src={bagOfSand_Desktop}
 						/>
 						{/* MOBILE VIDEO */}
@@ -48,6 +49,7 @@ export default function SiteWrapper({ hideBackground }: SiteWrapperComponent) {
 							onPlaying={() => {
 								setVideoLoaded(true);
 							}}
+							playsInline
 							src={bagOfSand_Mobile}
 						/>
 					</div>

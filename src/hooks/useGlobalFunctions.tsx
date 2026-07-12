@@ -3,13 +3,13 @@ import MsPaintNotVirusPromise from "../components/modals/MsPaintNotVirusPromise.
 import YouHaveNotSubscribed from "../components/modals/YouHaveNotSubscribedPrompt.tsx";
 import { AppContext } from "../utils/AppContext.tsx";
 import { SHOW_POPUP_INTERVAL } from "../utils/globals.ts";
-// import { useThemedFavicon } from "./useThemedFavicon.ts";
+import { useThemedFavicon } from "./useThemedFavicon.ts";
 
 export const useGlobalStartupProcedures = () => {
 	const { setDialogContent } = useContext(AppContext);
-	// const setThemedFavicon = useThemedFavicon();
+	const setThemedFavicon = useThemedFavicon();
 
-	// void setThemedFavicon();
+	void setThemedFavicon();
 
 	return () => {
 		setInterval(() => {

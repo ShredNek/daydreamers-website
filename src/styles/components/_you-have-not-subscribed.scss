@@ -1,6 +1,7 @@
 /* ? Control parental elem styling ? */
 *:is(dialog, .window-viewer-container):has(.you-have-not-subscribed) {
-  width: 600px;
+  max-width: 600px;
+  padding: 0 2rem;
 }
 
 .you-have-not-subscribed {
