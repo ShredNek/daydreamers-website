@@ -1,6 +1,7 @@
 /* ? Control parental elem styling ? */
-*:is(dialog, .window-viewer-container):has(.you-have-not-subscribed) {
-  width: 600px;
+*:is(dialog, .window-viewer-container):has(.oh-no-bamboozle-time) {
+  max-width: 600px;
+  margin: auto clamp(2rem, 2rem, 100%);
 }
 
 .oh-no-bamboozle-time {
