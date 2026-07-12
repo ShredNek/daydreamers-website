@@ -1,7 +1,7 @@
 /* ? Control parental elem styling ? */
 *:is(dialog, .window-viewer-container):has(.you-have-not-subscribed) {
   max-width: 600px;
-  margin: auto clamp(2rem, 2rem, 100%);
+  padding: 0 2rem;
 }
 
 .you-have-not-subscribed {

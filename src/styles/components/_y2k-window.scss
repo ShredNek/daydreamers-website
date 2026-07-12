@@ -175,10 +175,15 @@
     .search-results-window {
       min-height: calc(300px + 5vw);
       background-color: white;
-      padding: 1rem;
+      padding: 1rem 0.5rem;
       display: flex;
       flex-wrap: wrap;
-      gap: 2rem;
+      // gap: 1rem;
+
+      @media (max-width: b.$mobile-width) {
+        align-items: flex-start;
+        justify-content: flex-start;
+      }
 
       .no-results {
         text-align: center;
@@ -194,7 +199,7 @@
       }
 
       .result {
-        max-width: 100px;
+        width: clamp(125px, 125px + 0.5vw, 150px);
         background-color: white;
         border-color: white;
         height: min-content;
