@@ -157,6 +157,7 @@ $max-height: 800px;
       & > li h2 {
         font-weight: 200;
         font-style: italic;
+        color: a.$daydreamer-smoky-black;
       }
 
       @media (max-width: b.$large-width) {
