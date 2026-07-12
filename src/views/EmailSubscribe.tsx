@@ -24,6 +24,8 @@ const EmailSubscribe = () => {
 		}
 
 		try {
+			setDataSubmissionStatus("loading");
+
 			const addResult = await middleware.addToMailingList({ email, fullName });
 
 			if (addResult.status === StatusCodes.OK) {
@@ -94,7 +96,14 @@ const EmailSubscribe = () => {
 							value={formInput.fullName}
 						/>
 					</div>
-					<button type="submit">Subscribe to mailing list</button>
+					<button
+						className={
+							dataSubmissionStatus === "loading" ? "loading" : undefined
+						}
+						type="submit"
+					>
+						Subscribe to mailing list
+					</button>
 				</form>
 				<div className="unsubscribe-prompt">
 					<p>No longer want to receive emails?</p>

@@ -1,3 +1,4 @@
+import type { ComponentStatus } from "@app/types/index.ts";
 import { useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
@@ -5,6 +6,8 @@ import { middleware } from "../api/index.ts";
 import Y2kWindowShell from "../components/Y2k/Y2kWindowShell.tsx";
 
 const EmailUnsubscribe = () => {
+	const [dataSubmissionStatus, setDataSubmissionStatus] =
+		useState<ComponentStatus>("neutral");
 	const [searchParams] = useSearchParams();
 	const [formInput, setFormInput] = useState<{ email: string }>({
 		email: searchParams.get("email") ?? "",
@@ -20,6 +23,8 @@ const EmailUnsubscribe = () => {
 		}
 
 		try {
+			setDataSubmissionStatus("loading");
+
 			const addResult = await middleware.deleteFromMailingList({ email });
 
 			if (addResult.ok) {
@@ -31,6 +36,8 @@ const EmailUnsubscribe = () => {
 		} catch {
 			toast.error("There was an error removing you from our mailing list.");
 		}
+
+		setDataSubmissionStatus("neutral");
 	};
 
 	const handleChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
@@ -59,7 +66,14 @@ const EmailUnsubscribe = () => {
 						/>
 					</div>
 
-					<button type="submit">Unsubscribe from mailing list</button>
+					<button
+						className={
+							dataSubmissionStatus === "loading" ? "loading" : undefined
+						}
+						type="submit"
+					>
+						Unsubscribe from mailing list
+					</button>
 				</form>
 			</Y2kWindowShell>
 			<ToastContainer />
