@@ -1,7 +1,7 @@
 #!/usr/bin/env node
+import { execSync } from "child_process";
 import fs from "fs";
 import path from "path";
-import { execSync } from "child_process";
 import { fileURLToPath } from "url";
 
 const __filename = fileURLToPath(import.meta.url);
@@ -27,18 +27,21 @@ try {
   try {
     baseRef = runGit("git rev-parse HEAD~1");
   } catch {
-    console.error("ERROR: Could not determine the base commit to compare against.");
+    console.error(
+      "ERROR: Could not determine the base commit to compare against.",
+    );
     process.exit(1);
   }
 }
 
 const currentPackageJson = JSON.parse(fs.readFileSync(pkgPath, "utf8"));
-const basePackageJson = JSON.parse(
-  runGit(`git show ${baseRef}:package.json`),
-);
+const basePackageJson = JSON.parse(runGit(`git show ${baseRef}:package.json`));
 
-const changedFiles = runGit(`git diff --name-only ${baseRef} HEAD`).split("\n").filter(Boolean);
-const hasWorkingTreeChanges = runGit("git status --porcelain").trim().length > 0;
+const changedFiles = runGit(`git diff --name-only ${baseRef} HEAD`)
+  .split("\n")
+  .filter(Boolean);
+const hasWorkingTreeChanges =
+  runGit("git status --porcelain").trim().length > 0;
 
 if (changedFiles.length === 0 && !hasWorkingTreeChanges) {
   process.exit(0);
@@ -46,9 +49,15 @@ if (changedFiles.length === 0 && !hasWorkingTreeChanges) {
 
 const versionChanged = currentPackageJson.version !== basePackageJson.version;
 if (!versionChanged) {
-  console.error(`ERROR: You are on branch ${branch} and package.json version is unchanged.`);
-  console.error("ERROR: For changes on test/main, package.json must have a new version.");
-  console.error("ERROR: Update the version in package.json before pushing or merging.");
+  console.error(
+    `ERROR: You are on branch ${branch} and package.json version is unchanged.`,
+  );
+  console.error(
+    "ERROR: For changes on test/main, package.json must have a new version.",
+  );
+  console.error(
+    "ERROR: Update the version in package.json before pushing or merging.",
+  );
   if (changedFiles.length > 0) {
     console.error("ERROR: Changed files relative to base:");
     changedFiles.forEach((file) => {
