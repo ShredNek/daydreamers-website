@@ -4,7 +4,7 @@ export const FADE_SPEED = 500;
 export const SHOW_POPUP_INTERVAL = 60_000;
 export const SUPER_SECRET_CODE = "/DAY_DREAMERS";
 export const SUPER_SECRET_REDIRECT =
-	"https://www.youtube.com/watch?v=ciuLPDirfAI";
+	"https://youtu.be/LoOu3SZvh5I?si=K54uUKjCSlhCvF1a";
 
 export type PAGE_LINK = {
 	to: string;
