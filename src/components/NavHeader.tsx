@@ -61,6 +61,8 @@ export default function NavHeader({ className, hideBackground }: NavHeader) {
 	}, []);
 
 	const handleNavItemClick = (link: PAGE_LINK) => {
+		setIsDropdownActive(false);
+
 		if (!link.urlIsExternal) {
 			navigate(link.to);
 		} else {
