@@ -1,4 +1,4 @@
-import type { ReactElement, ReactNode } from "react";
+import type { ReactNode } from "react";
 import {
 	FaBandcamp,
 	FaCode,
@@ -13,7 +13,7 @@ import {
 } from "react-icons/fa6";
 import { SiLinktree } from "react-icons/si";
 import TripleJ from "../components/svg/TripleJ.tsx";
-import type { Artist, LinkType, VenueLocation } from "../types/index.ts";
+import type { LinkType, VenueLocation } from "../types/index.ts";
 import { PAGE_LINKS } from "../utils/globals.ts";
 
 export function toCamelCase(str: string) {
