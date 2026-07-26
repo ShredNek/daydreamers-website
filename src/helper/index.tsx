@@ -13,7 +13,7 @@ import {
 } from "react-icons/fa6";
 import { SiLinktree } from "react-icons/si";
 import TripleJ from "../components/svg/TripleJ.tsx";
-import type { LinkType, VenueLocation } from "../types/index.ts";
+import type { Artist, LinkType, VenueLocation } from "../types/index.ts";
 import { PAGE_LINKS } from "../utils/globals.ts";
 
 export function toCamelCase(str: string) {
@@ -61,54 +61,6 @@ export const isWithinPageCount = (
 	const lowerPageRange = (activePage - 1) * pageDifference;
 	const higherPageRange = lowerPageRange + pageDifference;
 	return adjustedIndex > lowerPageRange && adjustedIndex <= higherPageRange;
-};
-
-export const returnFormattedArtistNames = (
-	artists: Array<{ name: string; socialsLink: string }>,
-): ReactElement | null => {
-	if (!artists.length) {
-		return null;
-	}
-
-	let message: ReactElement | null = null;
-	switch (artists.length) {
-		case 1:
-			message = (
-				<p>
-					Featuring <a href={artists[0]?.socialsLink}>{artists[0]?.name}</a>
-				</p>
-			);
-			break;
-		case 2:
-			message = (
-				<p>
-					Featuring <a href={artists[0]?.socialsLink}>{artists[0]?.name}</a> and{" "}
-					<a href={artists[1]?.socialsLink}>{artists[1]?.name}</a>
-				</p>
-			);
-			break;
-		case 3:
-			message = (
-				<p>
-					Featuring <a href={artists[0]?.socialsLink}>{artists[0]?.name}</a>,{" "}
-					<a href={artists[1]?.socialsLink}>{artists[1]?.name}</a>, and{" "}
-					<a href={artists[2]?.socialsLink}>{artists[2]?.name}</a>
-				</p>
-			);
-			break;
-		// ? This is to catch a length that is not 0, 1, 2 or 3
-		default:
-			message = (
-				<p>
-					Featuring <a href={artists[0]?.socialsLink}>{artists[0]?.name}</a>,{" "}
-					<a href={artists[1]?.socialsLink}>{artists[1]?.name}</a>, and many
-					more of our friends!
-				</p>
-			);
-			break;
-	}
-
-	return message;
 };
 
 export const returnFormattedDate = (

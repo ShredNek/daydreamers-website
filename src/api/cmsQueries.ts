@@ -24,7 +24,11 @@ export const GET_ALL_SHOWS = gql`
       artists {
         name
         socialsLink
-      }
+        summary
+        image {
+          url
+        }
+    }
 
       _status
       _firstPublishedAt

@@ -7,13 +7,14 @@ import myComputer from "../assets/images/y2k-resources/computer-explorer.png";
 import desktop from "../assets/images/y2k-resources/desktop.png";
 import internetExplorer from "../assets/images/y2k-resources/internet-explorer.png";
 import magnifyingGlass from "../assets/images/y2k-resources/magnifying_glass.png";
+import msgWarning from "../assets/images/y2k-resources/msg_warning.png";
 import networkNeighborhood from "../assets/images/y2k-resources/network.png";
 import recycleBin from "../assets/images/y2k-resources/recycle-bin.png";
 import timeAndDate from "../assets/images/y2k-resources/time_and_date.png";
 import windowsStart from "../assets/images/y2k-resources/windows.png";
 import Y2kWindowShell from "../components/Y2k/Y2kWindowShell.tsx";
-import { returnFormattedArtistNames, toKebabCase } from "../helper/index.tsx";
-import type { AllShowsEntity } from "../types/index.ts";
+import { toKebabCase } from "../helper/index.tsx";
+import type { AllShows } from "../types/index.ts";
 import { AppContext } from "../utils/AppContext.tsx";
 
 export default function Shows() {
@@ -34,7 +35,7 @@ export default function Shows() {
 	const [time, setTime] = useState(getTime());
 
 	const callAndSetShowsData = useCallback(async () => {
-		let rawData: AllShowsEntity | null = null;
+		let rawData: AllShows | null = null;
 		try {
 			rawData = await getAllShows();
 
@@ -49,7 +50,7 @@ export default function Shows() {
 			throw Error("getAllPosts API call failed - rawData is null");
 		}
 
-		const finalData: AllShowsEntity = {
+		const finalData: AllShows = {
 			data: {
 				...rawData.data,
 				allShows:
@@ -91,12 +92,17 @@ export default function Shows() {
 			slugName: "recycle-bin",
 			isShow: false,
 		},
-		...(showsData?.data.allShows?.map((show) => ({
-			img: show.poster.url,
-			name: show.title,
-			slugName: show.slugname,
-			isShow: true,
-		})) ?? []),
+		...(showsData?.data.allShows
+			?.toSorted(
+				(a, b) =>
+					new Date(a.datetime).getTime() - new Date(b.datetime).getTime(),
+			)
+			.map((show) => ({
+				img: show.poster.url,
+				name: show.title,
+				slugName: show.slugname,
+				isShow: true,
+			})) ?? []),
 	];
 
 	useEffect(() => {
@@ -225,22 +231,18 @@ export default function Shows() {
 						JOIN
 					</a>
 				</div>
-				<div className="likes-dislikes">
-					<span className="likes">
-						<h4>:(</h4>
-						<p>
-							Lorem ipsum, dolor sit amet consectetur adipisicing elit. Cum,
-							non.
-						</p>
-					</span>
-					<span className="asterisks">* * * * *</span>
-					<span className="dislikes">
-						<h4>:D</h4>
-						<div className="artists">
-							{returnFormattedArtistNames(selectedShow?.artists ?? [])}
-						</div>
-						<p>{}</p>
-					</span>
+				<div className="artists">
+					<h3>FEATURING!!!</h3>
+					<span>* * * * * * * *</span>
+					{selectedShow?.artists?.map((a) => (
+						<a className="artist" href={a.socialLink || "#"} key={a.summary}>
+							<img alt={a.name} src={a.image?.url || msgWarning} />
+							<div className="content">
+								<h4>{a.name}</h4>
+								<p>{a.summary}</p>
+							</div>
+						</a>
+					))}
 				</div>
 				<div className="now-playing">
 					<p className="title">Details released to the public...</p>
@@ -250,7 +252,7 @@ export default function Shows() {
 						dangerouslySetInnerHTML={{
 							__html: selectedShow?.details.trim()?.length
 								? selectedShow?.details
-								: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque mollitia sunt amet animi, non praesentium.",
+								: "There are no gig details. Spooky.",
 						}}
 					/>
 				</div>
