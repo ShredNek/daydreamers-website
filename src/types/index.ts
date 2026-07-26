@@ -13,7 +13,7 @@ interface DatoCmsCall {
 	errors?: Array<{ message: string; [key: string]: unknown }>;
 }
 
-export interface AllShowsEntity extends DatoCmsCall {
+export interface AllShows extends DatoCmsCall {
 	data: {
 		allShows: Show[] | null;
 		_allShowsMeta: AllShowsMeta;
@@ -55,6 +55,14 @@ export type Video = {
 	width: number;
 	alt: string | null;
 };
+export interface Artist {
+	name: string;
+	socialLink?: string;
+	summary: string;
+	image?: {
+		url?: string;
+	};
+}
 
 export interface Show {
 	id: string;
@@ -67,10 +75,7 @@ export interface Show {
 	poster: ShowPoster;
 	ticketslink: string;
 	ticketprice: string;
-	artists?: Array<{
-		name: string;
-		socialsLink: string;
-	}>;
+	artists?: Array<Artist>;
 	_status: string;
 	_firstPublishedAt: string;
 }
@@ -118,11 +123,11 @@ export interface SongCollection {
 }
 
 export interface AppContextInterface {
-	showsData: AllShowsEntity | null;
+	showsData: AllShows | null;
 	musicData: MusicData | null;
 	dialogContent: ReactNode | null;
 	secretMusicDirectoryAccessed: boolean;
-	setShowsData: Dispatch<SetStateAction<AllShowsEntity | null>>;
+	setShowsData: Dispatch<SetStateAction<AllShows | null>>;
 	setMusicData: Dispatch<SetStateAction<MusicData | null>>;
 	setDialogContent: Dispatch<SetStateAction<ReactNode | null>>;
 	setSecretMusicDirectoryAccessed: Dispatch<SetStateAction<boolean>>;

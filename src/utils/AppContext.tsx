@@ -1,6 +1,6 @@
 import { createContext, type ReactNode, useState } from "react";
 import type {
-	AllShowsEntity,
+	AllShows,
 	AppContextInterface,
 	MusicData,
 } from "../types/index.ts";
@@ -21,7 +21,7 @@ interface AppContextProvider {
 }
 
 export function AppContextProvider({ children }: AppContextProvider) {
-	const [showsData, setShowsData] = useState<AllShowsEntity | null>(null);
+	const [showsData, setShowsData] = useState<AllShows | null>(null);
 	const [musicData, setMusicData] = useState<MusicData | null>(null);
 	const [dialogContent, setDialogContent] = useState<ReactNode | null>(null);
 	const [secretMusicDirectoryAccessed, setSecretMusicDirectoryAccessed] =

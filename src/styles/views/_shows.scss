@@ -186,9 +186,9 @@
     .info-grid {
       display: grid;
       grid-template-columns: repeat(6, 0.2fr);
-      grid-template-rows: 0.8fr 0.4fr;
+      grid-template-rows: 1fr;
       grid-template-areas:
-        "artwork artwork title-card title-card likes-dislikes likes-dislikes"
+        "artwork artwork title-card title-card artists artists"
         "now-playing now-playing now-playing now-playing now-playing now-playing";
 
       width: 100%;
@@ -206,8 +206,8 @@
         grid-area: title-card;
       }
 
-      & > .likes-dislikes {
-        grid-area: likes-dislikes;
+      & > .artists {
+        grid-area: artists;
       }
 
       & > .lyric-showcase-one {
@@ -232,6 +232,7 @@
         width: 100%;
         min-height: 100%;
         max-height: 500px;
+        object-fit: cover;
 
         img {
           width: 100%;
@@ -286,15 +287,47 @@
         -webkit-text-fill-color: transparent;
       }
 
-      .likes-dislikes {
+      .artists {
         display: flex;
         flex-direction: column;
-        justify-content: flex-start;
-        gap: 1rem;
+        gap: 0.5rem;
+        overflow-y: scroll;
+
+        h3 {
+          display: inline-block;
+          text-align: center;
+          padding: 1rem;
+          width: 100%;
+        }
+
+        span {
+          text-align: center;
+        }
+
+        .artist {
+          display: flex;
+          align-items: center;
+          padding: 0.5rem;
+          gap: 0.5rem;
+
+          h4 {
+            font-weight: bold;
+            text-decoration: underline;
+
+            text-decoration-thickness: 2px;
+          }
+
+          img {
+            @extend %y2k-border;
+            width: 40px;
+            height: 40px;
+          }
+        }
       }
 
       .now-playing {
         background-color: a.$off-white;
+        height: 100%;
 
         > p,
         > div {
@@ -319,11 +352,12 @@
       }
 
       @media (max-width: b.$mobile-width) {
-        grid-template-areas:
-          "artwork artwork artwork artwork artwork artwork"
-          "title-card title-card title-card title-card title-card title-card"
-          "likes-dislikes likes-dislikes likes-dislikes likes-dislikes likes-dislikes likes-dislikes"
-          "now-playing now-playing now-playing now-playing now-playing now-playing";
+        display: flex;
+        flex-direction: column;
+
+        .artists {
+          max-height: 300px;
+        }
       }
     }
   }

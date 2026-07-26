@@ -1,9 +1,5 @@
 import { print } from "graphql";
-import type {
-	AllShowsEntity,
-	MediaCollection,
-	MusicData,
-} from "../types/index.ts";
+import type { AllShows, MediaCollection, MusicData } from "../types/index.ts";
 import { GET_ALL_MEDIA, GET_ALL_MUSIC, GET_ALL_SHOWS } from "./cmsQueries.ts";
 
 const datoGraphqlCall = async <T>(query: string): Promise<T> => {
@@ -30,7 +26,7 @@ const datoGraphqlCall = async <T>(query: string): Promise<T> => {
 };
 
 export const getAllShows = async () =>
-	await datoGraphqlCall<AllShowsEntity>(print(GET_ALL_SHOWS));
+	await datoGraphqlCall<AllShows>(print(GET_ALL_SHOWS));
 
 export const getAllMusic = async () =>
 	await datoGraphqlCall<MusicData>(print(GET_ALL_MUSIC));
