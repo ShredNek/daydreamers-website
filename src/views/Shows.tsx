@@ -234,15 +234,21 @@ export default function Shows() {
 				<div className="artists">
 					<h3>FEATURING!!!</h3>
 					<span>* * * * * * * *</span>
-					{selectedShow?.artists?.map((a) => (
-						<a className="artist" href={a.socialLink || "#"} key={a.summary}>
-							<img alt={a.name} src={a.image?.url || msgWarning} />
-							<div className="content">
-								<h4>{a.name}</h4>
-								<p>{a.summary}</p>
-							</div>
-						</a>
-					))}
+					{selectedShow?.artists?.map((a) => {
+						const artistLinkProps = a.socialsLink
+							? { href: a.socialsLink, rel: "noopener", target: "_blank" }
+							: { href: "#" };
+
+						return (
+							<a className="artist" key={a.summary} {...artistLinkProps}>
+								<img alt={a.name} src={a.image?.url || msgWarning} />
+								<div className="content">
+									<h4>{a.name}</h4>
+									<p>{a.summary}</p>
+								</div>
+							</a>
+						);
+					})}
 				</div>
 				<div className="now-playing">
 					<p className="title">Details released to the public...</p>

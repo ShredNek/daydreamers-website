@@ -57,7 +57,7 @@ export type Video = {
 };
 export interface Artist {
 	name: string;
-	socialLink?: string;
+	socialsLink?: string;
 	summary: string;
 	image?: {
 		url?: string;
