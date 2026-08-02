@@ -14,12 +14,10 @@ const generateTitleWithShiftingLetters = (title: string): React.ReactNode[] => {
 		};
 
 		return ltr !== " " ? (
-			// biome-ignore lint/suspicious/noArrayIndexKey: I do not want to re-render letters each change
 			<span key={index} style={style}>
 				{ltr}
 			</span>
 		) : (
-			// biome-ignore lint/suspicious/noArrayIndexKey: I do not want to re-render spaces each change
 			<br key={index} />
 		);
 	});

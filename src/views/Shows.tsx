@@ -254,7 +254,6 @@ export default function Shows() {
 					<p className="title">Details released to the public...</p>
 					<IoTriangleOutline />
 					<div
-						// biome-ignore lint/security/noDangerouslySetInnerHtml: what other suggestion do you friggin' have to parse markup?
 						dangerouslySetInnerHTML={{
 							__html: selectedShow?.details.trim()?.length
 								? selectedShow?.details
