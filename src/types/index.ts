@@ -127,10 +127,12 @@ export interface AppContextInterface {
 	musicData: MusicData | null;
 	dialogContent: ReactNode | null;
 	secretMusicDirectoryAccessed: boolean;
+	popupContent: ReactNode | null;
 	setShowsData: Dispatch<SetStateAction<AllShows | null>>;
 	setMusicData: Dispatch<SetStateAction<MusicData | null>>;
 	setDialogContent: Dispatch<SetStateAction<ReactNode | null>>;
 	setSecretMusicDirectoryAccessed: Dispatch<SetStateAction<boolean>>;
+	setPopupContent: Dispatch<SetStateAction<ReactNode | null>>;
 }
 
 // TODO - REMOVE THIS!!!

@@ -1,7 +1,8 @@
 import type { SocialMediaEntry } from "../types/index.ts";
 
 export const FADE_SPEED = 500;
-export const SHOW_POPUP_INTERVAL = 60_000;
+export const SHOW_DIALOG_INTERVAL = 60_000;
+export const SHOW_POPUP_INTERVAL = 7_500;
 export const SUPER_SECRET_CODE = "/DAY_DREAMERS";
 export const SUPER_SECRET_REDIRECT =
 	"https://youtu.be/LoOu3SZvh5I?si=K54uUKjCSlhCvF1a";

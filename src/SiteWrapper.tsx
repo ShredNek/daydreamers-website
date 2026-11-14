@@ -4,7 +4,7 @@ import Footer from "./components/Footer.tsx";
 import LazyImage from "./components/LazyImage.tsx";
 import NavHeader from "./components/NavHeader.tsx";
 import "./styles/views/_site-wrapper.scss";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Outlet } from "react-router-dom";
 import bagOfSand_Desktop from "./assets/videos/bag-of-sand_LQ.mov";
 import bagOfSand_Mobile from "./assets/videos/bag-of-sand_mobile_LQ.mov";
@@ -17,8 +17,12 @@ type SiteWrapperComponent = {
 
 export default function SiteWrapper({ hideBackground }: SiteWrapperComponent) {
 	const [videoLoaded, setVideoLoaded] = useState(false);
-	const { dialogContent } = useContext(AppContext);
+	const { dialogContent, popupContent } = useContext(AppContext);
 	const globalStartupProcedures = useGlobalStartupProcedures();
+
+	// useEffect((0 => {
+
+	// }))
 
 	void globalStartupProcedures();
 
@@ -28,8 +32,8 @@ export default function SiteWrapper({ hideBackground }: SiteWrapperComponent) {
 				<NavHeader hideBackground={hideBackground} />
 				<div className="background-visuals">
 					<div className="video-backdrop">
-						{/* DESKTOP VIDEO */}
-						<video
+						DESKTOP VIDEO
+						{/* <video
 							autoPlay
 							className="desktop-ratio"
 							loop
@@ -39,9 +43,9 @@ export default function SiteWrapper({ hideBackground }: SiteWrapperComponent) {
 							}}
 							playsInline
 							src={bagOfSand_Desktop}
-						/>
+						/> */}
 						{/* MOBILE VIDEO */}
-						<video
+						{/* <video
 							autoPlay
 							className="mobile-ratio"
 							loop
@@ -51,7 +55,7 @@ export default function SiteWrapper({ hideBackground }: SiteWrapperComponent) {
 							}}
 							playsInline
 							src={bagOfSand_Mobile}
-						/>
+						/> */}
 					</div>
 					<div
 						className={`photo-backdrop${videoLoaded ? " fade-out" : " "}`}
@@ -70,6 +74,7 @@ export default function SiteWrapper({ hideBackground }: SiteWrapperComponent) {
 				</div>
 				<Footer />
 			</div>
+			{popupContent ? <div className="popup-layer">{popupContent}</div> : null}
 			{dialogContent ? (
 				<div className="dialog-layer">
 					<dialog open={!!dialogContent}>{dialogContent}</dialog>

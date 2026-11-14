@@ -10,10 +10,12 @@ export const AppContext = createContext<AppContextInterface>({
 	musicData: null,
 	dialogContent: null,
 	secretMusicDirectoryAccessed: false,
+	popupContent: null,
 	setShowsData: () => {},
 	setMusicData: () => {},
 	setDialogContent: () => {},
 	setSecretMusicDirectoryAccessed: () => {},
+	setPopupContent: () => {},
 });
 
 interface AppContextProvider {
@@ -24,6 +26,7 @@ export function AppContextProvider({ children }: AppContextProvider) {
 	const [showsData, setShowsData] = useState<AllShows | null>(null);
 	const [musicData, setMusicData] = useState<MusicData | null>(null);
 	const [dialogContent, setDialogContent] = useState<ReactNode | null>(null);
+	const [popupContent, setPopupContent] = useState<ReactNode | null>(null);
 	const [secretMusicDirectoryAccessed, setSecretMusicDirectoryAccessed] =
 		useState<boolean>(false);
 
@@ -34,10 +37,12 @@ export function AppContextProvider({ children }: AppContextProvider) {
 				musicData,
 				dialogContent,
 				secretMusicDirectoryAccessed,
+				popupContent,
 				setShowsData,
 				setMusicData,
 				setDialogContent,
 				setSecretMusicDirectoryAccessed,
+				setPopupContent,
 			}}
 		>
 			{children}
