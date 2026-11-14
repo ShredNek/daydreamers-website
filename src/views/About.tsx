@@ -6,10 +6,10 @@ import {
 	GiMicrophone,
 } from "react-icons/gi";
 import type { IconType } from "react-icons/lib";
-import BenHead from "../assets/images/band-members/Ben_Head.png";
-import DanielHead from "../assets/images/band-members/Daniel_HeadIcon.png";
-import JordanHead from "../assets/images/band-members/Jordan_HeadIcon.png";
-import ZakHead from "../assets/images/band-members/Zak_HeadIcon.png";
+import BenHead from "../assets/images/band-members/Ben_Action.png";
+import DanielHead from "../assets/images/band-members/Dan_Action.png";
+import JordanHead from "../assets/images/band-members/Jord_Action.png";
+import ZakHead from "../assets/images/band-members/Zak_Action.png";
 import Y2kWindowShell from "../components/Y2k/Y2kWindowShell.tsx";
 import { toKebabCase } from "../helper/index.tsx";
 
